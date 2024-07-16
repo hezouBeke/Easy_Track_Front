@@ -1,5 +1,23 @@
 import { Link } from "react-router-dom";
-function Login() {
+import React, {useState} from "react";
+import authService from "../services/authService";
+
+const  Login = () => {
+     const [email] = useState('');
+     const [password] = useState('');
+
+
+     const handleLogin = (e) => {
+        e.preventDefault();
+
+        authService.login(email, password)
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    };
     return (
       <section class="bg-white">
       <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -12,14 +30,14 @@ function Login() {
                   <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                       Connexion
                   </h1>
-                  <form class="space-y-4 md:space-y-6" action="#">
+                  <form  onSubmit={handleLogin} class="space-y-4 md:space-y-6" action="#">
                       <div>
                           <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">e-mail</label>
-                          <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required=""/>
+                          <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" value={email} required=""/>
                       </div>
                       <div>
                           <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mot de passe</label>
-                          <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required=""/>
+                          <input type="password" name="password" id="password" placeholder="••••••••" value={password} class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required=""/>
                       </div>
                       <div class="flex items-center justify-between">
                           <div class="flex items-start">
