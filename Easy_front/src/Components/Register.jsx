@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Register() {
-    const [isCourier, setIsCourier] = useState(false); // État pour suivre si c'est un coursier
+    const [isCourier, setIsCourier] = useState(false); 
 
     const handleRoleSelection = (role) => {
         if (role === 'Coursier') {
@@ -11,7 +11,6 @@ function Register() {
             setIsCourier(false);
         }
     };
-
     return (
         <section className="bg-white">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

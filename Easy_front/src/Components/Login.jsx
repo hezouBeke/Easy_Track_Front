@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import authService from "../services/authService";
-
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -17,7 +16,6 @@ const Login = () => {
                 console.error(error);
             });
     };
-
     return (
         <section className="bg-white">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
