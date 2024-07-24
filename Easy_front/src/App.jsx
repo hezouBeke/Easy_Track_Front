@@ -16,7 +16,7 @@ function App() {
       <Route path="/dashboard/driver" element={<DriverDashboard />} />
       <Route path="/dashboard/admin" element={<AdminDashboard />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/" element={<Home />} />
+      <Route path="/home" element={<Home />} />
      </Routes>
   </Router>
   )

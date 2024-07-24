@@ -57,7 +57,7 @@ const Login = () => {
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                                    className="absolute inset-y-0 right-0 pr-3 top-5 flex items-center text-sm leading-5"
                                 >
                                     {showPassword ? (
                                         <svg className="h-5 w-5 text-gray-500" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor">
