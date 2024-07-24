@@ -38,6 +38,7 @@ function Register() {
         try {
             const response = await authService.signup(formData);
             console.log('Account created:', response.data);
+            alert("compte creé avec succès")
             navigate('/login');
         } catch (error) {
             console.error('Error creating account:', error.response.data);

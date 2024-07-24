@@ -10,7 +10,12 @@ const Login = () => {
         e.preventDefault();
         authService.login(email, password)
             .then(response => {
-                console.log(response.data);
+                const { role } = response.data;
+                if (role === 'Client') {
+                    navigate('/dashboard/customer');
+                } else if (role === 'Coursier') {
+                    navigate('/dashboard/driver');
+                }
             })
             .catch(error => {
                 console.error(error);
