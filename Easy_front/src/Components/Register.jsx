@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import authService  from "../services/authService";
+import authService from "../services/authService";
 
 function Register() {
     const [isCourier, setIsCourier] = useState(false);
     const [formData, setFormData] = useState({
-        role: 'Client', // Default role
+        role: 'Client',
         name: '',
         firstName: '',
+        tel: '', // Ajoutez le champ téléphone ici
         sex: '',
         email: '',
         password: '',
@@ -17,9 +18,11 @@ function Register() {
         vehiculePlate: ''
     });
 
+    const navigate = useNavigate();
+
     const handleRoleSelection = (role) => {
         setIsCourier(role === 'Coursier');
-        setFormData({ ...formData, role }); // Update role in the form data
+        setFormData({ ...formData, role });
     };
 
     const handleChange = (e) => {
@@ -35,11 +38,9 @@ function Register() {
         try {
             const response = await authService.signup(formData);
             console.log('Account created:', response.data);
-            // Redirect or handle the login success
-            navigate('/login'); // Use navigate instead of history.push
+            navigate('/login');
         } catch (error) {
             console.error('Error creating account:', error.response.data);
-            // Handle errors here, such as displaying a message to the user
         }
     };
 
@@ -71,6 +72,10 @@ function Register() {
                             <div>
                                 <label htmlFor="firstName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prénom</label>
                                 <input type="text" name="firstName" id="firstName" onChange={handleChange} value={formData.firstName} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Votre prénom" required=""/>
+                            </div>
+                            <div>
+                                <label htmlFor="tel" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Téléphone</label>
+                                <input type="tel" name="tel" id="tel" onChange={handleChange} value={formData.tel} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Votre numéro de téléphone" required=""/>
                             </div>
                             <div className="flex items-center space-x-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sexe</label>
@@ -115,7 +120,7 @@ function Register() {
                             {isCourier && (
                                 <div>
                                     <label htmlFor="vehiculePlate" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Plaque d'immatriculation</label>
-                                    <input type="text" name="vehiuclePlate" id="vehiculePlate" onChange={handleChange} value={formData.vehiculePlate} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Plaque d'immatriculation" required=""/>
+                                    <input type="text" name="vehiculePlate" id="vehiculePlate" onChange={handleChange} value={formData.vehiculePlate} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Plaque d'immatriculation" required=""/>
                                 </div>
                             )}
                             <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Créer un compte</button>
