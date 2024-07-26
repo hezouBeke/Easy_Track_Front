@@ -42,8 +42,7 @@ function Home (){
             </div>
         </nav>
     </header>
-    )
+    );
 }
-
 export default Home;
 
