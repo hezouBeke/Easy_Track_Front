@@ -1,29 +1,27 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import authService from "../services/authService";
-
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
-
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        authService.login(email, password)
-            .then(response => {
-                const { role } = response.data;
-                if (role === 'Client') {
-                    navigate('/dashboard/customer');
-                } else if (role === 'Coursier') {
-                    navigate('/dashboard/driver');
-                }
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        try {
+            const response = await authService.login(email, password);
+            const { role } = response;
+            if (role === 'Client') {
+                navigate('/dashboard/customer');
+            } else if (role === 'Coursier') {
+                navigate('/dashboard/driver');
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            alert('Login failed: ' + (error.response?.data?.message || error.message));
+        }
     };
-
+    
     return (
         <section className="bg-white">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -105,5 +103,4 @@ const Login = () => {
         </section>
     );
 }
-
 export default Login;
