@@ -5,7 +5,7 @@ import Secondsection from "./Secondsection";
 import Footer from "./Footer";
 import Headsection from "./Headsection";
 import Socialproof from "./Socialproof";
-import Testimonial from "./Testimonial ";
+import Ctagraph from "./Ctagraph";
  function Home (){
     return(
       <div>
@@ -17,15 +17,14 @@ import Testimonial from "./Testimonial ";
 
         <Headsection />
         
-        <Socialproof />
-      
-        <Testimonial /> 
+        <Ctagraph /> 
 
         
+        <Socialproof />
+      
         <Footer />
         
-       
-    
+        
       </div>
     );
 }
