@@ -19,7 +19,6 @@ import Ctagraph from "./Ctagraph";
         
         <Ctagraph /> 
 
-        
         <Socialproof />
       
         <Footer />

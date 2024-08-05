@@ -5,7 +5,7 @@ import Register from "./Components/Register";
 import Home from "./Components/Home";
 import CustomerDashboard from "./Components/CustomerDashboard";
 import DriverDashboard from "./Components/DriverDashboard";
-import AdminDashboard from "./Components/AdminDashboard";
+import AdminDashboard from "./Components/Admin/AdminDashboard";
 
 function App() {
   return ( 
