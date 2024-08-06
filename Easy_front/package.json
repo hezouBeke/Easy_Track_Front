@@ -13,6 +13,7 @@
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
     "@mui/material": "^5.16.6",
+    "@react-google-maps/api": "^2.19.3",
     "axios": "^1.7.2",
     "flowbite": "^2.4.1",
     "flowbite-react": "^0.10.1",
