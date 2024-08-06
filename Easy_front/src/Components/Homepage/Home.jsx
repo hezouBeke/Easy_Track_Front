@@ -9,6 +9,7 @@ import Ctagraph from "./Ctagraph";
  function Home (){
     return(
       <div>
+        
         <Header /> 
 
         <Firstsection />
