@@ -1,3 +1,4 @@
+import MyGoogleMap from './components/MyGoogleMap'; 
 import React from "react";
 import Adminheader from "./Adminheader";
 import Adminsidebar from "./Adminsidebar.jsx";
