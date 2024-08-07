@@ -1,4 +1,4 @@
-import MyGoogleMap from './components/MyGoogleMap'; 
+import MyGoogleMap from "../MyGoogleMap.jsx"
 import React from "react";
 import Adminheader from "./Adminheader";
 import Adminsidebar from "./Adminsidebar.jsx";
@@ -8,12 +8,17 @@ function AdminDashboard() {
   return (
     <div>
       <Adminheader /> 
-
+      
+      <Box sx={{ width: '100%', height: '400px' }}>
+        <MyGoogleMap />
+      </Box>
+      
       <Adminsidebar /> 
-
+     
     </div>
   );
 }
+
 
 
 export default AdminDashboard;
