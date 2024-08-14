@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import Headsection from "./Headsection";
 import Socialproof from "./Socialproof";
 import Ctagraph from "./Ctagraph";
+import SlogDesc  from "./SlogDesc";
  function Home (){
     return(
       <div>
@@ -14,6 +15,8 @@ import Ctagraph from "./Ctagraph";
 
         <Firstsection />
 
+        <SlogDesc />
+        
         <Secondsection /> 
 
         <Headsection />
