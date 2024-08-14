@@ -11,17 +11,11 @@ import Ctagraph from "./Ctagraph";
       <div>
         
         <Header /> 
-
         <Firstsection />
-
         <Secondsection /> 
-
         <Headsection />
-        
         <Ctagraph /> 
-
         <Socialproof />
-      
         <Footer />
         
         

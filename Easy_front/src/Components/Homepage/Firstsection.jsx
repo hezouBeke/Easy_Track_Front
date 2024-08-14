@@ -1,7 +1,7 @@
 function Firstsection() {
     return (
-        <section className="bg-white">
-            <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
+        <section className="bg-white lg:px-2 ">
+            <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-20">
                 <h1 className="mb-10 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-black">Suivre. Automatiser. Rassurer.</h1>
                 <p className="mb-10 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Suivez vos colis en temps réel, avec une visibilité totale à chaque étape. De l'expédition à la livraison, restez informé en toute transparence.</p>
                 <div className="flex flex-col mb-12 lg:mb-20 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">

@@ -10,7 +10,7 @@ function Socialproof (){
           </div>
           <div class="flex flex-col items-center justify-center">
               <dt class="mb-2 text-3xl md:text-4xl font-extrabold">1B+</dt>
-              <dd class="font-light text-gray-900 dark:text-gray-400">contribuants</dd>
+              <dd class="font-light text-gray-900 dark:text-gray-400">contributeurs</dd>
           </div>
           <div class="flex flex-col items-center justify-center">
               <dt class="mb-2 text-3xl md:text-4xl font-extrabold">4M+</dt>
