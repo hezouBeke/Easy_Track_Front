@@ -9,7 +9,6 @@ import Ctagraph from "./Ctagraph";
  function Home (){
     return(
       <div>
-        
         <Header /> 
         <Firstsection />
         <Secondsection /> 
@@ -17,8 +16,6 @@ import Ctagraph from "./Ctagraph";
         <Ctagraph /> 
         <Socialproof />
         <Footer />
-        
-        
       </div>
     );
 }
