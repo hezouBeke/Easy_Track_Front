@@ -46,7 +46,14 @@ function Register() {
     };
 
     return (
-        <section className="bg-white">
+        <section className="bg-white"   style={{ 
+            backgroundImage: "url('src/assets/topography.svg')", 
+            backgroundSize: 'cover', 
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            // opacity:'400px',
+            height: '100vh'
+        }}>
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                 <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-black">
                     <img className="w-8 h-8 mr-2" src="./src/assets/logo2.png" alt="logo"/>
@@ -68,17 +75,16 @@ function Register() {
 
                         <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
                             {/* Personal Information Section */}
-                            <div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label htmlFor="completename" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom complet</label>
-                                        <input type="text" name="completename" id="completename" onChange={handleChange} value={formData.completename} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Votre nom" required=""/>
-                                    </div>
-                                
-                                    <div>
-                                        <label htmlFor="tel" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Téléphone</label>
-                                        <input type="tel" name="tel" id="tel" onChange={handleChange} value={formData.tel} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Votre numéro de téléphone" required=""/>
-                                    </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label htmlFor="completename" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom complet</label>
+                                    <input type="text" name="completename" id="completename" onChange={handleChange} value={formData.completename} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="nom & prénom" required=""/>
+                                </div>
+                                <div>
+                                    <label htmlFor="tel" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Téléphone</label>
+                                    <input type="tel" name="tel" id="tel" onChange={handleChange} value={formData.tel} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="+228 70 70 70 70" required=""/>
+                                </div>
+                                <div className="col-span-2">
                                     <div className="flex items-center space-x-4">
                                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sexe</label>
                                         <label className="flex items-center">
@@ -94,45 +100,40 @@ function Register() {
                             </div>
 
                             {/* Account Details Section */}
-                            <div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">E-mail</label>
-                                        <input type="email" name="email" id="email" onChange={handleChange} value={formData.email} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required=""/>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mot de passe</label>
-                                        <input type="password" name="password" id="password" onChange={handleChange} value={formData.password} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="••••••••" required=""/>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="confirmPassword" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmer le mot de passe</label>
-                                        <input type="password" name="confirmPassword" id="confirmPassword" onChange={handleChange} value={formData.confirmPassword} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="••••••••" required=""/>
-                                    </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">E-mail</label>
+                                    <input type="email" name="email" id="email" onChange={handleChange} value={formData.email} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required=""/>
+                                </div>
+                                <div>
+                                    <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mot de passe</label>
+                                    <input type="password" name="password" id="password" onChange={handleChange} value={formData.password} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="••••••••••" required=""/>
+                                </div>
+                                <div className="col-span-2">
+                                    <label htmlFor="confirmPassword" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmer le mot de passe</label>
+                                    <input type="password" name="confirmPassword" id="confirmPassword" onChange={handleChange} value={formData.confirmPassword} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="••••••••••" required=""/>
                                 </div>
                             </div>
 
                             {/* Vehicle Information Section (For Couriers Only) */}
                             {isCourier && (
-                                <div>
-                                    <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Détails sur véhicule</h2>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div>
-                                            <label htmlFor="vehiculeType" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type de véhicule</label>
-                                            <select name="vehiculeType" id="vehiculeType" onChange={handleChange} value={formData.vehiculeType} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                                                <option value="">Sélectionnez le type de véhicule</option>
-                                                <option value="tricycle">Tricycle</option>
-                                                <option value="moto">Moto</option>
-                                                <option value="voiture">Voiture</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <label htmlFor="vehiculeBrand" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Marque du véhicule</label>
-                                            <input type="text" name="vehiculeBrand" id="vehiculeBrand" onChange={handleChange} value={formData.vehiculeBrand} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Marque du véhicule" required=""/>
-                                        </div>
-                                        <div>
-                                            <label htmlFor="vehiculePlate" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Plaque d'immatriculation</label>
-                                            <input type="text" name="vehiculePlate" id="vehiculePlate" onChange={handleChange} value={formData.vehiculePlate} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Plaque d'immatriculation" required=""/>
-                                        </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label htmlFor="vehiculeType" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type de véhicule</label>
+                                        <select name="vehiculeType" id="vehiculeType" onChange={handleChange} value={formData.vehiculeType} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                            <option value="">Type de véhicule</option>
+                                            <option value="tricycle">Tricycle</option>
+                                            <option value="moto">Moto</option>
+                                            <option value="voiture">Voiture</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label htmlFor="vehiculeBrand" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Marque du véhicule</label>
+                                        <input type="text" name="vehiculeBrand" id="vehiculeBrand" onChange={handleChange} value={formData.vehiculeBrand} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Marque" required=""/>
+                                    </div>
+                                    <div className="col-span-2">
+                                        <label htmlFor="vehiculePlate" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Plaque d'immatriculation</label>
+                                        <input type="text" name="vehiculePlate" id="vehiculePlate" onChange={handleChange}  value={formData.vehiculePlate} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="AA 0000" required=""/>
                                     </div>
                                 </div>
                             )}

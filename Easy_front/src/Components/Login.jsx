@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import authService from "../services/authService";
+
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
+
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
@@ -21,9 +23,18 @@ const Login = () => {
             alert('Login failed: ' + (error.response?.data?.message || error.message));
         }
     };
-    
+
     return (
-        <section className="bg-white">
+        <section 
+            style={{ 
+                backgroundImage: "url('src/assets/topography.svg')", 
+                backgroundSize: 'cover', 
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                height: '100vh'
+                
+            }}
+        >
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                 <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-black">
                     <img className="w-10 h-10 mr-2" src="./src/assets/logo2.png" alt="logo"/>
@@ -37,7 +48,16 @@ const Login = () => {
                         <form onSubmit={handleLogin} className="space-y-4 md:space-y-6" action="#">
                             <div>
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">E-mail</label>
-                                <input type="email" name="email" id="email"  value={email}  onChange={(e) => setEmail(e.target.value)}  className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  placeholder="name@company.com"  required />
+                                <input 
+                                    type="email" 
+                                    name="email" 
+                                    id="email"  
+                                    value={email}  
+                                    onChange={(e) => setEmail(e.target.value)}  
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  
+                                    placeholder="name@company.com"  
+                                    required 
+                                />
                             </div>
                             
                             <div className="relative">
