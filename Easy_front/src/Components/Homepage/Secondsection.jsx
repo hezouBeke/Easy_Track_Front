@@ -9,7 +9,7 @@ function Secondsection (){
             <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">Localisez chaque étape du trajet de votre colis en temps réel. Grâce à notre système de suivi, vous pouvez savoir exactement où se trouve votre colis à tout moment, depuis l'expédition jusqu'à la livraison.</p>
         </div>
         <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
-            <img src="src\assets\track.jpg" alt="mockup"/>
+            <img src="src\assets\track1.jpg" alt="mockup"/>
         </div>                
     </div>
 </section>
