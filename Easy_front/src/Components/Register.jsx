@@ -84,32 +84,34 @@ function Register() {
                                     <label htmlFor="tel" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Téléphone</label>
                                     <input type="tel" name="tel" id="tel" onChange={handleChange} value={formData.tel} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="+228 70 70 70 70" required=""/>
                                 </div>
-                                <div className="col-span-2">
+                                <div className="col-span-1">
+                                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">E-mail</label>
+                                    <input type="email" name="email" id="email" onChange={handleChange} value={formData.email} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required=""/>
+                                </div>
+                                <div className="col-span-1">
                                     <div className="flex items-center space-x-4">
-                                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sexe</label>
+                                        <label className="block mb-20 text-sm font-medium text-gray-900 dark:text-white">Sexe : </label>
                                         <label className="flex items-center">
                                             <input type="radio" name="sex" value="M" onChange={handleChange} className="form-radio text-primary-600 focus:ring-primary-600 dark:focus:ring-blue-500" required/>
-                                            <span className="ml-2 text-sm text-gray-900 dark:text-white">Homme</span>
+                                            <span className="ml-2 text-sm text-gray-900 dark:text-white">M</span>
                                         </label>
                                         <label className="flex items-center">
                                             <input type="radio" name="sex" value="F" onChange={handleChange} className="form-radio text-primary-600 focus:ring-primary-600 dark:focus:ring-blue-500" required/>
-                                            <span className="ml-2 text-sm text-gray-900 dark:text-white">Femme</span>
+                                            <span className="ml-2 text-sm text-gray-900 dark:text-white">F</span>
                                         </label>
                                     </div>
                                 </div>
+                               
                             </div>
 
                             {/* Account Details Section */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">E-mail</label>
-                                    <input type="email" name="email" id="email" onChange={handleChange} value={formData.email} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required=""/>
-                                </div>
-                                <div>
+                                <div className="col-span-1" >
                                     <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mot de passe</label>
                                     <input type="password" name="password" id="password" onChange={handleChange} value={formData.password} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="••••••••••" required=""/>
                                 </div>
-                                <div className="col-span-2">
+                               
+                                <div className="col-span-1">
                                     <label htmlFor="confirmPassword" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmer le mot de passe</label>
                                     <input type="password" name="confirmPassword" id="confirmPassword" onChange={handleChange} value={formData.confirmPassword} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="••••••••••" required=""/>
                                 </div>
@@ -119,7 +121,6 @@ function Register() {
                             {isCourier && (
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <label htmlFor="vehiculeType" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type de véhicule</label>
                                         <select name="vehiculeType" id="vehiculeType" onChange={handleChange} value={formData.vehiculeType} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                                             <option value="">Type de véhicule</option>
                                             <option value="tricycle">Tricycle</option>
@@ -128,7 +129,6 @@ function Register() {
                                         </select>
                                     </div>
                                     <div>
-                                        <label htmlFor="vehiculeBrand" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Marque du véhicule</label>
                                         <input type="text" name="vehiculeBrand" id="vehiculeBrand" onChange={handleChange} value={formData.vehiculeBrand} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Marque" required=""/>
                                     </div>
                                     <div className="col-span-2">
