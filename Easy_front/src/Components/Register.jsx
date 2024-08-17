@@ -18,6 +18,7 @@ function Register() {
     });
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);  // Nouveau state pour le modal
 
     const navigate = useNavigate();
 
@@ -29,16 +30,12 @@ function Register() {
     const handleChange = (e) => {
         const { name, value } = e.target;
 
-        // Validation for phone number
+        // Validation pour le numéro de téléphone
         if (name === "tel") {
-            // Remove non-digit characters
             let sanitizedValue = value.replace(/\D/g, '');
-
-            // Restrict to 8 digits maximum
             if (sanitizedValue.length > 8) {
                 sanitizedValue = sanitizedValue.slice(0, 8);
             }
-
             setFormData({ ...formData, [name]: sanitizedValue });
         } else {
             setFormData({ ...formData, [name]: value });
@@ -52,11 +49,13 @@ function Register() {
             return;
         }
         try {
-            console.log('Form Data:', formData); // Ajoutez ce log pour vérifier les données
             const response = await authService.signup(formData);
             console.log('Account created:', response.data);
-            alert("compte créé avec succès");
-            navigate('/login');
+            setIsSuccessModalOpen(true);  // Ouvre le modal en cas de succès
+            setTimeout(() => {
+                setIsSuccessModalOpen(false);
+                navigate('/login');  // Redirige après la fermeture du modal
+            }, 3000);  // Le modal disparaît après 3 secondes
         } catch (error) {
             console.error('Error creating account:', error.response ? error.response.data : error.message);
         }
@@ -214,6 +213,21 @@ function Register() {
                     </div>
                 </div>
             </div>
+
+            {/* Modal de succès */}
+            {isSuccessModalOpen && (
+                <div id="successModal" className="fixed top-4 right-4 flex items-center justify-center z-50">
+                    <div className="relative p-4 w-full max-w-sm h-full md:h-auto">
+                        <div className="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+                            <div className="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900 p-2 flex items-center justify-center mx-auto mb-3.5">
+                                <svg aria-hidden="true" className="w-8 h-8 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
+                                <span className="sr-only">Success</span>
+                            </div>
+                            <p className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Compte créé avec succès!</p>
+                        </div>
+                    </div>
+                </div>
+            )}
         </section>
     );
 }
