@@ -29,7 +29,7 @@ function CreateExpedition() {
 
   const handleCreateCourse = () => {
     console.log("Course created with data:", courseData);
-    navigate('/dashboard/admin'); // Redirect to the admin dashboard after creation
+    navigate('/dashboard/admin'); // Redirige vers le tableau de bord admin après création
   };
 
   const nextStep = () => setCurrentStep(currentStep + 1);
@@ -40,7 +40,7 @@ function CreateExpedition() {
       {/* Flèche de retour et titre */}
       <div className="absolute top-0 left-0 mt-4 ml-4 flex items-center">
         <button onClick={() => navigate(-1)} className="text-gray-300 hover:text-white flex items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#0255CA"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#0255CA"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
         </button>
         <span className="ml-4 text-xl font-semibold text-black">
           Création d'une expédition
@@ -49,21 +49,21 @@ function CreateExpedition() {
 
       <div className="bg-gray-800 shadow-lg rounded-lg p-8 max-w-xl w-full mt-16">
         <div className="mb-6">
-          <div className="flex items-center justify-center space-x-8">
+          <div className="flex items-center justify-center space-x-12"> {/* Espacement augmenté */}
             {[1, 2, 3].map((step) => (
               <div key={step} className="flex items-center">
                 <div
-                  className={`h-8 w-8 flex items-center justify-center rounded-full ${
-                    currentStep >= step ? "bg-blue-500 text-white" : "bg-gray-700 text-gray-400"
+                  className={`h-10 w-10 flex items-center justify-center rounded-full ${
+                    currentStep >= step ? "bg-blue-500 text-white" : "bg-gray-300 text-black"
                   }`}
                 >
                   {step}
                 </div>
                 {step < 3 && (
-                  <div className="flex-1 h-1 bg-gray-700 mx-2">
+                  <div className="w-16 h-1 bg-gray-300 mx-2"> {/* Largeur augmentée */}
                     <div
                       className={`h-full ${
-                        currentStep >= step + 1 ? "bg-blue-500" : ""
+                        currentStep > step ? "bg-blue-500" : ""
                       }`}
                     ></div>
                   </div>
@@ -89,7 +89,7 @@ function CreateExpedition() {
           <CreateCourses
             courseData={courseData}
             handleChange={handleChange}
-            availableCoursiers={[]} // Example data, replace with real data
+            availableCoursiers={[]} // Exemple de données, remplacer par des données réelles
             handleAddCoursier={handleAddCoursier}
             handleCreateCourse={handleCreateCourse}
           />
@@ -127,4 +127,3 @@ function CreateExpedition() {
 }
 
 export default CreateExpedition;
-
