@@ -6,6 +6,7 @@ import Home from "./Components/Homepage/Home";
 import CustomerDashboard from "./Components/Homepage/CustomerDashboard";
 import DriverDashboard from "./Components/Homepage/DriverDashboard";
 import AdminDashboard from "./Components/Admin/AdminDashboard";
+import CreateExpedition from "./Components/Admin/CreateExpedition";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/dashboard/customer" element={<CustomerDashboard />} />
         <Route path="/dashboard/driver" element={<DriverDashboard />} />
         <Route path="/dashboard/admin" element={<AdminDashboard />} />
+        <Route path="/dashboard/admin/createshipment" element={<CreateExpedition />} />
         {/* Redirection de la racine vers Home */}
         <Route path="/" element={<Navigate replace to="/home" />} />
         {/* Gestion des routes non trouvées : redirection vers Home */}

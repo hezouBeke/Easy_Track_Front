@@ -3,7 +3,7 @@ import Createinfo from "./Createinfo";
 import CreateColis from "./CreateColis";
 import CreateCourses from "./CreateCourses";
 
-function CreateExpedition({ isModalOpen, handleCloseModal }) {
+function CreateExpedition() {
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 3;
 
@@ -28,7 +28,6 @@ function CreateExpedition({ isModalOpen, handleCloseModal }) {
 
   const handleCreateCourse = () => {
     console.log("Course created with data:", courseData);
-    handleCloseModal();
   };
 
   const nextStep = () => setCurrentStep((prev) => prev + 1);
@@ -47,7 +46,7 @@ function CreateExpedition({ isModalOpen, handleCloseModal }) {
   ];
 
   return (
-    <div className={`fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center ${isModalOpen ? "" : "hidden"}`}>
+    <div className="container mx-auto p-8">
       <div className="bg-white rounded-lg p-8 w-full max-w-lg dark:bg-gray-800 dark:border-gray-700">
         <div className="mb-4">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Nouvelle expédition</h3>
