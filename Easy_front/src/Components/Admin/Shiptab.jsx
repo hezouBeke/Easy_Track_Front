@@ -1,6 +1,6 @@
 function Shiptab() {
     return(
-        <section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+        <section class="bg-white py-8 antialiased dark:bg-gray-800 md:py-16">
         <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
           <div class="mx-auto max-w-5xl">
             <div class="gap-4 sm:flex sm:items-center sm:justify-between">
