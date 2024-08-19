@@ -247,7 +247,7 @@ function Shiptab() {
           </div>
         </div>
       </section>
-    )
+    );
 }
 
 export default Shiptab;   

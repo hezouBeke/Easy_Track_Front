@@ -8,6 +8,7 @@ import DriverDashboard from "./Components/Homepage/DriverDashboard";
 import AdminDashboard from "./Components/Admin/AdminDashboard";
 import CreateExpedition from "./Components/Admin/CreateExpedition";
 import ResetPassword from "./Components/ResetPassword ";
+import Customer from "./Components/Admin/Customer";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/dashboard/admin" element={<AdminDashboard />} />
         <Route path="/dashboard/admin/createshipment" element={<CreateExpedition />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/dashboard/admin/clients" element={<Customer />} />
         {/* Redirection de la racine vers Home */}
         <Route path="/" element={<Navigate replace to="/home" />} />
         {/* Gestion des routes non trouvées : redirection vers Home */}
