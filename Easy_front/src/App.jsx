@@ -9,6 +9,7 @@ import AdminDashboard from "./Components/Admin/AdminDashboard";
 import CreateExpedition from "./Components/Admin/CreateExpedition";
 import ResetPassword from "./Components/ResetPassword ";
 import Customer from "./Components/Admin/Customer";
+import Coursiers from "./Components/Admin/Coursiers";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/dashboard/admin/createshipment" element={<CreateExpedition />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/dashboard/admin/clients" element={<Customer />} />
+        <Route path="/dashboard/admin/coursiers" element={<Coursiers />} />
         {/* Redirection de la racine vers Home */}
         <Route path="/" element={<Navigate replace to="/home" />} />
         {/* Gestion des routes non trouvées : redirection vers Home */}
