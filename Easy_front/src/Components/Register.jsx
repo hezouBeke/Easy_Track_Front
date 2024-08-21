@@ -3,7 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import authService from "../services/authService";
 
 function Register() {
+    const navigate = useNavigate();
     const [isCourier, setIsCourier] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);  // Nouveau state pour le modal
     const [formData, setFormData] = useState({
         role: 'Client',
         completename: '',
@@ -16,11 +20,7 @@ function Register() {
         vehiculeBrand: '',
         vehiculePlate: ''
     });
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);  // Nouveau state pour le modal
-
-    const navigate = useNavigate();
+    
 
     const handleRoleSelection = (role) => {
         setIsCourier(role === 'Coursier');
