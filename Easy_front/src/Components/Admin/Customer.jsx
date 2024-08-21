@@ -1,11 +1,13 @@
 // components/Customer.js
 import React, { useEffect, useState } from 'react';
-import authService from '../../services/authService'; // Assure-toi que le chemin est correct
+import { useNavigate } from 'react-router-dom'; // Assurez-vous d'installer react-router-dom
+import authService from '../../services/authService'; // Assurez-vous que le chemin est correct
 
 function Customer() {
     const [customers, setCustomers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const navigate = useNavigate(); // Hook pour la navigation
 
     useEffect(() => {
         const fetchCustomers = async () => {
@@ -27,8 +29,18 @@ function Customer() {
     if (error) return <p>{error}</p>;
 
     return (
-        <section className="bg-gray-50 dark:bg-gray-100 p-3 sm:p-5">
-            <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
+        <section className="relative bg-gray-50 dark:bg-gray-100 p-3 sm:p-5">
+            <div className="absolute top-0 left-0 mt-4 ml-4 flex items-center">
+                <button onClick={() => navigate(-1)} className="text-gray-300 hover:text-white flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#0255CA">
+                        <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
+                    </svg>
+                </button>
+                <span className="ml-4 text-xl font-semibold text-black">
+                    Liste des clients inscrits sur la plateforme
+                </span>
+            </div>
+            <div className="mx-auto max-w-screen-xl px-4 lg:px-12 mt-12">
                 <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                     <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                         <div className="w-full md:w-1/2">
@@ -93,7 +105,7 @@ function Customer() {
                     </div>
                 </div>
             </div>
-    </section>
+        </section>
     );
 }
 
