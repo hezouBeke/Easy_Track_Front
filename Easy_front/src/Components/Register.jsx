@@ -64,14 +64,13 @@ function Register() {
 
     return (
         <section className="bg-white" style={{ 
-            backgroundImage: "url('src/assets/topography.svg')", 
             backgroundSize: 'cover', 
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
             height: '100vh'
         }}>
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-                <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-black">
+                <a href="/home" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-black">
                     <img className="w-8 h-8 mr-2" src="./src/assets/logo2.png" alt="logo"/>
                     EasyTrack 
                 </a>

@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 import Home from "./Components/Homepage/Home";
-import CustomerDashboard from "./Components/Homepage/CustomerDashboard";
-import DriverDashboard from "./Components/Homepage/DriverDashboard";
+import CustomerDashboard from "./Components/CustomerDashboard/CustomerDashboard";
+import DriverDashboard from "./Components/DriverDashboard/DriverDashboard";
 import AdminDashboard from "./Components/Admin/AdminDashboard";
 import CreateExpedition from "./Components/Admin/CreateExpedition";
 import ResetPassword from "./Components/ResetPassword ";

@@ -27,20 +27,24 @@ const Login = () => {
     return (
         <section 
             style={{ 
-                backgroundImage: "url('src/assets/topography.svg')", 
                 backgroundSize: 'cover', 
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
                 height: '100vh'
             }}
         >
-            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-                <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-black">
-                    <img className="w-10 h-10 mr-2" src="./src/assets/logo2.png" alt="logo"/>
-                    EasyTrack
-                </a>
-                <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-                    <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <div className="flex flex-col items-center justify-center h-full">
+                {/* Conteneur pour le logo */}
+                <div className="mb-6">
+                    <a href='/home' className="flex items-center text-2xl font-semibold text-gray-900 dark:text-black">
+                        <img className="w-10 h-10 mr-2" src="./src/assets/logo2.png" alt="logo"/>
+                        EasyTrack
+                    </a>
+                </div>
+                {/* Conteneur principal pour le formulaire et l'image */}
+                <div className="flex flex-row w-full max-w-4xl mx-auto bg-white rounded-lg shadow-lg dark:bg-gray-800">
+                    {/* Section du formulaire */}
+                    <div className="w-1/2 p-6 space-y-4 md:space-y-6 sm:p-8">
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                             Connexion
                         </h1>
@@ -58,7 +62,6 @@ const Login = () => {
                                     required 
                                 />
                             </div>
-                            
                             <div className="relative">
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mot de passe</label>
                                 <input
@@ -108,6 +111,15 @@ const Login = () => {
                                 Vous n'avez pas de compte? <Link to="/register" className="font-medium text-primary-600 hover:underline dark:text-white">S'enregistrer</Link>
                             </p>
                         </form>
+                    </div>
+
+                    {/* Section de l'image */}
+                    <div className="w-1/2 p-6 hidden md:block">
+                        <img
+                            src="./src/assets/login.jpg"
+                            alt="Login"
+                            className="object-cover w-full h-full rounded-r-lg"
+                        />
                     </div>
                 </div>
             </div>
