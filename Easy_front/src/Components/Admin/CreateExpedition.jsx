@@ -52,7 +52,7 @@ function CreateExpedition() {
           </svg>
         </button>
         <span className="ml-4 text-xl font-semibold text-black">
-          Création d'une expédition
+          Création d'une expédition en 2 étapes
         </span>
       </div>
 
