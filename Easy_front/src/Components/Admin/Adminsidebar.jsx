@@ -33,7 +33,7 @@ function Adminsidebar() {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="#"
+                  href="/dashboard/admin"
                   className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                 >
                   <svg
@@ -53,6 +53,7 @@ function Adminsidebar() {
             <ul className="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
             <li>
                 <a
+                  href='/dashboard/admin/clients'
                   onClick={handleCustomerClick}
                   className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
                 >
@@ -70,6 +71,7 @@ function Adminsidebar() {
               </li>
               <li>
                 <a
+                 href='/dashboard/admin/coursiers'
                   onClick={handleCoursierClick}
                   className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
                 >

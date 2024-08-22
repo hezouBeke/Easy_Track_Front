@@ -10,6 +10,8 @@ import CreateExpedition from "./Components/Admin/CreateExpedition";
 import ResetPassword from "./Components/ResetPassword ";
 import Customer from "./Components/Admin/Customer";
 import Coursiers from "./Components/Admin/Coursiers";
+import UserList from "./Components/Admin/UserList";
+import CoursierList from "./Components/Admin/CoursierList";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/user-list" element={<UserList />} />
+        <Route path="/coursiers-list" element={<CoursierList />} />
         <Route path="/dashboard/customer" element={<CustomerDashboard />} />
         <Route path="/dashboard/driver" element={<DriverDashboard />} />
         <Route path="/dashboard/admin" element={<AdminDashboard />} />
