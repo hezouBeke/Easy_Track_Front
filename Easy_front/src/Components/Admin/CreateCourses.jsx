@@ -121,12 +121,7 @@ function CreateCourses({ courseData, handleChange, availableCoursiers, handleAdd
       </div>
 
       <div className="sm:col-span-2">
-        <label
-          htmlFor="addedCoursiers"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >
-          Coursiers ajoutés
-        </label>
+      
         <ul>
           {courseData.coursiers.map((coursierId, index) => (
             <li key={index} className="text-sm text-gray-600 dark:text-gray-300">
@@ -136,15 +131,7 @@ function CreateCourses({ courseData, handleChange, availableCoursiers, handleAdd
         </ul>
       </div>
 
-      <div className="sm:col-span-2 flex justify-end">
-        <button
-          type="button"
-          onClick={handleCreateCourse}
-          className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5"
-        >
-          Créer la course
-        </button>
-      </div>
+    
     </div>
   );
 }

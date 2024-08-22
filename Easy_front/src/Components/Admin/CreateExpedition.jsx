@@ -89,7 +89,7 @@ function CreateExpedition() {
           <CreateCourses
             courseData={courseData}
             handleChange={handleChange}
-            availableCoursiers={[]} // Exemple de données, remplacer par des données réelles
+            availableCoursiers={[]} 
             handleAddCoursier={handleAddCoursier}
             handleCreateCourse={handleCreateCourse}
           />
