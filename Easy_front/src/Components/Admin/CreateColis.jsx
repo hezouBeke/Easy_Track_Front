@@ -9,6 +9,42 @@ function CreateColis({ colisData, handleChange, handleAddColis }) {
   return (
     <div>
       <form onSubmit={handleSubmitColis} className="grid gap-4 mb-4 sm:grid-cols-2">
+        <div>
+          <label
+            htmlFor="desc_depart"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Lieu de départ
+          </label>
+          <input
+            type="text"
+            name="desc_depart"
+            id="desc_depart"
+            value={colisData.desc_depart}
+            onChange={handleChange}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            placeholder="Ville"
+            required
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="desc_destination"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Lieu d'arrivée
+          </label>
+          <input
+            type="text"
+            name="desc_destination"
+            id="desc_destination"
+            value={colisData.desc_destination}
+            onChange={handleChange}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            placeholder="Ville"
+            required
+          />
+        </div>
         <div className="sm:col-span-2">
           <label
             htmlFor="description"
