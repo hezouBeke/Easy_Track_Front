@@ -25,45 +25,40 @@ const Login = () => {
     };
 
     return (
-        <section 
-            style={{ 
-                backgroundSize: 'cover', 
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-                height: '100vh'
-            }}
-        >
-            <div className="flex flex-col items-center justify-center h-full">
-                {/* Conteneur pour le logo */}
-                <div className="mb-6">
-                    <a href='/home' className="flex items-center text-2xl font-semibold text-gray-900 dark:text-black">
-                        <img className="w-10 h-10 mr-2" src="./src/assets/logo2.png" alt="logo"/>
-                        EasyTrack
-                    </a>
-                </div>
-                {/* Conteneur principal pour le formulaire et l'image */}
-                <div className="flex flex-row w-full max-w-4xl mx-auto bg-white rounded-lg shadow-lg dark:bg-gray-800">
-                    {/* Section du formulaire */}
-                    <div className="w-1/2 p-6 space-y-4 md:space-y-6 sm:p-8">
-                        <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+        <section className="h-screen flex">
+            {/* Section pour l'image */}
+            <div className="hidden md:block w-1/2 bg-cover bg-center" style={{ backgroundImage: "url('./src/assets/login.jpg')" }}>
+            </div>
+
+            {/* Section pour le formulaire */}
+            <div className="w-full md:w-1/2 flex items-center justify-center p-6 bg-white">
+                <div className="w-full max-w-md bg-gray-800 rounded-lg shadow">
+                    <div className="p-6 space-y-4 md:space-y-6">
+                        <div className="text-center mb-6">
+                            <a href='/home' className="flex justify-center items-center text-2xl font-semibold text-black">
+                                <img className="w-10 h-10 mr-2" src="./src/assets/logo2.png" alt="logo"/>
+                                EasyTrack
+                            </a>
+                        </div>
+                        <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl">
                             Connexion
                         </h1>
-                        <form onSubmit={handleLogin} className="space-y-4 md:space-y-6" action="#">
+                        <form onSubmit={handleLogin} className="space-y-4 md:space-y-6">
                             <div>
-                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">E-mail</label>
+                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-white">E-mail</label>
                                 <input 
                                     type="email" 
                                     name="email" 
                                     id="email"  
                                     value={email}  
                                     onChange={(e) => setEmail(e.target.value)}  
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"  
                                     placeholder="name@company.com"  
                                     required 
                                 />
                             </div>
                             <div className="relative">
-                                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mot de passe</label>
+                                <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">Mot de passe</label>
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     name="password"
@@ -71,7 +66,7 @@ const Login = () => {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder="••••••••"
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                     required
                                 />
                                 <button
@@ -97,29 +92,24 @@ const Login = () => {
                                             id="remember"
                                             aria-describedby="remember"
                                             type="checkbox"
-                                            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                                            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300"
                                         />
                                     </div>
                                     <div className="ml-3 text-sm">
-                                        <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">Se rappeler de moi</label>
+                                        <label htmlFor="remember" className="text-gray-500">Se rappeler de moi</label>
                                     </div>
                                 </div>
-                                <Link to="/reset-password" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Mot de passe oublié?</Link>
+                                <Link to="/reset-password" className="text-sm font-medium text-primary-600 hover:underline">Mot de passe oublié?</Link>
                             </div>
-                            <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Se connecter</button>
-                            <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                                Vous n'avez pas de compte? <Link to="/register" className="font-medium text-primary-600 hover:underline dark:text-white">S'enregistrer</Link>
+                            <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Se connecter</button>
+                            <p className="text-sm font-light text-gray-500">
+                                Vous n'avez pas de compte? <Link to="/register" className="font-medium text-primary-600 hover:underline">S'enregistrer</Link>
                             </p>
                         </form>
                     </div>
 
                     {/* Section de l'image */}
-                    <div className="w-1/2 p-6 hidden md:block">
-                        <img
-                            src="./src/assets/login.jpg"
-                            alt="Login"
-                            className="object-cover w-full h-full rounded-r-lg"
-                        />
+                    <div className="hidden md:block w-1/2 bg-cover bg-center" style={{ backgroundImage: "url('./src/assets/login.jpg')" }}>
                     </div>
                 </div>
             </div>
