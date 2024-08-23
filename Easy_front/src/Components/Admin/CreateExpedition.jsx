@@ -77,20 +77,12 @@ function CreateExpedition() {
 
   return (
     <section className="h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full">
-        <h2 className="text-xl font-bold text-gray-800 mb-6">Créer une nouvelle expédition</h2>
+      <div className="bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full max-h-[95vh] overflow-y-auto">
         <form onSubmit={handleSubmit}>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold text-gray-800">Informations sur le colis</h3>
+            <h3 className="text-lg font-semibold text-blue-600">Informations sur le colis</h3>
             <div className="grid gap-4 mb-4 sm:grid-cols-2 md:grid-cols-4">
-              {/* Expéditeur */}
               <div className="sm:col-span-1">
-                <label
-                  htmlFor="client_id_exp"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Expéditeur
-                </label>
                 <select
                   name="client_id_exp"
                   id="client_id_exp"
@@ -99,7 +91,7 @@ function CreateExpedition() {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   required
                 >
-                  <option value="">Sélectionnez le client</option>
+                  <option value="">Sélectionnez l'expéditeur</option>
                   {clients.map((client) => (
                     <option key={client._id} value={client._id}>
                       {client.name}
@@ -108,14 +100,7 @@ function CreateExpedition() {
                 </select>
               </div>
 
-              {/* Lieu de départ */}
               <div className="sm:col-span-1">
-                <label
-                  htmlFor="desc_depart"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Lieu de départ
-                </label>
                 <input
                   type="text"
                   name="desc_depart"
@@ -123,19 +108,12 @@ function CreateExpedition() {
                   value={colisData.desc_depart}
                   onChange={handleColisChange}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                  placeholder="Ville"
+                  placeholder="Lieu de départ"
                   required
                 />
               </div>
 
-              {/* Destinataire */}
               <div className="sm:col-span-1">
-                <label
-                  htmlFor="client_id_dest"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Destinataire
-                </label>
                 <select
                   name="client_id_dest"
                   id="client_id_dest"
@@ -144,7 +122,7 @@ function CreateExpedition() {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   required
                 >
-                  <option value="">Sélectionnez le client</option>
+                  <option value="">Sélectionnez le destinataire</option>
                   {clients.map((client) => (
                     <option key={client._id} value={client._id}>
                       {client.name}
@@ -153,14 +131,7 @@ function CreateExpedition() {
                 </select>
               </div>
 
-              {/* Lieu d'arrivée */}
               <div className="sm:col-span-1">
-                <label
-                  htmlFor="desc_destination"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Lieu d'arrivée
-                </label>
                 <input
                   type="text"
                   name="desc_destination"
@@ -168,13 +139,12 @@ function CreateExpedition() {
                   value={colisData.desc_destination}
                   onChange={handleColisChange}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                  placeholder="Ville"
+                  placeholder="Lieu d'arrivée"
                   required
                 />
               </div>
             </div>
 
-            {/* Description reste sur une seule ligne */}
             <div className="sm:col-span-2">
               <label
                 htmlFor="description"
@@ -194,7 +164,6 @@ function CreateExpedition() {
               ></textarea>
             </div>
 
-            {/* Ligne pour Taille du colis et Poids du colis */}
             <div className="grid gap-4 mb-4 sm:grid-cols-2">
               <div>
                 <label
@@ -235,7 +204,6 @@ function CreateExpedition() {
               </div>
             </div>
 
-            {/* Particularités du colis */}
             <div className="sm:col-span-2">
               <label
                 htmlFor="particularite"
@@ -259,8 +227,10 @@ function CreateExpedition() {
             </div>
           </div>
 
+          <hr className="my-8 border-gray-300" />
+
           <div className="mb-6">
-            <h3 className="text-lg font-semibold text-gray-800">Informations sur les courses</h3>
+            <h3 className="text-lg font-semibold text-blue-600">Création de courses</h3>
             {coursesData.map((course, index) => (
               <div key={index} className="mb-6 p-4 border border-gray-200 rounded-lg">
                 <div className="grid gap-4 mb-4 sm:grid-cols-2">
@@ -371,16 +341,17 @@ function CreateExpedition() {
                 )}
               </div>
             ))}
+          </div>
+
+          <div className="flex justify-between mt-6">
             <button
               type="button"
               onClick={addCourse}
-              className="text-blue-600 hover:text-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm"
+              className="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             >
               Ajouter une nouvelle course
             </button>
-          </div>
 
-          <div className="flex justify-end mt-6">
             <button
               type="submit"
               className="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
