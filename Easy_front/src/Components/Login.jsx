@@ -18,12 +18,14 @@ const Login = () => {
             } else if (role === 'Coursier') {
                 navigate('/dashboard/driver');
             }
+          
         } catch (error) {
             console.error('Login error:', error);
             alert('Login failed: ' + (error.response?.data?.message || error.message));
         }
     };
 
+    
     return (
         <section className="h-screen flex">
             {/* Section pour l'image */}
