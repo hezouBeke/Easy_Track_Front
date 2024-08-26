@@ -268,7 +268,7 @@ function CreateExpedition() {
 
           <div className="mb-6">
             <h3 className="text-lg font-semibold text-blue-600">
-              Création de courses
+            Création de courses
             </h3>
             {coursesData.map((course, index) => (
               <div
