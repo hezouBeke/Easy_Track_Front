@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 function CreateExpedition() {
   const [colisData, setColisData] = useState({
-    client_id: "",
+    client_id_exp: "",
+    client_id_dest: "",
     desc_depart: "",
     desc_destination: "",
     description: "",
@@ -21,7 +22,7 @@ function CreateExpedition() {
   ]);
 
   const [clients, setClients] = useState([]);
-  const [coursiers, setCoursiers] = useState([]); // État pour stocker les coursiers
+  const [coursiers, setCoursiers] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,13 +64,16 @@ function CreateExpedition() {
     const selectedCoursierId = e.target.value;
     if (selectedCoursierId) {
       const updatedCourses = [...coursesData];
-      updatedCourses[index].coursiers.push(selectedCoursierId);
+      updatedCourses[index].coursiers = [selectedCoursierId]; // Remplace le coursier sélectionné
       setCoursesData(updatedCourses);
     }
   };
 
   const addCourse = () => {
-    setCoursesData([...coursesData, { depart: "", arrive: "", date_debut: "", date_fin: "", coursiers: [] }]);
+    setCoursesData([
+      ...coursesData,
+      { depart: "", arrive: "", date_debut: "", date_fin: "", coursiers: [] },
+    ]);
   };
 
   const removeCourse = (index) => {
@@ -80,10 +84,16 @@ function CreateExpedition() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const expeditionData = {
-      colis_id: colisData.client_id,
-      course_ids: coursesData.map(course => course.id), // Assurez-vous que chaque course a un ID unique
-      date_depart: coursesData[0].date_debut, // Utilisez la première date de début comme référence
-      date_arrivee: coursesData[coursesData.length - 1].date_fin, // Utilisez la dernière date de fin comme référence
+      colis_id: colisData.client_id_exp,
+      course_ids: coursesData.map((course) => ({
+        depart: course.depart,
+        arrive: course.arrive,
+        date_debut: course.date_debut,
+        date_fin: course.date_fin,
+        coursiers: course.coursiers,
+      })),
+      date_depart: coursesData[0].date_debut,
+      date_arrivee: coursesData[coursesData.length - 1].date_fin,
     };
     try {
       await expeditionService.createExpedition(expeditionData);
@@ -92,49 +102,60 @@ function CreateExpedition() {
       console.error("Erreur lors de la création de l'expédition", error);
     }
   };
-  
+
   return (
     <section className="h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full max-h-[95vh] overflow-y-auto">
         <form onSubmit={handleSubmit}>
           <div className="mb-6">
-            <h3 className="text-lg font-semibold text-blue-600">Informations sur le colis</h3>
+            <h3 className="text-lg font-semibold text-blue-600">
+              Informations sur le colis
+            </h3>
             <div className="grid gap-4 mb-4 sm:grid-cols-2 md:grid-cols-4">
-              <div className="sm:col-span-1">
-                <select
-                  name="client_id_exp"
-                  id="client_id_exp"
-                  value={colisData.client_id}
-                  onChange={handleColisChange}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                  required
-                >
-                  <option value="">Sélectionnez l'expéditeur</option>
-                  {clients.map((client) => (
-                    <option key={client._id} value={client._id}>
-                      {client.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
+
 
               <div className="sm:col-span-1">
-                <select
-                  name="client_id_dest"
-                  id="client_id_dest"
-                  value={colisData.client_id}
-                  onChange={handleColisChange}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                  required
-                >
-                  <option value="">Sélectionnez le destinataire</option>
-                  {clients.map((client) => (
-                    <option key={client._id} value={client._id}>
-                      {client.name}
-                    </option>
-                  ))}
-                </select>
+              <select
+  name="client_id_exp"
+  id="client_id_exp"
+  value={colisData.client_id_exp}
+  onChange={handleColisChange}
+  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+  required
+>
+  <option value="">Sélectionnez l'expéditeur</option>
+  {clients.map((client) => (
+    <option key={client._id} value={client._id}>
+      {client.completename}
+    </option>
+  ))}
+</select>
               </div>
+
+
+
+              <div className="sm:col-span-1">
+              <select
+  name="client_id_dest"
+  id="client_id_dest"
+  value={colisData.client_id_dest}
+  onChange={handleColisChange}
+  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+  required
+>
+  <option value="">Sélectionnez le destinataire</option>
+  {clients.map((client) => (
+    <option key={client._id} value={client._id}>
+      {client.completename}
+    </option>
+  ))}
+</select>
+
+              </div>
+
+
+
+
               <div className="sm:col-span-1">
                 <input
                   type="text"
@@ -246,9 +267,14 @@ function CreateExpedition() {
           <hr className="my-8 border-gray-300" />
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold text-blue-600">Création de courses</h3>
+            <h3 className="text-lg font-semibold text-blue-600">
+              Création de courses
+            </h3>
             {coursesData.map((course, index) => (
-              <div key={index} className="mb-6 p-4 border border-gray-200 rounded-lg">
+              <div
+                key={index}
+                className="mb-6 p-4 border border-gray-200 rounded-lg"
+              >
                 <div className="grid gap-4 mb-4 sm:grid-cols-2">
                   <div>
                     <label
@@ -334,19 +360,19 @@ function CreateExpedition() {
                       Sélectionner un coursier
                     </label>
                     <select
-                      id={`coursier-${index}`}
-                      name="coursier"
-                      value={course.selectedCoursier}
-                      onChange={(e) => handleCoursierSelection(index, e)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    >
-                      <option value="">Sélectionnez un coursier</option>
-                      {coursiers.map((coursier) => (
-                        <option key={coursier._id} value={coursier._id}>
-                          {coursier.name}
-                        </option>
-                      ))}
-                    </select>
+  id={`coursier-${index}`}
+  name="coursier"
+  value={course.coursiers[0] || ""}
+  onChange={(e) => handleCoursierSelection(index, e)}
+  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+>
+  <option value="">Sélectionnez un coursier</option>
+  {coursiers.map((coursier) => (
+    <option key={coursier._id} value={coursier._id}>
+      {coursier.completename}
+    </option>
+  ))}
+</select>
                   </div>
                 </div>
                 {coursesData.length > 1 && (
