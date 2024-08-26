@@ -11,7 +11,7 @@ function AdminDashboard() {
       <Adminsidebar />
       <div className="flex-1">
         <Adminheader />
-        <Box sx={{ width: '100%', height: '400px', mt: '64px' }}>
+        <Box sx={{ width: '100%', height: '630px', mt: '64px' }}>
           <MyGoogleMap />
         </Box>
         <Shiptab />
