@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { FaTrash } from "react-icons/fa";
 import clientService from "../../services/clientService";
+import coursierService from "../../services/coursierService"; // Import du service des coursiers
+import expeditionService from "../../services/expeditionService"; // Import du service des expéditions
 import { useNavigate } from "react-router-dom";
 
 function CreateExpedition() {
@@ -19,7 +21,7 @@ function CreateExpedition() {
   ]);
 
   const [clients, setClients] = useState([]);
-  const [selectedCoursier, setSelectedCoursier] = useState("");
+  const [coursiers, setCoursiers] = useState([]); // État pour stocker les coursiers
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,7 +34,17 @@ function CreateExpedition() {
       }
     };
 
+    const fetchCoursiers = async () => {
+      try {
+        const response = await coursierService.getAllCoursiers();
+        setCoursiers(response.data);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des coursiers", error);
+      }
+    };
+
     fetchClients();
+    fetchCoursiers();
   }, []);
 
   const handleColisChange = (e) => {
@@ -68,13 +80,19 @@ function CreateExpedition() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const expeditionData = {
-      colis: colisData,
-      courses: coursesData,
+      colis_id: colisData.client_id,
+      course_ids: coursesData.map(course => course.id), // Assurez-vous que chaque course a un ID unique
+      date_depart: coursesData[0].date_debut, // Utilisez la première date de début comme référence
+      date_arrivee: coursesData[coursesData.length - 1].date_fin, // Utilisez la dernière date de fin comme référence
     };
-    console.log("Expedition created with data:", expeditionData);
-    navigate("/dashboard/admin");
+    try {
+      await expeditionService.createExpedition(expeditionData);
+      navigate("/dashboard/admin");
+    } catch (error) {
+      console.error("Erreur lors de la création de l'expédition", error);
+    }
   };
-
+  
   return (
     <section className="h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full max-h-[95vh] overflow-y-auto">
@@ -101,19 +119,6 @@ function CreateExpedition() {
               </div>
 
               <div className="sm:col-span-1">
-                <input
-                  type="text"
-                  name="desc_depart"
-                  id="desc_depart"
-                  value={colisData.desc_depart}
-                  onChange={handleColisChange}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                  placeholder="Lieu de départ"
-                  required
-                />
-              </div>
-
-              <div className="sm:col-span-1">
                 <select
                   name="client_id_dest"
                   id="client_id_dest"
@@ -130,7 +135,18 @@ function CreateExpedition() {
                   ))}
                 </select>
               </div>
-
+              <div className="sm:col-span-1">
+                <input
+                  type="text"
+                  name="desc_depart"
+                  id="desc_depart"
+                  value={colisData.desc_depart}
+                  onChange={handleColisChange}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                  placeholder="Lieu de départ"
+                  required
+                />
+              </div>
               <div className="sm:col-span-1">
                 <input
                   type="text"
@@ -320,11 +336,16 @@ function CreateExpedition() {
                     <select
                       id={`coursier-${index}`}
                       name="coursier"
-                      value={selectedCoursier}
+                      value={course.selectedCoursier}
                       onChange={(e) => handleCoursierSelection(index, e)}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     >
                       <option value="">Sélectionnez un coursier</option>
+                      {coursiers.map((coursier) => (
+                        <option key={coursier._id} value={coursier._id}>
+                          {coursier.name}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
