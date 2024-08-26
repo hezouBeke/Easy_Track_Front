@@ -12,6 +12,8 @@ import Customer from "./Components/Admin/Customer";
 import Coursiers from "./Components/Admin/Coursiers";
 import UserList from "./Components/Admin/UserList";
 import CoursierList from "./Components/Admin/CoursierList";
+import ColisList from "./Components/Admin/ColisList";
+import Colis from "./Components/Admin/Colis";
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
         <Route path="/user-list" element={<UserList />} />
+        <Route path="/colis-list" element={<ColisList />} />
         <Route path="/coursiers-list" element={<CoursierList />} />
         <Route path="/dashboard/customer" element={<CustomerDashboard />} />
         <Route path="/dashboard/driver" element={<DriverDashboard />} />
@@ -29,6 +32,7 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/dashboard/admin/clients" element={<Customer />} />
         <Route path="/dashboard/admin/coursiers" element={<Coursiers />} />
+        <Route path="/dashboard/admin/colis" element={<Colis />} />
         {/* Redirection de la racine vers Home */}
         <Route path="/" element={<Navigate replace to="/home" />} />
         {/* Gestion des routes non trouvées : redirection vers Home */}

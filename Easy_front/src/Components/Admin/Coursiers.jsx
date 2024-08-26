@@ -17,15 +17,12 @@ function Coursiers() {
             } catch (error) {
                 setError('Erreur lors de la récupération des coursiers');
                 console.error('Error fetching couriers:', error);
-            } finally {
-                setLoading(false);
             }
         };
 
         fetchCoursiers();
     }, []);
 
-    if (loading) return <p>Chargement...</p>;
     if (error) return <p>{error}</p>;
 
     return (
@@ -118,5 +115,4 @@ function Coursiers() {
         </section>
     );
 }
-
 export default Coursiers;

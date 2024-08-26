@@ -11,18 +11,18 @@ export const createColis = async (colisData) => {
     throw error;
   }
 };
-export const getColis = async () => {
-    try {
-      const response = await axios.get(API_URL, { withCredentials: true });
-      return response.data;
-    } catch (error) {
-      console.error('Erreur lors de la récupération des colis', error);
-      throw error;
-    }
-  };
 
-  export default {
-    createColis,
-    getColis
-  }
-  
+const getColisById = (id) => {
+  return axios.get(`${API_URL}${id}`);
+}
+
+// Fonction pour obtenir tous les colis
+const getAllColis = () => {
+  return axios.get(API_URL);
+}
+
+export default {
+  getColisById,
+  getAllColis,
+  createColis
+};
