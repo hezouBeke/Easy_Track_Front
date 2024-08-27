@@ -19,15 +19,12 @@ function Customer() {
             } catch (error) {
                 setError('Erreur lors de la récupération des clients');
                 console.error('Error fetching customers:', error);
-            } finally {
-                setLoading(false);
-            }
+            } 
         };
 
         fetchCustomers();
     }, []);
 
-    if (loading) return <p>Chargement...</p>;
     if (error) return <p>{error}</p>;
 
     return (

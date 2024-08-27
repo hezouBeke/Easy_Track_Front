@@ -73,7 +73,7 @@ function Register() {
                 <div className="w-full max-w-md bg-gray-800 rounded-lg shadow">
                     <div className="p-6 space-y-4 md:space-y-6">
                         <div className="text-center">
-                            <a href='/home' className="flex justify-center items-center text-2xl font-semibold text-black">
+                            <a href='/home' className="flex justify-center items-center text-2xl font-semibold text-white">
                                 <img className="w-10 h-10" src="./src/assets/logo2.png" alt="logo"/>
                                 EasyTrack
                             </a>

@@ -17,3 +17,15 @@
 .text-primary-600 {
     color: #007bff;
 }
+
+/* Cache la barre de défilement dans Webkit (Chrome, Safari) */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Cache la barre de défilement dans IE, Edge et Firefox */
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE et Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
