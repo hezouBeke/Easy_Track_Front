@@ -7,6 +7,7 @@ function CustomerDashboard(){
     
       <Customerheader/>
       <Customersidebar />
+           
           <MyGoogleMap />
         
      

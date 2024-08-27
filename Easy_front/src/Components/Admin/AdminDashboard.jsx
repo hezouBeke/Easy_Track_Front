@@ -1,20 +1,17 @@
 import React from "react";
 import Adminheader from "./Adminheader";
-import Adminsidebar from "./Adminsidebar.jsx";
-import MyGoogleMap from "../MyGoogleMap.jsx";
-import Shiptab from "./Shiptab";
-import { Box } from "@mui/material";
+import Adminsidebar from "./Adminsidebar";
+import DashboardCards from "./DashboardCards";
 
 function AdminDashboard() {
   return (
     <div className="flex">
       <Adminsidebar />
-      <div className="flex-1">
+      <div className="flex flex-col w-full">
         <Adminheader />
-        <Box sx={{ width: '100%', height: '630px', mt: '64px' }}>
-          <MyGoogleMap />
-        </Box>
-        <Shiptab />
+        <div className="p-6"> {/* Ajustez la valeur du padding selon vos besoins */}
+          <DashboardCards />
+        </div>
       </div>
     </div>
   );

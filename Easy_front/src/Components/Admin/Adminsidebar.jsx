@@ -115,7 +115,7 @@ function Adminsidebar() {
                   className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
                 >
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns="http://www.aw3.org/2000/svg"
                     height="24px"
                     viewBox="0 -960 960 960"
                     width="24px"
