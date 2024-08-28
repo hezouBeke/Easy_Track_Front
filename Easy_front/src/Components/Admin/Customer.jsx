@@ -1,35 +1,92 @@
-// components/Customer.js
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Assurez-vous d'installer react-router-dom
-import authService from '../../services/authService'; // Assurez-vous que le chemin est correct
+import { useNavigate } from 'react-router-dom';
+import clientService from '../../services/clientService';
 import Adminsidebar from './Adminsidebar';
 import Adminheader from './Adminheader';
 
 function Customer() {
     const [customers, setCustomers] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    const navigate = useNavigate(); // Hook pour la navigation
+    const [selectedCustomer, setSelectedCustomer] = useState(null);
+    const [isActionsDropdownVisible, setIsActionsDropdownVisible] = useState(false);
+    const navigate = useNavigate();
 
+    // Fonction pour récupérer les clients
+    const fetchCustomers = async () => {
+        try {
+            const response = await clientService.getAllClients();
+            const updatedCustomers = response.data.map(customer => ({
+                ...customer,
+                status: customer.status // Assurez-vous que le statut est correct
+            }));
+            setCustomers(updatedCustomers);
+        } catch (error) {
+            setError('Erreur lors de la récupération des clients');
+            console.error('Error fetching customers:', error);
+        }
+    };
+
+    // Chargement initial des clients
     useEffect(() => {
-        const fetchCustomers = async () => {
-            try {
-                const response = await authService.getUsersByRole('Client');
-                setCustomers(response.data);
-            } catch (error) {
-                setError('Erreur lors de la récupération des clients');
-                console.error('Error fetching customers:', error);
-            } 
-        };
-
         fetchCustomers();
     }, []);
 
+    // Gestion de la sélection d'un client
+    const handleSelectCustomer = (id) => {
+        if (id === selectedCustomer) {
+            setSelectedCustomer(null);
+            setIsActionsDropdownVisible(false);
+        } else {
+            setSelectedCustomer(id);
+            setIsActionsDropdownVisible(true);
+        }
+    };
+
+    // Gestion des actions sur un client
+    const handleAction = async (action) => {
+        if (selectedCustomer) {
+            try {
+                if (action === 'deactivate') {
+                    await clientService.updateClientStatus(selectedCustomer, 'Inactif');
+                } else if (action === 'activate') {
+                    await clientService.updateClientStatus(selectedCustomer, 'Actif');
+                } else if (action === 'delete') {
+                    await clientService.deleteClient(selectedCustomer);
+                }
+                // Recharger les clients après chaque action
+                fetchCustomers();
+            } catch (error) {
+                console.error('Error performing action on customer:', error);
+                setError('Erreur lors de l\'action sur le client');
+            }
+            setSelectedCustomer(null);
+            setIsActionsDropdownVisible(false);
+        }
+    };
+
     if (error) return <p>{error}</p>;
+
+    // Styles pour le statut
+    const statusStyles = {
+        active: {
+            display: 'inline-block',
+            width: '10px',
+            height: '10px',
+            borderRadius: '50%',
+            backgroundColor: '#28a745',
+            animation: 'blink 1s infinite'
+        },
+        inactive: {
+            display: 'inline-block',
+            width: '10px',
+            height: '10px',
+            borderRadius: '50%',
+            backgroundColor: '#dc3545'
+        }
+    };
 
     return (
         <section className="relative bg-gray-50 dark:bg-gray-100 p-3 sm:p-5">
-
             <Adminheader />
             <Adminsidebar />
         
@@ -50,23 +107,48 @@ function Customer() {
                             </form>
                         </div>
                         <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                            <div className="flex items-center space-x-3 w-full md:w-auto">
-                                <button id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown" className="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                            <div className="relative">
+                                <button
+                                    id="actionsDropdownButton"
+                                    className={`w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 ${!selectedCustomer ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    disabled={!selectedCustomer}
+                                    onClick={() => setIsActionsDropdownVisible(!isActionsDropdownVisible)}
+                                >
+                                    Actions
                                     <svg className="-ml-1 mr-1.5 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                         <path clipRule="evenodd" fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                                     </svg>
-                                    Actions
                                 </button>
-                                <div id="actionsDropdown" className="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                    <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="actionsDropdownButton">
-                                        <li>
-                                            <a href="#" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mass Edit</a>
-                                        </li>
-                                    </ul>
-                                    <div className="py-1">
-                                        <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete all</a>
+                                {isActionsDropdownVisible && (
+                                    <div id="actionsDropdown" className="absolute right-0 z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                                        <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="actionsDropdownButton">
+                                            <li>
+                                                <button
+                                                    onClick={() => handleAction('deactivate')}
+                                                    className="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                >
+                                                    Désactiver
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button
+                                                    onClick={() => handleAction('activate')}
+                                                    className="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                >
+                                                    Activer
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button
+                                                    onClick={() => handleAction('delete')}
+                                                    className="block w-full text-left py-2 px-4 text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                >
+                                                    Supprimer
+                                                </button>
+                                            </li>
+                                        </ul>
                                     </div>
-                                </div>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -74,9 +156,13 @@ function Customer() {
                         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
+                                    <th scope="col" className="px-4 py-3">
+                                        <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+                                    </th>
                                     <th scope="col" className="px-4 py-3">Nom & Prénom</th>
                                     <th scope="col" className="px-4 py-3">Email</th>
                                     <th scope="col" className="px-4 py-3">Téléphone</th>
+                                    <th scope="col" className="px-4 py-3">Statut</th>
                                     <th scope="col" className="px-4 py-3">
                                         <span className="sr-only">Actions</span>
                                     </th>
@@ -84,17 +170,25 @@ function Customer() {
                             </thead>
                             <tbody>
                                 {customers.map(customer => (
-                                    <tr key={customer._id} className="hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <td className="px-4 py-3 flex items-center space-x-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                                <path d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q53 0 100-15.5t86-44.5q-39-29-86-44.5T480-280q-53 0-100 15.5T294-220q39 29 86 44.5T480-160Zm0-360q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm0-60Zm0 360Z"/>
-                                            </svg>
-                                            <span>{customer.completename}</span>
+                                    <tr key={customer._id} className={`hover:bg-gray-100 dark:hover:bg-gray-600 ${selectedCustomer === customer._id ? 'bg-blue-100 dark:bg-blue-600' : ''}`}>
+                                        <td className="px-4 py-3">
+                                            <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" checked={selectedCustomer === customer._id} onChange={() => handleSelectCustomer(customer._id)} />
                                         </td>
+                                        <td className="px-4 py-3">{customer.completename}</td>
                                         <td className="px-4 py-3">{customer.email}</td>
                                         <td className="px-4 py-3">{customer.tel}</td>
                                         <td className="px-4 py-3">
-                                            {/* Actions */}
+                                            <span
+                                                style={customer.status === 'Actif' ? statusStyles.active : statusStyles.inactive}
+                                            />
+                                        </td>
+                                        <td className="px-4 py-3 text-right">
+                                            <button
+                                                className="text-blue-600 dark:text-blue-500 hover:underline"
+                                                onClick={() => navigate(`/customer/${customer._id}`)}
+                                            >
+                                                Détails
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}

@@ -16,15 +16,16 @@ const getCoursierById = (id) => {
 const deleteCoursierById = (id) => {
     return axios.delete(`${API_URL}coursier/${id}`);
 }
+const updateCoursierStatus = (id, status) => {
+    return axios.patch(`${API_URL}coursier/${id}/status`, { status });
+};
 
-// Fonction pour désactiver un coursier par ID (si nécessaire)
-const deactivateCoursierById = (id) => {
-    return axios.put(`${API_URL}coursier/${id}/deactivate`);
-}
+
 
 export default {
     getAllCoursiers,
     getCoursierById,
     deleteCoursierById,
-    deactivateCoursierById,
+    updateCoursierStatus,
+   
 };

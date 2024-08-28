@@ -16,6 +16,7 @@ import ColisList from "./Components/Admin/ColisList";
 import Colis from "./Components/Admin/Colis";
 import Expeditions from "./Components/Admin/Expeditions";
 import ExpeditionList from "./Components/Admin/ExpeditionList";
+import Stats from "./Components/Admin/Stats";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path="/dashboard/admin/createshipment" element={<CreateExpedition />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/dashboard/admin/clients" element={<Customer />} />
+        <Route path="/dashboard/admin/stats" element={<Stats />} />
         <Route path="/dashboard/admin/coursiers" element={<Coursiers />} />
         <Route path="/dashboard/admin/colis" element={<Colis />} />
         <Route path="/dashboard/admin/expeditions" element={<Expeditions />} />

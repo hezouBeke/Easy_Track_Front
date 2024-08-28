@@ -1,45 +1,95 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import authService from '../../services/authService';
+import coursierService from '../../services/coursierService';
 import Adminsidebar from './Adminsidebar';
 import Adminheader from './Adminheader';
 
-function Coursiers() {
+function Coursier() {
     const [coursiers, setCoursiers] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [selectedCoursier, setSelectedCoursier] = useState(null);
+    const [isActionsDropdownVisible, setIsActionsDropdownVisible] = useState(false);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchCoursiers = async () => {
-            try {
-                const response = await authService.getUsersByRole('Coursier');
-                setCoursiers(response.data);
-            } catch (error) {
-                setError('Erreur lors de la récupération des coursiers');
-                console.error('Error fetching coursiers:', error);
-            }
-        };
+    // Fonction pour récupérer les coursiers
+    const fetchCoursiers = async () => {
+        try {
+            const response = await coursierService.getAllCoursiers();
+            const updatedCoursiers = response.data.map(coursier => ({
+                ...coursier,
+                status: coursier.status // Assurez-vous que le statut est correct
+            }));
+            setCoursiers(updatedCoursiers);
+        } catch (error) {
+            setError('Erreur lors de la récupération des coursiers');
+            console.error('Error fetching coursiers:', error);
+        }
+    };
 
+    // Chargement initial des coursiers
+    useEffect(() => {
         fetchCoursiers();
     }, []);
 
+    // Gestion de la sélection d'un coursier
+    const handleSelectCoursier = (id) => {
+        if (id === selectedCoursier) {
+            setSelectedCoursier(null);
+            setIsActionsDropdownVisible(false);
+        } else {
+            setSelectedCoursier(id);
+            setIsActionsDropdownVisible(true);
+        }
+    };
+
+    // Gestion des actions sur un coursier
+    const handleAction = async (action) => {
+        if (selectedCoursier) {
+            try {
+                if (action === 'deactivate') {
+                    await coursierService.updateCoursierStatus(selectedCoursier, 'Inactif');
+                } else if (action === 'activate') {
+                    await coursierService.updateCoursierStatus(selectedCoursier, 'Actif');
+                } else if (action === 'delete') {
+                    await coursierService.deleteCoursierById(selectedCoursier);
+                }
+                // Recharger les coursiers après chaque action
+                fetchCoursiers();
+            } catch (error) {
+                console.error('Error performing action on coursier:', error);
+                setError('Erreur lors de l\'action sur le coursier');
+            }
+            setSelectedCoursier(null);
+            setIsActionsDropdownVisible(false);
+        }
+    };
+
     if (error) return <p>{error}</p>;
+
+    // Styles pour le statut
+    const statusStyles = {
+        active: {
+            display: 'inline-block',
+            width: '10px',
+            height: '10px',
+            borderRadius: '50%',
+            backgroundColor: '#28a745',
+            animation: 'blink 1s infinite'
+        },
+        inactive: {
+            display: 'inline-block',
+            width: '10px',
+            height: '10px',
+            borderRadius: '50%',
+            backgroundColor: '#dc3545'
+        }
+    };
 
     return (
         <section className="relative bg-gray-50 dark:bg-gray-100 p-3 sm:p-5">
             <Adminheader />
             <Adminsidebar />
-            <div className="absolute top-0 left-0 mt-4 ml-4 flex items-center">
-                <button onClick={() => navigate(-1)} className="text-gray-300 hover:text-white flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#0255CA">
-                        <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
-                    </svg>
-                </button>
-                <span className="ml-4 text-xl font-semibold text-black">
-                    Liste des coursiers inscrits sur la plateforme
-                </span>
-            </div>
+        
             <div className="mx-auto max-w-screen-xl px-4 lg:px-12 mt-12">
                 <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                     <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
@@ -56,35 +106,62 @@ function Coursiers() {
                                 </div>
                             </form>
                         </div>
-                        <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" className="flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                        <div className="relative">
+                            <button
+                                id="actionsDropdownButton"
+                                className={`w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 ${!selectedCoursier ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                disabled={!selectedCoursier}
+                                onClick={() => setIsActionsDropdownVisible(!isActionsDropdownVisible)}
+                            >
+                                Actions
                                 <svg className="-ml-1 mr-1.5 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                     <path clipRule="evenodd" fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                                 </svg>
-                                Actions
                             </button>
-                            <div id="dropdown" className="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                                    <li>
-                                        <a href="#" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Modifier en masse</a>
-                                    </li>
-                                </ul>
-                                <div className="py-1">
-                                    <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Supprimer tout</a>
+                            {isActionsDropdownVisible && (
+                                <div id="actionsDropdown" className="absolute right-0 z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                                    <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="actionsDropdownButton">
+                                        <li>
+                                            <button
+                                                onClick={() => handleAction('deactivate')}
+                                                className="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                            >
+                                                Désactiver
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button
+                                                onClick={() => handleAction('activate')}
+                                                className="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                            >
+                                                Activer
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button
+                                                onClick={() => handleAction('delete')}
+                                                className="block w-full text-left py-2 px-4 text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                            >
+                                                Supprimer
+                                            </button>
+                                        </li>
+                                    </ul>
                                 </div>
-                            </div>
+                            )}
                         </div>
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
+                                    <th scope="col" className="px-4 py-3">
+                                        <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+                                    </th>
                                     <th scope="col" className="px-4 py-3">Nom & Prénom</th>
                                     <th scope="col" className="px-4 py-3">Email</th>
                                     <th scope="col" className="px-4 py-3">Téléphone</th>
-                                    <th scope="col" className="px-4 py-3">Marque du véhicule</th>
-                                    <th scope="col" className="px-4 py-3">Type</th>
-                                    <th scope="col" className="px-4 py-3">Immatriculation</th>
+                                    <th scope="col" className="px-4 py-3">Sexe</th>
+                                    <th scope="col" className="px-4 py-3">Statut</th>
                                     <th scope="col" className="px-4 py-3">
                                         <span className="sr-only">Actions</span>
                                     </th>
@@ -92,20 +169,27 @@ function Coursiers() {
                             </thead>
                             <tbody>
                                 {coursiers.map(coursier => (
-                                    <tr key={coursier._id} className="hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        
-                                        <td className="px-4 py-3 flex items-center space-x-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                                <path d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q53 0 100-15.5t86-44.5q-39-29-86-44.5T480-280q-53 0-100 15.5T294-220q39 29 86 44.5T480-160Zm0-360q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm0-60Zm0 360Z"/>
-                                            </svg>
-                                            <span>{coursier.completename}</span>
+                                    <tr key={coursier._id} className={`hover:bg-gray-100 dark:hover:bg-gray-600 ${selectedCoursier === coursier._id ? 'bg-blue-100 dark:bg-blue-600' : ''}`}>
+                                        <td className="px-4 py-3">
+                                            <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" checked={selectedCoursier === coursier._id} onChange={() => handleSelectCoursier(coursier._id)} />
                                         </td>
-                                        <td className="px-4 py-3">{coursier.email || 'N/A'}</td>
-                                        <td className="px-4 py-3">{coursier.tel || 'N/A'}</td>
-                                        <td className="px-4 py-3">{coursier.vehic_id?.marque || 'N/A'}</td> {/* Modification ici */}
-                                        <td className="px-4 py-3">{coursier.vehic_id?.type || 'N/A'}</td> {/* Modification ici */}
-                                        <td className="px-4 py-3">{coursier.vehic_id?.immatriculation || 'N/A'}</td> {/* Modification ici */}
-                                       
+                                        <td className="px-4 py-3">{coursier.completename}</td>
+                                        <td className="px-4 py-3">{coursier.email}</td>
+                                        <td className="px-4 py-3">{coursier.tel}</td>
+                                        <td className="px-4 py-3">{coursier.sex}</td>
+                                        <td className="px-4 py-3">
+                                            <span
+                                                style={coursier.status === 'Actif' ? statusStyles.active : statusStyles.inactive}
+                                            />
+                                        </td>
+                                        <td className="px-4 py-3 text-right">
+                                            <button
+                                                className="text-blue-600 dark:text-blue-500 hover:underline"
+                                                onClick={() => navigate(`/coursier/${coursier._id}`)}
+                                            >
+                                                Détails
+                                            </button>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -117,4 +201,4 @@ function Coursiers() {
     );
 }
 
-export default Coursiers;
+export default Coursier;

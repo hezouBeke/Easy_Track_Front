@@ -6,7 +6,7 @@ import expeditionService from "../../services/expeditionService";
 import { useNavigate } from "react-router-dom";
 
 function CreateExpedition() {
-  const [step, setStep] = useState(1); // État pour suivre l'étape actuelle
+  const [step, setStep] = useState(1);
   const [colisData, setColisData] = useState({
     client_id_exp: "",
     client_id_dest: "",
@@ -104,28 +104,48 @@ function CreateExpedition() {
     }
   };
 
-  const nextStep = () => setStep(step + 1);
-  const prevStep = () => setStep(step - 1);
+  const nextStep = () => {
+    setStep(step + 1);
+  };
+
+  const prevStep = () => {
+    setStep(step - 1);
+  };
+
+  // Définir le texte dynamique en fonction de l'étape
+  const getStepTitle = () => {
+    switch (step) {
+      case 1:
+        return "Renseigner les informations sur le colis";
+      case 2:
+        return "Renseigner les informations sur la course";
+      default:
+        return "";
+    }
+  };
 
   return (
     <section className="h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full max-h-[95vh] overflow-y-auto">
-        <div className="mb-8">
-          <h3 className="text-lg font-semibold text-blue-600">
-            Étape {step} sur 2
-          </h3>
-          <div className="flex justify-between items-center">
-            <div className={`h-2 w-1/2 ${step === 1 ? 'bg-blue-500' : 'bg-gray-300'}`} />
-            <div className={`h-2 w-1/2 ${step === 2 ? 'bg-blue-500' : 'bg-gray-300'}`} />
+        
+        {/* Titre dynamique au-dessus du formulaire */}
+        <div className="text-center mb-8">
+          <h2 className="text-2xl font-semibold">{getStepTitle()}</h2>
+        </div>
+
+        {/* Barre de progression */}
+        <div className="flex justify-center mb-8">
+          <div className="flex items-center space-x-4">
+            <div className={`w-8 h-8 flex items-center justify-center rounded-full ${step >= 1 ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-500'}`}>1</div>
+            <div className={`w-20 h-1 ${step >= 2 ? 'bg-blue-500' : 'bg-gray-300'}`}></div>
+            <div className={`w-8 h-8 flex items-center justify-center rounded-full ${step >= 2 ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-500'}`}>2</div>
           </div>
         </div>
 
         <form onSubmit={handleSubmit}>
           {step === 1 && (
-            <div className="mb-6">
-              <h3 className="text-lg font-semibold text-blue-600">
-                Informations sur le colis
-              </h3>
+            <div>
+             
               <div className="grid gap-4 mb-4 sm:grid-cols-2 md:grid-cols-4">
                 <div className="sm:col-span-1">
                   <select
@@ -144,6 +164,7 @@ function CreateExpedition() {
                     ))}
                   </select>
                 </div>
+
                 <div className="sm:col-span-1">
                   <select
                     name="client_id_dest"
@@ -161,6 +182,7 @@ function CreateExpedition() {
                     ))}
                   </select>
                 </div>
+
                 <div className="sm:col-span-1">
                   <input
                     type="text"
@@ -281,10 +303,8 @@ function CreateExpedition() {
           )}
 
           {step === 2 && (
-            <div className="mb-6">
-              <h3 className="text-lg font-semibold text-blue-600">
-                Création de courses
-              </h3>
+            <div>
+             
               {coursesData.map((course, index) => (
                 <div
                   key={index}
@@ -403,6 +423,7 @@ function CreateExpedition() {
                   )}
                 </div>
               ))}
+
               <div className="flex justify-between mt-6">
                 <button
                   type="button"

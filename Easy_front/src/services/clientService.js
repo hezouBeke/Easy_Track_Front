@@ -17,14 +17,13 @@ const deleteClientById = (id) => {
     return axios.delete(`${API_URL}client/${id}`);
 }
 
-// Fonction pour désactiver un client par ID (si nécessaire)
-const deactivateClientById = (id) => {
-    return axios.put(`${API_URL}client/${id}/deactivate`);
-}
+const updateClientStatus = (id, status) => {
+    return axios.patch(`${API_URL}client/${id}/status`, { status });
+};
 
 export default {
     getAllClients,
     getClientById,
     deleteClientById,
-    deactivateClientById,
+    updateClientStatus
 };
