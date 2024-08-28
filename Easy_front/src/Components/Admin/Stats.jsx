@@ -1,6 +1,6 @@
 import Adminheader from "./Adminheader";
 import Adminsidebar from "./Adminsidebar";
-
+import LineChart from "./LineChart";
 function Stats() {
   return (
     <section className="relative bg-gray-50 dark:bg-gray-100 p-3 sm:p-5">
@@ -58,6 +58,9 @@ function Stats() {
           <p className="text-2xl font-bold text-blue-500">362</p>
           <p className="text-green-500">+12</p>
         </div>
+      </div>
+      <div className="mt-10 ml-64">
+        <LineChart />
       </div>
     </section>
   );

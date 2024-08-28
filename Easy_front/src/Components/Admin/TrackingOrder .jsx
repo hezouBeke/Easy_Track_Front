@@ -45,7 +45,7 @@ const TrackingOrder = () => {
     };
 
     return (
-        <div className="p-6 bg-white rounded-lg shadow-lg relative top-96 right-0 left-64 w-[1420px]">
+        <div className="p-5 bg-white rounded-lg shadow-lg relative top-96 right-0 left-64 w-[1420px]">
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-semibold">Tracking Order</h2>
                 <div className="flex items-center">

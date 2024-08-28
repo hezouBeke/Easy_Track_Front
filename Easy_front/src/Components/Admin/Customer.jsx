@@ -86,11 +86,11 @@ function Customer() {
     };
 
     return (
-        <section className="relative bg-gray-50 dark:bg-gray-100 p-3 sm:p-5">
+        <section className="relative bg-gray-50 dark:bg-gray-800 p-3 sm:p-5">
             <Adminheader />
             <Adminsidebar />
         
-            <div className="mx-auto max-w-screen-xl px-4 lg:px-12 mt-12">
+            <div className="mx-60 max-w-screen-2xl px-5 lg:px-0 mt-10 mr-0">
                 <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                     <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                         <div className="w-full md:w-1/2">

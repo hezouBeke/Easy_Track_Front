@@ -17,10 +17,10 @@ function AdminDashboard() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <OngoingDeliveries />
             <MyGoogleMap />
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 ">
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 ">
             <TrackingOrder />
             </div>
-          </div>
         </div>
       </div>
       <div >
