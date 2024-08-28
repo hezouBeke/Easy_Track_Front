@@ -1,13 +1,16 @@
 import Adminheader from "./Adminheader";
 import Adminsidebar from "./Adminsidebar";
 import LineChart from "./LineChart";
+
 function Stats() {
   return (
     <section className="relative bg-gray-50 dark:bg-gray-100 p-3 sm:p-5">
       <Adminheader />
       <Adminsidebar />
+      
+      {/* Section pour les cartes */}
       <div className="grid grid-cols-5 sm:grid-cols-5 lg:grid-cols-5 gap-10 mt-20 ml-64">
-        {/* Carte pour les Colis Traités */}
+        {/* Cartes */}
         <div className="relative p-6 bg-white shadow-md rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-blue-500/50 w-full h-full">
           <div className="absolute top-2 right-2">
             <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000">
@@ -18,9 +21,8 @@ function Stats() {
           <p className="text-2xl font-bold text-blue-500">362</p>
           <p className="text-green-500">+12</p>
         </div>
-
-        {/* Carte pour les Colis Livrés */}
-        <div className="relative p-6 bg-white shadow-md rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-blue-500/50 w-full h-full">
+         {/* Carte pour les Colis Livrés */}
+         <div className="relative p-6 bg-white shadow-md rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-blue-500/50 w-full h-full">
           <div className="absolute top-2 right-2">
           <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000"><path d="M285.33-241.33 60.67-466l47.66-47.33L285.67-336 333-288.67l-47.67 47.34Zm188.67 0L249.33-466l47.34-47.67L474-336.33 852.67-715 900-667.33l-426 426ZM474-430l-47.67-47.33 237.34-237.34 47.66 47.34L474-430Z"/></svg>
           </div>
@@ -29,7 +31,7 @@ function Stats() {
           <p className="text-green-500">+12</p>
         </div>
 
-        {/* Carte pour les Colis en Transit */}
+ {/* Carte pour les Colis en Transit */}
         <div className="relative p-6 bg-white shadow-md rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-blue-500/50 w-full h-full">
           <div className="absolute top-2 right-2">
           <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000"><path d="M312-146.67h336v-124.66q0-70-49-118.67t-119-48.67q-70 0-119 48.67t-49 118.67v124.66ZM160-80v-66.67h85.33v-124.66q0-67.67 36.17-124.17t97.17-84.5q-61-28.67-97.17-85.17t-36.17-124.16v-124H160V-880h640v66.67h-85.33v124q0 67.66-36.17 124.16T581.33-480q61 28 97.17 84.5t36.17 124.17v124.66H800V-80H160Z"/></svg>
@@ -59,7 +61,30 @@ function Stats() {
           <p className="text-green-500">+12</p>
         </div>
       </div>
-      <div className="mt-10 ml-64">
+
+  {/* Section pour les contrôles et le graphique */}
+  <div className="mt-10 ml-64">
+        {/* Conteneur pour les contrôles au-dessus du graphique */}
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-lg font-semibold text-gray-700">Est. Revenue ($)</h3>
+          <div className="flex space-x-2">
+            <select className="p-2 border rounded-md text-gray-700">
+              <option>View By: All</option>
+              {/* Ajouter d'autres options ici si nécessaire */}
+            </select>
+            <button className="p-2 border rounded-md text-gray-700 flex items-center space-x-2">
+              <span>Filters</span>
+              <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#000000">
+                <path d="M456-144v-240h72v84h288v72H528v84h-72Zm-312-84v-72h240v72H144Zm144-132v-84H144v-72h144v-84h72v240h-72Zm144-84v-72h384v72H432Zm144-132v-240h72v84h168v72H648v84h-72Zm-432-84v-72h384v72H144Z"/>
+              </svg>
+            </button>
+            <button className="p-2 bg-blue-500 text-white rounded-md flex items-center space-x-2">
+              <span>Download</span>
+              <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#FFFFFF"><path d="M480-336 288-528l51-51 105 105v-342h72v342l105-105 51 51-192 192ZM263.72-192Q234-192 213-213.15T192-264v-72h72v72h432v-72h72v72q0 29.7-21.16 50.85Q725.68-192 695.96-192H263.72Z"/></svg>
+            </button>
+          </div>
+        </div>
+        {/* Graphique */}
         <LineChart />
       </div>
     </section>

@@ -100,7 +100,7 @@ const LineChart = () => {
   };
 
   return (
-    <div style={{ width: '500px', height: '400px' }}>
+    <div style={{ width: '1398px', height: '400px' }}>
       <Line data={data} options={options} />
     </div>
   );

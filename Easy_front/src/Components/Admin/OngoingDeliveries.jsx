@@ -10,45 +10,40 @@ const OngoingDeliveries = () => {
     const deliveries = [
         {
             id: "#001234ABCD",
-            from: "87 Wern Ddu Lane",
-            to: "15 Vicar Lane",
+            from: "Togo ",
+            to: "France",
             status: "On the way",
         },
         {
             id: "#001234ABCD",
-            from: "40 Broomfield Place",
-            to: "44 Helland Bridge",
+            from: "Togo ",
+            to: "France",
             status: "On the way",
         },
         {
             id: "#001234ABCD",
-            from: "87 Wern Ddu Lane",
-            to: "15 Vicar Lane",
+            from: "Togo ",
+            to: "France",
             status: "On the way",
         },
         {
             id: "#001234ABCD",
-            from: "87 Wern Ddu Lane",
-            to: "15 Vicar Lane",
+            from: "Togo ",
+            to: "France",
             status: "On the way",
         },
         {
             id: "#001234ABCD",
-            from: "87 Wern Ddu Lane",
-            to: "15 Vicar Lane",
+            from: "Togo ",
+            to: "France",
             status: "On the way",
         },
-        {
-            id: "#001234ABCD",
-            from: "87 Wern Ddu Lane",
-            to: "15 Vicar Lane",
-            status: "On the way",
-        },
+       
     ];
 
     return (
         <div 
-            className="p-2 bg-white rounded-lg shadow-lg mt-10 fixed top-60 left-80 justify-center w-[530px] h-[400px] overflow-y-scroll"
+            className="p-2 bg-white rounded-lg shadow-lg mt-10 fixed top-60 left-80 justify-center w-[530px] h-[280px] overflow-y-scroll"
             style={{
                 scrollbarWidth: 'none', /* Firefox */
                 msOverflowStyle: 'none', /* Internet Explorer 10+ */
@@ -66,8 +61,7 @@ const OngoingDeliveries = () => {
                 <h2 className="text-xl font-semibold">Ongoing delivery</h2>
                 <button className="flex items-center text-gray-500 hover:text-gray-700">
                     <span className="mr-2">Filter</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line></svg>
-                </button>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#000000"><path d="M456-144v-240h72v84h288v72H528v84h-72Zm-312-84v-72h240v72H144Zm144-132v-84H144v-72h144v-84h72v240h-72Zm144-84v-72h384v72H432Zm144-132v-240h72v84h168v72H648v84h-72Zm-432-84v-72h384v72H144Z"/></svg>                </button>
             </div>
             {deliveries.map((delivery, index) => (
                 <div 
