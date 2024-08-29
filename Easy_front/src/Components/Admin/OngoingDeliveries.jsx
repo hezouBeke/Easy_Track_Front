@@ -43,7 +43,7 @@ const OngoingDeliveries = () => {
 
     return (
         <div 
-            className="p-2 bg-white rounded-lg shadow-lg mt-10 fixed top-60 left-80 justify-center w-[530px] h-[280px] overflow-y-scroll"
+            className="p-3 bg-white rounded-lg shadow-lg mt-10 fixed top-60 left-72 justify-center w-[530px] h-[310px] overflow-y-scroll"
             style={{
                 scrollbarWidth: 'none', /* Firefox */
                 msOverflowStyle: 'none', /* Internet Explorer 10+ */
@@ -82,4 +82,3 @@ const OngoingDeliveries = () => {
 };
 
 export default OngoingDeliveries;
-

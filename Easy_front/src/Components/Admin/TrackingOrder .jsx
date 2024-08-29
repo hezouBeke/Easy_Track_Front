@@ -135,8 +135,8 @@ const TrackingOrder = () => {
 
     return (
         <div className="fixed bottom-0 right-0 left-64 p-5 bg-white rounded-lg shadow-lg w-[1450px] max-h-[30vh] overflow-y-auto">
-            <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-thin">Tracking</h2>
+            <div className=" flex justify-between items-center mb-4">
+                <h2 className=" text-xl font-thin">Tracking</h2>
                 <div className="flex items-center">
                     <input 
                         type="text" 
