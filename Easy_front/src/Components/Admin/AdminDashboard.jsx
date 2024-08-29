@@ -8,11 +8,11 @@ import TrackingOrder from "../Admin/TrackingOrder ";
 
 function AdminDashboard() {
   return (
-    <div className="flex min-h-screen">  
+    <div className="flex min-h-screen "> 
       <Adminheader />
       <div className="flex flex-col w-full">
-      <Adminsidebar />
-        <div className="p-6 flex flex-col space-y-8">
+        <Adminsidebar />
+        <div className="p-6 flex flex-col space-y-8rounded-lg shadow-md bg-gray-200">
           <DashboardCards />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <OngoingDeliveries />
@@ -20,10 +20,8 @@ function AdminDashboard() {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 ">
             <TrackingOrder />
-            </div>
+          </div>
         </div>
-      </div>
-      <div >
       </div>
     </div>
   );

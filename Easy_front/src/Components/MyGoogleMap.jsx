@@ -2,8 +2,8 @@ import React from 'react';
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
 
 const containerStyle = {
-  width: '860px', // Ajustez la largeur selon vos besoins
-  height: '330px', // Ajustez la hauteur pour afficher correctement la carte
+  width: '840px', // Ajustez la largeur selon vos besoins
+  height: '310px', // Ajustez la hauteur pour afficher correctement la carte
 };
 
 const center = {
@@ -13,7 +13,7 @@ const center = {
 
 function MyGoogleMap() {
   return (
-    <div className="bg-white rounded-lg shadow-lg border-5 border-blue-500 absolute right-4 top-64 h-[200px]">
+    <div className="bg-white rounded-lg shadow-lg border-10 border-blue-500 absolute right-4 top-72 h-[200px] ">
       <LoadScript googleMapsApiKey="AIzaSyA1k2KoK3gmKQ01mI17Rp8rvaoExxdqsDY">
         <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={5}>
           {/* Vous pouvez ajouter des marqueurs ici si nécessaire */}
