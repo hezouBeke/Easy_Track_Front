@@ -137,14 +137,7 @@ function Coursier() {
                                                 Activer
                                             </button>
                                         </li>
-                                        <li>
-                                            <button
-                                                onClick={() => handleAction('delete')}
-                                                className="block w-full text-left py-2 px-4 text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                            >
-                                                Supprimer
-                                            </button>
-                                        </li>
+                                       
                                     </ul>
                                 </div>
                             )}
@@ -154,9 +147,7 @@ function Coursier() {
                         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
-                                    <th scope="col" className="px-4 py-3">
-                                        <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
-                                    </th>
+                                    <th scope="col" className="px-4 py-3"></th> {/* Colonne vide pour aligner */}
                                     <th scope="col" className="px-4 py-3">Nom & Prénom</th>
                                     <th scope="col" className="px-4 py-3">Email</th>
                                     <th scope="col" className="px-4 py-3">Téléphone</th>

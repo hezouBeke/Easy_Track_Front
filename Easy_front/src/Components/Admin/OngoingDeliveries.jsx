@@ -1,55 +1,66 @@
 import React from 'react';
 
-const TruckIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000">
-        <path d="M229.41-160.67q-49.41 0-84.08-34.61-34.66-34.61-34.66-84.05H40v-454q0-27 19.83-46.84Q79.67-800 106.67-800h572.66v164.67h110l130.67 174v182h-74q0 49.44-34.59 84.05t-84 34.61q-49.41 0-84.08-34.61-34.66-34.61-34.66-84.05H348q0 49.33-34.59 84-34.59 34.66-84 34.66Zm-.08-66.66q21.67 0 36.84-15.17 15.16-15.17 15.16-36.83 0-21.67-15.16-36.84-15.17-15.16-36.84-15.16-21.66 0-36.83 15.16-15.17 15.17-15.17 36.84 0 21.66 15.17 36.83 15.17 15.17 36.83 15.17ZM106.67-346H132q17-24 41.69-38.33 24.7-14.34 55-14.34Q259-398.67 284-384q25 14.67 42 38h286.67v-387.33h-506V-346Zm620.66 118.67q21.67 0 36.84-15.17 15.16-15.17 15.16-36.83 0-21.67-15.16-36.84-15.17-15.16-36.84-15.16-21.66 0-36.83 15.16-15.17 15.17-15.17 36.84 0 21.66 15.17 36.83 15.17 15.17 36.83 15.17Zm-48-202.67H860L756-568.67h-76.67V-430ZM360-532.67Z"/>
-    </svg>
+const PhoneIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#FFFFFF"><path d="M763-145q-121-9-229.5-59.5T339-341q-86-86-135.5-194T144-764q-2-21 12.29-36.5Q170.57-816 192-816h136q17 0 29.5 10.5T374-779l24 106q2 13-1.5 25T385-628l-97 98q20 38 46 73t57.97 65.98Q422-361 456-335.5q34 25.5 72 45.5l99-96q8-8 20-11.5t25-1.5l107 23q17 5 27 17.5t10 29.5v136q0 21.43-16 35.71Q784-143 763-145ZM255-600l70-70-17.16-74H218q5 38 14 73.5t23 70.5Zm344 344q35.1 14.24 71.55 22.62Q707-225 744-220v-90l-75-16-70 70ZM255-600Zm344 344Z"/></svg>
+);
+
+const MessageIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#FFFFFF"><path d="M240-384h336v-72H240v72Zm0-132h480v-72H240v72Zm0-132h480v-72H240v72ZM96-96v-696q0-29.7 21.15-50.85Q138.3-864 168-864h624q29.7 0 50.85 21.15Q864-821.7 864-792v480q0 29.7-21.15 50.85Q821.7-240 792-240H240L96-96Zm114-216h582v-480H168v522l42-42Zm-42 0v-480 480Z"/></svg>
 );
 
 const OngoingDeliveries = () => {
     const deliveries = [
         {
-            id: "#001234ABCD",
-            from: "Togo ",
-            to: "France",
-            status: "On the way",
+            id: "KG3200L3122324GF",
+            departure: "22.08.21 16:40 PM",
+            arrival: "24.08.21 12:30 PM",
+            customer: "Ella Doer",
+            price: "1334 $",
+            description: "Clothes",
+            weight: "1,2 kg",
+            driver: "John Green",
+            status: "In Transit",
         },
         {
-            id: "#001234ABCD",
-            from: "Togo ",
-            to: "France",
-            status: "On the way",
+            id: "KG3200L3122324GF",
+            departure: "22.08.21 16:40 PM",
+            arrival: "24.08.21 12:30 PM",
+            customer: "Ella Doer",
+            price: "1334 $",
+            description: "Clothes",
+            weight: "1,2 kg",
+            driver: "John Green",
+            status: "In Transit",
         },
         {
-            id: "#001234ABCD",
-            from: "Togo ",
-            to: "France",
-            status: "On the way",
+            id: "KG3200L3122324GF",
+            departure: "22.08.21 16:40 PM",
+            arrival: "24.08.21 12:30 PM",
+            customer: "Ella Doer",
+            price: "1334 $",
+            description: "Clothes",
+            weight: "1,2 kg",
+            driver: "John Green",
+            status: "In Transit",
         },
         {
-            id: "#001234ABCD",
-            from: "Togo ",
-            to: "France",
-            status: "On the way",
+            id: "KG3200L3122324GF",
+            departure: "22.08.21 16:40 PM",
+            arrival: "24.08.21 12:30 PM",
+            customer: "Ella Doer",
+            price: "1334 $",
+            description: "Clothes",
+            weight: "1,2 kg",
+            driver: "John Green",
+            status: "In Transit",
         },
-        {
-            id: "#001234ABCD",
-            from: "Togo ",
-            to: "France",
-            status: "On the way",
-        },
-         {
-            id: "#001234ABCD",
-            from: "Togo ",
-            to: "France",
-            status: "On the way",
-        },
-        // ... autres livraisons
+        
+        // Ajoutez plus de livraisons si nécessaire
     ];
 
     return (
         <div 
-            className="p-3 bg-white text-black rounded-lg shadow-lg mt-10 pt-0 fixed top-60 left-72 justify-center w-[540px] h-[310px] overflow-y-auto"
+            className="p-3 bg-white text-black rounded-lg shadow-lg mt-10 pt-0 fixed top-60 left-72 justify-center w-[550px] h-[350px] overflow-y-auto"
             style={{
                 scrollbarWidth: 'none', /* Firefox */
                 msOverflowStyle: 'none', /* Internet Explorer 10+ */
@@ -64,25 +75,73 @@ const OngoingDeliveries = () => {
                 `}
             </style>
             {/* En-tête figée avec fond bleu */}
-            <div className="flex justify-between items-center p-4 bg-blue-500 text-black rounded-t-lg shadow-lg sticky top-0 z-10">
-                <h2 className="text-xl font-semibold">Colis expédiés</h2>
-                <button className="flex items-center text-white hover:text-gray-300">
-                    <span className="mr-2">Filter</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#ffffff"><path d="M456-144v-240h72v84h288v72H528v84h-72Zm-312-84v-72h240v72H144Zm144-132v-84H144v-72h144v-84h72v240h-72Zm144-84v-72h384v72H432Zm144-132v-240h72v84h168v72H648v84h-72Zm-432-84v-72h384v72H144Z"/></svg>                </button>
+            <div className="flex justify-between items-center p-4 bg-blue-500 text-white rounded-t-lg shadow-lg sticky top-0 z-10 font-thin">
+                <h2 className="text-xl font-thin">Colis expédiés</h2>
             </div>
             {/* Contenu défilant avec du padding pour éviter le chevauchement */}
             <div className="pt-4">
                 {deliveries.map((delivery, index) => (
                     <div 
                         key={index} 
-                        className="p-4 mb-4 bg-white rounded-lg border border-gray-200 flex items-center shadow-xl hover:shadow-2xl hover:shadow-blue-400 transition-shadow"
+                        className="p-3 mb-3 bg-white rounded-lg border border-gray-200 shadow-md hover:shadow-blue-400 transition-shadow text-sm font-thin w-[520px]" // Largeur ajustée ici
+                        style={{ transition: 'box-shadow 0.3s ease' }} 
                     >
-                        <TruckIcon />
-                        <div className="ml-4">
-                            <h3 className="text-lg font-semibold text-black">{delivery.id}</h3>
-                            <p className="text-sm text-gray-700">
-                                {delivery.from} ➞ {delivery.to}
-                            </p>
+                        <div className="flex justify-between items-center mb-2">
+                            <span className="text-xs font-thin">Tracking Number</span>
+                            <span className="px-2 py-1 bg-yellow-400 text-white text-xs rounded-full">{delivery.status}</span>
+                        </div>
+                        <h3 className="text-md font-semibold text-black">{delivery.id}</h3>
+
+                        <hr className="my-2 border-gray-300" style={{ borderWidth: '0.5px' }} />
+
+                        <div className="flex justify-between items-center mt-2 text-xs">
+                            <div className="text-gray-600">
+                                <p>Departure</p>
+                                <p className="font-semibold">{delivery.departure}</p>
+                            </div>
+                            <div className="text-gray-600">
+                                <p>Arrival</p>
+                                <p className="font-semibold">{delivery.arrival}</p>
+                            </div>
+                        </div>
+
+                        <hr className="my-2 border-gray-300" style={{ borderWidth: '0.5px' }} />
+
+                        <div className="flex justify-between items-center mt-2 text-xs">
+                            <div className="flex-1">
+                                <p className="text-gray-600">Customer</p>
+                                <p className="font-semibold">{delivery.customer}</p>
+                            </div>
+                            <div className="flex-1">
+                                <p className="text-gray-600">Price</p>
+                                <p className="font-semibold">{delivery.price}</p>
+                            </div>
+                            <div className="flex-1">
+                                <p className="text-gray-600">Description</p>
+                                <p className="font-semibold">{delivery.description}</p>
+                            </div>
+                            <div className="flex-1">
+                                <p className="text-gray-600">Weight</p>
+                                <p className="font-semibold">{delivery.weight}</p>
+                            </div>
+                        </div>
+
+                        <hr className="my-2 border-gray-300" style={{ borderWidth: '0.5px' }} />
+
+                        <div className="flex items-center mt-4">
+                            <div className="w-8 h-8 rounded-full bg-gray-300 mr-3"></div> {/* Placeholder pour l'image du conducteur */}
+                            <div className="text-xs">
+                                <p className="text-gray-600">Driver</p>
+                                <p className="font-semibold">{delivery.driver}</p>
+                            </div>
+                            <div className="ml-auto flex space-x-2">
+                                <button className="bg-black text-white p-2 rounded-full flex justify-center items-center">
+                                    <PhoneIcon />
+                                </button>
+                                <button className="bg-black text-white p-2 rounded-full flex justify-center items-center">
+                                    <MessageIcon />
+                                </button>
+                            </div>
                         </div>
                     </div>
                 ))}

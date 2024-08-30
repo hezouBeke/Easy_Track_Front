@@ -11,7 +11,6 @@ function Customer() {
     const [isActionsDropdownVisible, setIsActionsDropdownVisible] = useState(false);
     const navigate = useNavigate();
 
-    // Fonction pour récupérer les clients
     const fetchCustomers = async () => {
         try {
             const response = await clientService.getAllClients();
@@ -26,12 +25,10 @@ function Customer() {
         }
     };
 
-    // Chargement initial des clients
     useEffect(() => {
         fetchCustomers();
     }, []);
 
-    // Gestion de la sélection d'un client
     const handleSelectCustomer = (id) => {
         if (id === selectedCustomer) {
             setSelectedCustomer(null);
@@ -42,7 +39,6 @@ function Customer() {
         }
     };
 
-    // Gestion des actions sur un client
     const handleAction = async (action) => {
         if (selectedCustomer) {
             try {
@@ -53,7 +49,6 @@ function Customer() {
                 } else if (action === 'delete') {
                     await clientService.deleteClient(selectedCustomer);
                 }
-                // Recharger les clients après chaque action
                 fetchCustomers();
             } catch (error) {
                 console.error('Error performing action on customer:', error);
@@ -66,7 +61,6 @@ function Customer() {
 
     if (error) return <p>{error}</p>;
 
-    // Styles pour le statut
     const statusStyles = {
         active: {
             display: 'inline-block',
@@ -138,14 +132,7 @@ function Customer() {
                                                     Activer
                                                 </button>
                                             </li>
-                                            <li>
-                                                <button
-                                                    onClick={() => handleAction('delete')}
-                                                    className="block w-full text-left py-2 px-4 text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                >
-                                                    Supprimer
-                                                </button>
-                                            </li>
+                                            
                                         </ul>
                                     </div>
                                 )}
@@ -156,9 +143,7 @@ function Customer() {
                         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
-                                    <th scope="col" className="px-4 py-3">
-                                        <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
-                                    </th>
+                                    <th scope="col" className="px-4 py-3"></th> {/* Colonne vide pour aligner */}
                                     <th scope="col" className="px-4 py-3">Nom & Prénom</th>
                                     <th scope="col" className="px-4 py-3">Email</th>
                                     <th scope="col" className="px-4 py-3">Téléphone</th>
