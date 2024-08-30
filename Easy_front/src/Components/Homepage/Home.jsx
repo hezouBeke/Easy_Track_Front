@@ -7,6 +7,7 @@ import Headsection from "./Headsection";
 import Socialproof from "./Socialproof";
 import Ctagraph from "./Ctagraph";
 import Faq from "./Faq";
+import Pricing from "./Pricing";
  function Home (){
     return(
       <div>
@@ -17,6 +18,7 @@ import Faq from "./Faq";
         <Headsection />
         <Ctagraph /> 
         <Socialproof />
+        <Pricing /> 
         <Footer />
       </div>
     );

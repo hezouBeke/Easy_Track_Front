@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import expeditionService from "../../services/expeditionService";
 import Adminsidebar from './Adminsidebar';
 import Adminheader from './Adminheader';
 
 function Expeditions() {
     const [expeditions, setExpeditions] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchExpeditions = async () => {
@@ -20,61 +22,69 @@ function Expeditions() {
     }, []);
 
     return (
-        <section className="relative bg-gray-50 dark:bg-gray-100 p-3 sm:p-5">
-            <Adminheader />
-            <Adminsidebar />
-            <div className="absolute top-0 left-0 mt-4 ml-4 flex items-center">
-                <button onClick={() => navigate(-1)} className="text-gray-300 hover:text-white flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#0255CA">
-                        <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
-                    </svg>
-                </button>
-                <span className="ml-4 text-xl font-semibold text-black">
-                    Liste des expéditions
-                </span>
-            </div>
-            <div className="mx-auto max-w-screen-xl px-4 lg:px-12 mt-12">
-                <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                <tr>
-                                    <th scope="col" className="px-4 py-3">Code du Colis</th>
-                                    <th scope="col" className="px-4 py-3">Lieu de Départ</th>
-                                    <th scope="col" className="px-4 py-3">Lieu d'Arrivée</th>
-                                    <th scope="col" className="px-4 py-3">Courses</th>
-                                    <th scope="col" className="px-4 py-3">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {expeditions.map(expedition => (
-                                    <tr key={expedition._id} className="hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <td className="px-4 py-3">{expedition.colis_id}</td>
-                                        <td className="px-4 py-3">{expedition.date_depart}</td>
-                                        <td className="px-4 py-3">{expedition.date_arrivee}</td>
-                                        <td className="px-4 py-3">
-                                            {expedition.course_ids.map((course, index) => (
-                                                <div key={index}>
-                                                    {course.depart} → {course.arrive}
-                                                </div>
-                                            ))}
-                                        </td>
-                                        <td className="px-4 py-3">
-                                            <button 
-                                                onClick={() => navigate(`/expeditions/${expedition._id}`)}
-                                                className="text-blue-500 hover:text-blue-700"
-                                            >
-                                                Détails
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+        <section className="relative bg-gray-900 text-gray-300 p-12 sm:p-5 min-h-screen flex flex-col">
+    <Adminheader />
+    <div className="flex">
+        <Adminsidebar />
+        <div className="flex-1 mx-auto w-full px-4 lg:px-12 mt-12">
+            <div className="bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden ml-64 ">
+                
+                {/* Ajout de la barre de recherche et des filtres */}
+                <div className="flex justify-between items-center bg-gray-100 p-4 border-b border-gray-300">
+                    <button className="bg-blue-500 text-white px-4 py-2 rounded-lg">More filters</button>
+                    <div className="flex items-center space-x-2">
+                        <input
+                            type="text"
+                            placeholder="Search"
+                            className="px-4 py-2 border rounded-lg text-black"
+                        />
+                        <button className="text-gray-800">⌘ K</button>
                     </div>
                 </div>
+
+                {/* Table */}
+                <div className="overflow-x-auto mt-0">
+                    <table className="w-full text-sm text-right text-gray-900">
+                        <thead className="text-xs text-gray-900 font-thin bg-gray-100 w-full border-t border-gray-300">
+                            <tr>
+                                <th scope="col" className="px-6 py-4 w-1/6">Départ</th>
+                                <th scope="col" className="px-6 py-4 w-1/6">Destination</th>
+                                <th scope="col" className="px-6 py-4 w-1/6">Date de Départ</th>
+                                <th scope="col" className="px-6 py-4 w-1/6">Date d'Arrivée</th>
+                                <th scope="col" className="px-6 py-4 w-1/6">Client</th>
+                                <th scope="col" className="px-6 py-4 w-1/6">E-mail</th>
+                                <th scope="col" className="px-6 py-4 w-1/6">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {expeditions.map(expedition => (
+                                <tr key={expedition._id} className="hover:bg-gray-700">
+                                    <td className="px-6 py-4">{expedition.lieu_depart}</td>
+                                    <td className="px-6 py-4">{expedition.lieu_arrivee}</td>
+                                    <td className="px-6 py-4">{expedition.date_depart}</td>
+                                    <td className="px-6 py-4">{expedition.date_arrivee}</td>
+                                    <td className="px-6 py-4">{expedition.client_id.completename}</td>
+                                    <td className="px-6 py-4">{expedition.client_id.email}</td>
+                                    <td className="px-6 py-4 text-right">
+                                        <button 
+                                            onClick={() => navigate(`/expeditions/${expedition._id}`)}
+                                            className="text-blue-400 hover:text-blue-600"
+                                        >
+                                            Voir Détail
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
+
+
+    
     );
 }
 
