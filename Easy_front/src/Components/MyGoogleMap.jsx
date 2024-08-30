@@ -13,7 +13,7 @@ const center = {
 
 function MyGoogleMap() {
   return (
-    <div className="bg-white rounded-lg shadow-lg border-10 border-blue-500 absolute right-4 top-72 h-[200px] ">
+    <div className="bg-white  shadow-lg border-20 absolute right-4 top-72 h-[200px] ">
       <LoadScript googleMapsApiKey="AIzaSyA1k2KoK3gmKQ01mI17Rp8rvaoExxdqsDY">
         <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={5}>
           {/* Vous pouvez ajouter des marqueurs ici si nécessaire */}
