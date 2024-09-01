@@ -30,7 +30,7 @@ function Expeditions() {
                     <div className="bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden ml-64 ">
                         {/* Ajout de la barre de recherche et des filtres */}
                         <div className="flex justify-end items-center bg-gray-100 p-4 border-b border-gray-300 space-x-2">
-                            <button className="bg-gray-200 p-2 rounded-lg flex items-center space-x-2">
+                            <button className="bg-gray-700 p-2 rounded-lg flex items-center space-x-2">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#000000">
                                         <path d="M456-144v-240h72v84h288v72H528v84h-72Zm-312-84v-72h240v72H144Zm144-132v-84H144v-72h144v-84h72v240h-72Zm144-84v-72h384v72H432Zm144-132v-240h72v84h168v72H648v84h-72Zm-432-84v-72h384v72H144Z"/>
@@ -41,6 +41,7 @@ function Expeditions() {
                             <div className="flex items-center space-x-2">
                                 <input
                                     type="text"
+
                                     placeholder="Search"
                                     className="px-4 py-2 border rounded-lg text-black"
                                 />
@@ -57,9 +58,9 @@ function Expeditions() {
                                         <th scope="col" className="px-6 py-4 w-1/6">Destination</th>
                                         <th scope="col" className="px-6 py-4 w-1/6">Date de Départ</th>
                                         <th scope="col" className="px-6 py-4 w-1/6">Date d'Arrivée</th>
-                                        <th scope="col" className="px-6 py-4 w-1/6">Client</th>
+                                        <th scope="col" className="px-6 py-4 w-1/6">Colis</th>
                                         <th scope="col" className="px-6 py-4 w-1/6">E-mail</th>
-                                        <th scope="col" className="px-6 py-4 w-1/6">Actions</th>
+                                        <th scope="col" className="px-6 py-4 w-1/6">Details</th>
                                     </tr>
                                 </thead>
                                 <tbody>
