@@ -21,15 +21,18 @@ function Expeditions() {
         fetchExpeditions();
     }, []);
 
+    const handleViewDetails = async (expeditionId) => {
+        navigate(`/expeditions/${expeditionId}`);
+    };
+
     return (
         <section className="relative bg-gray-900 text-gray-300 p-20 sm:p-10 min-h-screen flex flex-col">
             <Adminheader />
             <div className="flex">
                 <Adminsidebar />
                 <div className="flex-1 mx-auto w-full max-w-screen-5xl lg:px-10 mt-12">
-                    <div className="bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden ml-64 ">
-                        {/* Ajout de la barre de recherche et des filtres */}
-                        <div className="flex justify-end items-center bg-gray-100 p-4 border-b border-gray-300 space-x-2">
+                    <div className="bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden ml-64">
+                    <div className="flex justify-end items-center bg-gray-100 p-4 border-b border-gray-300 space-x-2">
                             <button className="bg-gray-700 p-2 rounded-lg flex items-center space-x-2">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#000000">
@@ -48,8 +51,6 @@ function Expeditions() {
                                 <button className="text-gray-800">⌘ K</button>
                             </div>
                         </div>
-
-                        {/* Table */}
                         <div className="overflow-x-auto mt-0">
                             <table className="w-full text-sm text-right text-gray-900">
                                 <thead className="text-xs text-gray-900 font-thin bg-gray-100 w-full border-t border-gray-300">
@@ -70,11 +71,11 @@ function Expeditions() {
                                             <td className="px-6 py-4">{expedition.lieu_arrivee}</td>
                                             <td className="px-6 py-4">{expedition.date_depart}</td>
                                             <td className="px-6 py-4">{expedition.date_arrivee}</td>
-                                            <td className="px-6 py-4">{expedition.client_id.completename}</td>
+                                            <td className="px-6 py-4">{expedition.colis_id.numero_colis}</td>
                                             <td className="px-6 py-4">{expedition.client_id.email}</td>
                                             <td className="px-6 py-4 text-right">
                                                 <button 
-                                                    onClick={() => navigate(`/expeditions/${expedition._id}`)}
+                                                    onClick={() => handleViewDetails(expedition._id)}
                                                     className="text-blue-400 hover:text-blue-600"
                                                 >
                                                     Voir Détail
