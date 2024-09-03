@@ -32,7 +32,7 @@ function Expeditions() {
                 <Adminsidebar />
                 <div className="flex-1 mx-auto w-full max-w-screen-5xl lg:px-10 mt-12">
                     <div className="bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden ml-64">
-                    <div className="flex justify-end items-center bg-gray-100 p-4 border-b border-gray-300 space-x-2">
+                         <div className="flex justify-end items-center bg-gray-100 p-4 border-b border-gray-300 space-x-2">
                             <button className="bg-gray-700 p-2 rounded-lg flex items-center space-x-2">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#000000">

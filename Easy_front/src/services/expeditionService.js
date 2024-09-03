@@ -17,20 +17,12 @@ const getExpeditionById = (id) => {
     return axios.get(`${API_URL}expeditions/${id}`);
 };
 
-// Fonction pour supprimer une expédition par ID
-const deleteExpedition = (id) => {
-    return axios.delete(`${API_URL}expedition/${id}`);
-};
 
 // Fonction pour obtenir l'historique d'une expédition
 const getExpeditionHistory = (id) => {
     return axios.get(`${API_URL}expeditions/${id}/history`);
 };
 
-// Fonction pour supprimer l'historique d'une expédition
-const deleteExpeditionHistory = (id) => {
-    return axios.delete(`${API_URL}expeditions/${id}/history`);
-};
 
 // Fonction pour obtenir les en-têtes d'authentification
 const authHeader = () => {
@@ -47,8 +39,6 @@ export default {
     createExpedition,
     getAllExpeditions,
     getExpeditionById,
-    deleteExpedition,
     getExpeditionHistory,
-    deleteExpeditionHistory,
     authHeader
 };

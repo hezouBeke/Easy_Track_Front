@@ -21,8 +21,8 @@ function CreateExpedition() {
   });
 
   const [expeditionData, setExpeditionData] = useState({
-    date_depart_colis: "",
-    date_arrivee_colis: ""
+    date_depart: "", // Correction ici
+    date_arrivee: "" // Correction ici
   });
 
   const [coursesData, setCoursesData] = useState([
@@ -105,7 +105,7 @@ function CreateExpedition() {
       // 2. Créer les courses
       const courseIds = [];
       for (let courseData of coursesData) {
-        const courseResponse = await courseService.createCourse({
+        const courseResponse = await coursesService.createCourse({
           ...courseData,
           colis_id: colisId
         });
@@ -116,8 +116,8 @@ function CreateExpedition() {
       const expeditionDataToSubmit = {
         colis_id: colisId,
         course_ids: courseIds,
-        date_depart: expeditionData.date_depart_colis,
-        date_arrivee: expeditionData.date_arrivee_colis,
+        date_depart: expeditionData.date_depart, // Modification ici
+        date_arrivee: expeditionData.date_arrivee, // Modification ici
       };
 
       await expeditionService.createExpedition(expeditionDataToSubmit);
@@ -310,45 +310,6 @@ function CreateExpedition() {
                 </select>
               </div>
 
-              {/* Ajout des champs de date de départ et d'arrivée du colis */}
-              <div className="grid gap-4 mb-4 sm:grid-cols-2">
-                <div>
-                  <label
-                    htmlFor="date_depart_colis"
-                    className="block mb-2 text-sm font-medium text-gray-900"
-                  >
-                    Date de départ du colis
-                  </label>
-                  <input
-                    type="date"
-                    name="date_depart_colis"
-                    id="date_depart_colis"
-                    value={expeditionData.date_depart_colis}
-                    onChange={handleExpeditionChange}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="date_arrivee_colis"
-                    className="block mb-2 text-sm font-medium text-gray-900"
-                  >
-                    Date d'arrivée du colis
-                  </label>
-                  <input
-                    type="date"
-                    name="date_arrivee_colis"
-                    id="date_arrivee_colis"
-                    value={expeditionData.date_arrivee_colis}
-                    onChange={handleExpeditionChange}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    required
-                  />
-                </div>
-              </div>
-
               <div className="flex justify-end mt-6">
                 <button
                   type="button"
@@ -363,6 +324,46 @@ function CreateExpedition() {
 
           {step === 2 && (
             <div>
+              {/* Section pour les informations de l'Expédition */}
+              <div className="grid gap-4 mb-4 sm:grid-cols-2">
+                <div>
+                  <label
+                    htmlFor="date_depart"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
+                    Date de départ de l'expédition
+                  </label>
+                  <input
+                    type="date"
+                    name="date_depart"
+                    id="date_depart"
+                    value={expeditionData.date_depart}
+                    onChange={handleExpeditionChange}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="date_arrivee"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
+                    Date d'arrivée de l'expédition
+                  </label>
+                  <input
+                    type="date"
+                    name="date_arrivee"
+                    id="date_arrivee"
+                    value={expeditionData.date_arrivee}
+                    onChange={handleExpeditionChange}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Section pour les informations des Courses */}
               {coursesData.map((course, index) => (
                 <div
                   key={index}
