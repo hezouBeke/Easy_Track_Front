@@ -19,7 +19,6 @@ function Colis() {
         fetchColis();
     }, []);
 
-    
     return (
         <section className="relative bg-gray-900 text-gray-300 p-12 sm:p-10 min-h-screen flex flex-col">
             <Adminheader />
@@ -63,7 +62,7 @@ function Colis() {
                                 <tbody>
                                     {colis.map(colisItem => (
                                         <tr key={colisItem._id} className="hover:bg-gray-900 dark:hover:bg-gray-600">
-                                            <td className="px-4 py-3">{colisItem.client_id.completename}</td>
+                                            <td className="px-4 py-3">{colisItem.code_colis}</td> {/* Affichage du code du colis */}
                                             <td className="px-4 py-3">{colisItem.description}</td>
                                             <td className="px-4 py-3">{colisItem.client_id.completename}</td>
                                             <td className="px-4 py-3">{colisItem.client_id.email || 'N/A'}</td>

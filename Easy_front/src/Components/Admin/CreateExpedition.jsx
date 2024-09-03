@@ -24,6 +24,7 @@ function CreateExpedition() {
 
   const [clients, setClients] = useState([]);
   const [coursiers, setCoursiers] = useState([]);
+  const [selectedCoursiers, setSelectedCoursiers] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -67,6 +68,11 @@ function CreateExpedition() {
       const updatedCourses = [...coursesData];
       updatedCourses[index].coursiers = [selectedCoursierId];
       setCoursesData(updatedCourses);
+
+      // Mettre à jour la liste des coursiers sélectionnés
+      const updatedSelectedCoursiers = [...selectedCoursiers];
+      updatedSelectedCoursiers[index] = selectedCoursierId;
+      setSelectedCoursiers(updatedSelectedCoursiers);
     }
   };
 
@@ -75,11 +81,15 @@ function CreateExpedition() {
       ...coursesData,
       { depart: "", arrive: "", date_debut: "", date_fin: "", coursiers: [] },
     ]);
+    setSelectedCoursiers([...selectedCoursiers, ""]);
   };
 
   const removeCourse = (index) => {
     const updatedCourses = coursesData.filter((_, i) => i !== index);
     setCoursesData(updatedCourses);
+
+    const updatedSelectedCoursiers = selectedCoursiers.filter((_, i) => i !== index);
+    setSelectedCoursiers(updatedSelectedCoursiers);
   };
 
   const handleSubmit = async (e) => {
@@ -124,6 +134,11 @@ function CreateExpedition() {
     }
   };
 
+  const availableCoursiers = (index) => {
+    // Filtrer les coursiers déjà sélectionnés pour d'autres courses
+    return coursiers.filter(coursier => !selectedCoursiers.includes(coursier._id) || selectedCoursiers[index] === coursier._id);
+  };
+
   return (
     <section className="h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full max-h-[95vh] overflow-y-auto">
@@ -155,6 +170,7 @@ function CreateExpedition() {
                     onChange={handleColisChange}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     required
+                    
                   >
                     <option value="">Sélectionnez l'expéditeur</option>
                     {clients.map((client) => (
@@ -243,7 +259,7 @@ function CreateExpedition() {
                     value={colisData.taille}
                     onChange={handleColisChange}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    placeholder="Dimensions (LxWxH)"
+                    placeholder="Dimensions (LxW cm)"
                     required
                   />
                 </div>
@@ -402,7 +418,7 @@ function CreateExpedition() {
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       >
                         <option value="">Sélectionnez un coursier</option>
-                        {coursiers.map((coursier) => (
+                        {availableCoursiers(index).map((coursier) => (
                           <option key={coursier._id} value={coursier._id}>
                             {coursier.completename}
                           </option>

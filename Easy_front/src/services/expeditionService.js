@@ -4,32 +4,32 @@ const API_URL = 'http://localhost:7000/api/expeditions/';
 
 // Fonction pour créer une expédition
 const createExpedition = (expeditionData) => {
-    return axios.post(API_URL, expeditionData);
+    return axios.post(`${API_URL}expedition`, expeditionData);
 };
 
 // Fonction pour obtenir toutes les expéditions
 const getAllExpeditions = () => {
-    return axios.get(API_URL);
+    return axios.get(`${API_URL}expedition`);
 };
 
-// Fonction pour obtenir une expédition par ID
+// Fonction pour obtenir les détails d'une expédition par ID
 const getExpeditionById = (id) => {
-    return axios.get(`${API_URL}${id}`);
+    return axios.get(`${API_URL}expeditions/${id}`);
 };
 
 // Fonction pour supprimer une expédition par ID
 const deleteExpedition = (id) => {
-    return axios.delete(`${API_URL}${id}`);
+    return axios.delete(`${API_URL}expedition/${id}`);
 };
 
 // Fonction pour obtenir l'historique d'une expédition
 const getExpeditionHistory = (id) => {
-    return axios.get(`${API_URL}${id}/history`);
+    return axios.get(`${API_URL}expeditions/${id}/history`);
 };
 
-// Fonction pour supprimer une expédition et son historique
+// Fonction pour supprimer l'historique d'une expédition
 const deleteExpeditionHistory = (id) => {
-    return axios.delete(`${API_URL}${id}/history`);
+    return axios.delete(`${API_URL}expeditions/${id}/history`);
 };
 
 // Fonction pour obtenir les en-têtes d'authentification
