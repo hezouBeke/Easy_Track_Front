@@ -25,17 +25,12 @@ export const createColis = async (colisData) => {
   }
 };
 
-const getColisById = (id) => {
-  return axios.get(`${API_URL}colis/${id}`); // Ajout de "colis/" pour correspondre à la route backend
-}
-
 // Fonction pour obtenir tous les colis
 const getAllColis = () => {
   return axios.get(`${API_URL}colis`); // Ajout de "colis/" pour correspondre à la route backend
 }
 
 export default {
-  getColisById,
   getAllColis,
   createColis
 };
