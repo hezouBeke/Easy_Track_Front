@@ -203,6 +203,7 @@ function CreateExpedition() {
                   </select>
                 </div>
 
+
                 <div className="sm:col-span-1">
                   <input
                     type="text"
@@ -343,7 +344,6 @@ function CreateExpedition() {
                     required
                   />
                 </div>
-
                 <div>
                   <label
                     htmlFor="date_arrivee"
