@@ -147,6 +147,7 @@ function Customer() {
                                         </th>
                                     </tr>
                                 </thead>
+                                
                                 <tbody>
                                     {customers.map(customer => (
                                         <tr key={customer._id} className={`hover:bg-gray-100 dark:hover:bg-gray-600 ${selectedCustomer === customer._id ? 'bg-blue-100 dark:bg-blue-600' : ''}`}>

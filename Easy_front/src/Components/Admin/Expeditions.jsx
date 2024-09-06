@@ -42,7 +42,6 @@ function Expeditions() {
                     <div className="text-center mb-6">
                         <h1 className="text-3xl font-thin text-white">Liste des Expéditions</h1>
                     </div>
-                    
                     <div className="bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden ml-64">
                         <div className="flex justify-between items-center bg-gray-100 p-4 border-b-[1px] border-gray-300 font-thin">
                             <div className="flex items-center">
@@ -113,7 +112,6 @@ function Expeditions() {
         );
     })}
 </tbody>
-
                             </table>
                         </div>
                     </div>
@@ -123,34 +121,34 @@ function Expeditions() {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white rounded-lg p-6 w-1/3 shadow-lg hover:shadow-xl transition-shadow transform duration-300 font-thin">
             <h2 className="text-xl font-bold mb-4 text-gray-800">Détails de l'Expédition</h2>
-            <p className="text-gray-700"><strong>Numéro de Colis :</strong> {selectedExpedition.colis_id.numero_colis}</p>
-            <p className="text-gray-700"><strong>Description :</strong> {selectedExpedition.colis_id.description}</p>
-            <p className="text-gray-700"><strong>Taille :</strong> {selectedExpedition.colis_id.taille}</p>
-            <p className="text-gray-700"><strong>Poids :</strong> {selectedExpedition.colis_id.poids} kg</p>
-            <p className="text-gray-700"><strong>Particularité :</strong> {selectedExpedition.colis_id.particularite}</p>
+            <p className="text-gray-700"><strong>Numéro de Colis :</strong> {selectedExpedition.colis_id?.numero_colis || 'N/A'}</p>
+            <p className="text-gray-700"><strong>Description :</strong> {selectedExpedition.colis_id?.description || 'N/A'}</p>
+            <p className="text-gray-700"><strong>Taille :</strong> {selectedExpedition.colis_id?.taille || 'N/A'}</p>
+            <p className="text-gray-700"><strong>Poids :</strong> {selectedExpedition.colis_id?.poids || 'N/A'} kg</p>
+            <p className="text-gray-700"><strong>Particularité :</strong> {selectedExpedition.colis_id?.particularite || 'N/A'}</p>
 
             <h3 className="text-lg font-bold mt-4 text-gray-800">Courses Prévues :</h3>
             {selectedExpedition.course_ids && selectedExpedition.course_ids.length > 0 ? (
-        selectedExpedition.course_ids.map(course => (
-        <div key={course._id} className="mb-4">
-            <p className="text-gray-700"><strong>Départ :</strong> {course.depart}</p>
-            <p className="text-gray-700"><strong>Arrivée :</strong> {course.arrive}</p>
-            <p className="text-gray-700"><strong>Coursier :</strong> {course.coursier_id?.completename}</p>
-            <p className="text-gray-700"><strong>Email :</strong> {course.coursier_id?.email}</p>
-            <p className="text-gray-700"><strong>Téléphone :</strong> {course.coursier_id?.tel}</p>
-            {course.coursier_id?.vehic_id && (
-                <>
-                    <p className="text-gray-700"><strong>Véhicule :</strong></p>
-                    <p className="text-gray-700"><strong>Type :</strong> {course.coursier_id.vehic_id.type}</p>
-                    <p className="text-gray-700"><strong>Marque :</strong> {course.coursier_id.vehic_id.marque}</p>
-                    <p className="text-gray-700"><strong>Immatriculation :</strong> {course.coursier_id.vehic_id.immatriculation}</p>
-                </>
+                selectedExpedition.course_ids.map(course => (
+                    <div key={course._id} className="mb-4">
+                        <p className="text-gray-700"><strong>Départ :</strong> {course.depart || 'N/A'}</p>
+                        <p className="text-gray-700"><strong>Arrivée :</strong> {course.arrive || 'N/A'}</p>
+                        <p className="text-gray-700"><strong>Coursier :</strong> {course.coursier_id?.completename || 'N/A'}</p>
+                        <p className="text-gray-700"><strong>Email :</strong> {course.coursier_id?.email || 'N/A'}</p>
+                        <p className="text-gray-700"><strong>Téléphone :</strong> {course.coursier_id?.tel || 'N/A'}</p>
+                        {course.coursier_id?.vehic_id && (
+                            <>
+                                <p className="text-gray-700"><strong>Véhicule :</strong></p>
+                                <p className="text-gray-700"><strong>Type :</strong> {course.coursier_id.vehic_id.type || 'N/A'}</p>
+                                <p className="text-gray-700"><strong>Marque :</strong> {course.coursier_id.vehic_id.marque || 'N/A'}</p>
+                                <p className="text-gray-700"><strong>Immatriculation :</strong> {course.coursier_id.vehic_id.immatriculation || 'N/A'}</p>
+                            </>
+                        )}
+                    </div>
+                ))
+            ) : (
+                <p>Aucune course prévue</p>
             )}
-        </div>
-    ))
-) : (
-    <p>Aucune course prévue</p>
-)}
 
             <div className="mt-6 flex justify-end">
                 <button 
@@ -162,6 +160,7 @@ function Expeditions() {
         </div>
     </div>
 )}
+
         </section>
     );
 }
