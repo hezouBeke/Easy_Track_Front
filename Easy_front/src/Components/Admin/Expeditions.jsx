@@ -86,75 +86,82 @@ function Expeditions() {
                                 </thead>
 
                                 <tbody>
-                                    {expeditions.map(expedition => (
-                                        <tr key={expedition._id} className="bg-gray-800 hover:bg-gray-600 transition-all font-thin">
-                                            <td className="px-6 py-4">{expedition.expedition_code}</td>
-                                            <td className="px-6 py-4">{expedition.colis_id.desc_depart}</td>
-                                            <td className="px-6 py-4">{expedition.colis_id.desc_destination}</td>
-                                            <td className="px-6 py-4">{expedition.date_depart}</td>
-                                            <td className="px-6 py-4">{expedition.date_arrivee}</td>
-                                            <td className="px-6 py-4">{expedition.colis_id.numero_colis}</td>
-                                            <td className="px-6 py-4">{expedition.colis_id.client_id_exp?.completename || 'N/A'}</td>
-                                            <td className="px-6 py-4">{expedition.colis_id.client_id_dest?.completename || 'N/A'}</td>
-                                            <td className="px-6 py-4">{expedition.course_ids[0]?.coursier_id?.completename || 'N/A'}</td>
-                                            <td className="px-6 py-4">
-                                                <button
-                                                    onClick={() => handleViewDetails(expedition)}
-                                                    className="text-blue-400 hover:text-blue-600 transition-transform transform hover:scale-105 font-thin"
-                                                >
-                                                    Voir Détail
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
+    {expeditions.map(expedition => {
+        const firstCourse = expedition.course_ids?.[0]; // Vérifie si course_ids est disponible
+        const coursierActuel = firstCourse?.coursier_id ? `${firstCourse.coursier_id.completename}` : 'N/A';
+
+        return (
+            <tr key={expedition._id} className="bg-gray-800 hover:bg-gray-600 transition-all font-thin">
+                <td className="px-6 py-4">{expedition.expedition_code}</td>
+                <td className="px-6 py-4">{expedition.colis_id?.desc_depart || 'N/A'}</td>
+                <td className="px-6 py-4">{expedition.colis_id?.desc_destination || 'N/A'}</td>
+                <td className="px-6 py-4">{new Date(expedition.date_depart).toLocaleDateString()}</td>
+                <td className="px-6 py-4">{new Date(expedition.date_arrivee).toLocaleDateString()}</td>
+                <td className="px-6 py-4">{expedition.colis_id?.numero_colis || 'N/A'}</td>
+                <td className="px-6 py-4">{expedition.colis_id?.client_id_exp?.completename || 'N/A'}</td>
+                <td className="px-6 py-4">{expedition.colis_id?.client_id_dest?.completename || 'N/A'}</td>
+                <td className="px-6 py-4">{coursierActuel}</td>
+                <td className="px-6 py-4">
+                    <button
+                        onClick={() => handleViewDetails(expedition)}
+                        className="text-blue-400 hover:text-blue-600 transition-transform transform hover:scale-105 font-thin"
+                    >
+                        Voir Détail
+                    </button>
+                </td>
+            </tr>
+        );
+    })}
+</tbody>
+
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-
-            {/* Modale pour afficher les détails */}
             {showModal && selectedExpedition && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="bg-white rounded-lg p-6 w-1/3 shadow-lg hover:shadow-xl transition-shadow transform duration-300 font-thin">
-                        <h2 className="text-xl font-bold mb-4 text-gray-800">Détails de l'Expédition</h2>
-                        <p className="text-gray-700"><strong>Code de l'Expédition :</strong> {selectedExpedition.expedition_code}</p>
-                        <p className="text-gray-700"><strong>Numéro de Colis :</strong> {selectedExpedition.colis_id.numero_colis}</p>
-                        <p className="text-gray-700"><strong>Description :</strong> {selectedExpedition.colis_id.description}</p>
-                        <p className="text-gray-700"><strong>Taille :</strong> {selectedExpedition.colis_id.taille}</p>
-                        <p className="text-gray-700"><strong>Poids :</strong> {selectedExpedition.colis_id.poids} kg</p>
-                        <p className="text-gray-700"><strong>Particularité :</strong> {selectedExpedition.colis_id.particularite}</p>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="bg-white rounded-lg p-6 w-1/3 shadow-lg hover:shadow-xl transition-shadow transform duration-300 font-thin">
+            <h2 className="text-xl font-bold mb-4 text-gray-800">Détails de l'Expédition</h2>
+            <p className="text-gray-700"><strong>Numéro de Colis :</strong> {selectedExpedition.colis_id.numero_colis}</p>
+            <p className="text-gray-700"><strong>Description :</strong> {selectedExpedition.colis_id.description}</p>
+            <p className="text-gray-700"><strong>Taille :</strong> {selectedExpedition.colis_id.taille}</p>
+            <p className="text-gray-700"><strong>Poids :</strong> {selectedExpedition.colis_id.poids} kg</p>
+            <p className="text-gray-700"><strong>Particularité :</strong> {selectedExpedition.colis_id.particularite}</p>
 
-                        <h3 className="text-lg font-bold mt-4 text-gray-800">Courses Prévues :</h3>
-                        {selectedExpedition.course_ids.map(course => (
-                            <div key={course._id} className="mb-4">
-                                <p className="text-gray-700"><strong>Départ :</strong> {course.depart}</p>
-                                <p className="text-gray-700"><strong>Arrivée :</strong> {course.arrive}</p>
-                                {course.coursier_id ? (
-                                    <>
-                                        <p className="text-gray-700"><strong>Coursier :</strong> {course.coursier_id.completename}</p>
-                                        <p className="text-gray-700"><strong>Email Coursier :</strong> {course.coursier_id.email}</p>
-                                        <p className="text-gray-700"><strong>Téléphone Coursier :</strong> {course.coursier_id.tel}</p>
-                                        <p className="text-gray-700"><strong>Véhicule :</strong> {course.coursier_id.vehic_id?.description || 'N/A'}</p>
-                                    </>
-                                ) : (
-                                    <p className="text-gray-700"><strong>Coursier :</strong> Non assigné</p>
-                                )}
-                            </div>
-                        ))}
-
-                        <div className="mt-6 flex justify-end">
-                            <button 
-                                onClick={closeModal}
-                                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 shadow-md hover:shadow-lg transition-transform transform hover:scale-105 font-thin"
-                            >
-                                Fermer
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            <h3 className="text-lg font-bold mt-4 text-gray-800">Courses Prévues :</h3>
+            {selectedExpedition.course_ids && selectedExpedition.course_ids.length > 0 ? (
+        selectedExpedition.course_ids.map(course => (
+        <div key={course._id} className="mb-4">
+            <p className="text-gray-700"><strong>Départ :</strong> {course.depart}</p>
+            <p className="text-gray-700"><strong>Arrivée :</strong> {course.arrive}</p>
+            <p className="text-gray-700"><strong>Coursier :</strong> {course.coursier_id?.completename}</p>
+            <p className="text-gray-700"><strong>Email :</strong> {course.coursier_id?.email}</p>
+            <p className="text-gray-700"><strong>Téléphone :</strong> {course.coursier_id?.tel}</p>
+            {course.coursier_id?.vehic_id && (
+                <>
+                    <p className="text-gray-700"><strong>Véhicule :</strong></p>
+                    <p className="text-gray-700"><strong>Type :</strong> {course.coursier_id.vehic_id.type}</p>
+                    <p className="text-gray-700"><strong>Marque :</strong> {course.coursier_id.vehic_id.marque}</p>
+                    <p className="text-gray-700"><strong>Immatriculation :</strong> {course.coursier_id.vehic_id.immatriculation}</p>
+                </>
             )}
+        </div>
+    ))
+) : (
+    <p>Aucune course prévue</p>
+)}
+
+            <div className="mt-6 flex justify-end">
+                <button 
+                    onClick={closeModal}
+                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 shadow-md hover:shadow-lg transition-transform transform hover:scale-105 font-thin">
+                    Fermer
+                </button>
+            </div>
+        </div>
+    </div>
+)}
         </section>
     );
 }
