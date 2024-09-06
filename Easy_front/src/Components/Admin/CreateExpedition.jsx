@@ -21,8 +21,8 @@ function CreateExpedition() {
   });
 
   const [expeditionData, setExpeditionData] = useState({
-    date_depart: "", // Correction ici
-    date_arrivee: "" // Correction ici
+    date_depart: "",
+    date_arrivee: "",
   });
 
   const [coursesData, setCoursesData] = useState([
@@ -31,6 +31,7 @@ function CreateExpedition() {
 
   const [clients, setClients] = useState([]);
   const [coursiers, setCoursiers] = useState([]);
+  const [showSuccessModal, setShowSuccessModal] = useState(false); // État pour la modale de succès
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -325,10 +326,13 @@ function CreateExpedition() {
             </div>
           )}
 
-          {step === 2 && (
+          
+{step === 2 && (
             <div>
               {/* Section pour les informations de l'Expédition */}
               <div className="grid gap-4 mb-4 sm:grid-cols-2">
+                {/* Champs de saisie pour l'expédition */}
+                 
                 <div>
                   <label
                     htmlFor="date_depart"
@@ -367,10 +371,7 @@ function CreateExpedition() {
 
               {/* Section pour les informations des Courses */}
               {coursesData.map((course, index) => (
-                <div
-                  key={index}
-                  className="mb-6 p-4 border border-gray-200 rounded-lg"
-                >
+                <div key={index} className="mb-6 p-4 border border-gray-200 rounded-lg">
                   <div className="grid gap-4 mb-4 sm:grid-cols-2">
                     <div>
                       <label
@@ -482,6 +483,7 @@ function CreateExpedition() {
                       </button>
                     </div>
                   )}
+
                 </div>
               ))}
 
@@ -510,9 +512,10 @@ function CreateExpedition() {
             </div>
           )}
         </form>
-         {/* Modale de succès */}
-         {showSuccessModal && (
-          <div id="successModal" className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+
+        {/* Modale de succès */}
+        {showSuccessModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg p-6 w-1/3 shadow-lg hover:shadow-xl transition-shadow transform duration-300 font-thin">
               <h2 className="text-xl font-bold mb-4 text-gray-800">Expédition créée avec succès</h2>
               <div className="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900 p-2 flex items-center justify-center mx-auto mb-3.5">
