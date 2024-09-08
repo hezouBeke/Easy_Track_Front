@@ -537,7 +537,7 @@ for (let courseData of coursesData) {
               <button
                 onClick={() => {
                   setShowSuccessModal(false);
-                  navigate("/dashboard/admin");
+                  navigate("/dashboard/Expeditions");
                 }}
                 className="py-2 px-3 text-sm font-medium text-center text-white rounded-lg bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:focus:ring-primary-900"
               >
