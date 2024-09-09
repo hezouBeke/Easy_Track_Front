@@ -99,47 +99,49 @@ function CreateExpedition() {
     e.preventDefault();
 
     try {
-      // 1. Créer le colis
-      const colisResponse = await colisService.createColis(colisData);
-      const colisId = colisResponse._id;
+        // 1. Créer le colis
+        const colisResponse = await colisService.createColis(colisData);
+        const colisId = colisResponse.data._id;
 
-     // 2. Créer les courses
-const courseIds = [];
-for (let courseData of coursesData) {
-    console.log('Sending course data:', courseData);  // Ajout du log ici
+        // 2. Créer les courses
+        const courseDataToSubmit = coursesData.map(course => ({
+            depart: course.depart,
+            arrive: course.arrive,
+            date_debut: course.date_debut,
+            date_fin: course.date_fin,
+            coursier_id: course.coursiers[0],
+            colis_id: colisId
+        }));
 
-    // Assure-toi que les données des courses sont bien structurées
-    const courseResponse = await coursesService.createCourse({
-        depart: courseData.depart,  // Champ 'depart' pour la course
-        arrive: courseData.arrive,  // Champ 'arrive' pour la course
-        date_debut: courseData.date_debut,  // Date de début de la course
-        date_fin: courseData.date_fin,  // Date de fin de la course
-        coursier_id: courseData.coursiers[0],  // Assure-toi que 'coursiers[0]' existe
-        colis_id: colisId  // Lier la course au colis créé précédemment
-    });
+        const courseResponse = await coursesService.createCourse(courseDataToSubmit);
 
-    // Ajouter l'ID de la course nouvellement créée dans courseIds
-    courseIds.push(courseResponse.data._id);  // Assure-toi que l'ID est dans courseResponse.data._id
-}
+        console.log('Course response:', courseResponse);  // Vérifie la réponse du backend
+        if (!courseResponse.data || courseResponse.data.length === 0) {
+            throw new Error("Aucune course n'a été créée.");
+        }
 
+        const courseIds = courseResponse.data.map(course => {
+            if (!course._id) {
+                throw new Error("Un des objets course ne contient pas d'_id.");
+            }
+            return course._id;
+        });
 
-      // 3. Créer l'expédition
-      const expeditionDataToSubmit = {
-        colis_id: colisId,
-        course_ids: courseIds,
-        date_depart: expeditionData.date_depart,
-        date_arrivee: expeditionData.date_arrivee,
-      };
+        // 3. Créer l'expédition
+        const expeditionDataToSubmit = {
+            colis_id: colisId,
+            course_ids: courseIds,
+            date_depart: expeditionData.date_depart,
+            date_arrivee: expeditionData.date_arrivee
+        };
 
-      await expeditionService.createExpedition(expeditionDataToSubmit);
+        await expeditionService.createExpedition(expeditionDataToSubmit);
 
-      // Afficher la modale de succès
-      setShowSuccessModal(true);
-
+        setShowSuccessModal(true);
     } catch (error) {
-      console.error("Erreur lors de la création de l'expédition", error);
+        console.error('Erreur lors de la création de l\'expédition ou des courses:', error.response ? error.response.data : error.message);
     }
-  };
+};
 
   const nextStep = () => {
     setStep(step + 1);
