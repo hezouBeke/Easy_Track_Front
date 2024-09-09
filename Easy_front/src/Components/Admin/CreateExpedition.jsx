@@ -103,29 +103,29 @@ function CreateExpedition() {
         const colisResponse = await colisService.createColis(colisData);
         const colisId = colisResponse.data._id;
 
-        // 2. Créer les courses
+        // 2. Créer les courses (que ce soit une seule course ou plusieurs)
         const courseDataToSubmit = coursesData.map(course => ({
             depart: course.depart,
             arrive: course.arrive,
             date_debut: course.date_debut,
             date_fin: course.date_fin,
-            coursier_id: course.coursiers[0],
-            colis_id: colisId
+            coursier_id: course.coursiers[0],  // Assure-toi que 'coursiers[0]' existe
+            colis_id: colisId  // Lier la course au colis créé précédemment
         }));
 
-        const courseResponse = await coursesService.createCourse(courseDataToSubmit);
+        const courseResponse = await coursesService.createCourse(
+            courseDataToSubmit.length === 1 ? courseDataToSubmit[0] : courseDataToSubmit
+        );
 
-        console.log('Course response:', courseResponse);  // Vérifie la réponse du backend
+        console.log('Course response:', courseResponse);
         if (!courseResponse.data || courseResponse.data.length === 0) {
             throw new Error("Aucune course n'a été créée.");
         }
 
-        const courseIds = courseResponse.data.map(course => {
-            if (!course._id) {
-                throw new Error("Un des objets course ne contient pas d'_id.");
-            }
-            return course._id;
-        });
+        // Si une seule course est créée, renvoie directement l'ID, sinon traite un tableau d'IDs
+        const courseIds = Array.isArray(courseResponse.data)
+            ? courseResponse.data.map(course => course._id)
+            : [courseResponse.data._id];
 
         // 3. Créer l'expédition
         const expeditionDataToSubmit = {
@@ -136,7 +136,6 @@ function CreateExpedition() {
         };
 
         await expeditionService.createExpedition(expeditionDataToSubmit);
-
         setShowSuccessModal(true);
     } catch (error) {
         console.error('Erreur lors de la création de l\'expédition ou des courses:', error.response ? error.response.data : error.message);
