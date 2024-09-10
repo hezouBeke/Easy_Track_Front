@@ -31,7 +31,7 @@ function CreateExpedition() {
 
   const [clients, setClients] = useState([]);
   const [coursiers, setCoursiers] = useState([]);
-  const [showSuccessModal, setShowSuccessModal] = useState(false); // État pour la modale de succès
+  const [showSuccessModal, setShowSuccessModal] = useState(false); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -101,46 +101,55 @@ function CreateExpedition() {
     try {
         // 1. Créer le colis
         const colisResponse = await colisService.createColis(colisData);
-        const colisId = colisResponse.data._id;
+        const colisId = colisResponse._id;  // Assurer que l'ID est récupéré correctement
 
-        // 2. Créer les courses (que ce soit une seule course ou plusieurs)
-        const courseDataToSubmit = coursesData.map(course => ({
-            depart: course.depart,
-            arrive: course.arrive,
-            date_debut: course.date_debut,
-            date_fin: course.date_fin,
-            coursier_id: course.coursiers[0],  // Assure-toi que 'coursiers[0]' existe
-            colis_id: colisId  // Lier la course au colis créé précédemment
-        }));
-
-        const courseResponse = await coursesService.createCourse(
-            courseDataToSubmit.length === 1 ? courseDataToSubmit[0] : courseDataToSubmit
-        );
-
-        console.log('Course response:', courseResponse);
-        if (!courseResponse.data || courseResponse.data.length === 0) {
-            throw new Error("Aucune course n'a été créée.");
+        if (!colisId) {
+            throw new Error("Erreur : L'ID du colis n'a pas été récupéré.");
         }
 
-        // Si une seule course est créée, renvoie directement l'ID, sinon traite un tableau d'IDs
-        const courseIds = Array.isArray(courseResponse.data)
-            ? courseResponse.data.map(course => course._id)
-            : [courseResponse.data._id];
+        // 2. Créer les courses (une par une)
+        const courseDataToSubmit = coursesData.map(course => {
+            if (!course.coursiers[0]) {
+                throw new Error("Erreur : le coursier n'a pas été sélectionné pour la course.");
+            }
+            return {
+                depart: course.depart,
+                arrive: course.arrive,
+                date_debut: course.date_debut,
+                date_fin: course.date_fin,
+                coursier_id: course.coursiers[0],
+                colis_id: colisId
+            };
+        });
 
-        // 3. Créer l'expédition
+        const courseResponse = await Promise.all(
+            courseDataToSubmit.map(course => coursesService.createCourse(course))
+        );
+
+        // Vérifier que toutes les courses ont bien été créées avec des _id
+        const courseIds = courseResponse.map(courseRes => courseRes._id);
+        if (!courseIds.length) {
+            throw new Error("Erreur : les IDs des courses créées n'ont pas été récupérés.");
+        }
+
+        // 3. Créer l'expédition avec les courses créées
         const expeditionDataToSubmit = {
             colis_id: colisId,
             course_ids: courseIds,
             date_depart: expeditionData.date_depart,
-            date_arrivee: expeditionData.date_arrivee
+            date_arrivee: expeditionData.date_arrivee,
         };
 
         await expeditionService.createExpedition(expeditionDataToSubmit);
+
+        // Afficher la modale de succès
         setShowSuccessModal(true);
+
     } catch (error) {
-        console.error('Erreur lors de la création de l\'expédition ou des courses:', error.response ? error.response.data : error.message);
+        console.error('Erreur lors de la création de l\'expédition ou des courses:', error.message);
+        alert('Erreur lors de la création de l\'expédition ou des courses : ' + error.message);
     }
-};
+  };
 
   const nextStep = () => {
     setStep(step + 1);
@@ -216,7 +225,6 @@ function CreateExpedition() {
                     ))}
                   </select>
                 </div>
-
 
                 <div className="sm:col-span-1">
                   <input
@@ -337,11 +345,10 @@ function CreateExpedition() {
             </div>
           )}
 
-          
-{step === 2 && (
+          {step === 2 && (
             <div>
-              {/* Section pour les informations de l'Expédition */}
-              <div className="grid gap-4 mb-4 sm:grid-cols-2">
+               {/* Section pour les informations de l'Expédition */}
+               <div className="grid gap-4 mb-4 sm:grid-cols-2">
                 {/* Champs de saisie pour l'expédition */}
                  
                 <div>
@@ -379,7 +386,6 @@ function CreateExpedition() {
                   />
                 </div>
               </div>
-
               {/* Section pour les informations des Courses */}
               {coursesData.map((course, index) => (
                 <div key={index} className="mb-6 p-4 border border-gray-200 rounded-lg">
@@ -524,7 +530,6 @@ function CreateExpedition() {
           )}
         </form>
 
-        {/* Modale de succès */}
         {showSuccessModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg p-6 w-1/3 shadow-lg hover:shadow-xl transition-shadow transform duration-300 font-thin">
