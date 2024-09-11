@@ -101,16 +101,17 @@ function CreateExpedition() {
     try {
         // 1. Créer le colis
         const colisResponse = await colisService.createColis(colisData);
-        const colisId = colisResponse._id;  // Assurer que l'ID est récupéré correctement
+        const colisId = colisResponse._id ;
 
+        // Vérification si l'ID du colis est correctement récupéré
         if (!colisId) {
-            throw new Error("Erreur : L'ID du colis n'a pas été récupéré.");
+            throw new Error('Erreur : l\'ID du colis n\'a pas été récupéré.');
         }
 
-        // 2. Créer les courses (une par une)
+        // 2. Créer les courses
         const courseDataToSubmit = coursesData.map(course => {
             if (!course.coursiers[0]) {
-                throw new Error("Erreur : le coursier n'a pas été sélectionné pour la course.");
+                throw new Error('Erreur : le coursier n\'a pas été sélectionné pour la course.');
             }
             return {
                 depart: course.depart,
@@ -122,23 +123,37 @@ function CreateExpedition() {
             };
         });
 
-        const courseResponse = await Promise.all(
-            courseDataToSubmit.map(course => coursesService.createCourse(course))
-        );
+        console.log('Données des courses envoyées:', courseDataToSubmit);
 
-        // Vérifier que toutes les courses ont bien été créées avec des _id
-        const courseIds = courseResponse.map(courseRes => courseRes._id);
-        if (!courseIds.length) {
-            throw new Error("Erreur : les IDs des courses créées n'ont pas été récupérés.");
+        const courseResponse = await coursesService.createCourse(courseDataToSubmit);
+        console.log('Réponse de la création des courses:', courseResponse);
+
+        // Vérification si courseResponse contient bien data et si c'est un tableau
+        if (!courseResponse?.data || !Array.isArray(courseResponse.data)) {
+            throw new Error('Erreur : la réponse des courses est invalide.');
         }
 
-        // 3. Créer l'expédition avec les courses créées
+        // Vérifier que chaque course a bien un _id
+        const courseIds = courseResponse.data.map(course => {
+            if (!course._id) {
+                throw new Error('Erreur : un ID de course est manquant.');
+            }
+            return course._id;
+        });
+
+        if (!courseIds.length) {
+            throw new Error('Erreur : les IDs des courses créées n\'ont pas été récupérés.');
+        }
+
+        // 3. Créer l'expédition
         const expeditionDataToSubmit = {
             colis_id: colisId,
             course_ids: courseIds,
             date_depart: expeditionData.date_depart,
-            date_arrivee: expeditionData.date_arrivee,
+            date_arrivee: expeditionData.date_arrivee
         };
+
+        console.log('Données d\'expédition envoyées:', expeditionDataToSubmit);
 
         await expeditionService.createExpedition(expeditionDataToSubmit);
 
@@ -146,10 +161,11 @@ function CreateExpedition() {
         setShowSuccessModal(true);
 
     } catch (error) {
-        console.error('Erreur lors de la création de l\'expédition ou des courses:', error.message);
-        alert('Erreur lors de la création de l\'expédition ou des courses : ' + error.message);
+        console.error('Erreur lors de la création de l\'expédition ou des courses:', error.response ? error.response.data : error.message);
+        alert('Erreur lors de la création de l\'expédition ou des courses : ' + (error.response ? error.response.data : error.message));
     }
-  };
+};
+
 
   const nextStep = () => {
     setStep(step + 1);
@@ -543,7 +559,7 @@ function CreateExpedition() {
               <button
                 onClick={() => {
                   setShowSuccessModal(false);
-                  navigate("/dashboard/Expeditions");
+                  navigate("/dashboard/admin/expeditions");
                 }}
                 className="py-2 px-3 text-sm font-medium text-center text-white rounded-lg bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:focus:ring-primary-900"
               >
