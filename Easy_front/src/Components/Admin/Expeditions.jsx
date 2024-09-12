@@ -85,33 +85,33 @@ function Expeditions() {
                                 </thead>
 
                                 <tbody>
-    {expeditions.map(expedition => {
-        const firstCourse = expedition.course_ids?.[0]; // Vérifie si course_ids est disponible
-        const coursierActuel = firstCourse?.coursier_id ? `${firstCourse.coursier_id.completename}` : 'N/A';
+                                    {expeditions.map(expedition => {
+                                        const firstCourse = expedition.course_ids?.[0]; // Vérifie si course_ids est disponible
+                                        const coursierActuel = firstCourse?.coursier_id ? `${firstCourse.coursier_id.completename}` : 'N/A';
 
-        return (
-            <tr key={expedition._id} className="bg-gray-800 hover:bg-gray-600 transition-all font-thin">
-                <td className="px-6 py-4">{expedition.expedition_code}</td>
-                <td className="px-6 py-4">{expedition.colis_id?.desc_depart || 'N/A'}</td>
-                <td className="px-6 py-4">{expedition.colis_id?.desc_destination || 'N/A'}</td>
-                <td className="px-6 py-4">{new Date(expedition.date_depart).toLocaleDateString()}</td>
-                <td className="px-6 py-4">{new Date(expedition.date_arrivee).toLocaleDateString()}</td>
-                <td className="px-6 py-4">{expedition.colis_id?.numero_colis || 'N/A'}</td>
-                <td className="px-6 py-4">{expedition.colis_id?.client_id_exp?.completename || 'N/A'}</td>
-                <td className="px-6 py-4">{expedition.colis_id?.client_id_dest?.completename || 'N/A'}</td>
-                <td className="px-6 py-4">{coursierActuel}</td>
-                <td className="px-6 py-4">
-                    <button
-                        onClick={() => handleViewDetails(expedition)}
-                        className="text-blue-400 hover:text-blue-600 transition-transform transform hover:scale-105 font-thin"
-                    >
-                        Voir Détail
-                    </button>
-                </td>
-            </tr>
-        );
-    })}
-</tbody>
+                                        return (
+                                            <tr key={expedition._id} className="bg-gray-800 hover:bg-gray-600 transition-all font-thin">
+                                                <td className="px-6 py-4">{expedition.expedition_code}</td>
+                                                <td className="px-6 py-4">{expedition.colis_id?.desc_depart || 'N/A'}</td>
+                                                <td className="px-6 py-4">{expedition.colis_id?.desc_destination || 'N/A'}</td>
+                                                <td className="px-6 py-4">{new Date(expedition.date_depart).toLocaleDateString()}</td>
+                                                <td className="px-6 py-4">{new Date(expedition.date_arrivee).toLocaleDateString()}</td>
+                                                <td className="px-6 py-4">{expedition.colis_id?.numero_colis || 'N/A'}</td>
+                                                <td className="px-6 py-4">{expedition.colis_id?.client_id_exp?.completename || 'N/A'}</td>
+                                                <td className="px-6 py-4">{expedition.colis_id?.client_id_dest?.completename || 'N/A'}</td>
+                                                <td className="px-6 py-4">{coursierActuel}</td>
+                                                <td className="px-6 py-4">
+                                                    <button
+                                                        onClick={() => handleViewDetails(expedition)}
+                                                        className="text-blue-400 hover:text-blue-600 transition-transform transform hover:scale-105 font-thin"
+                                                    >
+                                                        Voir Détail
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -128,27 +128,32 @@ function Expeditions() {
             <p className="text-gray-700"><strong>Particularité :</strong> {selectedExpedition.colis_id?.particularite || 'N/A'}</p>
 
             <h3 className="text-lg font-bold mt-4 text-gray-800">Courses Prévues :</h3>
-            {selectedExpedition.course_ids && selectedExpedition.course_ids.length > 0 ? (
-                selectedExpedition.course_ids.map(course => (
-                    <div key={course._id} className="mb-4">
-                        <p className="text-gray-700"><strong>Départ :</strong> {course.depart || 'N/A'}</p>
-                        <p className="text-gray-700"><strong>Arrivée :</strong> {course.arrive || 'N/A'}</p>
-                        <p className="text-gray-700"><strong>Coursier :</strong> {course.coursier_id?.completename || 'N/A'}</p>
-                        <p className="text-gray-700"><strong>Email :</strong> {course.coursier_id?.email || 'N/A'}</p>
-                        <p className="text-gray-700"><strong>Téléphone :</strong> {course.coursier_id?.tel || 'N/A'}</p>
-                        {course.coursier_id?.vehic_id && (
-                            <>
-                                <p className="text-gray-700"><strong>Véhicule :</strong></p>
-                                <p className="text-gray-700"><strong>Type :</strong> {course.coursier_id.vehic_id.type || 'N/A'}</p>
-                                <p className="text-gray-700"><strong>Marque :</strong> {course.coursier_id.vehic_id.marque || 'N/A'}</p>
-                                <p className="text-gray-700"><strong>Immatriculation :</strong> {course.coursier_id.vehic_id.immatriculation || 'N/A'}</p>
-                            </>
-                        )}
-                    </div>
-                ))
-            ) : (
-                <p>Aucune course prévue</p>
-            )}
+            <div className="relative border-l border-gray-300">
+                {selectedExpedition.course_ids && selectedExpedition.course_ids.length > 0 ? (
+                    selectedExpedition.course_ids.map((course, index) => (
+                        <div key={course._id} className="mb-8 ml-4">
+                            <div className="absolute w-3 h-3 bg-green-500 rounded-full -left-1.5 border border-white"></div>
+                            <div className="text-gray-700">
+                                <p className="font-semibold"><strong>Départ :</strong> {course.depart || 'N/A'}</p>
+                                <p className="font-semibold"><strong>Arrivée :</strong> {course.arrive || 'N/A'}</p>
+                                <p><strong>Coursier :</strong> {course.coursier_id?.completename || 'N/A'}</p>
+                                <p><strong>Email :</strong> {course.coursier_id?.email || 'N/A'}</p>
+                                <p><strong>Téléphone :</strong> {course.coursier_id?.tel || 'N/A'}</p>
+                                {course.coursier_id?.vehic_id && (
+                                    <>
+                                        <p><strong>Véhicule :</strong></p>
+                                        <p><strong>Type :</strong> {course.coursier_id.vehic_id.type || 'N/A'}</p>
+                                        <p><strong>Marque :</strong> {course.coursier_id.vehic_id.marque || 'N/A'}</p>
+                                        <p><strong>Immatriculation :</strong> {course.coursier_id.vehic_id.immatriculation || 'N/A'}</p>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p className="ml-4">Aucune course prévue</p>
+                )}
+            </div>
 
             <div className="mt-6 flex justify-end">
                 <button 

@@ -308,23 +308,25 @@ function CreateExpedition() {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="poids"
-                    className="block mb-2 text-sm font-medium text-gray-900"
-                  >
-                    Poids du colis
-                  </label>
-                  <input
-                    type="number"
-                    name="poids"
-                    id="poids"
-                    value={colisData.poids}
-                    onChange={handleColisChange}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    placeholder="Poids du colis en kg"
-                    required
-                  />
-                </div>
+  <label
+    htmlFor="poids"
+    className="block mb-2 text-sm font-medium text-gray-900"
+  >
+    Poids du colis
+  </label>
+  <input
+    type="number"
+    name="poids"
+    id="poids"
+    value={colisData.poids}
+    onChange={handleColisChange}
+    onInput={(e) => e.target.value = Math.max(0, e.target.value)}
+    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+    placeholder="Poids du colis en kg"
+    required
+  />
+</div>
+
               </div>
 
               <div className="sm:col-span-2">
@@ -545,29 +547,30 @@ function CreateExpedition() {
             </div>
           )}
         </form>
-
         {showSuccessModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 w-1/3 shadow-lg hover:shadow-xl transition-shadow transform duration-300 font-thin">
-              <h2 className="text-xl font-bold mb-4 text-gray-800">Expédition créée avec succès</h2>
-              <div className="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900 p-2 flex items-center justify-center mx-auto mb-3.5">
-                <svg aria-hidden="true" className="w-8 h-8 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                </svg>
-              </div>
-              <p className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Votre expédition a été créée avec succès.</p>
-              <button
-                onClick={() => {
-                  setShowSuccessModal(false);
-                  navigate("/dashboard/admin/expeditions");
-                }}
-                className="py-2 px-3 text-sm font-medium text-center text-white rounded-lg bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:focus:ring-primary-900"
-              >
-                Continuer
-              </button>
-            </div>
-          </div>
-        )}
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="bg-white rounded-lg p-6 w-1/3 shadow-lg hover:shadow-xl transition-shadow transform duration-300 font-thin">
+      <h2 className="text-xl font-bold mb-4 text-gray-800 text-center">Expédition créée avec succès</h2>
+      <div className="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900 p-2 flex items-center justify-center mx-auto mb-3.5">
+        <svg aria-hidden="true" className="w-8 h-8 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
+        </svg>
+      </div>
+      <p className="mb-4 text-lg font-semibold text-gray-900 dark:text-white text-center">Votre expédition a été créée avec succès.</p>
+      <div className="w-full flex justify-center">
+        <button
+          onClick={() => {
+            setShowSuccessModal(false);
+            navigate("/dashboard/admin/expeditions");
+          }}
+          className="py-2 px-4 text-sm font-medium text-center text-white rounded-lg bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:focus:ring-primary-900"
+        >
+          Continuer
+        </button>
+      </div>
+    </div>
+  </div>
+)}
       </div>
     </section>
   );
