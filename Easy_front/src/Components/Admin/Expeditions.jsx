@@ -120,6 +120,7 @@ function Expeditions() {
             {showModal && selectedExpedition && (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white rounded-lg p-6 w-1/3 shadow-lg hover:shadow-xl transition-shadow transform duration-300 font-thin">
+            {/* Partie supérieure avec les détails du colis */}
             <h2 className="text-xl font-bold mb-4 text-gray-800">Détails de l'Expédition</h2>
             <p className="text-gray-700"><strong>Numéro de Colis :</strong> {selectedExpedition.colis_id?.numero_colis || 'N/A'}</p>
             <p className="text-gray-700"><strong>Description :</strong> {selectedExpedition.colis_id?.description || 'N/A'}</p>
@@ -127,34 +128,77 @@ function Expeditions() {
             <p className="text-gray-700"><strong>Poids :</strong> {selectedExpedition.colis_id?.poids || 'N/A'} kg</p>
             <p className="text-gray-700"><strong>Particularité :</strong> {selectedExpedition.colis_id?.particularite || 'N/A'}</p>
 
+            {/* Séparation entre les détails du colis et les courses */}
             <h3 className="text-lg font-bold mt-4 text-gray-800">Courses Prévues :</h3>
-            <div className="relative border-l border-gray-300">
+            
+            {/* Contenu des courses prévues */}
+            <div
+                style={{
+                    maxHeight: '250px', // Limite la hauteur visible
+                    overflowY: 'scroll', // Permet de scroller verticalement
+                    scrollbarWidth: 'none', // Masque la scrollbar sur Firefox
+                    msOverflowStyle: 'none', // Masque la scrollbar sur IE et Edge
+                }}
+                className="pr-2"
+            >
                 {selectedExpedition.course_ids && selectedExpedition.course_ids.length > 0 ? (
                     selectedExpedition.course_ids.map((course, index) => (
-                        <div key={course._id} className="mb-8 ml-4">
-                            <div className="absolute w-3 h-3 bg-green-500 rounded-full -left-1.5 border border-white"></div>
-                            <div className="text-gray-700">
-                                <p className="font-semibold"><strong>Départ :</strong> {course.depart || 'N/A'}</p>
-                                <p className="font-semibold"><strong>Arrivée :</strong> {course.arrive || 'N/A'}</p>
-                                <p><strong>Coursier :</strong> {course.coursier_id?.completename || 'N/A'}</p>
-                                <p><strong>Email :</strong> {course.coursier_id?.email || 'N/A'}</p>
-                                <p><strong>Téléphone :</strong> {course.coursier_id?.tel || 'N/A'}</p>
-                                {course.coursier_id?.vehic_id && (
-                                    <>
-                                        <p><strong>Véhicule :</strong></p>
-                                        <p><strong>Type :</strong> {course.coursier_id.vehic_id.type || 'N/A'}</p>
-                                        <p><strong>Marque :</strong> {course.coursier_id.vehic_id.marque || 'N/A'}</p>
-                                        <p><strong>Immatriculation :</strong> {course.coursier_id.vehic_id.immatriculation || 'N/A'}</p>
-                                    </>
-                                )}
+                        <div 
+                            key={course._id} 
+                            className="mb-8 bg-white border border-gray-200 p-4 rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-shadow duration-300"
+                        >
+                            {/* Détails de la course avec un design similaire à l'image */}
+                            <div className="flex justify-between items-center mb-4">
+                                <div>
+                                    <p className="text-gray-500">Départ</p>
+                                    <p className="text-black font-bold">{course.depart || 'N/A'}</p>
+                                </div>
+                                <div className="text-center">
+                                    <span className="text-gray-500">• • •</span>
+                                </div>
+                                <div>
+                                    <p className="text-gray-500">Arrivée</p>
+                                    <p className="text-black font-bold">{course.arrive || 'N/A'}</p>
+                                </div>
                             </div>
+
+                            {/* Détails du coursier */}
+                            <div className="flex justify-between items-center mb-4">
+                                <div>
+                                    <p className="text-gray-500">Coursier</p>
+                                    <p className="text-black font-bold">{course.coursier_id?.completename || 'N/A'}</p>
+                                </div>
+                                <div>
+                                    <p className="text-gray-500">Téléphone</p>
+                                    <p className="text-black font-bold">{course.coursier_id?.tel || 'N/A'}</p>
+                                </div>
+                            </div>
+
+                            {/* Détails du véhicule */}
+                            {course.coursier_id?.vehic_id && (
+                                <div className="flex justify-between items-center">
+                                    <div>
+                                        <p className="text-gray-500">Type</p>
+                                        <p className="text-black font-bold">{course.coursier_id.vehic_id.type || 'N/A'}</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-gray-500">Marque</p>
+                                        <p className="text-black font-bold">{course.coursier_id.vehic_id.marque || 'N/A'}</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-gray-500">Immatriculation</p>
+                                        <p className="text-black font-bold">{course.coursier_id.vehic_id.immatriculation || 'N/A'}</p>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     ))
                 ) : (
-                    <p className="ml-4">Aucune course prévue</p>
+                    <p>Aucune course prévue</p>
                 )}
             </div>
 
+            {/* Bouton de fermeture */}
             <div className="mt-6 flex justify-end">
                 <button 
                     onClick={closeModal}
@@ -165,6 +209,8 @@ function Expeditions() {
         </div>
     </div>
 )}
+
+
 
         </section>
     );
