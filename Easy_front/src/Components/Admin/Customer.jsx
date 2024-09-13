@@ -9,7 +9,8 @@ function Customer() {
     const [error, setError] = useState('');
     const [selectedCustomer, setSelectedCustomer] = useState(null);
     const [isActionsDropdownVisible, setIsActionsDropdownVisible] = useState(false);
-    const [showDeleteModal, setShowDeleteModal] = useState(false); // Nouveau state pour le modal de suppression
+    const [showDeleteModal, setShowDeleteModal] = useState(false); // Modal pour la suppression
+    const [successMessage, setSuccessMessage] = useState(null); // Message de succès
     const navigate = useNavigate();
 
     const fetchCustomers = async () => {
@@ -45,12 +46,15 @@ function Customer() {
             try {
                 if (action === 'deactivate') {
                     await clientService.updateClientStatus(selectedCustomer, 'Inactif');
+                    setSuccessMessage('Client désactivé avec succès');
                 } else if (action === 'activate') {
                     await clientService.updateClientStatus(selectedCustomer, 'Actif');
+                    setSuccessMessage('Client activé avec succès');
                 } else if (action === 'delete') {
-                    setShowDeleteModal(true); 
+                    setShowDeleteModal(true); // Affiche le modal avant de supprimer
                 }
                 fetchCustomers();
+                setTimeout(() => setSuccessMessage(null), 3000); // Masquer le message après 3 secondes
             } catch (error) {
                 console.error('Error performing action on customer:', error);
                 setError('Erreur lors de l\'action sur le client');
@@ -62,8 +66,10 @@ function Customer() {
     const confirmDeleteCustomer = async () => {
         try {
             await clientService.deleteClientById(selectedCustomer);
+            setSuccessMessage('Client supprimé avec succès');
             fetchCustomers();
             setShowDeleteModal(false); // Fermer le modal après la suppression
+            setTimeout(() => setSuccessMessage(null), 3000); // Masquer le message après 3 secondes
         } catch (error) {
             console.error('Erreur lors de la suppression du client', error);
         }
@@ -203,23 +209,30 @@ function Customer() {
                             <svg className="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd"></path>
                             </svg>
-                            <p className="text-gray-500 dark:text-gray-300">Etes vous sur de vouloir supprimer cet utilisateur ?</p>
+                            <p className="text-gray-500 dark:text-gray-300">Etes-vous sûr de vouloir supprimer cet utilisateur ?</p>
                             <div className="flex justify-center items-center mt-4 space-x-4">
                                 <button
                                     className="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600"
                                     onClick={() => setShowDeleteModal(false)}
                                 >
-                                    non, annuler
+                                    Non, annuler
                                 </button>
                                 <button
                                     className="py-2 px-3 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600"
                                     onClick={confirmDeleteCustomer}
                                 >
-                                    oui, je suis sur
+                                    Oui, je suis sûr
                                 </button>
                             </div>
                         </div>
                     </div>
+                </div>
+            )}
+
+            {/* Message de succès */}
+            {successMessage && (
+                <div className="fixed top-0 right-0 m-4 p-4 bg-green-100 text-green-800 rounded-lg shadow-lg z-50 transition-all duration-500">
+                    <p>{successMessage}</p>
                 </div>
             )}
         </section>
