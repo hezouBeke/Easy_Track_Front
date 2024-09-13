@@ -9,6 +9,7 @@ function Customer() {
     const [error, setError] = useState('');
     const [selectedCustomer, setSelectedCustomer] = useState(null);
     const [isActionsDropdownVisible, setIsActionsDropdownVisible] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false); // Nouveau state pour le modal de suppression
     const navigate = useNavigate();
 
     const fetchCustomers = async () => {
@@ -16,7 +17,7 @@ function Customer() {
             const response = await clientService.getAllClients();
             const updatedCustomers = response.data.map(customer => ({
                 ...customer,
-                status: customer.status // Assurez-vous que le statut est correct
+                status: customer.status
             }));
             setCustomers(updatedCustomers);
         } catch (error) {
@@ -24,6 +25,7 @@ function Customer() {
             console.error('Error fetching customers:', error);
         }
     };
+
     useEffect(() => {
         fetchCustomers();
     }, []);
@@ -46,15 +48,24 @@ function Customer() {
                 } else if (action === 'activate') {
                     await clientService.updateClientStatus(selectedCustomer, 'Actif');
                 } else if (action === 'delete') {
-                    await clientService.deleteClient(selectedCustomer);
+                    setShowDeleteModal(true); 
                 }
                 fetchCustomers();
             } catch (error) {
                 console.error('Error performing action on customer:', error);
                 setError('Erreur lors de l\'action sur le client');
             }
-            setSelectedCustomer(null);
-            setIsActionsDropdownVisible(false);
+        }
+    };
+
+    // Fonction pour confirmer la suppression du client
+    const confirmDeleteCustomer = async () => {
+        try {
+            await clientService.deleteClientById(selectedCustomer);
+            fetchCustomers();
+            setShowDeleteModal(false); // Fermer le modal après la suppression
+        } catch (error) {
+            console.error('Erreur lors de la suppression du client', error);
         }
     };
 
@@ -123,8 +134,13 @@ function Customer() {
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <button onClick={() => handleAction('activate')} className="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >
+                                                    <button onClick={() => handleAction('activate')} className="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                                         Activer
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button onClick={() => handleAction('delete')} className="block w-full text-left py-2 px-4 hover:bg-red-100 dark:hover:bg-red-600 dark:hover:text-white">
+                                                        Supprimer
                                                     </button>
                                                 </li>
                                             </ul>
@@ -178,6 +194,34 @@ function Customer() {
                     </div>
                 </div>
             </div>
+
+            {/* Modal de confirmation de suppression */}
+            {showDeleteModal && (
+                <div id="deleteModal" className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg shadow-lg dark:bg-gray-800 p-4 max-w-md">
+                        <div className="text-center">
+                            <svg className="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd"></path>
+                            </svg>
+                            <p className="text-gray-500 dark:text-gray-300">Etes vous sur de vouloir supprimer cet utilisateur ?</p>
+                            <div className="flex justify-center items-center mt-4 space-x-4">
+                                <button
+                                    className="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600"
+                                    onClick={() => setShowDeleteModal(false)}
+                                >
+                                    non, annuler
+                                </button>
+                                <button
+                                    className="py-2 px-3 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600"
+                                    onClick={confirmDeleteCustomer}
+                                >
+                                    oui, je suis sur
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </section>
     );
 }
