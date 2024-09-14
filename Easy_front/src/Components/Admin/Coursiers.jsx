@@ -9,6 +9,8 @@ function Coursier() {
     const [error, setError] = useState('');
     const [selectedCoursier, setSelectedCoursier] = useState(null);
     const [isActionsDropdownVisible, setIsActionsDropdownVisible] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false); // Modal pour la suppression
+    const [successMessage, setSuccessMessage] = useState(null); // Message de succès
     const navigate = useNavigate();
 
     const fetchCoursiers = async () => {
@@ -16,7 +18,7 @@ function Coursier() {
             const response = await coursierService.getAllCoursiers();
             const updatedCoursiers = response.data.map(coursier => ({
                 ...coursier,
-                status: coursier.status // Assurez-vous que le statut est correct
+                status: coursier.status
             }));
             setCoursiers(updatedCoursiers);
         } catch (error) {
@@ -29,7 +31,6 @@ function Coursier() {
         fetchCoursiers();
     }, []);
 
-    
     const handleSelectCoursier = (id) => {
         if (id === selectedCoursier) {
             setSelectedCoursier(null);
@@ -45,18 +46,32 @@ function Coursier() {
             try {
                 if (action === 'deactivate') {
                     await coursierService.updateCoursierStatus(selectedCoursier, 'Inactif');
+                    setSuccessMessage('Coursier désactivé avec succès');
                 } else if (action === 'activate') {
                     await coursierService.updateCoursierStatus(selectedCoursier, 'Actif');
+                    setSuccessMessage('Coursier activé avec succès');
                 } else if (action === 'delete') {
-                    await coursierService.deleteCoursierById(selectedCoursier);
+                    setShowDeleteModal(true); // Affiche le modal avant de supprimer
                 }
                 fetchCoursiers();
+                setTimeout(() => setSuccessMessage(null), 3000); // Masquer le message après 3 secondes
             } catch (error) {
                 console.error('Error performing action on coursier:', error);
                 setError('Erreur lors de l\'action sur le coursier');
             }
-            setSelectedCoursier(null);
-            setIsActionsDropdownVisible(false);
+        }
+    };
+
+    // Fonction pour confirmer la suppression du coursier
+    const confirmDeleteCoursier = async () => {
+        try {
+            await coursierService.deleteCoursierById(selectedCoursier);
+            setSuccessMessage('Coursier supprimé avec succès');
+            fetchCoursiers();
+            setShowDeleteModal(false); // Fermer le modal après la suppression
+            setTimeout(() => setSuccessMessage(null), 3000); // Masquer le message après 3 secondes
+        } catch (error) {
+            console.error('Erreur lors de la suppression du coursier', error);
         }
     };
 
@@ -85,7 +100,7 @@ function Coursier() {
             <Adminheader />
             <div className="flex flex-1">
                 <Adminsidebar />
-        
+
                 <div className="flex-1 mx-60 max-w-screen-2xl px-5 lg:px-0 mt-10 mr-0">
                     <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                         <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
@@ -131,6 +146,11 @@ function Coursier() {
                                                     className="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                 >
                                                     Activer
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button onClick={() => handleAction('delete')} className="block w-full text-left py-2 px-4 hover:bg-red-100 dark:hover:bg-red-600 dark:hover:text-white">
+                                                    Supprimer
                                                 </button>
                                             </li>
                                         </ul>
@@ -184,6 +204,41 @@ function Coursier() {
                     </div>
                 </div>
             </div>
+
+            {/* Modal de confirmation de suppression */}
+            {showDeleteModal && (
+                <div id="deleteModal" className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg shadow-lg dark:bg-gray-800 p-4 max-w-md">
+                        <div className="text-center">
+                            <svg className="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd"></path>
+                            </svg>
+                            <p className="text-gray-500 dark:text-gray-300">Etes-vous sûr de vouloir supprimer ce coursier ?</p>
+                            <div className="flex justify-center items-center mt-4 space-x-4">
+                                <button
+                                    className="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600"
+                                    onClick={() => setShowDeleteModal(false)}
+                                >
+                                    Non, annuler
+                                </button>
+                                <button
+                                    className="py-2 px-3 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600"
+                                    onClick={confirmDeleteCoursier}
+                                >
+                                    Oui, je suis sûr
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Message de succès */}
+            {successMessage && (
+                <div className="fixed top-0 right-0 m-4 p-4 bg-green-100 text-green-800 rounded-lg shadow-lg z-50 transition-all duration-500">
+                    <p>{successMessage}</p>
+                </div>
+            )}
         </section>
     );
 }
