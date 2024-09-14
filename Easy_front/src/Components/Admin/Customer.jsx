@@ -51,16 +51,26 @@ function Customer() {
                     await clientService.updateClientStatus(selectedCustomer, 'Actif');
                     setSuccessMessage('Client activé avec succès');
                 } else if (action === 'delete') {
-                    setShowDeleteModal(true); // Affiche le modal avant de supprimer
+                    await clientService.deleteClientById(selectedCustomer);
+                    setSuccessMessage('Client supprimé avec succès');
                 }
+    
+                // Réinitialiser la sélection après l'action
+                setSelectedCustomer(null);
+                setIsActionsDropdownVisible(false);
+    
+                // Rafraîchir la liste des clients
                 fetchCustomers();
-                setTimeout(() => setSuccessMessage(null), 3000); // Masquer le message après 3 secondes
+    
+                // Masquer le message après 3 secondes
+                setTimeout(() => setSuccessMessage(null), 3000);
             } catch (error) {
-                console.error('Error performing action on customer:', error);
+                console.error('Erreur lors de l\'action sur le client', error);
                 setError('Erreur lors de l\'action sur le client');
             }
         }
     };
+    
 
     // Fonction pour confirmer la suppression du client
     const confirmDeleteCustomer = async () => {
