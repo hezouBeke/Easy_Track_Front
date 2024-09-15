@@ -53,7 +53,7 @@ function Coursier() {
                 } else if (action === 'delete') {
                     setShowDeleteModal(true); // Affiche le modal avant de supprimer
                 }
-                fetchCoursiers();
+                fetchCoursiers(); // Actualise la liste après l'action
                 setTimeout(() => setSuccessMessage(null), 3000); // Masquer le message après 3 secondes
             } catch (error) {
                 console.error('Error performing action on coursier:', error);
@@ -61,7 +61,6 @@ function Coursier() {
             }
         }
     };
-
     // Fonction pour confirmer la suppression du coursier
     const confirmDeleteCoursier = async () => {
         try {
