@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./style.css";
 
 function Adminsidebar() {
+  const [isOpen, setIsOpen] = useState(false);  // État pour contrôler l'ouverture sur mobile
   const navigate = useNavigate();
 
   const handleCreateShipmentClick = () => {
@@ -20,18 +21,34 @@ function Adminsidebar() {
   const handleExpedtionsClick = () => {
     navigate("/dashboard/admin/expeditions");
   };
-  
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);  // Gère l'état de l'ouverture de la sidebar sur mobile
+  };
+
   return (
     <div className="relative">
+      {/* Sidebar Button for small screens */}
+      <button 
+        onClick={toggleSidebar} 
+        className="fixed top-4 left-4 z-50 p-2 text-gray-600 rounded-lg lg:hidden hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-400 dark:hover:text-white"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+
       {/* Main Content */}
       <main className="pt-4">
         <aside
           id="default-sidebar"
-          className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
-          aria-label="Sidenav"
+          className={`fixed top-0 left-0 z-40 w-64 h-screen transition-transform transform ${
+            isOpen ? 'translate-x-0' : '-translate-x-full'
+          } lg:translate-x-0 bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700`}
+          aria-label="Sidebar"
         >
           <div
-            className="overflow-y-auto py-5 px-3 h-full bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700"
+            className="overflow-y-auto py-5 px-3 h-full"
             style={{ marginTop: 64 }}
           >
             <ul className="space-y-2">
@@ -53,9 +70,9 @@ function Adminsidebar() {
                 </a>
               </li>
             </ul>
-           
+
             <ul className="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
-            <li>
+              <li>
                 <a
                   href='/dashboard/admin/clients'
                   onClick={handleCustomerClick}
@@ -75,28 +92,26 @@ function Adminsidebar() {
               </li>
               <li>
                 <a
-                 href='/dashboard/admin/coursiers'
+                  href='/dashboard/admin/coursiers'
                   onClick={handleCoursierClick}
                   className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
                 >
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M240-160q-50 0-85-35t-35-85H40v-440q0-33 23.5-56.5T120-800h560v160h120l120 160v200h-80q0 50-35 85t-85 35q-50 0-85-35t-35-85H360q0 50-35 85t-85 35Zm0-80q17 0 28.5-11.5T280-280q0-17-11.5-28.5T240-320q-17 0-28.5 11.5T200-280q0 17 11.5 28.5T240-240ZM120-360h32q17-18 39-29t49-11q27 0 49 11t39 29h272v-360H120v360Zm600 120q17 0 28.5-11.5T760-280q0-17-11.5-28.5T720-320q-17 0-28.5 11.5T680-280q0 17 11.5 28.5T720-240Zm-40-200h170l-90-120h-80v120ZM360-540Z"/></svg>
-
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M240-160q-50 0-85-35t-35-85H40v-440q0-33 23.5-56.5T120-800h560v160h120l120 160v200h-80q0 50-35 85t-85 35q-50 0-85-35t-35-85H360q0 50-35 85t-85 35Zm0-80q17 0 28.5-11.5T280-280q0-17-11.5-28.5T240-320q-17 0-28.5 11.5T200-280q0 17 11.5 28.5T240-240ZM120-360h32q17-18 39-29t49-11q27 0 49 11t39 29h272v-360H120v360Zm600 120q17 0 28.5-11.5T760-280q0-17-11.5-28.5T720-320q-17 0-28.5 11.5T680-280q0 17 11.5 28.5T720-240Zm-40-200h170l-90-120h-80v120ZM360-540Z"/></svg>
                   <span className="ml-3">Coursiers</span>
                 </a>
               </li>
 
               <li>
                 <a
-                 href='/dashboard/admin/expeditions'
+                  href='/dashboard/admin/expeditions'
                   onClick={handleExpedtionsClick}
                   className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
                 >
-<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M120-160v-640l572 240h-12q-35 0-66 8t-60 22L200-680v140l240 60-240 60v140l216-92q-8 23-12 45.5t-4 46.5v2L120-160Zm560 80q-83 0-141.5-58.5T480-280q0-83 58.5-141.5T680-480q83 0 141.5 58.5T880-280q0 83-58.5 141.5T680-80Zm66-106 28-28-74-74v-112h-40v128l86 86ZM200-372v-308 400-92Z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M120-160v-640l572 240h-12q-35 0-66 8t-60 22L200-680v140l240 60-240 60v140l216-92q-8 23-12 45.5t-4 46.5v2L120-160Zm560 80q-83 0-141.5-58.5T480-280q0-83 58.5-141.5T680-480q83 0 141.5 58.5T880-280q0 83-58.5 141.5T680-80Zm66-106 28-28-74-74v-112h-40v128l86 86ZM200-372v-308 400-92Z"/></svg>
                   <span className="ml-3">Expéditions en cours </span>
                 </a>
               </li>
-              
-             
+
               <li>
                 <a
                   href="/dashboard/admin/colis"
@@ -114,43 +129,7 @@ function Adminsidebar() {
                   <span className="ml-3">Colis</span>
                 </a>
               </li>
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
-                >
-                  <svg
-                    xmlns="http://www.aw3.org/2000/svg"
-                    height="24px"
-                    viewBox="0 -960 960 960"
-                    width="24px"
-                    fill="#e8eaed"
-                  >
-                    <path d="M480-120q-138 0-240.5-91.5T122-440h82q14 104 92.5 172T480-200q117 0 198.5-81.5T760-480q0-117-81.5-198.5T480-760q-69 0-129 32t-101 88h110v80H120v-240h80v94q51-64 124.5-99T480-840q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-480q0 75-28.5 140.5t-77 114q-48.5 48.5-114 77T480-120Zm112-192L440-464v-216h80v184l128 128-56 56Z" />
-                  </svg>
-                  <span className="ml-3">Historique</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="24px"
-                    viewBox="0 -960 960 960"
-                    width="24px"
-                    fill="#e8eaed"
-                  >
-                    <path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h404q-4 20-4 40t4 40H160l320 200 146-91q14 13 30.5 22.5T691-572L480-440 160-640v400h640v-324q23-5 43-14t37-22v360q0 33-23.5 56.5T800-160H160Zm0-560v480-480Zm600 80q-50 0-85-35t-35-85q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35Z" />
-                  </svg>
-                  <span className="flex-1 ml-3 whitespace-nowrap">Messages</span>
-                  <span className="inline-flex justify-center items-center w-5 h-5 text-xs font-semibold rounded-full text-primary-800 bg-primary-100 dark:bg-primary-200 dark:text-primary-800">
-                    10
-                  </span>
-                </a>
-              </li>
+
               <li>
                 <a
                   href="/dashboard/admin/stats"
@@ -168,7 +147,7 @@ function Adminsidebar() {
                   <span className="ml-3">Statistiques</span>
                 </a>
               </li>
-              
+
               <li>
                 <button
                   onClick={handleCreateShipmentClick}
