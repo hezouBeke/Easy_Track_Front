@@ -60,7 +60,7 @@ function Coursier() {
                 setError('Erreur lors de l\'action sur le coursier');
             }
         }
-    };
+    }; 
     // Fonction pour confirmer la suppression du coursier
     const confirmDeleteCoursier = async () => {
         try {
