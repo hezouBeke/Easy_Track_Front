@@ -41,7 +41,7 @@ function Coursier() {
         }
     };
 
-    const handleAction = async (action) => {
+  const handleAction = async (action) => {
         if (selectedCoursier) {
             try {
                 if (action === 'deactivate') {
