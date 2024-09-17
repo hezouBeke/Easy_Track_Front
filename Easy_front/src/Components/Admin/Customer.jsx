@@ -9,8 +9,8 @@ function Customer() {
     const [error, setError] = useState('');
     const [selectedCustomer, setSelectedCustomer] = useState(null);
     const [isActionsDropdownVisible, setIsActionsDropdownVisible] = useState(false);
-    const [showDeleteModal, setShowDeleteModal] = useState(false); // Modal pour la suppression
-    const [successMessage, setSuccessMessage] = useState(null); // Message de succès
+    const [showDeleteModal, setShowDeleteModal] = useState(false); 
+    const [successMessage, setSuccessMessage] = useState(null); 
     const navigate = useNavigate();
 
     const fetchCustomers = async () => {
@@ -40,6 +40,7 @@ function Customer() {
             setIsActionsDropdownVisible(true);
         }
     };
+
     const handleAction = async (action) => {
         if (selectedCustomer) {
             try {
@@ -50,27 +51,24 @@ function Customer() {
                     await clientService.updateClientStatus(selectedCustomer, 'Actif');
                     setSuccessMessage('Client activé avec succès');
                 } else if (action === 'delete') {
-                    setShowDeleteModal(true); // Affiche le modal avant de supprimer
+                    setShowDeleteModal(true); 
                 }
-                fetchCustomers(); // Actualise la liste après l'action
-                setTimeout(() => setSuccessMessage(null), 3000); // Masquer le message après 3 secondes
+                fetchCustomers(); 
+                setTimeout(() => setSuccessMessage(null), 2000); // Le message disparaît après 2 secondes
             } catch (error) {
                 console.error('Erreur lors de l\'action sur le client', error);
                 setError('Erreur lors de l\'action sur le client');
             }
         }
-    }; 
-    
-    
+    };
 
-    // Fonction pour confirmer la suppression du client
     const confirmDeleteCustomer = async () => {
         try {
             await clientService.deleteClientById(selectedCustomer);
             setSuccessMessage('Client supprimé avec succès');
             fetchCustomers();
-            setShowDeleteModal(false); // Fermer le modal après la suppression
-            setTimeout(() => setSuccessMessage(null), 3000); // Masquer le message après 3 secondes
+            setShowDeleteModal(false);
+            setTimeout(() => setSuccessMessage(null), 2000); // Le message disparaît après 2 secondes
         } catch (error) {
             console.error('Erreur lors de la suppression du client', error);
         }
@@ -119,17 +117,17 @@ function Customer() {
                             </div>
                             <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                                 <div className="relative">
-                                <button
-                id="actionsDropdownButton"
-                className={`w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 ${!selectedCustomer ? 'opacity-50 cursor-not-allowed' : ''}`}
-                disabled={!selectedCustomer}
-                onClick={() => setIsActionsDropdownVisible(!isActionsDropdownVisible)}
-            >
-                Actions
-                <svg className="-ml-1 mr-1.5 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path clipRule="evenodd" fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                </svg>
-            </button>
+                                    <button
+                                        id="actionsDropdownButton"
+                                        className={`w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 ${!selectedCustomer ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                        disabled={!selectedCustomer}
+                                        onClick={() => setIsActionsDropdownVisible(!isActionsDropdownVisible)}
+                                    >
+                                        Actions
+                                        <svg className="-ml-1 mr-1.5 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <path clipRule="evenodd" fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                        </svg>
+                                    </button>
                                     {isActionsDropdownVisible && (
                                         <div id="actionsDropdown" className="absolute right-0 z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                             <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="actionsDropdownButton">
@@ -156,6 +154,7 @@ function Customer() {
                                 </div>
                             </div>
                         </div>
+
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -228,11 +227,18 @@ function Customer() {
   </div>
 )}
 
-
-            {/* Message de succès */}
+            {/* Nouveau message de succès style modal, tout en blanc */}
             {successMessage && (
-                <div className="fixed top-0 right-0 m-4 p-4 bg-green-100 text-green-800 rounded-lg shadow-lg z-50 transition-all duration-500">
-                    <p>{successMessage}</p>
+                <div className="fixed top-4 right-4 z-50 flex items-center">
+                    <div className="relative p-4 text-center bg-white rounded-lg shadow dark:bg-white sm:p-5">
+                        <div className="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900 p-2 flex items-center justify-center mx-auto mb-3.5">
+                            <svg aria-hidden="true" className="w-8 h-8 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
+                            </svg>
+                            <span className="sr-only">Success</span>
+                        </div>
+                        <p className="mb-4 text-lg font-semibold text-gray-900 dark:text-black">{successMessage}</p>
+                    </div>
                 </div>
             )}
         </section>

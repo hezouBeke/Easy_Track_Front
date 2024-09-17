@@ -25,7 +25,6 @@ function Adminsidebar() {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);  // Gère l'état de l'ouverture de la sidebar sur mobile
   };
-
   return (
     <div className="relative">
       {/* Sidebar Button for small screens */}
