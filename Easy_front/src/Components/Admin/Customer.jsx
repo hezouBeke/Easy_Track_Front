@@ -40,7 +40,6 @@ function Customer() {
             setIsActionsDropdownVisible(true);
         }
     };
-
     const handleAction = async (action) => {
         if (selectedCustomer) {
             try {
@@ -51,25 +50,17 @@ function Customer() {
                     await clientService.updateClientStatus(selectedCustomer, 'Actif');
                     setSuccessMessage('Client activé avec succès');
                 } else if (action === 'delete') {
-                    await clientService.deleteClientById(selectedCustomer);
-                    setSuccessMessage('Client supprimé avec succès');
+                    setShowDeleteModal(true); // Affiche le modal avant de supprimer
                 }
-    
-                // Réinitialiser la sélection après l'action
-                setSelectedCustomer(null);
-                setIsActionsDropdownVisible(false);
-    
-                // Rafraîchir la liste des clients
-                fetchCustomers();
-    
-                // Masquer le message après 3 secondes
-                setTimeout(() => setSuccessMessage(null), 3000);
+                fetchCustomers(); // Actualise la liste après l'action
+                setTimeout(() => setSuccessMessage(null), 3000); // Masquer le message après 3 secondes
             } catch (error) {
                 console.error('Erreur lors de l\'action sur le client', error);
                 setError('Erreur lors de l\'action sur le client');
             }
         }
-    };
+    }; 
+    
     
 
     // Fonction pour confirmer la suppression du client
@@ -211,33 +202,32 @@ function Customer() {
                 </div>
             </div>
 
-            {/* Modal de confirmation de suppression */}
             {showDeleteModal && (
-                <div id="deleteModal" className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="bg-white rounded-lg shadow-lg dark:bg-gray-800 p-4 max-w-md">
-                        <div className="text-center">
-                            <svg className="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd"></path>
-                            </svg>
-                            <p className="text-gray-500 dark:text-gray-300">Etes-vous sûr de vouloir supprimer cet utilisateur ?</p>
-                            <div className="flex justify-center items-center mt-4 space-x-4">
-                                <button
-                                    className="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600"
-                                    onClick={() => setShowDeleteModal(false)}
-                                >
-                                    Non, annuler
-                                </button>
-                                <button
-                                    className="py-2 px-3 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600"
-                                    onClick={confirmDeleteCustomer}
-                                >
-                                    Oui, je suis sûr
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
+  <div id="deleteModal" className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      {/* Modal Content */}
+      <div className="bg-white rounded-lg shadow-lg dark:bg-gray-800 p-4 max-w-md">
+          <div className="text-center">
+              <svg className="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto" aria-hidden="true">
+                  {/* SVG path */}
+              </svg>
+              <p className="text-gray-500 dark:text-gray-300">Etes-vous sûr de vouloir supprimer cet utilisateur ?</p>
+              <div className="flex justify-center items-center mt-4 space-x-4">
+                  <button 
+                      className="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600"
+                      onClick={() => setShowDeleteModal(false)}>
+                      Non, annuler
+                  </button>
+                  <button 
+                      className="py-2 px-3 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600"
+                      onClick={confirmDeleteCustomer}>
+                      Oui, je suis sûr
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+)}
+
 
             {/* Message de succès */}
             {successMessage && (
