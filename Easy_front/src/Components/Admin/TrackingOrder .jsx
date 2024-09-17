@@ -10,7 +10,7 @@ const TrackingOrder = () => {
             Datefin: "01/05/2024",
             Expéditeur: "BEKE hezou",
             Destinataire: "ATAKORA jean",
-            coursier:"TAKPASOUKA JUNIOR",
+            coursier: "TAKPASOUKA JUNIOR",
             status: "Delivered"
         },
         {
@@ -21,103 +21,10 @@ const TrackingOrder = () => {
             Datefin: "01/05/2024",
             Expéditeur: "BEKE hezou",
             Destinataire: "ATAKORA jean",
-            coursier:"TAKPASOUKA JUNIOR",
+            coursier: "TAKPASOUKA JUNIOR",
             status: "Delivered"
         },
-        {
-            id: "#001234ABCD",
-            Départ: "Togo",
-            Destination: "France",
-            Datedébut: "01/05/2024",
-            Datefin: "01/05/2024",
-            Expéditeur: "BEKE hezou",
-            Destinataire: "ATAKORA jean",
-            coursier:"TAKPASOUKA JUNIOR",
-            status: "Delivered"
-        },
-        {
-            id: "#001234ABCD",
-            Départ: "Togo",
-            Destination: "France",
-            Datedébut: "01/05/2024",
-            Datefin: "01/05/2024",
-            Expéditeur: "BEKE hezou",
-            Destinataire: "ATAKORA jean",
-            coursier:"TAKPASOUKA JUNIOR",
-            status: "Delivered"
-        }
-        ,
-        {
-            id: "#001234ABCD",
-            Départ: "Togo",
-            Destination: "France",
-            Datedébut: "01/05/2024",
-            Datefin: "01/05/2024",
-            Expéditeur: "BEKE hezou",
-            Destinataire: "ATAKORA jean",
-            coursier:"TAKPASOUKA JUNIOR",
-            status: "Delivered"
-        }
-        ,
-        {
-            id: "#001234ABCD",
-            Départ: "Togo",
-            Destination: "France",
-            Datedébut: "01/05/2024",
-            Datefin: "01/05/2024",
-            Expéditeur: "BEKE hezou",
-            Destinataire: "ATAKORA jean",
-            coursier:"TAKPASOUKA JUNIOR",
-            status: "Delivered"
-        }
-        ,
-        {
-            id: "#001234ABCD",
-            Départ: "Togo",
-            Destination: "France",
-            Datedébut: "01/05/2024",
-            Datefin: "01/05/2024",
-            Expéditeur: "BEKE hezou",
-            Destinataire: "ATAKORA jean",
-            coursier:"TAKPASOUKA JUNIOR",
-            status: "Delivered"
-        }
-        ,
-        {
-            id: "#001234ABCD",
-            Départ: "Togo",
-            Destination: "France",
-            Datedébut: "01/05/2024",
-            Datefin: "01/05/2024",
-            Expéditeur: "BEKE hezou",
-            Destinataire: "ATAKORA jean",
-            coursier:"TAKPASOUKA JUNIOR",
-            status: "Delivered"
-        }
-        ,
-        {
-            id: "#001234ABCD",
-            Départ: "Togo",
-            Destination: "France",
-            Datedébut: "01/05/2024",
-            Datefin: "01/05/2024",
-            Expéditeur: "BEKE hezou",
-            Destinataire: "ATAKORA jean",
-            coursier:"TAKPASOUKA JUNIOR",
-            status: "Delivered"
-        }
-        ,
-        {
-            id: "#001234ABCD",
-            Départ: "Togo",
-            Destination: "France",
-            Datedébut: "01/05/2024",
-            Datefin: "01/05/2024",
-            Expéditeur: "BEKE hezou",
-            Destinataire: "ATAKORA jean",
-            coursier:"TAKPASOUKA JUNIOR",
-            status: "Delivered"
-        }
+        // Ajoutez plus d'éléments ici si nécessaire
     ];
 
     const getStatusClass = (status) => {
@@ -134,11 +41,11 @@ const TrackingOrder = () => {
     };
 
     return (
-        <div className="fixed bottom-0 right-0 left-64 p-5 bg-white rounded-lg shadow-lg w-[1450px] max-h-[30vh]">
+        <div className="fixed bottom-0 right-0 left-64 p-5 bg-white rounded-lg shadow-lg lg:w-[1450px] w-full max-h-[30vh]">
             {/* En-tête fixe */}
-            <div className="flex justify-between items-center mb-4 p-4 bg-blue-500 text-white rounded-t-lg">
+            <div className="flex flex-col md:flex-row justify-between items-center mb-4 p-4 bg-blue-500 text-white rounded-t-lg">
                 <h2 className="text-xl font-thin">Tracking</h2>
-                <div className="flex items-center">
+                <div className="flex items-center mt-2 md:mt-0">
                     <input 
                         type="text" 
                         placeholder="Search.." 
@@ -156,9 +63,9 @@ const TrackingOrder = () => {
             </div>
 
             {/* Contenu défilant */}
-            <div className="overflow-y-auto max-h-[18vh]">
+            <div className="overflow-x-auto">
                 <table className="min-w-full bg-white">
-                <thead className="bg-gray-200 sticky top-0 shadow-md">
+                    <thead className="bg-gray-200 sticky top-0 shadow-md">
                         <tr>
                             <th className="py-2 text-left text-sm font-semibold text-gray-600">Order ID</th>
                             <th className="py-2 text-left text-sm font-semibold text-gray-600">Départ</th>
@@ -182,7 +89,6 @@ const TrackingOrder = () => {
                                 <td className="py-2 text-sm text-gray-700">{order.Expéditeur}</td>
                                 <td className="py-2 text-sm text-gray-700">{order.Destinataire}</td>
                                 <td className="py-2 text-sm text-gray-700">{order.coursier}</td>
-                         
                                 <td className="py-2 text-sm">
                                     <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusClass(order.status)}`}>
                                         {order.status}

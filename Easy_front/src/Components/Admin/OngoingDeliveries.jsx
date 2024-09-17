@@ -43,108 +43,117 @@ const OngoingDeliveries = () => {
             driver: "John Green",
             status: "In Transit",
         },
-        {
-            id: "KG3200L3122324GF",
-            departure: "22.08.21 16:40 PM",
-            arrival: "24.08.21 12:30 PM",
-            customer: "Ella Doer",
-            price: "1334 $",
-            description: "Clothes",
-            weight: "1,2 kg",
-            driver: "John Green",
-            status: "In Transit",
-        },
-        
         // Ajoutez plus de livraisons si nécessaire
     ];
 
     return (
-        <div 
-            className="p-3 bg-white text-black rounded-lg shadow-lg mt-10 pt-0 fixed top-60 left-72 justify-center w-[550px] h-[350px] overflow-y-auto"
-            style={{
-                scrollbarWidth: 'none', /* Firefox */
-                msOverflowStyle: 'none', /* Internet Explorer 10+ */
-            }}
-        >
-            <style>
-                {`
-                    /* Chrome, Safari et Opera */
-                    .p-3::-webkit-scrollbar {
-                        display: none;
-                    }
-                `}
-            </style>
-            {/* En-tête figée avec fond bleu */}
-            <div className="flex justify-between items-center p-4 bg-blue-500 text-white rounded-t-lg shadow-lg sticky top-0 z-10 font-thin">
-                <h2 className="text-xl font-thin">Colis expédiés</h2>
+        <div>
+            {/* SECTION Add New Package */}
+            <div className="p-6 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 rounded-lg shadow-md w-full max-w-lg mx-auto mt-14 ml-0">
+                <h2 className="text-xl font-semibold text-gray-800">Add new package</h2>
+                <p className="text-sm text-gray-500 mt-2">Fill out the form and create new package</p>
+                <div className="relative mt-4">
+                    <input
+                        type="text"
+                        placeholder="Enter Tracking Number"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-full text-sm focus:outline-none focus:border-purple-300"
+                    />
+                    <button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black text-white p-2 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-            {/* Contenu défilant avec du padding pour éviter le chevauchement */}
-            <div className="pt-4">
-                {deliveries.map((delivery, index) => (
-                    <div 
-                        key={index} 
-                        className="p-3 mb-3 bg-white rounded-lg border border-gray-200 shadow-md hover:shadow-blue-400 transition-shadow text-sm font-thin w-[520px]" // Largeur ajustée ici
-                        style={{ transition: 'box-shadow 0.3s ease' }} 
-                    >
-                        <div className="flex justify-between items-center mb-2">
-                            <span className="text-xs font-thin">Tracking Number</span>
-                            <span className="px-2 py-1 bg-yellow-400 text-white text-xs rounded-full">{delivery.status}</span>
+
+            {/* Colis expédiés */}
+            <div 
+                className="p-3 bg-white text-black rounded-lg shadow-lg mt-10 pt-0 fixed top-56 left-72 justify-center w-[550px] h-[350px] overflow-y-auto ml-0"
+                style={{
+                    scrollbarWidth: 'none', /* Firefox */
+                    msOverflowStyle: 'none', /* Internet Explorer 10+ */
+                }}
+            >
+                <style>
+                    {`
+                        /* Chrome, Safari et Opera */
+                        .p-3::-webkit-scrollbar {
+                            display: none;
+                        }
+                    `}
+                </style>
+                {/* En-tête figée avec fond bleu */}
+                <div className="flex justify-between items-center p-4 bg-blue-500 text-white rounded-t-lg shadow-lg sticky top-0 z-10 font-thin">
+                    <h2 className="text-xl font-thin">Colis expédiés</h2>
+                </div>
+                {/* Contenu défilant avec du padding pour éviter le chevauchement */}
+                <div className="pt-4">
+                    {deliveries.map((delivery, index) => (
+                        <div 
+                            key={index} 
+                            className="p-3 mb-3 bg-white rounded-lg border border-gray-200 shadow-md hover:shadow-blue-400 transition-shadow text-sm font-thin w-[520px]" // Largeur ajustée ici
+                            style={{ transition: 'box-shadow 0.3s ease' }} 
+                        >
+                            <div className="flex justify-between items-center mb-2">
+                                <span className="text-xs font-thin">Tracking Number</span>
+                                <span className="px-2 py-1 bg-yellow-400 text-white text-xs rounded-full">{delivery.status}</span>
+                            </div>
+                            <h3 className="text-md font-semibold text-black">{delivery.id}</h3>
+
+                            <hr className="my-2 border-gray-300" style={{ borderWidth: '0.5px' }} />
+
+                            <div className="flex justify-between items-center mt-2 text-xs">
+                                <div className="text-gray-600">
+                                    <p>Departure</p>
+                                    <p className="font-semibold">{delivery.departure}</p>
+                                </div>
+                                <div className="text-gray-600">
+                                    <p>Arrival</p>
+                                    <p className="font-semibold">{delivery.arrival}</p>
+                                </div>
+                            </div>
+
+                            <hr className="my-2 border-gray-300" style={{ borderWidth: '0.5px' }} />
+
+                            <div className="flex justify-between items-center mt-2 text-xs">
+                                <div className="flex-1">
+                                    <p className="text-gray-600">Customer</p>
+                                    <p className="font-semibold">{delivery.customer}</p>
+                                </div>
+                                <div className="flex-1">
+                                    <p className="text-gray-600">Price</p>
+                                    <p className="font-semibold">{delivery.price}</p>
+                                </div>
+                                <div className="flex-1">
+                                    <p className="text-gray-600">Description</p>
+                                    <p className="font-semibold">{delivery.description}</p>
+                                </div>
+                                <div className="flex-1">
+                                    <p className="text-gray-600">Weight</p>
+                                    <p className="font-semibold">{delivery.weight}</p>
+                                </div>
+                            </div>
+
+                            <hr className="my-2 border-gray-300" style={{ borderWidth: '0.5px' }} />
+
+                            <div className="flex items-center mt-4">
+                                <div className="w-8 h-8 rounded-full bg-gray-300 mr-3"></div> {/* Placeholder pour l'image du conducteur */}
+                                <div className="text-xs">
+                                    <p className="text-gray-600">Driver</p>
+                                    <p className="font-semibold">{delivery.driver}</p>
+                                </div>
+                                <div className="ml-auto flex space-x-2">
+                                    <button className="bg-black text-white p-2 rounded-full flex justify-center items-center">
+                                        <PhoneIcon />
+                                    </button>
+                                    <button className="bg-black text-white p-2 rounded-full flex justify-center items-center">
+                                        <MessageIcon />
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <h3 className="text-md font-semibold text-black">{delivery.id}</h3>
-
-                        <hr className="my-2 border-gray-300" style={{ borderWidth: '0.5px' }} />
-
-                        <div className="flex justify-between items-center mt-2 text-xs">
-                            <div className="text-gray-600">
-                                <p>Departure</p>
-                                <p className="font-semibold">{delivery.departure}</p>
-                            </div>
-                            <div className="text-gray-600">
-                                <p>Arrival</p>
-                                <p className="font-semibold">{delivery.arrival}</p>
-                            </div>
-                        </div>
-
-                        <hr className="my-2 border-gray-300" style={{ borderWidth: '0.5px' }} />
-
-                        <div className="flex justify-between items-center mt-2 text-xs">
-                            <div className="flex-1">
-                                <p className="text-gray-600">Customer</p>
-                                <p className="font-semibold">{delivery.customer}</p>
-                            </div>
-                            <div className="flex-1">
-                                <p className="text-gray-600">Price</p>
-                                <p className="font-semibold">{delivery.price}</p>
-                            </div>
-                            <div className="flex-1">
-                                <p className="text-gray-600">Description</p>
-                                <p className="font-semibold">{delivery.description}</p>
-                            </div>
-                            <div className="flex-1">
-                                <p className="text-gray-600">Weight</p>
-                                <p className="font-semibold">{delivery.weight}</p>
-                            </div>
-                        </div>
-
-                        <hr className="my-2 border-gray-300" style={{ borderWidth: '0.5px' }} />
-
-                        <div className="flex items-center mt-4">
-                            <div className="w-8 h-8 rounded-full bg-gray-300 mr-3"></div> {/* Placeholder pour l'image du conducteur */}
-                            <div className="text-xs">
-                                <p className="text-gray-600">Driver</p>
-                                <p className="font-semibold">{delivery.driver}</p>
-                            </div>
-                            <div className="ml-auto flex space-x-2">
-                                <button className="bg-black text-white p-2 rounded-full flex justify-center items-center">
-                                    <PhoneIcon />
-                                </button>
-                                <button className="bg-black text-white p-2 rounded-full flex justify-center items-center">
-                                    <MessageIcon />
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
         </div>
     );
