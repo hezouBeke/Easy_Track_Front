@@ -68,7 +68,6 @@ const OngoingDeliveries = () => {
                     </button>
                 </div>
             </div>
-
             {/* Colis expédiés */}
             <div 
                 className="p-3 bg-white text-black rounded-lg shadow-lg mt-10 pt-0 justify-start w-[550px] h-[350px] overflow-y-auto max-w-full"
@@ -136,9 +135,7 @@ const OngoingDeliveries = () => {
                                     <p className="font-semibold">{delivery.weight}</p>
                                 </div>
                             </div>
-
                             <hr className="my-2 border-gray-300" style={{ borderWidth: '0.5px' }} />
-
                             <div className="flex items-center mt-4">
                                 <div className="w-8 h-8 rounded-full bg-gray-300 mr-3"></div>
                                 <div className="text-xs">
