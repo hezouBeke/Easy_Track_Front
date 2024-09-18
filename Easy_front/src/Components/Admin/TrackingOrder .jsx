@@ -1,5 +1,4 @@
 import React from 'react';
-
 const TrackingOrder = () => {
     const orders = [
         {
@@ -26,6 +25,7 @@ const TrackingOrder = () => {
         },
     ];
 
+    // Fonction pour gérer les classes de statut
     const getStatusClass = (status) => {
         switch (status) {
             case "Delivered":
