@@ -3,7 +3,7 @@ import { GoogleMap, LoadScript } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '100%',
-  height: '100%', // Pour que la carte prenne la hauteur maximale possible
+  height: '100%', // La carte occupe toute la hauteur du conteneur
 };
 
 const center = {
@@ -13,7 +13,7 @@ const center = {
 
 function MyGoogleMap() {
   return (
-    <div className="bg-white shadow-lg transition-shadow duration-300 hover:shadow-blue-500 w-full h-[400px] lg:h-[600px]"> {/* Ajuste la hauteur ici */}
+    <div className="bg-white shadow-lg transition-shadow duration-300 hover:shadow-blue-500 max-w-3xl h-[400px] lg:h-[555px] lg:ml-[-60px] mt-14 lg:mr-[-30px]"> {/* Ajustement des marges gauche et droite pour étendre la carte */}
       <LoadScript googleMapsApiKey="AIzaSyA1k2KoK3gmKQ01mI17Rp8rvaoExxdqsDY">
         <GoogleMap
           mapContainerStyle={containerStyle}

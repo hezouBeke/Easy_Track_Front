@@ -28,9 +28,9 @@ const OngoingDeliveries = () => {
   ];
 
   return (
-    <div className="flex flex-col items-start space-y-10 p-8 justify-items-start lg:pl-[40px] lg:w-[calc(100%-10px)] lg:mt-[20px]">
+    <div className="flex flex-col items-start space-y-10 p-8 mt-6 w-full lg:ml-[-2] lg:mr-15"> {/* Ajustement avec ml-[-2] pour déplacer légèrement vers la gauche */}
       {/* SECTION Ajouter un colis */}
-      <div className="p-6 bg-gradient-to-r from-gray-800 to-black rounded-lg shadow-md w-full max-w-lg lg:max-w-[500px] lg:ml-[20px] lg:mr-[40px]">
+      <div className="p-6 bg-gradient-to-r from-gray-800 to-black rounded-lg shadow-md w-full">
         <h2 className="text-xl font-semibold text-white">Ajouter un colis</h2>
         <p className="text-sm text-gray-400 mt-2">Remplissez le formulaire pour créer un nouveau colis</p>
 
@@ -49,16 +49,9 @@ const OngoingDeliveries = () => {
       </div>
 
       {/* Colis expédiés */}
-      <div className="p-3 bg-white text-black rounded-lg shadow-lg mt-10 pt-0 justify-start w-full max-w-lg lg:max-w-[500px] lg:ml-[20px]">
-        <style>
-          {`
-            /* Hide scrollbar on specific browsers */
-            .p-3::-webkit-scrollbar { display: none; }
-            .p-3 { -ms-overflow-style: none; scrollbar-width: none; }
-          `}
-        </style>
+      <div className="p-3 bg-white text-black rounded-lg shadow-lg mt-10 w-full">
         {/* En-tête figée avec fond bleu */}
-        <div className="flex justify-between items-center p-4 bg-blue-500 text-white rounded-t-none shadow-md sticky top-0 z-10 w-full">
+        <div className="flex justify-between items-center p-4 bg-blue-500 text-white rounded-t-none shadow-md w-full">
           <h2 className="text-xl font-thin">Colis expédiés</h2>
         </div>
 
