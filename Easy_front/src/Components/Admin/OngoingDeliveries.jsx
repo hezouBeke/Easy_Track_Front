@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; 
 
 const PhoneIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#FFFFFF">
@@ -50,9 +50,9 @@ const OngoingDeliveries = () => {
     ];
 
     return (
-        <div className="flex flex-col items-start space-y-5 p-14 justify-start w-full max-w-full ml-0">
+        <div className="flex flex-col items-start space-y-5 p-0 justify-items-start w-full max-w-full">
             {/* SECTION Add New Package */}
-            <div className="p-6 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 rounded-lg shadow-md w-full max-w-lg">
+            <div className="p-6 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 rounded-lg shadow-md w-full max-w-lg top-14">
                 <h2 className="text-xl font-semibold text-gray-800">Add new package</h2>
                 <p className="text-sm text-gray-500 mt-2">Fill out the form and create new package</p>
                 <div className="relative mt-4">
@@ -70,7 +70,7 @@ const OngoingDeliveries = () => {
             </div>
             {/* Colis expédiés */}
             <div 
-                className="p-3 bg-white text-black rounded-lg shadow-lg mt-10 pt-0 justify-start w-[550px] h-[350px] overflow-y-auto max-w-full"
+                className="p-3 bg-white text-black rounded-lg shadow-lg mt-10 pt-0 justify-start w-[550px] h-[325px] overflow-y-auto max-w-full"
                 style={{
                     scrollbarWidth: 'none', /* Firefox */
                     msOverflowStyle: 'none', /* Internet Explorer 10+ */
@@ -85,7 +85,7 @@ const OngoingDeliveries = () => {
                     `}
                 </style>
                 {/* En-tête figée avec fond bleu */}
-                <div className="flex justify-between items-center p-4 bg-blue-500 text-white rounded-t-lg shadow-lg sticky top-0 z-10 font-thin">
+                <div className="flex justify-between items-center p-4 bg-blue-500 text-white rounded-t-none shadow-md sticky top-0 z-10 w-full -ml-3 -mr-10">
                     <h2 className="text-xl font-thin">Colis expédiés</h2>
                 </div>
                 {/* Contenu défilant */}

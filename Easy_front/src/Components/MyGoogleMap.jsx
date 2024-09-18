@@ -2,7 +2,7 @@ import React from 'react';
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
 
 const containerStyle = {
-  width: '840px', // Ajustez la largeur selon vos besoins
+  width: '860px', // Ajustez la largeur selon vos besoins
   height: '530px', // Ajustez la hauteur pour afficher correctement la carte
 };
 
