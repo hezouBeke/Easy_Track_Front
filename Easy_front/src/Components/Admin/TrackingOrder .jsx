@@ -41,7 +41,7 @@ const TrackingOrder = () => {
     };
 
     return (
-        <div className="fixed bottom-0 right-0 left-64 p-5 bg-white rounded-lg shadow-lg lg:w-[1450px] w-full max-h-[30vh]">
+        <div className="p-5 bg-white rounded-lg shadow-lg w-full max-w-full lg:max-w-[1450px] max-h-[30vh]">
             {/* En-tête fixe */}
             <div className="flex flex-col md:flex-row justify-between items-center mb-4 p-4 bg-blue-500 text-white rounded-t-lg">
                 <h2 className="text-xl font-thin">Tracking</h2>
@@ -53,11 +53,15 @@ const TrackingOrder = () => {
                     />
                     <button className="flex items-center text-white hover:text-gray-200 mr-4">
                         <span className="mr-2">Filter</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="M456-144v-240h72v84h288v72H528v84h-72Zm-312-84v-72h240v72H144Zm144-132v-84H144v-72h144v-84h72v240h-72Zm144-84v-72h384v72H432Zm144-132v-240h72v84h168v72H648v84h-72Zm-432-84v-72h384v72H144Z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
+                            <path d="M456-144v-240h72v84h288v72H528v84h-72Zm-312-84v-72h240v72H144Zm144-132v-84H144v-72h144v-84h72v240h-72Zm144-84v-72h384v72H432Zm144-132v-240h72v84h168v72H648v84h-72Zm-432-84v-72h384v72H144Z"/>
+                        </svg>
                     </button>
                     <button className="flex items-center text-white hover:text-gray-200">
                         <span className="mr-2">Exports</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="M480-336 288-528l51-51 105 105v-342h72v342l105-105 51 51-192 192ZM263.72-192Q234-192 213-213.15T192-264v-72h72v72h432v-72h72v72q0 29.7-21.16 50.85Q725.68-192 695.96-192H263.72Z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
+                            <path d="M480-336 288-528l51-51 105 105v-342h72v342l105-105 51 51-192 192ZM263.72-192Q234-192 213-213.15T192-264v-72h72v72h432v-72h72v72q0 29.7-21.16 50.85Q725.68-192 695.96-192H263.72Z"/>
+                        </svg>
                     </button>
                 </div>
             </div>

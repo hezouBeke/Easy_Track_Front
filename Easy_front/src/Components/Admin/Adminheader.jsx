@@ -15,37 +15,41 @@ function Adminheader() {
   };
 
   return (
-    <header>
+   <header>
       <nav className="fixed top-0 left-0 w-full bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800 z-50">
         <div className="flex justify-between items-center w-full">
           <div className="flex items-center">
-            {/* Sidebar Toggle and Logo */}
+            {/* Sidebar Toggle for Mobile */}
             <button aria-expanded="true" aria-controls="sidebar" className="p-2 mr-2 text-gray-600 rounded-lg cursor-pointer lg:hidden hover:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 dark:focus:bg-gray-700 focus:ring-2 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
               <svg className="w-[18px] h-[18px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15"/>
               </svg>
               <span className="sr-only">Toggle sidebar</span>
             </button>
-            <a href="https://flowbite.com" className="flex mr-4">
-              {/* Logo SVG */}
+            
+            {/* Logo */}
+            <a href="#" className="flex items-center mr-4">
               <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" width="50px" fill="#FFFFFF">
-                {/* SVG path */}
+                {/* Logo SVG */}
               </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" width="50px" fill="#FFFFFF"><path d="M440-183v-274L200-596v274l240 139Zm80 0 240-139v-274L520-457v274Zm-80 92L160-252q-19-11-29.5-29T120-321v-318q0-22 10.5-40t29.5-29l280-161q19-11 40-11t40 11l280 161q19 11 29.5 29t10.5 40v318q0 22-10.5 40T800-252L520-91q-19 11-40 11t-40-11Zm200-528 77-44-237-137-78 45 238 136Zm-160 93 78-45-237-137-78 45 237 137Z"/></svg>
               <span className="self-center text-2xl font-extralight whitespace-nowrap dark:text-white">EasyTrack</span>
             </a>
           </div>
+
           <div className="flex items-center gap-4">
-            {/* Search Form */}
+            {/* Search Form (visible only on large screens) */}
             <form action="#" method="GET" className="lg:block hidden">
               {/* Vous pouvez ajouter une barre de recherche ici */}
             </form>
-            {/* User Icon */}
+
+            {/* User Menu */}
             <div className="relative">
               <button type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" onClick={toggleDropdown}>
                 <span className="sr-only">Open user menu</span>
                 <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo"/>
               </button>
+              
+              {/* Dropdown Menu */}
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 dark:bg-gray-700 z-50">
                   <button
