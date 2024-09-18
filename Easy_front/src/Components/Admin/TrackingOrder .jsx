@@ -1,4 +1,5 @@
 import React from 'react';
+
 const TrackingOrder = () => {
     const orders = [
         {
@@ -25,7 +26,6 @@ const TrackingOrder = () => {
         },
     ];
 
-    // Fonction pour gérer les classes de statut
     const getStatusClass = (status) => {
         switch (status) {
             case "Delivered":
@@ -40,7 +40,7 @@ const TrackingOrder = () => {
     };
 
     return (
-        <div className="p-5 bg-white rounded-lg shadow-lg w-full max-w-full lg:max-w-[1450px]">
+        <div className="p-2 bg-white rounded-lg shadow-lg w-full max-w-full lg:max-w-[1450px] mt-[-25px]"> {/* Marge négative ajoutée pour faire remonter le composant */}
             {/* En-tête avec barre de recherche et bouton Export */}
             <div className="flex justify-between items-center mb-4 p-4 bg-white">
                 <input
