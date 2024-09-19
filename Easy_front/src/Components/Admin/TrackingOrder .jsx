@@ -1,30 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import expeditionService from "../../services/expeditionService";
 
 const TrackingOrder = () => {
-    const orders = [
-        {
-            id: "#001234ABCD",
-            Départ: "Togo",
-            Destination: "France",
-            Datedébut: "01/05/2024",
-            Datefin: "01/05/2024",
-            Expéditeur: "BEKE hezou",
-            Destinataire: "ATAKORA jean",
-            coursier: "TAKPASOUKA JUNIOR",
-            status: "Delivered"
-        },
-        {
-            id: "#001234ABCD",
-            Départ: "Togo",
-            Destination: "France",
-            Datedébut: "01/05/2024",
-            Datefin: "01/05/2024",
-            Expéditeur: "BEKE hezou",
-            Destinataire: "ATAKORA jean",
-            coursier: "TAKPASOUKA JUNIOR",
-            status: "Delivered"
-        },
-    ];
+    const [orders, setOrders] = useState([]);
+
+    useEffect(() => {
+        const fetchExpeditions = async () => {
+            try {
+                const response = await expeditionService.getAllExpeditions();
+                const fetchedOrders = response.data.map(order => ({
+                    ...order,
+                    status: "Delivered" // Définit le statut par défaut à "Delivered"
+                }));
+                setOrders(fetchedOrders); // Assure-toi que le format des données est correct
+            } catch (error) {
+                console.error("Erreur lors de la récupération des expéditions", error);
+            }
+        };
+
+        fetchExpeditions();
+    }, []);
 
     const getStatusClass = (status) => {
         switch (status) {
@@ -40,7 +35,7 @@ const TrackingOrder = () => {
     };
 
     return (
-        <div className="p-2 bg-white rounded-lg shadow-lg w-full max-w-full lg:max-w-[1450px] mt-[-25px]"> {/* Marge négative ajoutée pour faire remonter le composant */}
+        <div className="p-2 bg-white rounded-lg shadow-lg w-full max-w-full lg:max-w-[1450px] mt-[-25px]">
             {/* En-tête avec barre de recherche et bouton Export */}
             <div className="flex justify-between items-center mb-4 p-4 bg-white">
                 <input
@@ -75,14 +70,14 @@ const TrackingOrder = () => {
                     <tbody>
                         {orders.map((order, index) => (
                             <tr key={index} className="border-b">
-                                <td className="py-2 px-4 text-sm text-gray-700">{order.id}</td>
-                                <td className="py-2 px-4 text-sm text-gray-700">{order.Départ}</td>
-                                <td className="py-2 px-4 text-sm text-gray-700">{order.Destination}</td>
-                                <td className="py-2 px-4 text-sm text-gray-700">{order.Datedébut}</td>
-                                <td className="py-2 px-4 text-sm text-gray-700">{order.Datefin}</td>
-                                <td className="py-2 px-4 text-sm text-gray-700">{order.Expéditeur}</td>
-                                <td className="py-2 px-4 text-sm text-gray-700">{order.Destinataire}</td>
-                                <td className="py-2 px-4 text-sm text-gray-700">{order.coursier}</td>
+                                <td className="py-2 px-4 text-sm text-gray-700">{order.expedition_code}</td>
+                                <td className="py-2 px-4 text-sm text-gray-700">{order.colis_id?.desc_depart || 'N/A'}</td>
+                                <td className="py-2 px-4 text-sm text-gray-700">{order.colis_id?.desc_destination || 'N/A'}</td>
+                                <td className="py-2 px-4 text-sm text-gray-700">{new Date(order.date_depart).toLocaleDateString()}</td>
+                                <td className="py-2 px-4 text-sm text-gray-700">{new Date(order.date_arrivee).toLocaleDateString()}</td>
+                                <td className="py-2 px-4 text-sm text-gray-700">{order.colis_id?.client_id_exp?.completename || 'N/A'}</td>
+                                <td className="py-2 px-4 text-sm text-gray-700">{order.colis_id?.client_id_dest?.completename || 'N/A'}</td>
+                                <td className="py-2 px-4 text-sm text-gray-700">{order.course_ids?.[0]?.coursier_id?.completename || 'N/A'}</td>
                                 <td className="py-2 px-4 text-sm">
                                     <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusClass(order.status)}`}>
                                         {order.status}

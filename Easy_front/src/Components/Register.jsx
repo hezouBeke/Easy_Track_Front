@@ -40,7 +40,6 @@ function Register() {
             setFormData({ ...formData, [name]: value });
         }
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (formData.password !== formData.confirmPassword) {
@@ -52,10 +51,15 @@ function Register() {
             console.log('Account created:', response.data);
             setIsSuccessModalOpen(true);
         } catch (error) {
-            console.error('Error creating account:', error.response ? error.response.data : error.message);
+            if (error.response && error.response.data.errors.email) {
+                alert("Cet e-mail existe déjà, veuillez utiliser un autre e-mail.");
+            } else {
+                alert('Une erreur est survenue lors de la création du compte.');
+                console.error('Error creating account:', error.response ? error.response.data : error.message);
+            }
         }
     };
-
+    
     const closeSuccessModal = () => {
         setIsSuccessModalOpen(false);
         navigate('/login');
