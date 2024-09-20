@@ -127,6 +127,101 @@ function Stats() {
           </ResponsiveContainer>
         </div>
       </div>
+      <div className="grid grid-cols-2 gap-10 mt-10 ml-64">
+  <div className="p-6 bg-white shadow-md rounded-lg transition-transform transform hover:scale-105 hover:shadow-xl duration-300">
+    <h3 className="text-2xl text-gray-700 font-semibold mb-4">Carte des Colis en Transit</h3>
+    <div className="h-60 bg-gradient-to-r from-blue-100 to-blue-200 rounded-lg border border-blue-300 flex items-center justify-center">
+      <p className="text-center text-gray-500">Carte à intégrer ici</p>
+    </div>
+  </div>
+
+  <div className="p-6 bg-white shadow-md rounded-lg transition-transform transform hover:scale-105 hover:shadow-xl duration-300">
+    <h3 className="text-2xl text-gray-700 font-semibold mb-4">Colis Récents</h3>
+    <table className="table-auto w-full text-left mt-5 border-collapse">
+      <thead>
+        <tr className="bg-gray-100">
+          <th className="px-4 py-2 border border-gray-200 font-medium text-gray-700">ID Colis</th>
+          <th className="px-4 py-2 border border-gray-200 font-medium text-gray-700">Statut</th>
+          <th className="px-4 py-2 border border-gray-200 font-medium text-gray-700">Date d'Expédition</th>
+          <th className="px-4 py-2 border border-gray-200 font-medium text-gray-700">Destination</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td className="border px-4 py-2">#12345</td>
+          <td className="border px-4 py-2 text-green-500">Livré</td>
+          <td className="border px-4 py-2">2024-09-19</td>
+          <td className="border px-4 py-2">Paris, France</td>
+        </tr>
+        <tr className="bg-gray-50">
+          <td className="border px-4 py-2">#67890</td>
+          <td className="border px-4 py-2 text-yellow-500">En Transit</td>
+          <td className="border px-4 py-2">2024-09-18</td>
+          <td className="border px-4 py-2">Lyon, France</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div className="bg-white p-6 shadow-md rounded-lg flex justify-between items-start space-x-8">
+      {/* Section gauche - Détails du véhicule */}
+      <div className="flex-1">
+        <h3 className="text-lg font-semibold text-gray-700 mb-2">
+          Cargo Address: <span className="text-black">XR-987856897</span>
+        </h3>
+        <div className="flex space-x-4">
+          <img
+            src="path-to-your-vehicle-image.png" // Remplace par l'image correcte
+            alt="Vehicle"
+            className="w-40 h-auto object-cover rounded-md"
+          />
+          <div className="space-y-2">
+            <div>
+              <p className="text-gray-600 font-semibold">Cargo Model:</p>
+              <p className="text-black">Nissan NV Cargo</p>
+            </div>
+            <div>
+              <p className="text-gray-600 font-semibold">Body Style:</p>
+              <p className="text-black">Cargo Van</p>
+            </div>
+            <div>
+              <p className="text-gray-600 font-semibold">Vehicle Number:</p>
+              <p className="text-black">SYL - 06048CV</p>
+            </div>
+            <div>
+              <p className="text-gray-600 font-semibold">Load Volume:</p>
+              <p className="text-black">326,548 in³</p>
+            </div>
+            <div>
+              <p className="text-gray-600 font-semibold">Consumer Rating:</p>
+              <p className="text-yellow-400">
+                ★★★★☆ <span className="text-gray-500">(34 reviews)</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Section droite - Détails du conducteur */}
+      <div className="w-64 text-center">
+        <img
+          src="path-to-your-driver-image.png" // Remplace par l'image correcte
+          alt="Driver"
+          className="w-20 h-20 rounded-full mx-auto mb-4"
+        />
+        <h4 className="text-lg font-semibold text-black">Cameron Williamson</h4>
+        <p className="text-green-500 text-sm">Online</p>
+        <p className="text-gray-500 text-sm">ID Number: VSX-4459SP</p>
+        <div className="mt-4 space-x-4">
+          <button className="bg-blue-500 text-white py-1 px-6 rounded-lg">Call</button>
+          <button className="bg-gray-100 text-blue-500 py-1 px-6 rounded-lg">Message</button>
+        </div>
+      </div>
+    </div>
+
+      
+      
     </section>
   );
 }
