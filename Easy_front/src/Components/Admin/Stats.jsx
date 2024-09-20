@@ -1,17 +1,41 @@
 import Adminheader from "./Adminheader";
 import Adminsidebar from "./Adminsidebar";
-import LineChart from "./LineChart";
+import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
+
+// Données pour le PieChart
+const pieData = [
+  { name: "America", value: 400 },
+  { name: "Asia", value: 300 },
+  { name: "Europe", value: 300 },
+  { name: "Africa", value: 200 },
+];
+
+// Données pour le BarChart
+const barData = [
+  { name: "Jan", TeamA: 40, TeamB: 24 },
+  { name: "Feb", TeamA: 30, TeamB: 13 },
+  { name: "Mar", TeamA: 20, TeamB: 98 },
+  { name: "Apr", TeamA: 27, TeamB: 39 },
+  { name: "May", TeamA: 18, TeamB: 48 },
+  { name: "Jun", TeamA: 23, TeamB: 38 },
+  { name: "Jul", TeamA: 34, TeamB: 43 },
+  { name: "Aug", TeamA: 56, TeamB: 68 },
+  { name: "Sep", TeamA: 45, TeamB: 32 },
+];
+
+// Couleurs pour le PieChart
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 function Stats() {
   return (
     <section className="relative bg-gray-50 dark:bg-gray-100 p-3 sm:p-5">
       <Adminheader />
       <Adminsidebar />
-      
+
       {/* Section pour les cartes */}
       <div className="grid grid-cols-5 sm:grid-cols-5 lg:grid-cols-5 gap-10 mt-20 ml-64">
-        {/* Cartes */}
-        <div className="relative p-6 bg-white shadow-md rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-blue-500/50 w-full h-full">
+               {/* Cartes */}
+               <div className="relative p-6 bg-white shadow-md rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-blue-500/50 w-full h-full">
           <div className="absolute top-2 right-2">
             <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000">
               <path d="M446.67-163.67V-461l-260-150.33V-314l260 150.33Zm66.66 0 260-150.33v-298l-260 151v297.33ZM446.67-87 153.33-256q-15.66-9-24.5-24.33-8.83-15.34-8.83-33.34v-332.66q0-18 8.83-33.34 8.84-15.33 24.5-24.33l293.34-169q15.66-9 33.33-9 17.67 0 33.33 9l293.34 169q15.66 9 24.5 24.33 8.83 15.34 8.83 33.34v332.66q0 18-8.83 33.34-8.84 15.33-24.5 24.33L513.33-87q-15.66 9-33.33 9-17.67 0-33.33-9Zm196-526 93.66-54L480-815.33 386-761l256.67 148ZM480-518l95.33-55.67-257-148.33L223-667l257 149Z"/>
@@ -62,30 +86,46 @@ function Stats() {
         </div>
       </div>
 
-  {/* Section pour les contrôles et le graphique */}
-  <div className="mt-10 ml-64">
-        {/* Conteneur pour les contrôles au-dessus du graphique */}
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-lg font-semibold text-gray-700">Est. Revenue ($)</h3>
-          <div className="flex space-x-2">
-            <select className="p-2 border rounded-md text-gray-700">
-              <option>View By: All</option>
-              {/* Ajouter d'autres options ici si nécessaire */}
-            </select>
-            <button className="p-2 border rounded-md text-gray-700 flex items-center space-x-2">
-              <span>Filters</span>
-              <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#000000">
-                <path d="M456-144v-240h72v84h288v72H528v84h-72Zm-312-84v-72h240v72H144Zm144-132v-84H144v-72h144v-84h72v240h-72Zm144-84v-72h384v72H432Zm144-132v-240h72v84h168v72H648v84h-72Zm-432-84v-72h384v72H144Z"/>
-              </svg>
-            </button>
-            <button className="p-2 bg-blue-500 text-white rounded-md flex items-center space-x-2">
-              <span>Download</span>
-              <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#FFFFFF"><path d="M480-336 288-528l51-51 105 105v-342h72v342l105-105 51 51-192 192ZM263.72-192Q234-192 213-213.15T192-264v-72h72v72h432v-72h72v72q0 29.7-21.16 50.85Q725.68-192 695.96-192H263.72Z"/></svg>
-            </button>
-          </div>
+      {/* Section pour les charts */}
+      <div className="grid grid-cols-2 gap-10 mt-10 ml-64">
+        {/* PieChart */}
+        <div className="p-6 bg-white shadow-md rounded-lg">
+          <h3 className="text-xl text-gray-500 font-thin">Current Visits</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={pieData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                outerRadius={100}
+                fill="#8884d8"
+                dataKey="value"
+              >
+                {pieData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Legend />
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
         </div>
-        {/* Graphique */}
-        <LineChart />
+
+        {/* BarChart */}
+        <div className="p-6 bg-white shadow-md rounded-lg">
+          <h3 className="text-xl text-gray-500 font-thin">Website Visits</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={barData}>
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="TeamA" fill="#8884d8" />
+              <Bar dataKey="TeamB" fill="#82ca9d" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </section>
   );
