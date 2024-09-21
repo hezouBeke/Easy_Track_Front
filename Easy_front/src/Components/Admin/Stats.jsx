@@ -163,65 +163,63 @@ function Stats() {
     </table>
   </div>
 </div>
-
-<div className="bg-white p-6 shadow-md rounded-lg flex justify-between items-start space-x-8">
-      {/* Section gauche - Détails du véhicule */}
-      <div className="flex-1">
-        <h3 className="text-lg font-semibold text-gray-700 mb-2">
-          Cargo Address: <span className="text-black">XR-987856897</span>
-        </h3>
-        <div className="flex space-x-4">
-          <img
-            src="path-to-your-vehicle-image.png" // Remplace par l'image correcte
-            alt="Vehicle"
-            className="w-40 h-auto object-cover rounded-md"
-          />
-          <div className="space-y-2">
-            <div>
-              <p className="text-gray-600 font-semibold">Cargo Model:</p>
-              <p className="text-black">Nissan NV Cargo</p>
-            </div>
-            <div>
-              <p className="text-gray-600 font-semibold">Body Style:</p>
-              <p className="text-black">Cargo Van</p>
-            </div>
-            <div>
-              <p className="text-gray-600 font-semibold">Vehicle Number:</p>
-              <p className="text-black">SYL - 06048CV</p>
-            </div>
-            <div>
-              <p className="text-gray-600 font-semibold">Load Volume:</p>
-              <p className="text-black">326,548 in³</p>
-            </div>
-            <div>
-              <p className="text-gray-600 font-semibold">Consumer Rating:</p>
-              <p className="text-yellow-400">
-                ★★★★☆ <span className="text-gray-500">(34 reviews)</span>
-              </p>
-            </div>
-          </div>
+          
+    {/* Section pour les détails du véhicule et du coursier */}
+    <div className="bg-white p-6 shadow-md rounded-lg flex justify-between items-start space-x-8 mt-10 max-w-4xl mx-auto">
+ {/* Section gauche - Détails du véhicule */}
+ <div className="flex-1">
+    <h3 className="text-lg font-semibold text-gray-700 mb-2">
+      Cargo Address: <span className="text-black">XR-987856897</span>
+    </h3>
+    <div className="flex space-x-4">
+      <img
+        src="/src/assets/car.jpg"
+        alt="Vehicle"
+        className="w-48 h-auto object-cover rounded-md" // Augmentez la largeur ici
+      />
+      <div className="space-y-2">
+        <div>
+          <p className="text-gray-600 font-semibold">Cargo Model:</p>
+          <p className="text-black">Nissan NV Cargo</p>
         </div>
-      </div>
-
-      {/* Section droite - Détails du conducteur */}
-      <div className="w-64 text-center">
-        <img
-          src="path-to-your-driver-image.png" // Remplace par l'image correcte
-          alt="Driver"
-          className="w-20 h-20 rounded-full mx-auto mb-4"
-        />
-        <h4 className="text-lg font-semibold text-black">Cameron Williamson</h4>
-        <p className="text-green-500 text-sm">Online</p>
-        <p className="text-gray-500 text-sm">ID Number: VSX-4459SP</p>
-        <div className="mt-4 space-x-4">
-          <button className="bg-blue-500 text-white py-1 px-6 rounded-lg">Call</button>
-          <button className="bg-gray-100 text-blue-500 py-1 px-6 rounded-lg">Message</button>
+        <div>
+          <p className="text-gray-600 font-semibold">Body Style:</p>
+          <p className="text-black">Cargo Van</p>
+        </div>
+        <div>
+          <p className="text-gray-600 font-semibold">Vehicle Number:</p>
+          <p className="text-black">SYL - 06048CV</p>
+        </div>
+        <div>
+          <p className="text-gray-600 font-semibold">Load Volume:</p>
+          <p className="text-black">326,548 in³</p>
+        </div>
+        <div>
+          <p className="text-gray-600 font-semibold">Consumer Rating:</p>
+          <p className="text-yellow-400">
+            ★★★★☆ <span className="text-gray-500">(34 reviews)</span>
+          </p>
         </div>
       </div>
     </div>
+  </div>
 
-      
-      
+        {/* Section droite - Détails du conducteur */}
+        <div className="w-56 text-center">
+          <img
+            src="./src/assets/car.jpg" // Remplacer par le chemin correct
+            alt="Driver"
+            className="w-20 h-20 rounded-lg mx-auto mb-4"
+          />
+          <h4 className="text-lg font-semibold text-black">Cameron Williamson</h4>
+          <p className="text-green-500 text-sm">Online</p>
+          <p className="text-gray-500 text-sm">ID Number: VSX-4459SP</p>
+          <div className="mt-4 space-x-4">
+            <button className="bg-blue-500 text-white py-1 px-6 rounded-lg">Call</button>
+            <button className="bg-gray-100 text-blue-500 py-1 px-6 rounded-lg">Message</button>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
