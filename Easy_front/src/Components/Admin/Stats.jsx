@@ -168,34 +168,35 @@ function Stats() {
 
 {/* Bloc gauche - Détails du véhicule */}
 <div className="bg-white p-6 shadow-md rounded-lg">
-  <h3 className="text-lg font-semibold text-gray-700 mb-2">
-    Cargo Address: <span className="text-black">XR-987856897</span>
-  </h3>
-  <div className="flex space-x-4">
+
+  {/* Utilisation de justify-between pour séparer l'image et le texte */}
+  <div className="flex justify-between">
     <img
       src="/src/assets/car.jpg"
       alt="Vehicle"
       className="w-48 h-auto object-cover rounded-md"
     />
-    <div className="space-y-2">
+    
+    {/* Déplacement du texte à l'extrême droite */}
+    <div className="space-y-2 font-thin text-right"> 
       <div>
-        <p className="text-gray-600 font-semibold">Cargo Model:</p>
+        <p className="text-gray-600">Cargo Model:</p>
         <p className="text-black">Nissan NV Cargo</p>
       </div>
       <div>
-        <p className="text-gray-600 font-semibold">Body Style:</p>
+        <p className="text-gray-600">Body Style:</p>
         <p className="text-black">Cargo Van</p>
       </div>
       <div>
-        <p className="text-gray-600 font-semibold">Vehicle Number:</p>
+        <p className="text-gray-600">Vehicle Number:</p>
         <p className="text-black">SYL - 06048CV</p>
       </div>
       <div>
-        <p className="text-gray-600 font-semibold">Load Volume:</p>
+        <p className="text-gray-600">Load Volume:</p>
         <p className="text-black">326,548 in³</p>
       </div>
       <div>
-        <p className="text-gray-600 font-semibold">Consumer Rating:</p>
+        <p className="text-gray-600">Consumer Rating:</p>
         <p className="text-yellow-400">
           ★★★★☆ <span className="text-gray-500">(34 reviews)</span>
         </p>
@@ -203,6 +204,9 @@ function Stats() {
     </div>
   </div>
 </div>
+
+
+
 {/* Bloc droite - Informations et contact du conducteur */}
 <div className="bg-white p-4 shadow-md rounded-lg flex flex-col items-center space-y-3" style={{ maxWidth: '280px', paddingBottom: '0', marginBottom: '0', height: 'auto' }}>
   {/* Image du conducteur */}
