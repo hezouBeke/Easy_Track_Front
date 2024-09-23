@@ -127,88 +127,51 @@ function Stats() {
           </ResponsiveContainer>
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-10 mt-10 ml-64">
-  <div className="p-6 bg-white shadow-md rounded-lg transition-transform transform hover:scale-105 hover:shadow-xl duration-300">
-    <h3 className="text-2xl text-gray-700 font-semibold mb-4">Carte des Colis en Transit</h3>
-    <div className="h-60 bg-gradient-to-r from-blue-100 to-blue-200 rounded-lg border border-blue-300 flex items-center justify-center">
-      <p className="text-center text-gray-500">Carte à intégrer ici</p>
-    </div>
-  </div>
-
-  <div className="p-6 bg-white shadow-md rounded-lg transition-transform transform hover:scale-105 hover:shadow-xl duration-300">
-    <h3 className="text-2xl text-gray-700 font-semibold mb-4">Colis Récents</h3>
-    <table className="table-auto w-full text-left mt-5 border-collapse">
-      <thead>
-        <tr className="bg-gray-100">
-          <th className="px-4 py-2 border border-gray-200 font-medium text-gray-700">ID Colis</th>
-          <th className="px-4 py-2 border border-gray-200 font-medium text-gray-700">Statut</th>
-          <th className="px-4 py-2 border border-gray-200 font-medium text-gray-700">Date d'Expédition</th>
-          <th className="px-4 py-2 border border-gray-200 font-medium text-gray-700">Destination</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td className="border px-4 py-2">#12345</td>
-          <td className="border px-4 py-2 text-green-500">Livré</td>
-          <td className="border px-4 py-2">2024-09-19</td>
-          <td className="border px-4 py-2">Paris, France</td>
-        </tr>
-        <tr className="bg-gray-50">
-          <td className="border px-4 py-2">#67890</td>
-          <td className="border px-4 py-2 text-yellow-500">En Transit</td>
-          <td className="border px-4 py-2">2024-09-18</td>
-          <td className="border px-4 py-2">Lyon, France</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+    
           
-<div className="grid grid-cols-2 gap-10 max-w-6xl mx-auto mt-10">
-
+<div className="grid grid-cols-2 gap-4 max-w-5xl mx-64 mt-10 ">
 {/* Bloc gauche - Détails du véhicule */}
-<div className="bg-white p-6 shadow-md rounded-lg">
 
-  {/* Utilisation de justify-between pour séparer l'image et le texte */}
-  <div className="flex justify-between">
+<div className="bg-white p-6 shadow-md rounded-lg">
+  <div className="flex justify-between items-start">
+    {/* Image du véhicule avec taille ajustée */}
     <img
       src="/src/assets/car.jpg"
       alt="Vehicle"
-      className="w-48 h-auto object-cover rounded-md"
+      className="w-36 h-auto object-cover rounded-md mr-4"  // Ajout de margin-right pour rapprocher "Body Style"
     />
-    
-    {/* Déplacement du texte à l'extrême droite */}
-    <div className="space-y-2 font-thin text-right"> 
-      <div>
-        <p className="text-gray-600">Cargo Model:</p>
-        <p className="text-black">Nissan NV Cargo</p>
-      </div>
+
+    {/* Body Style aligné verticalement à droite de l'image */}
+    <div className="flex flex-col justify-center space-y-1 font-thin text-right">
       <div>
         <p className="text-gray-600">Body Style:</p>
         <p className="text-black">Cargo Van</p>
       </div>
-      <div>
-        <p className="text-gray-600">Vehicle Number:</p>
-        <p className="text-black">SYL - 06048CV</p>
-      </div>
-      <div>
-        <p className="text-gray-600">Load Volume:</p>
-        <p className="text-black">326,548 in³</p>
-      </div>
-      <div>
-        <p className="text-gray-600">Consumer Rating:</p>
-        <p className="text-yellow-400">
-          ★★★★☆ <span className="text-gray-500">(34 reviews)</span>
-        </p>
-      </div>
+    </div>
+  </div>
+
+  {/* Alignement horizontal rapproché pour Vehicle Number, Load Volume, et Consumer Rating */}
+  <div className="flex justify-between mt-2 space-x-10"> {/* Ajout de space-x-6 pour réduire l'espacement */}
+    <div className="mr-2">
+      <p className="text-gray-600">Vehicle Number:</p>
+      <p className="text-black">SYL - 06048CV</p>
+    </div>
+    <div className="mr-2">
+      <p className="text-gray-600">Load Volume:</p>
+      <p className="text-black">326,548 in³</p>
+    </div>
+    <div>
+      <p className="text-gray-600">Consumer Rating:</p>
+      <p className="text-yellow-400">
+        ★★★★☆ <span className="text-gray-500">(34 reviews)</span>
+      </p>
     </div>
   </div>
 </div>
 
 
-
 {/* Bloc droite - Informations et contact du conducteur */}
-<div className="bg-white p-4 shadow-md rounded-lg flex flex-col items-center space-y-3" style={{ maxWidth: '280px', paddingBottom: '0', marginBottom: '0', height: 'auto' }}>
+<div className="bg-white p-4 shadow-md rounded-lg flex flex-col items-center space-y-3" style={{ maxWidth: '280px', paddingBottom: '25px', marginBottom: '1px', height: 'auto' }}>
   {/* Image du conducteur */}
   <img
     src="/src/assets/man.jpg" // Chemin local vers ton image
@@ -250,7 +213,6 @@ function Stats() {
     </button>
   </div>
 </div>
-
 
 </div>
     </section>
