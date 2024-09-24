@@ -1,6 +1,8 @@
+
 import Adminheader from "./Adminheader";
 import Adminsidebar from "./Adminsidebar";
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
+
 
 // Données pour le PieChart
 const pieData = [
@@ -130,6 +132,7 @@ function Stats() {
     
           
 <div className="grid grid-cols-2 gap-4 max-w-5xl mx-64 mt-10 ">
+  
 {/* Bloc gauche - Détails du véhicule */}
 
 <div className="bg-white p-6 shadow-md rounded-lg">
@@ -213,6 +216,10 @@ function Stats() {
     </button>
   </div>
 </div>
+
+
+
+
 
 </div>
     </section>
