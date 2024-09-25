@@ -2,8 +2,9 @@
 import Adminheader from "./Adminheader";
 import Adminsidebar from "./Adminsidebar";
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import coursierService from "../../services/coursierService";
 
-
+import React, { useState, useEffect } from "react";
 // Données pour le PieChart
 const pieData = [
   { name: "America", value: 400 },
@@ -29,6 +30,25 @@ const barData = [
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 function Stats() {
+  const [coursiers, setCoursiers] = useState([]);
+  const [selectedCoursier, setSelectedCoursier] = useState("");
+  useEffect(() => {
+    const fetchCoursiers = async () => {
+      try {
+        const response = await coursierService.getAllCoursiers();
+        setCoursiers(response.data);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des coursiers", error);
+      }
+    };
+    fetchCoursiers();
+  }, []);
+
+  const handleCoursierSelection = (index, e) => {
+    const selectedCoursierId = e.target.value;
+   
+  };
+
   return (
     <section className="relative bg-gray-50 dark:bg-gray-100 p-3 sm:p-5">
       <Adminheader />
@@ -215,11 +235,32 @@ function Stats() {
       <span>Message</span>
     </button>
   </div>
-</div>
+</div>  
 
-
-
-
+<div className="flex justify-between items-center">
+    <div className="w-full">
+      <label
+        htmlFor="coursier-select"
+        className="block mb-2 text-sm font-medium text-gray-900"
+      >
+        Sélectionner un coursier
+      </label>
+      <select
+        id="coursier-select"
+        name="coursier"
+        value={selectedCoursier}
+        onChange={handleCoursierSelection}
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+      >
+        <option value="">Sélectionnez un coursier</option>
+        {coursiers.map((coursier) => (
+          <option key={coursier._id} value={coursier._id}>
+            {coursier.completename}
+          </option>
+        ))}
+      </select>
+    </div>
+  </div>
 
 </div>
     </section>
