@@ -27,7 +27,7 @@ const LineChart = () => {
     datasets: [
       {
         label: 'Est. Revenue ($)',
-        data: [10000, 15000, 20000, 25000, 30000, 35000, 40000],
+        data: [10000, 15000, 20188, 25000, 30000, 35000, 40000],
         borderColor: 'white)',
         backgroundColor: 'Blue',
         fill: true,
