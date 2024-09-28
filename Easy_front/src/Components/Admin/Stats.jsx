@@ -248,7 +248,7 @@ function Stats() {
   </div>
    {/* Bloc historique de livraison */}
    <div className="bg-white p-6 shadow-md rounded-lg col-span-2 mt-4">
-    <h2 className="text-lg font-semibold text-gray-900">Historique de Livraison</h2>
+    <h2 className="text-lg font-semibold text-gray-900">Historique de Livraison</h2> 
     <div className="mt-2">
       <ul className="list-disc list-inside">
         {/* Remplacez les éléments suivants par des données dynamiques */}
