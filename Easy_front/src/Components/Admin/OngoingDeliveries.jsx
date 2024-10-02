@@ -25,31 +25,27 @@ const OngoingDeliveries = () => {
         driver: "John Green",
         status: "In Transit",
       },
+      {
+        id: "KG3200L3122324GF",
+        departure: "22.08.21 16:40 PM",
+        arrival: "24.08.21 12:30 PM",
+        customer: "Ella Doer",
+        price: "1334 $",
+        description: "Clothes",
+        weight: "1,2 kg",
+        driver: "John Green",
+        status: "In Transit",
+      },
+      
     ];
   
     return (
       <div className="flex flex-col items-start space-y-6 p-8 mt-6 w-full lg:ml-[-2] lg:mr-15"> {/* Ajustement du `space-y-10` à `space-y-6` pour réduire l'espace */}
         {/* SECTION Ajouter un colis */}
-        <div className="p-6 bg-gradient-to-r from-gray-800 to-black rounded-lg shadow-md w-full">
-          <h2 className="text-xl font-semibold text-white">Ajouter un colis</h2>
-          <p className="text-sm text-gray-400 mt-2">Remplissez le formulaire pour créer un nouveau colis</p>
-  
-          <div className="relative mt-4">
-            <input
-              type="text"
-              placeholder="Numéro de suivi"
-              className="w-full px-4 py-3 text-white bg-gray-800 border border-gray-500 rounded-full focus:outline-none focus:border-gray-400 placeholder-gray-400"
-            />
-            <button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white text-black p-2 rounded-full hover:bg-gray-300 transition-all">
-              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-        </div>
+     
   
         {/* Colis expédiés */}
-        <div className="p-3 bg-white text-black rounded-lg shadow-lg mt-6 w-full"> {/* Ajustement du `mt-10` à `mt-6` */}
+        <div className="p-3 bg-white text-black rounded-lg shadow-lg mt-1 w-full"> {/* Ajustement du `mt-10` à `mt-6` */}
           {/* En-tête figée avec fond bleu */}
           <div className="flex justify-between items-center p-4 bg-blue-500 text-white rounded-t-none shadow-md w-full">
             <h2 className="text-xl font-thin">Colis expédiés</h2>
