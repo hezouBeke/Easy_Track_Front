@@ -248,7 +248,6 @@ function Stats() {
     </select>
   </div>
   <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-
 {/* Bloc avec les onglets pour Prochaine Destination, Historique de Livraison, et Messages */}
 <div className="bg-white p-6 shadow-md rounded-lg col-span-1 lg:col-span-2 mt-4">
   <h2 className="text-lg font-semibold text-gray-900 mb-4">Informations du Coursier</h2>
@@ -264,21 +263,20 @@ function Stats() {
     <TabPanels>
       {/* Onglet Prochaine Destination */}
       <TabPanel>
-        <div className="mt-4 flex items-center">
-          <div className="text-center">
-            <p className="text-gray-700 font-bold text-xl">Destination :</p>
+        <div className="mt-4">
+          <div className="text-left mb-6">
+            <p className="text-gray-700 font-bold text-lg">Destination :</p>
             <p className="text-gray-700 text-sm">123 Rue de la Paix, Paris</p>
           </div>
-          <div className="flex-1 ml-6">
-            <div className="grid grid-cols-2 gap-6">
-              <div className="bg-gray-100 p-4 rounded-lg shadow-sm text-center">
-                <p className="text-gray-500">Distance Restante</p>
-                <p className="text-gray-900 font-semibold text-xl">0.542 km</p>
-              </div>
-              <div className="bg-gray-100 p-4 rounded-lg shadow-sm text-center">
-                <p className="text-gray-500">Temps Estimé</p>
-                <p className="text-gray-900 font-semibold text-xl">3 Min</p>
-              </div>
+
+          <div className="grid grid-cols-2 gap-6">
+            <div className="bg-gray-100 p-4 rounded-lg shadow-sm text-center">
+              <p className="text-gray-500">Distance Restante</p>
+              <p className="text-gray-900 font-semibold text-2xl">0.542 km</p>
+            </div>
+            <div className="bg-gray-100 p-4 rounded-lg shadow-sm text-center">
+              <p className="text-gray-500">Temps Estimé</p>
+              <p className="text-gray-900 font-semibold text-2xl">3 Min</p>
             </div>
           </div>
         </div>
@@ -307,6 +305,7 @@ function Stats() {
     </TabPanels>
   </Tabs>
 </div>
+
 
 </div>
 
