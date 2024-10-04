@@ -248,7 +248,7 @@ function Stats() {
     </select>
   </div>
   <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-{/* Bloc avec les onglets pour Prochaine Destination, Historique de Livraison, et Messages */}
+  {/* Bloc avec les onglets pour Prochaine Destination, Historique de Livraison, et Messages */}
 <div className="bg-white p-6 shadow-md rounded-lg col-span-1 lg:col-span-2 mt-4">
   <h2 className="text-lg font-semibold text-gray-900 mb-4">Informations du Coursier</h2>
 
