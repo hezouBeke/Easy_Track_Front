@@ -251,14 +251,35 @@ function Stats() {
   <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
 {/* Bloc avec les onglets pour Prochaine Destination, Historique de Livraison, et Messages */}
 <div className="bg-gray-50 p-8 shadow-lg rounded-xl col-span-1 lg:col-span-2 mt-4">
-  <h2 className="text-2xl font-bold text-gray-800 mb-6">Informations du Coursier</h2>
+  <h2 className="text-3xl font-bold text-gray-800 mb-6">Informations du Coursier</h2>
 
   {/* Onglets avec Chakra UI */}
-  <Tabs isFitted variant="solid-rounded" colorScheme="blue">
+  <Tabs isFitted variant="enclosed-colored" colorScheme="teal">
     <TabList>
-      <Tab fontWeight="bold" _selected={{ color: 'white', bg: 'blue.500' }}>Prochaine Destination</Tab>
-      <Tab fontWeight="bold" _selected={{ color: 'white', bg: 'blue.500' }}>Historique de Livraison</Tab>
-      <Tab fontWeight="bold" _selected={{ color: 'white', bg: 'blue.500' }}>Messages du Coursier</Tab>
+      <Tab 
+        fontWeight="bold" 
+        _selected={{ color: 'white', bg: 'teal.500' }}
+        _hover={{ bg: 'teal.300' }} 
+        transition="background 0.3s"
+      >
+        Prochaine Destination
+      </Tab>
+      <Tab 
+        fontWeight="bold" 
+        _selected={{ color: 'white', bg: 'teal.500' }}
+        _hover={{ bg: 'teal.300' }} 
+        transition="background 0.3s"
+      >
+        Historique de Livraison
+      </Tab>
+      <Tab 
+        fontWeight="bold" 
+        _selected={{ color: 'white', bg: 'teal.500' }}
+        _hover={{ bg: 'teal.300' }} 
+        transition="background 0.3s"
+      >
+        Messages du Coursier
+      </Tab>
     </TabList>
 
     <TabPanels>
@@ -271,12 +292,12 @@ function Stats() {
           </div>
 
           <div className="grid grid-cols-2 gap-8">
-            <div className="bg-blue-100 p-6 rounded-xl shadow-md text-center">
-              <p className="text-blue-600">Distance Restante</p>
+            <div className="bg-teal-100 p-6 rounded-xl shadow-md text-center">
+              <p className="text-teal-600">Distance Restante</p>
               <p className="text-gray-900 font-bold text-3xl">0.542 km</p>
             </div>
-            <div className="bg-blue-100 p-6 rounded-xl shadow-md text-center">
-              <p className="text-blue-600">Temps Estimé</p>
+            <div className="bg-teal-100 p-6 rounded-xl shadow-md text-center">
+              <p className="text-teal-600">Temps Estimé</p>
               <p className="text-gray-900 font-bold text-3xl">3 Min</p>
             </div>
           </div>
@@ -306,6 +327,7 @@ function Stats() {
     </TabPanels>
   </Tabs>
 </div>
+
 
 
 </div>
