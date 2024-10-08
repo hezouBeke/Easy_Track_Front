@@ -19,7 +19,7 @@ const OngoingDeliveries = () => {
         departure: "22.08.21 16:40 PM",
         arrival: "24.08.21 12:30 PM",
         customer: "Ella Doer",
-        price: "1334 $",
+        NumColis: "LIIIDN",
         description: "Clothes",
         weight: "1,2 kg",
         driver: "John Green",
@@ -30,7 +30,7 @@ const OngoingDeliveries = () => {
         departure: "22.08.21 16:40 PM",
         arrival: "24.08.21 12:30 PM",
         customer: "Ella Doer",
-        price: "1334 $",
+        NumColis: "LIIIDN",
         description: "Clothes",
         weight: "1,2 kg",
         driver: "John Green",
@@ -86,8 +86,8 @@ const OngoingDeliveries = () => {
                     <p className="font-semibold">{delivery.customer}</p>
                   </div>
                   <div className="flex-1">
-                    <p className="text-gray-600">Prix</p>
-                    <p className="font-semibold">{delivery.price}</p>
+                    <p className="text-gray-600">NumColis</p>
+                    <p className="font-semibold">{delivery.NumColis}</p>
                   </div>
                   <div className="flex-1">
                     <p className="text-gray-600">Description</p>
