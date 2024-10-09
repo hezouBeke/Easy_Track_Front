@@ -257,14 +257,20 @@ function Stats() {
   <h2 className="text-3xl font-bold text-gray-800 mb-6">Informations du Coursier</h2>
 
 
-<Tabs isFitted variant="soft-rounded" colorScheme="gray">
-  <TabList>
+  <Tabs isFitted variant="soft-rounded" colorScheme="gray">
+  <TabList
+    bgGradient="linear(to-r, blue.400, blue.600)"
+    borderRadius="md"
+    boxShadow="md"
+    mb={4} // Ajoute un espacement en bas pour éviter le chevauchement
+  >
     <Tab 
       fontWeight="semibold" 
       _selected={{ color: 'white', bg: 'blue.500' }}
-      _hover={{ bg: 'blue.300' }} 
-      transition="background 0.3s ease"
-      px={4} // Espacement horizontal pour plus de clarté
+      _hover={{ bg: 'blue.300', transform: 'scale(1.05)', boxShadow: 'lg' }} // Animation au survol
+      transition="background 0.3s ease, transform 0.2s ease" // Transition pour l'animation
+      px={4}
+      borderRadius="md" // Bordures arrondies
     >
       <Icon as={LocationOnIcon} boxSize={5} mr={2}/> {/* Icône ajoutée */}
       Prochaine Destination
@@ -272,9 +278,10 @@ function Stats() {
     <Tab 
       fontWeight="semibold" 
       _selected={{ color: 'white', bg: 'blue.500' }}
-      _hover={{ bg: 'blue.300' }} 
-      transition="background 0.3s ease"
+      _hover={{ bg: 'blue.300', transform: 'scale(1.05)', boxShadow: 'lg' }} // Animation au survol
+      transition="background 0.3s ease, transform 0.2s ease"
       px={4}
+      borderRadius="md"
     >
       <Icon as={HistoryIcon} boxSize={5} mr={2}/> {/* Icône ajoutée */}
       Historique de Livraison
@@ -282,9 +289,10 @@ function Stats() {
     <Tab 
       fontWeight="semibold" 
       _selected={{ color: 'white', bg: 'blue.500' }}
-      _hover={{ bg: 'blue.300' }} 
-      transition="background 0.3s ease"
+      _hover={{ bg: 'blue.300', transform: 'scale(1.05)', boxShadow: 'lg' }} // Animation au survol
+      transition="background 0.3s ease, transform 0.2s ease"
       px={4}
+      borderRadius="md"
     >
       <Icon as={MessageIcon} boxSize={5} mr={2}/> {/* Icône ajoutée */}
       Messages du Coursier

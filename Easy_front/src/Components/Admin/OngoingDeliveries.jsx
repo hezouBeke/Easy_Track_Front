@@ -102,26 +102,31 @@ const OngoingDeliveries = () => {
                 <hr className="my-2 border-gray-300" style={{ borderWidth: '0.5px' }} />
   
                 <div className="flex items-center mt-4">
-                  <div className="w-8 h-8 rounded-full bg-gray-300 mr-3"></div>
-                  <div className="text-xs">
-                    <p className="text-gray-600">Coursier</p>
-                    <p className="font-semibold">{delivery.coursier}</p>
-                  </div>
-                  <div className="flex space-x-5 mt-5 mb-0">
-      <button className="flex items-center justify-center space-x-2 bg-white border border-gray-300 text-black py-1 px-3 rounded-lg hover:bg-gray-100 transition text-xs">
-        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#000000">
-          <path d="M760-480q0-117-81.5-198.5T480-760v-80q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-480h-80Zm-160 0q0-50-35-85t-85-35v-80q83 0 141.5 58.5T680-480h-80Zm198 360q-125 0-247-54.5T329-329Q229-429 174.5-551T120-798q0-18 12-30t30-12h162q14 0 25 9.5t13 22.5l26 140q2 16-1 27t-11 19l-97 98q20 37 47.5 71.5T387-386q31 31 65 57.5t72 48.5l94-94q9-9 23.5-13.5T670-390l138 28q14 4 23 14.5t9 23.5v162q0 18-12 30t-30 12ZM241-600l66-66-17-94h-89q5 41 14 81t26 79Zm358 358q39 17 79.5 27t81.5 13v-88l-94-19-67 67ZM241-600Zm358 358Z"/>
-        </svg>
-        <span>Call</span>
-      </button>
-      <button className="flex items-center justify-center space-x-2 bg-blue-500 text-white py-1 px-4 rounded-lg hover:bg-blue-600 transition text-xs">
-        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#FFFFFF">
-          <path d="M240-400h320v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Zm126-240h594v-480H160v525l46-45Zm-46 0v-480 480Z"/>
-        </svg>
-        <span>Message</span>
-      </button>
-    </div>
-                </div>
+  <div className="w-8 h-8 rounded-full bg-gray-300 mr-3"></div>
+  <div className="text-xs">
+    <p className="text-gray-600">Coursier</p>
+    <p className="font-semibold">{delivery.coursier}</p>
+  </div>
+
+  {/* Espace ajouté ici */}
+  <div className="ml-16"></div> {/* Margins pour créer un espace entre le coursier et les icônes */}
+
+  <div className="flex space-x-5 mt-5 mb-0">
+    <button className="flex items-center justify-center space-x-2 bg-white border border-gray-300 text-black py-1 px-3 rounded-lg hover:bg-gray-100 transition text-xs">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#000000">
+        <path d="M760-480q0-117-81.5-198.5T480-760v-80q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-480h-80Zm-160 0q0-50-35-85t-85-35v-80q83 0 141.5 58.5T680-480h-80Zm198 360q-125 0-247-54.5T329-329Q229-429 174.5-551T120-798q0-18 12-30t30-12h162q14 0 25 9.5t13 22.5l26 140q2 16-1 27t-11 19l-97 98q20 37 47.5 71.5T387-386q31 31 65 57.5t72 48.5l94-94q9-9 23.5-13.5T670-390l138 28q14 4 23 14.5t9 23.5v162q0 18-12 30t-30 12ZM241-600l66-66-17-94h-89q5 41 14 81t26 79Zm358 358q39 17 79.5 27t81.5 13v-88l-94-19-67 67ZM241-600Zm358 358Z"/>
+      </svg>
+      <span>Call</span>
+    </button>
+    <button className="flex items-center justify-center space-x-2 bg-blue-500 text-white py-1 px-4 rounded-lg hover:bg-blue-600 transition text-xs">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#FFFFFF">
+        <path d="M240-400h320v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Zm126-240h594v-480H160v525l46-45Zm-46 0v-480 480Z"/>
+      </svg>
+      <span>Message</span>
+    </button>
+  </div>
+</div>
+
               </div>
             ))}
           </div>
