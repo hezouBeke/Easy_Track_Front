@@ -1,16 +1,6 @@
 import React from 'react';
 
-const PhoneIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#FFFFFF">
-    <path d="M763-145q-121-9-229.5-59.5T339-341q-86-86-135.5-194T144-764q-2-21 12.29-36.5Q170.57-816 192-816h136q17 0 29.5 10.5T374-779l24 106q2 13-1.5 25T385-628l-97 98q20 38 46 73t57.97 65.98Q422-361 456-335.5q34 25.5 72 45.5l99-96q8-8 20-11.5t25-1.5l107 23q17 5 27 17.5t10 29.5v136q0 21.43-16 35.71Q784-143 763-145ZM255-600l70-70-17.16-74H218q5 38 14 73.5t23 70.5Zm344 344q35.1 14.24 71.55 22.62Q707-225 744-220v-90l-75-16-70 70ZM255-600Zm344 344Z" />
-  </svg>
-);
 
-const MessageIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#FFFFFF">
-    <path d="M240-384h336v-72H240v72Zm0-132h480v-72H240v72Zm0-132h480v-72H240v72ZM96-96v-696q0-29.7 21.15-50.85Q138.3-864 168-864h624q29.7 0 50.85 21.15Q864-821.7 864-792v480q0 29.7-21.15 50.85Q821.7-240 792-240H240L96-96Zm114-216h582v-480H168v522l42-42Zm-42 0v-480 480Z" />
-  </svg>
-);
 
 const OngoingDeliveries = () => {
     const deliveries = [
@@ -36,6 +26,18 @@ const OngoingDeliveries = () => {
         coursier: "John Green",
         status: "In Transit",
       },
+      {
+        id: "KG3200L3122324GF",
+        departure: "22.08.21 16:40 PM",
+        arrival: "24.08.21 12:30 PM",
+        customer: "Ella Doer",
+        NumColis: "LIIIDN",
+        description: "Clothes",
+        weight: "1,2 kg",
+        coursier: "John Green",
+        status: "In Transit",
+      },
+   
       
     ];
   
@@ -52,7 +54,7 @@ const OngoingDeliveries = () => {
           </div>
   
           {/* Contenu défilant */}
-          <div className="pt-4 space-y-3">
+          <div className="pt-4 space-y-3" style={{ maxHeight: '550px' , overflowY: 'scroll' }} >
             {deliveries.map((delivery, index) => (
               <div
                 key={index}

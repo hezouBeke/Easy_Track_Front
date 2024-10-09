@@ -3,7 +3,7 @@ import { GoogleMap, LoadScript } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '100%',
-  height: '110%', // La carte occupe toute la hauteur du conteneur
+  height: '115%', // La carte occupe toute la hauteur du conteneur
 };
 
 const center = {
