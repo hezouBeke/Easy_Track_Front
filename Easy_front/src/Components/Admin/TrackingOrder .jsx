@@ -17,7 +17,6 @@ const TrackingOrder = () => {
                 console.error("Erreur lors de la récupération des expéditions", error);
             }
         };
-
         fetchExpeditions();
     }, []);
 
