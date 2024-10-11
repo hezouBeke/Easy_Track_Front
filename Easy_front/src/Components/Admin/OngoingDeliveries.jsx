@@ -17,7 +17,7 @@ const OngoingDeliveries = () => {
       {
         id: "KG3200L3122324GF",
         departure: "22.08.21 16:40 PM",
-        arrival: "24.08.21 12:30 PM",
+        arrival: "24.08.21",
         customer: "Ella Doer",
         NumColis: "LIIIDN",
         description: "Clothes",
