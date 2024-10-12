@@ -83,7 +83,6 @@ function Expeditions() {
                                         <th scope="col" className="px-6 py-3 text-left">Détails</th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
                                     {expeditions.map(expedition => {
                                         const firstCourse = expedition.course_ids?.[0]; // Vérifie si course_ids est disponible
