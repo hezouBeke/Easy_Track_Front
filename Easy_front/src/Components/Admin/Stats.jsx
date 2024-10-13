@@ -4,10 +4,6 @@ import Adminsidebar from "./Adminsidebar";
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import coursierService from "../../services/coursierService";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
-import { Icon } from '@mui/material';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import HistoryIcon from '@mui/icons-material/History';
-import MessageIcon from '@mui/icons-material/Message';
 
 import React, { useState, useEffect } from "react";
 // Données pour le PieChart
@@ -253,99 +249,63 @@ function Stats() {
     </select>
   </div>
   <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-  <div className="bg-white p-8 shadow-lg rounded-xl col-span-1 lg:col-span-2 mt-4">
-  <h2 className="text-3xl font-bold text-gray-800 mb-6">Informations du Coursier</h2>
+{/* Bloc avec les onglets pour Prochaine Destination, Historique de Livraison, et Messages */}
+<div className="bg-gray-50 p-8 shadow-lg rounded-xl col-span-1 lg:col-span-2 mt-4">
+  <h2 className="text-2xl font-bold text-gray-800 mb-6">Informations du Coursier</h2>
 
+  {/* Onglets avec Chakra UI */}
+  <Tabs isFitted variant="solid-rounded" colorScheme="blue">
+    <TabList>
+      <Tab fontWeight="bold" _selected={{ color: 'white', bg: 'blue.500' }}>Prochaine Destination</Tab>
+      <Tab fontWeight="bold" _selected={{ color: 'white', bg: 'blue.500' }}>Historique de Livraison</Tab>
+      <Tab fontWeight="bold" _selected={{ color: 'white', bg: 'blue.500' }}>Messages du Coursier</Tab>
+    </TabList>
 
-  <Tabs isFitted variant="soft-rounded" colorScheme="gray">
-  <TabList
-    bgGradient="linear(to-r, blue.400, blue.600)"
-    borderRadius="md"
-    boxShadow="md"
-    mb={4} // Ajoute un espacement en bas pour éviter le chevauchement
-  >
-    <Tab 
-      fontWeight="semibold" 
-      _selected={{ color: 'white', bg: 'blue.500' }}
-      _hover={{ bg: 'blue.300', transform: 'scale(1.05)', boxShadow: 'lg' }} // Animation au survol
-      transition="background 0.3s ease, transform 0.2s ease" // Transition pour l'animation
-      px={4}
-      borderRadius="md" // Bordures arrondies
-    >
-      <Icon as={LocationOnIcon} boxSize={5} mr={2}/> {/* Icône ajoutée */}
-      Prochaine Destination
-    </Tab>
-    <Tab 
-      fontWeight="semibold" 
-      _selected={{ color: 'white', bg: 'blue.500' }}
-      _hover={{ bg: 'blue.300', transform: 'scale(1.05)', boxShadow: 'lg' }} // Animation au survol
-      transition="background 0.3s ease, transform 0.2s ease"
-      px={4}
-      borderRadius="md"
-    >
-      <Icon as={HistoryIcon} boxSize={5} mr={2}/> {/* Icône ajoutée */}
-      Historique de Livraison
-    </Tab>
-    <Tab 
-      fontWeight="semibold" 
-      _selected={{ color: 'white', bg: 'blue.500' }}
-      _hover={{ bg: 'blue.300', transform: 'scale(1.05)', boxShadow: 'lg' }} // Animation au survol
-      transition="background 0.3s ease, transform 0.2s ease"
-      px={4}
-      borderRadius="md"
-    >
-      <Icon as={MessageIcon} boxSize={5} mr={2}/> {/* Icône ajoutée */}
-      Messages du Coursier
-    </Tab>
-  </TabList>
-
-  <TabPanels>
-    {/* Onglet Prochaine Destination */}
-    <TabPanel>
-      <div className="mt-6">
-        <div className="text-left mb-6">
-          <p className="text-gray-700 font-semibold text-xl">Destination :</p>
-          <p className="text-gray-600 text-lg">123 Rue de la Paix, Paris</p>
-        </div>
-
-        <div className="grid grid-cols-2 gap-8">
-          <div className="bg-blue-100 p-6 rounded-xl shadow-md text-center">
-            <p className="text-blue-600">Distance Restante</p>
-            <p className="text-gray-900 font-bold text-3xl">0.542 km</p>
+    <TabPanels>
+      {/* Onglet Prochaine Destination */}
+      <TabPanel>
+        <div className="mt-6">
+          <div className="text-left mb-6">
+            <p className="text-gray-700 font-semibold text-xl">Destination :</p>
+            <p className="text-gray-600 text-lg">123 Rue de la Paix, Paris</p>
           </div>
-          <div className="bg-blue-100 p-6 rounded-xl shadow-md text-center">
-            <p className="text-blue-600">Temps Estimé</p>
-            <p className="text-gray-900 font-bold text-3xl">3 Min</p>
+
+          <div className="grid grid-cols-2 gap-8">
+            <div className="bg-blue-100 p-6 rounded-xl shadow-md text-center">
+              <p className="text-blue-600">Distance Restante</p>
+              <p className="text-gray-900 font-bold text-3xl">0.542 km</p>
+            </div>
+            <div className="bg-blue-100 p-6 rounded-xl shadow-md text-center">
+              <p className="text-blue-600">Temps Estimé</p>
+              <p className="text-gray-900 font-bold text-3xl">3 Min</p>
+            </div>
           </div>
         </div>
-      </div>
-    </TabPanel>
+      </TabPanel>
 
-    {/* Onglet Historique de Livraison */}
-    <TabPanel>
-      <div className="mt-4">
-        <ul className="list-disc list-inside space-y-2">
-          <li className="text-gray-700 text-lg">Colis #123 - Livré le 20/09/2024</li>
-          <li className="text-gray-700 text-lg">Colis #456 - Livré le 18/09/2024</li>
-          <li className="text-gray-700 text-lg">Colis #789 - En cours de livraison</li>
-        </ul>
-      </div>
-    </TabPanel>
+      {/* Onglet Historique de Livraison */}
+      <TabPanel>
+        <div className="mt-4">
+          <ul className="list-disc list-inside space-y-2">
+            <li className="text-gray-700 text-lg">Colis #123 - Livré le 20/09/2024</li>
+            <li className="text-gray-700 text-lg">Colis #456 - Livré le 18/09/2024</li>
+            <li className="text-gray-700 text-lg">Colis #789 - En cours de livraison</li>
+          </ul>
+        </div>
+      </TabPanel>
 
-    {/* Onglet Messages du Coursier */}
-    <TabPanel>
-      <div className="mt-4">
-        <ul className="list-disc list-inside space-y-2">
-          <li className="text-gray-700 text-lg">Message : Prêt pour la livraison !</li>
-          <li className="text-gray-700 text-lg">Message : Retard à cause de la circulation.</li>
-        </ul>
-      </div>
-    </TabPanel>
-  </TabPanels>
-</Tabs>
-
+      {/* Onglet Messages du Coursier */}
+      <TabPanel>
+        <div className="mt-4">
+          <ul className="list-disc list-inside space-y-2">
+            <li className="text-gray-700 text-lg">Message : Prêt pour la livraison !</li>
+            <li className="text-gray-700 text-lg">Message : Retard à cause de la circulation.</li>
+          </ul>
+        </div>
+      </TabPanel>
+    </TabPanels>
+  </Tabs>
 </div>
-
 
 
 </div>

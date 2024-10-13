@@ -2,19 +2,19 @@ import React from 'react';
 import expeditionService from '../../services/expeditionService';
 
 const OngoingDeliveries = () => {
-  const [expeditions, setExpeditions] = useState([]);
-  useEffect(() => {
-    const fetchExpeditions = async () => {
-        try {
-            const response = await expeditionService.getAllExpeditions();
-            setExpeditions(response.data);
-        } catch (error) {
-            console.error("Erreur lors de la récupération des expéditions", error);
-        }
-    };
+//   const [expeditions, setExpeditions] = useState([]);
+//   useEffect(() => {
+//     const fetchExpeditions = async () => {
+//         try {
+//             const response = await expeditionService.getAllExpeditions();
+//             setExpeditions(response.data);
+//         } catch (error) {
+//             console.error("Erreur lors de la récupération des expéditions", error);
+//         }
+//     };
 
-    fetchExpeditions();
-}, []);
+//     fetchExpeditions();
+// }, []);
 
     const deliveries = [
       {

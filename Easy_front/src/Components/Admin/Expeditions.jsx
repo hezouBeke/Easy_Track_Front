@@ -8,7 +8,18 @@ function Expeditions() {
     const [selectedExpedition, setSelectedExpedition] = useState(null);
     const [showModal, setShowModal] = useState(false);
 
+    useEffect(() => {
+        const fetchExpeditions = async () => {
+            try {
+                const response = await expeditionService.getAllExpeditions();
+                setExpeditions(response.data);
+            } catch (error) {
+                console.error("Erreur lors de la récupération des expéditions", error);
+            }
+        };
 
+        fetchExpeditions();
+    }, []);
 
     // Fonction pour ouvrir la modale avec les détails de l'expédition sélectionnée
     const handleViewDetails = (expeditionItem) => {
