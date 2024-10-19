@@ -176,7 +176,7 @@ function Stats() {
         <p className="text-black">SYL - 06048CV</p>
       </div>
       <div className="mr-2">
-        <p className="text-gray-600">Load Volume:</p>
+        <p className="text-gray-600">Capacité du véhicule:</p>
         <p className="text-black">326,548 in³</p>
       </div>
       <div>
