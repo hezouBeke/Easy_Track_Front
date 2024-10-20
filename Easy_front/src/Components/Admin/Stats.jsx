@@ -177,10 +177,10 @@ function Stats() {
       </div>
       <div className="mr-2">
         <p className="text-gray-600">Capacité du véhicule:</p>
-        <p className="text-black">326,548 in³</p>
+        <p className="text-black">326,548 in</p>
       </div>
       <div>
-        <p className="text-gray-600">Consumer Rating:</p>
+        <p className="text-gray-600">Consumer:</p>
         <p className="text-yellow-400">
           ★★★★☆ <span className="text-gray-500">(34 reviews)</span>
         </p>
@@ -195,7 +195,7 @@ function Stats() {
       alt="Driver"
       className="w-20 h-20 rounded-full mb-2 object-cover"
     />
-    <h4 className="text-base font-semibold text-black">Cameron Williamson</h4>
+    <h4 className="text-base font-semibold text-black"> Williamson</h4>
     
     <div className="flex items-center space-x-1 text-xs text-gray-500">
       <span className="inline-block w-2 h-2 bg-green-500 rounded-full"></span>
