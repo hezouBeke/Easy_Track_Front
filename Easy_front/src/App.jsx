@@ -17,6 +17,7 @@ import Colis from "./Components/Admin/Colis";
 import Expeditions from "./Components/Admin/Expeditions";
 import ExpeditionList from "./Components/Admin/ExpeditionList";
 import Stats from "./Components/Admin/Stats";
+import Hisrotiques from "./Components/Admin/Historiques";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="/dashboard/admin/coursiers" element={<Coursiers />} />
         <Route path="/dashboard/admin/colis" element={<Colis />} />
         <Route path="/dashboard/admin/expeditions" element={<Expeditions />} />
+        <Route path="/dashboard/admin/historique" element={<Hisrotiques />} />
         {/* Redirection de la racine vers Home */}
         <Route path="/" element={<Navigate replace to="/home" />} />
         {/* Gestion des routes non trouvées : redirection vers Home */}
