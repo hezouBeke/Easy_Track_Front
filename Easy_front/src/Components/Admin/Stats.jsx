@@ -176,11 +176,11 @@ function Stats() {
         <p className="text-black">SYL - 06048CV</p>
       </div>
       <div className="mr-2">
-        <p className="text-gray-600">Capacité du véhicule:</p>
-        <p className="text-black">326,548 in</p>
+        <p className="text-gray-600">Load Volume:</p>
+        <p className="text-black">326,548 in³</p>
       </div>
       <div>
-        <p className="text-gray-600">Consumer:</p>
+        <p className="text-gray-600">Consumer Rating:</p>
         <p className="text-yellow-400">
           ★★★★☆ <span className="text-gray-500">(34 reviews)</span>
         </p>
@@ -195,20 +195,17 @@ function Stats() {
       alt="Driver"
       className="w-20 h-20 rounded-full mb-2 object-cover"
     />
-    <h4 className="text-base font-semibold text-black"> Williamson</h4>
+    <h4 className="text-base font-semibold text-black">Cameron Williamson</h4>
     
     <div className="flex items-center space-x-1 text-xs text-gray-500">
       <span className="inline-block w-2 h-2 bg-green-500 rounded-full"></span>
       <span>Online</span>
     </div>
-    
     <div className="w-full border-t border-gray-300 my-1"></div>
-    
     <div className="flex items-center justify-between w-full px-4">
       <p className="text-gray-500 text-xs font-semibold">ID NUMBER:</p>
       <p className="text-black text-sm font-bold">VSX-4459SP</p>
     </div>
-    
     <div className="flex space-x-3 mt-2 mb-0">
       <button className="flex items-center justify-center space-x-2 bg-white border border-gray-300 text-black py-1 px-3 rounded-lg hover:bg-gray-100 transition text-xs">
         <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#000000">
