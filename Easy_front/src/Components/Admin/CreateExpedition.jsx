@@ -189,7 +189,7 @@ function CreateExpedition() {
   return (
     <section className="h-screen flex items-center justify-center bg-gray-100">
     <Adminheader />
-      <div className="bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full max-h-[95vh] overflow-y-auto">
+      <div className="bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full max-h-[70vh] overflow-y-auto">
       <Adminsidebar />
         <div className="text-center mb-8">
           <h2 className="text-2xl font-semibold">{getStepTitle()}</h2>

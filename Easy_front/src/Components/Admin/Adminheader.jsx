@@ -18,7 +18,7 @@ function Adminheader() {
     <header>
       <nav className="fixed top-0 left-0 w-full bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800 z-50">
         <div className="container mx-auto flex justify-between items-center w-full">
-          
+
           {/* Section gauche - Logo et toggle sidebar pour mobile */}
           <div className="flex items-center">
             {/* Sidebar Toggle for Mobile */}
@@ -33,15 +33,13 @@ function Adminheader() {
               <span className="sr-only">Toggle sidebar</span>
             </button>
 
-            {/* Logo */}
-            <a href="https://flowbite.com" className="flex mr-4">
-              {/* Logo SVG */}
-              <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" width="50px" fill="#FFFFFF">
-                {/* SVG path */}
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" width="50px" fill="#FFFFFF"><path d="M440-183v-274L200-596v274l240 139Zm80 0 240-139v-274L520-457v274Zm-80 92L160-252q-19-11-29.5-29T120-321v-318q0-22 10.5-40t29.5-29l280-161q19-11 40-11t40 11l280 161q19 11 29.5 29t10.5 40v318q0 22-10.5 40T800-252L520-91q-19 11-40 11t-40-11Zm200-528 77-44-237-137-78 45 238 136Zm-160 93 78-45-237-137-78 45 237 137Z"/></svg>
-              <span className="self-center text-2xl font-extralight whitespace-nowrap dark:text-white">EasyTrack</span>
-            </a>
+            <a href="/home" className="flex mr-4 ml-[-30px]">
+  <svg xmlns="http://www.w3.org/2000/svg"  height="50px" viewBox="0 -960 960 960" width="50px" fill="#FFFFFF">
+    <path d="M440-183v-274L200-596v274l240 139Zm80 0 240-139v-274L520-457v274Zm-80 92L160-252q-19-11-29.5-29T120-321v-318q0-22 10.5-40t29.5-29l280-161q19-11 40-11t40 11l280 161q19 11 29.5 29t10.5 40v318q0 22-10.5 40T800-252L520-91q-19 11-40 11t-40-11Zm200-528 77-44-237-137-78 45 238 136Zm-160 93 78-45-237-137-78 45 237 137Z"/>
+  </svg>
+  <span className="self-center text-3xl font-extralight whitespace-nowrap dark:text-white">EasyTrack</span>
+</a>
+
           </div>
 
           {/* Section droite - Utilisateur et menu */}
