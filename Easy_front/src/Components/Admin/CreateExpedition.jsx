@@ -20,7 +20,6 @@ function CreateExpedition() {
     poids: "",
     particularite: "",
   });
-
   const [expeditionData, setExpeditionData] = useState({
     date_depart: "",
     date_arrivee: "",

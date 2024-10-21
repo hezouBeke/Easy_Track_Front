@@ -100,7 +100,6 @@ function Coursier() {
             <Adminheader />
             <div className="flex flex-1">
                 <Adminsidebar />
-
                 <div className="flex-1 mx-60 max-w-screen-2xl px-5 lg:px-0 mt-10 mr-0">
                     <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                         <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
