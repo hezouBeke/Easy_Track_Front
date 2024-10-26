@@ -9,7 +9,7 @@ const Hisrotiques = () => {
             <Adminheader />
             <Adminsidebar />
           
-        <h1 className="text-3xl self font-thin text-black">Liste des Colis</h1>
+        <h1 className="text-3xl self font-thin text-black">Liste des Colisoeô^go"r,,o,gozrg,    $p,g$p"rp,  gp$,    </h1>
     </div>
     )
 }
