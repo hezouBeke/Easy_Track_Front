@@ -45,8 +45,7 @@ function AdminHeader() {
           </div>
 
           {/* Section droite - Notifications, Langue, Aide, et menu utilisateur */}
-          <div className="flex items-center gap-4">
-            
+          <div className="flex items-center gap-8"> 
             {/* Icône de Notification avec badge lumineux */}
             <div className="relative">
               <button
@@ -65,34 +64,21 @@ function AdminHeader() {
                 </div>
               )}
             </div>
-
             {/* Bouton Changer de langue */}
             <button
               onClick={() => console.log("Changer de langue")}
-              className="p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline-none"
+              
               aria-label="Changer de langue"
+              className="p-2 text-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                <path d="M130-160q-29 0-49.5-20.5T60-230v-500q0-29 20.5-49.5T130-800h200q-5 15-7.5 32t-3.5 28H130v500h700v-150q15-4 32-6.5t28-4.5v161q0 29-20.5 49.5T830-160H130Zm580-316q-37 0-72.5-9T574-516l-72 164-86-187q-55-11-100.5-30T241-618l24-29q29 17 66.5 30.5T395-600q9 0 16.5 5.5T419-583l83 184 67-155q-53-25-90.5-67.5T429-800h28q13 39 39.5 70t61.5 51q41-22 74-53.5T708-800h29q-18 51-53 92t-89 66q29 10 59.5 13t57.5 3v28h-19ZM130-720v500-500Zm310 250v-28h180v28H440Z"/>
-              </svg>
+             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="m476-80 182-480h84L924-80h-84l-43-122H603L560-80h-84ZM160-200l-56-56 202-202q-35-35-63.5-80T190-640h84q20 39 40 68t48 58q33-33 68.5-92.5T484-720H40v-80h280v-80h80v80h280v80H564q-21 72-63 148t-83 116l96 98-30 82-122-125-202 201Zm468-72h144l-72-204-72 204Z"/></svg>
             </button>
-
-            {/* Bouton d'aide */}
-            <button
-              onClick={() => navigate('/help')}
-              className="p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline-none"
-              aria-label="Informations d’aide"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                <path d="M420-200h60v-60h-60v60Zm-20-140h100q0-21 3.5-36t13.5-28q12-15 27-29t30-30q15-14 27.5-32t12.5-48q0-38-26.5-63.5T480-660q-35 0-58.5 16.5T384-600l56 23q4-10 14-19t26-9q20 0 32.5 13.5T525-540q0 16-8 27t-20 21q-12 10-24 22.5T454-423q-11 14-15.5 31.5T434-340Zm46 280q-82 0-153.5-31.5T198-155q-54-54-85.5-125.5T81-434q0-83 31.5-154.5T198-714q54-54 125.5-85.5T480-831q83 0 154.5 31.5T760-714q54 54 85.5 125.5T877-434q0 83-31.5 154.5T760-155q-54 54-125.5 85.5T480-60Z"/>
-              </svg>
-            </button>
-
             {/* Menu utilisateur */}
-            <div className="relative">
+            <div className="relative ">
+              
               <button
                 type="button"
-                className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                className="flex text-sm rounded-full focus:ring-4  "
                 onClick={toggleDropdown}
               >
                 <span className="sr-only">Open user menu</span>
@@ -101,21 +87,38 @@ function AdminHeader() {
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 dark:bg-gray-700 z-50">
                   <button
+  onClick={() => navigate('/settings')}
+  className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+    <path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z"/>
+  </svg>
+  Paramètres
+</button>
+
+                  <button
                     onClick={() => navigate('/settings')}
                     className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600"
                   >
-                    Paramètres
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M478-240q21 0 35.5-14.5T528-290q0-21-14.5-35.5T478-340q-21 0-35.5 14.5T428-290q0 21 14.5 35.5T478-240Zm-36-154h74q0-33 7.5-52t42.5-52q26-26 41-49.5t15-56.5q0-56-41-86t-97-30q-57 0-92.5 30T342-618l66 26q5-18 22.5-39t53.5-21q32 0 48 17.5t16 38.5q0 20-12 37.5T506-526q-44 39-54 59t-10 73Zm38 314q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
+                    Aide
                   </button>
+                  
+                  
                   <button
                     onClick={handleLogout}
                     className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-600"
                   >
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
                     Déconnexion
                   </button>
+
                 </div>
               )}
             </div>
           </div>
+
+
         </div>
       </nav>
     </header>
