@@ -13,12 +13,15 @@ const Login = () => {
         try {
             const response = await authService.login(email, password);
             const { role } = response;
+
+            // Redirection selon le rôle de l'utilisateur
             if (role === 'Client') {
                 navigate('/dashboard/customer');
             } else if (role === 'Coursier') {
                 navigate('/dashboard/driver');
+            } else if (role === 'Admin') {
+                navigate('/dashboard/admin');
             }
-          
         } catch (error) {
             console.error('Login error:', error);
             alert('Login failed: ' + (error.response?.data?.message || error.message));
