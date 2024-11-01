@@ -40,7 +40,7 @@ function App() {
         <Route path="/dashboard/admin/coursiers" element={<Coursiers />} />
         <Route path="/dashboard/admin/colis" element={<Colis />} />
         <Route path="/dashboard/admin/expeditions" element={<Expeditions />} />
-        <Route path="/dashboard/admin/historique" element={<Hisrotiques />} />
+        <Route path="/dashboard/admin/historiques" element={<Hisrotiques />} />
         {/* Redirection de la racine vers Home */}
         <Route path="/" element={<Navigate replace to="/home" />} />
         {/* Gestion des routes non trouvées : redirection vers Home */}
