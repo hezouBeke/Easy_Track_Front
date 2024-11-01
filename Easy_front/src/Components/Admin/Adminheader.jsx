@@ -75,7 +75,6 @@ function AdminHeader() {
             </button>
             {/* Menu utilisateur */}
             <div className="relative ">
-              
               <button
                 type="button"
                 className="flex text-sm rounded-full focus:ring-4  "
