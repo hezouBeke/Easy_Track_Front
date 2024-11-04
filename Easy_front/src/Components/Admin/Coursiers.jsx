@@ -26,7 +26,6 @@ function Coursier() {
             console.error('Error fetching coursiers:', error);
         }
     };
-
     useEffect(() => {
         fetchCoursiers();
     }, []);

@@ -157,74 +157,8 @@ function Stats() {
       <div className="grid grid-cols-2 gap-4 max-w-5xl mx-64 mt-10"> 
   {/* Bloc gauche - Détails du véhicule */}
   <div className="bg-white p-6 shadow-md rounded-lg">
-    <div className="flex justify-between items-start">
-      <img
-        src="/src/assets/car.jpg"
-        alt="Vehicle"
-        className="w-36 h-auto object-cover rounded-md mr-4"
-      />
-      <div className="flex flex-col justify-center space-y-1 font-thin text-right">
-        <div>
-          <p className="text-gray-600">Body Style:</p>
-          <p className="text-black">Cargo Van</p>
-        </div>
-      </div>
-    </div>
-
-    <div className="flex justify-between mt-2 space-x-10">
-      <div className="mr-2">
-        <p className="text-gray-600">Vehicle Number:</p>
-        <p className="text-black">SYL - 06048CV</p>
-      </div>
-      <div className="mr-2">
-        <p className="text-gray-600">Load Volume:</p>
-        <p className="text-black">326,548 in³</p>
-      </div>
-      <div>
-        <p className="text-gray-600">Consumer Rating:</p>
-        <p className="text-yellow-400">
-          ★★★★☆ <span className="text-gray-500">(34 reviews)</span>
-        </p>
-      </div>
-    </div>
-  </div>
-
-  {/* Bloc droite - Informations et contact du conducteur */}
-  <div className="bg-white p-4 shadow-md rounded-lg flex flex-col items-center space-y-3" style={{ maxWidth: '280px', paddingBottom: '25px', marginBottom: '1px', height: 'auto' }}>
-    <img
-      src="/src/assets/man.jpg"
-      alt="Driver"
-      className="w-20 h-20 rounded-full mb-2 object-cover"
-    />
-    <h4 className="text-base font-semibold text-black">Cameron Williamson</h4>
-    
-    <div className="flex items-center space-x-1 text-xs text-gray-500">
-      <span className="inline-block w-2 h-2 bg-green-500 rounded-full"></span>
-      <span>Online</span>
-    </div>
-    <div className="w-full border-t border-gray-300 my-1"></div>
-    <div className="flex items-center justify-between w-full px-4">
-      <p className="text-gray-500 text-xs font-semibold">ID NUMBER:</p>
-      <p className="text-black text-sm font-bold">VSX-4459SP</p>
-    </div>
-    <div className="flex space-x-3 mt-2 mb-0">
-      <button className="flex items-center justify-center space-x-2 bg-white border border-gray-300 text-black py-1 px-3 rounded-lg hover:bg-gray-100 transition text-xs">
-        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#000000">
-          <path d="M760-480q0-117-81.5-198.5T480-760v-80q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-480h-80Zm-160 0q0-50-35-85t-85-35v-80q83 0 141.5 58.5T680-480h-80Zm198 360q-125 0-247-54.5T329-329Q229-429 174.5-551T120-798q0-18 12-30t30-12h162q14 0 25 9.5t13 22.5l26 140q2 16-1 27t-11 19l-97 98q20 37 47.5 71.5T387-386q31 31 65 57.5t72 48.5l94-94q9-9 23.5-13.5T670-390l138 28q14 4 23 14.5t9 23.5v162q0 18-12 30t-30 12ZM241-600l66-66-17-94h-89q5 41 14 81t26 79Zm358 358q39 17 79.5 27t81.5 13v-88l-94-19-67 67ZM241-600Zm358 358Z"/>
-        </svg>
-        <span>Call</span>
-      </button>
-      <button className="flex items-center justify-center space-x-2 bg-blue-500 text-white py-1 px-4 rounded-lg hover:bg-blue-600 transition text-xs">
-        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#FFFFFF">
-          <path d="M240-400h320v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Zm126-240h594v-480H160v525l46-45Zm-46 0v-480 480Z"/>
-        </svg>
-        <span>Message</span>
-      </button>
-    </div>
-  </div>  
-
   {/* Bloc de sélection des coursiers */}
-  <div className="bg-white p-6 shadow-md rounded-lg">
+  <div className="mb-6">
     <label
       htmlFor="coursier-select"
       className="block mb-2 text-sm font-medium text-gray-900"
@@ -246,6 +180,74 @@ function Stats() {
       ))}
     </select>
   </div>
+
+  {/* Informations du véhicule */}
+  <div className="flex justify-between items-start">
+    <img
+      src="/src/assets/car.jpg"
+      alt="Vehicle"
+      className="w-36 h-auto object-cover rounded-md"
+    />
+    <div className="flex flex-col justify-center space-y-1 font-thin text-right ml-4">
+      <div>
+        <p className="text-gray-600">Body Style:</p>
+        <p className="text-black">Cargo Van</p>
+      </div>
+    </div>
+  </div>
+
+  <div className="flex justify-between mt-4 space-x-10">
+    <div className="mr-2">
+      <p className="text-gray-600">Vehicle Number:</p>
+      <p className="text-black">SYL - 06048CV</p>
+    </div>
+    <div className="mr-2">
+      <p className="text-gray-600">Load Volume:</p>
+      <p className="text-black">326,548 in³</p>
+    </div>
+    <div>
+      <p className="text-gray-600">Consumer Rating:</p>
+      <p className="text-yellow-400">
+        ★★★★☆ <span className="text-gray-500">(34 reviews)</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+
+
+  {/* Bloc droite - Informations et contact du conducteur */}
+  <div className="bg-white p-4 shadow-md rounded-lg flex flex-col items-center space-y-3" style={{ maxWidth: '280px', paddingBottom: '25px', marginBottom: '1px', height: 'auto' }}>
+    <img
+      src="/src/assets/man.jpg"
+      alt="Driver"
+      className="w-20 h-20 rounded-full mb-2 object-cover"
+    />
+    <h4 className="text-base font-semibold text-black">Cameron Williamson</h4>
+    
+    <div className="flex items-center space-x-1 text-xs text-gray-500">
+      <span className="inline-block w-2 h-2 bg-green-500 rounded-full"></span>
+      <span>Online</span>
+    </div>
+    <div className="w-full border-t border-gray-300 my-1"></div>
+ 
+    <div className="flex space-x-3 mt-2 mb-0">
+      <button className="flex items-center justify-center space-x-2 bg-white border border-gray-300 text-black py-1 px-3 rounded-lg hover:bg-gray-100 transition text-xs">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#000000">
+          <path d="M760-480q0-117-81.5-198.5T480-760v-80q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-480h-80Zm-160 0q0-50-35-85t-85-35v-80q83 0 141.5 58.5T680-480h-80Zm198 360q-125 0-247-54.5T329-329Q229-429 174.5-551T120-798q0-18 12-30t30-12h162q14 0 25 9.5t13 22.5l26 140q2 16-1 27t-11 19l-97 98q20 37 47.5 71.5T387-386q31 31 65 57.5t72 48.5l94-94q9-9 23.5-13.5T670-390l138 28q14 4 23 14.5t9 23.5v162q0 18-12 30t-30 12ZM241-600l66-66-17-94h-89q5 41 14 81t26 79Zm358 358q39 17 79.5 27t81.5 13v-88l-94-19-67 67ZM241-600Zm358 358Z"/>
+        </svg>
+        <span>Call</span>
+      </button>
+      <button className="flex items-center justify-center space-x-2 bg-blue-500 text-white py-1 px-4 rounded-lg hover:bg-blue-600 transition text-xs">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#FFFFFF">
+          <path d="M240-400h320v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Zm126-240h594v-480H160v525l46-45Zm-46 0v-480 480Z"/>
+        </svg>
+        <span>Message</span>
+      </button>
+    </div>
+  </div>  
+
+
   <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
 {/* Bloc avec les onglets pour Prochaine Destination, Historique de Livraison, et Messages */}
 <div className="bg-gray-50 p-8 shadow-lg rounded-xl col-span-1 lg:col-span-2 mt-4">
