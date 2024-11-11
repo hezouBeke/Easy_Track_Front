@@ -180,8 +180,6 @@ function Stats() {
       ))}
     </select>
   </div>
-
-  {/* Informations du véhicule */}
   <div className="flex justify-between items-start">
     <img
       src="/src/assets/car.jpg"
