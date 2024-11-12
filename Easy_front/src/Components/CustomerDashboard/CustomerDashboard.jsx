@@ -867,14 +867,14 @@ function CustomerDashboard(){
                     <a
                       href="#"
                       class="flex items-center p-2 pl-11 w-full text-base font-thin text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                      >Sign In</a
+                      > Cette semaine</a
                     >
                   </li>
                   <li>
                     <a
                       href="#"
                       class="flex items-center p-2 pl-11 w-full text-base font-thin text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                      >Sign Up</a
+                      >Ce mois </a
                     >
                   </li>
                   <li>
