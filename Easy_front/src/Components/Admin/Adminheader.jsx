@@ -3,21 +3,21 @@ import { useNavigate } from 'react-router-dom';
 
 function AdminHeader() {
   const [openMenu, setOpenMenu] = useState(null); // Un seul état pour tous les menus
-
   const toggleMenu = (menu) => {
     setOpenMenu(openMenu === menu ? null : menu); // Ferme le menu ouvert si on reclique dessus
   };
-
  const navigate = useNavigate();
-
-  const handleLogout = () => {
+ const handleLogout = () => {
     navigate('/');  // Redirige vers la page d'accueil après la déconnexion
   };
 
+  
+   
   return (
     <header>
          <nav class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-50">
       <div class="flex flex-wrap justify-between items-center">
+
         <div class="flex justify-start items-center">
           <button
             data-drawer-target="drawer-navigation"
@@ -53,12 +53,17 @@ function AdminHeader() {
             </svg>
             <span class="sr-only">Toggle sidebar</span>
           </button>
+
+
+
           <a href="/home" class="flex items-center justify-between mr-4">
             <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" width="50px" fill="#FFFFFF">
                 <path d="M440-183v-274L200-596v274l240 139Zm80 0 240-139v-274L520-457v274Zm-80 92L160-252q-19-11-29.5-29T120-321v-318q0-22 10.5-40t29.5-29l280-161q19-11 40-11t40 11l280 161q19 11 29.5 29t10.5 40v318q0 22-10.5 40T800-252L520-91q-19 11-40 11t-40-11Zm200-528 77-44-237-137-78 45 238 136Zm-160 93 78-45-237-137-78 45 237 137Z"/>
               </svg>
             <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">EasyTrack</span>
           </a>
+
+
           <form action="#" method="GET" class="hidden md:block md:pl-2">
             <label for="topbar-search" class="sr-only">Search</label>
             <div class="relative md:w-64 md:w-96">
@@ -90,8 +95,7 @@ function AdminHeader() {
         </div>
 
 
-
-        <div class="flex place-items-center lg:order-2">
+        <div class="flex place-items-center lg:order-2"> 
           <button
             type="button"
             data-drawer-toggle="drawer-navigation"
@@ -122,6 +126,7 @@ function AdminHeader() {
       ></path>
     </svg>
   </button>
+
   {openMenu === 'notifications' && (
        <div className="absolute top-12 right-8 z-50 my-8 max-w-xs text-base list-none bg-white rounded divide-y divide-gray-100 shadow-lg dark:divide-gray-600 dark:bg-gray-700 rounded-xl">
       <div class="block py-2 px-4 text-base font-medium text-center text-gray-700 bg-gray-50 dark:bg-gray-600 dark:text-gray-300">

@@ -1,16 +1,17 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 function DriverDashboard() {
-  const navigate = useNavigate();
+  const navigate = useNavigate(null);
+
   const handleLogout = () => {
-    navigate('/');  // Redirige vers la page d'accueil après la déconnexion
+    navigate('/'); 
   };
-
-
-
+  
+  
     return (
-       
-    <div className="flex flex-col w-full">     
+
+    <div className="flex flex-col w-full">    
     <div class="antialiased bg-gray-50 dark:bg-gray-100">
     <nav class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-50">
       <div class="flex flex-wrap justify-between items-center">
@@ -49,8 +50,9 @@ function DriverDashboard() {
             </svg>
             <span class="sr-only">Toggle sidebar</span>
           </button>
-          <a href="/home" class="flex items-center justify-between mr-4">
 
+
+          <a href="/home" class="flex items-center justify-between mr-4">
             <img
               src="https://flowbite.s3.amazonaws.com/logo.svg"
               class="mr-3 h-8"
@@ -87,6 +89,9 @@ function DriverDashboard() {
             </div>
           </form>
         </div>
+
+
+        
         <div class="flex items-center lg:order-2">
           <button
             type="button"
@@ -99,6 +104,8 @@ function DriverDashboard() {
               <path clip-rule="evenodd" fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"></path>
             </svg>
           </button>
+
+
           {/* <!-- Notifications --> */}
           <button
             type="button"
@@ -119,6 +126,8 @@ function DriverDashboard() {
               ></path>
             </svg>
           </button>
+
+
           {/* <!-- Dropdown menu --> */}
           <div
             class="hidden overflow-hidden z-50 my-4 max-w-sm text-base list-none bg-white rounded divide-y divide-gray-100 shadow-lg dark:divide-gray-600 dark:bg-gray-700 rounded-xl"
@@ -604,6 +613,7 @@ function DriverDashboard() {
               </a>
             </div>
           </div>
+          
           <button
             type="button"
             class="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
@@ -811,7 +821,7 @@ function DriverDashboard() {
               class="flex items-center p-2 text-base font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-120q-138 0-240.5-91.5T122-440h82q14 104 92.5 172T480-200q117 0 198.5-81.5T760-480q0-117-81.5-198.5T480-760q-69 0-129 32t-101 88h110v80H120v-240h80v94q51-64 124.5-99T480-840q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-480q0 75-28.5 140.5t-77 114q-48.5 48.5-114 77T480-120Zm112-192L440-464v-216h80v184l128 128-56 56Z"/></svg>
-              <span class="ml-3">Historique</span>
+              <span class="ml-3">Historique Livraison</span>
             </a>
           </li>
           <li>
