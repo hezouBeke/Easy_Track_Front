@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 function AdminHeader() {
   const [openMenu, setOpenMenu] = useState(null); // Un seul état pour tous les menus
+
   const toggleMenu = (menu) => {
     setOpenMenu(openMenu === menu ? null : menu); // Ferme le menu ouvert si on reclique dessus
   };
@@ -11,8 +12,6 @@ function AdminHeader() {
     navigate('/');  // Redirige vers la page d'accueil après la déconnexion
   };
 
-  
-   
   return (
     <header>
          <nav class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-50">
