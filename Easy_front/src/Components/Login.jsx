@@ -36,21 +36,21 @@ const Login = () => {
             </div>
 
             {/* Section pour le formulaire */}
-            <div className="w-full md:w-1/2 flex items-center justify-center p-6 bg-white">
+            <div className="w-full md:w-1/2 flex items-center justify-center font-thin  p-6 bg-white">
                 <div className="w-full max-w-md bg-gray-800 rounded-lg shadow">
                     <div className="p-6 space-y-4 md:space-y-6">
                         <div className="text-center mb-6">
-                            <a href='/home' className="flex justify-center items-center text-2xl font-semibold text-white">
+                            <a href='/home' className="flex justify-center font-thin items-center text-2xl font-semibold text-white">
                                 <img className="w-10 h-10 mr-2" src="./src/assets/logo2.png" alt="logo"/>
                                 EasyTrack
                             </a>
                         </div>
-                        <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl">
+                        <h1 className="text-xl font-bold leading-tight tracking-tight font-thin text-white md:text-2xl">
                             Connexion
                         </h1>
                         <form onSubmit={handleLogin} className="space-y-4 md:space-y-6">
                             <div>
-                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-white">E-mail</label>
+                                <label htmlFor="email" className="block mb-2 text-sm font-thin text-white">E-mail</label>
                                 <input 
                                     type="email" 
                                     name="email" 
@@ -63,7 +63,7 @@ const Login = () => {
                                 />
                             </div>
                             <div className="relative">
-                                <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">Mot de passe</label>
+                                <label htmlFor="password" className="block mb-2 text-sm font-thin text-white">Mot de passe</label>
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     name="password"
@@ -106,7 +106,7 @@ const Login = () => {
                                 </div>
                                 <Link to="/reset-password" className="text-sm font-medium text-primary-600 hover:underline">Mot de passe oublié?</Link>
                             </div>
-                            <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Se connecter</button>
+                            <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-thin rounded-lg text-sm px-5 py-2.5 text-center">Se connecter</button>
                             <p className="text-sm font-light text-gray-500">
                                 Vous n'avez pas de compte? <Link to="/register" className="font-medium text-primary-600 hover:underline">S'enregistrer</Link>
                             </p>

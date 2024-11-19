@@ -66,30 +66,30 @@ function Register() {
     };
 
     return (
-        <section className="h-screen flex">
+        <section className="h-screen flex font-thin ">
             
             {/* Section pour l'image */}
             <div className="hidden md:block w-1/2 bg-cover bg-center" style={{ backgroundImage: "url('./src/assets/register.jpg')" }}>
             </div>
 
             {/* Section pour le formulaire */}
-            <div className="w-full md:w-1/2 flex items-center justify-center p-6 bg-white">
+            <div className="w-full md:w-1/2 flex items-center justify-center font-thin  p-6 bg-white">
                 <div className="w-full max-w-md bg-gray-800 rounded-lg shadow">
                     <div className="p-6 space-y-4 md:space-y-6">
                         <div className="text-center">
-                            <a href='/home' className="flex justify-center items-center text-2xl font-semibold text-white">
+                            <a href='/home' className="flex justify-center items-center text-2xl font-thin text-white">
                                 <img className="w-10 h-10" src="./src/assets/logo2.png" alt="logo"/>
                                 EasyTrack
                             </a>
                         </div>
-                        <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl mt-4">
+                        <h1 className="text-xl leading-tight tracking-tight font-thin text-white md:text-2xl mt-4">
                             Créer un compte
                         </h1>
                         <div className="flex space-x-4 mt-4">
-                            <button type="button" onClick={() => handleRoleSelection('Client')} className="w-1/2 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg py-2.5 text-center">
+                            <button type="button" onClick={() => handleRoleSelection('Client')} className="w-1/2 text-sm font-thin text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg py-2.5 text-center">
                                 Client
                             </button>
-                            <button type="button" onClick={() => handleRoleSelection('Coursier')} className="w-1/2 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg py-2.5 text-center">
+                            <button type="button" onClick={() => handleRoleSelection('Coursier')} className="w-1/2 text-sm font-thin text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg py-2.5 text-center">
                                 Coursier
                             </button>
                         </div>
@@ -97,11 +97,11 @@ function Register() {
                         <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label htmlFor="completename" className="block mb-2 text-sm font-medium text-white">Nom complet</label>
+                                    <label htmlFor="completename" className="block mb-2 text-sm font-thin text-white">Nom complet</label>
                                     <input type="text" name="completename" id="completename" onChange={handleChange} value={formData.completename} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="nom & prénom" required=""/>
                                 </div>
                                 <div>
-                                    <label htmlFor="tel" className="block mb-2 text-sm font-medium text-white">Téléphone</label>
+                                    <label htmlFor="tel" className="block mb-2 text-sm font-thin text-white">Téléphone</label>
                                     <input 
                                         type="tel" 
                                         name="tel" 
@@ -114,12 +114,12 @@ function Register() {
                                     />
                                 </div>
                                 <div className="col-span-1">
-                                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-white">E-mail</label>
+                                    <label htmlFor="email" className="block mb-2 text-sm font-thin text-white">E-mail</label>
                                     <input type="email" name="email" id="email" onChange={handleChange} value={formData.email} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="name@company.com" required=""/>
                                 </div>
                                 <div className="col-span-1">
                                     <div className="flex items-center space-x-4">
-                                        <label className="block mb-20 text-sm font-medium text-white">Sexe : </label>
+                                        <label className="block mb-20 text-sm font-thin text-white">Sexe : </label>
                                         <label className="flex items-center">
                                             <input type="radio" name="sex" value="M" onChange={handleChange} className="form-radio text-primary-600 focus:ring-primary-600" required/>
                                             <span className="ml-2 text-sm text-white">M</span>
@@ -134,7 +134,7 @@ function Register() {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="col-span-1 relative">
-                                    <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">Mot de passe</label>
+                                    <label htmlFor="password" className="block mb-2 text-sm font-thin text-white">Mot de passe</label>
                                     <input 
                                         type={showPassword ? "text" : "password"} 
                                         name="password" 
@@ -163,7 +163,7 @@ function Register() {
                                 </div>
                                
                                 <div className="col-span-1 relative">
-                                    <label htmlFor="confirmPassword" className="block mb-2 text-sm font-medium text-white">Confirmer le mot de passe</label>
+                                    <label htmlFor="confirmPassword" className="block mb-2 text-sm font-thin text-white">Confirmer le mot de passe</label>
                                     <input 
                                         type={showConfirmPassword ? "text" : "password"} 
                                         name="confirmPassword" 
@@ -206,14 +206,14 @@ function Register() {
                                         <input type="text" name="vehiculeBrand" id="vehiculeBrand" onChange={handleChange} value={formData.vehiculeBrand} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Marque" required=""/>
                                     </div>
                                     <div className="col-span-2">
-                                        <label htmlFor="vehiculePlate" className="block mb-2 text-sm font-medium text-white">Plaque d'immatriculation</label>
+                                        <label htmlFor="vehiculePlate" className="block mb-2 text-sm font-thin text-white">Plaque d'immatriculation</label>
                                         <input type="text" name="vehiculePlate" id="vehiculePlate" onChange={handleChange}  value={formData.vehiculePlate} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="AA 0000" required=""/>
                                     </div>
                                 </div>
                             )}
-                            <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Créer un compte</button>
-                            <p className="text-sm font-light text-gray-500">
-                                Vous avez déjà un compte? <Link to="/login" className="font-medium text-primary-600 hover:underline">Se connecter</Link>
+                            <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-thin rounded-lg text-sm px-5 py-2.5 text-center">Créer un compte</button>
+                            <p className="text-sm font-thin text-gray-500">
+                                Vous avez déjà un compte? <Link to="/login" className="font-thin text-primary-600 hover:underline">Se connecter</Link>
                             </p>
                         </form>
                     </div>
@@ -233,8 +233,8 @@ function Register() {
                                 <svg aria-hidden="true" className="w-8 h-8 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
                                 <span className="sr-only">Success</span>
                             </div>
-                            <p className="mb-4 text-lg font-semibold text-gray-900">Compte créé avec succès!</p>
-                            <button onClick={closeSuccessModal} className="py-2 px-3 text-sm font-medium text-center text-white rounded-lg bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300">
+                            <p className="mb-4 text-lg font-thin text-gray-900">Compte créé avec succès!</p>
+                            <button onClick={closeSuccessModal} className="py-2 px-3 text-sm font-thin text-center text-white rounded-lg bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300">
                                 Continuer
                             </button>
                         </div>

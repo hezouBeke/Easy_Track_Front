@@ -51,7 +51,7 @@ function CustomerDashboard(){
     
               <a href="/home" class="flex items-center justify-between mr-4">
                 <img
-                  src="https://flowbite.s3.amazonaws.com/logo.svg"
+                  src="../src/assets/package.svg"
                   class="mr-3 h-8"
                   alt="EasyTrack"
                 />
