@@ -18,7 +18,7 @@ import Expeditions from "./Components/Admin/Expeditions";
 import ExpeditionList from "./Components/Admin/ExpeditionList";
 import Stats from "./Components/Admin/Stats";
 import Hisrotiques from "./Components/Admin/Historiques";
-
+import ConfirmationPage from "./Components/DriverDashboard/ConfirmationPage";
 function App() {
   return (
     <Router>
@@ -41,6 +41,7 @@ function App() {
         <Route path="/dashboard/admin/colis" element={<Colis />} />
         <Route path="/dashboard/admin/expeditions" element={<Expeditions />} />
         <Route path="/dashboard/admin/historiques" element={<Hisrotiques />} />
+        <Route path="/delevry" element={<ConfirmationPage />} />
         {/* Redirection de la racine vers Home */}
         <Route path="/" element={<Navigate replace to="/home" />} />
         {/* Gestion des routes non trouvées : redirection vers Home */}

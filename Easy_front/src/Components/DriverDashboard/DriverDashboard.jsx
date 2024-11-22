@@ -6,6 +6,9 @@ function DriverDashboard() {
   const handleLogout = () => {
     navigate('/'); 
   };
+  const handleShowConfirmation = () => {
+    navigate('/delevry'); // Redirection vers la page de confirmation
+  };
     return (
 
       
@@ -1259,16 +1262,19 @@ function DriverDashboard() {
   </div>
 </div>
 
-<div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-70 p-4 bg-gray-800 hover:bg-gray-900 transition-all ease-in-out duration-300 cursor-pointer">
-  <div class="flex flex-col items-center space-y-2">
-      <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#e8eaed">
-        <path d="M40-160v-66.67h199.33v-94H80v-66.66h159.33v-94H124.67V-548h114.66v-126l-78-178L222-880l88.67 201.33h496L727.33-852 788-880l92 201.33V-160H40Zm435.33-288h169.34q14.16 0 23.75-9.62 9.58-9.61 9.58-23.83 0-14.22-9.58-23.72-9.59-9.5-23.75-9.5H475.33q-14.16 0-23.75 9.62-9.58 9.62-9.58 23.83 0 14.22 9.58 23.72 9.59 9.5 23.75 9.5ZM306-226.67h507.33V-612H306v385.33Zm0 0V-612v385.33Z"/>
-      </svg>
-    <button class="text-lg font-semibold text-white bg-transparent border-0 cursor-pointer">
-      Confirmation de Livraison
-    </button>
-  </div>
-</div>
+<div className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-70 p-4 bg-gray-800 hover:bg-gray-900 transition-all ease-in-out duration-300 cursor-pointer">
+        <div className="flex flex-col items-center space-y-2">
+          <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#e8eaed">
+            <path d="M40-160v-66.67h199.33v-94H80v-66.66h159.33v-94H124.67V-548h114.66v-126l-78-178L222-880l88.67 201.33h496L727.33-852 788-880l92 201.33V-160H40Zm435.33-288h169.34q14.16 0 23.75-9.62 9.58-9.61 9.58-23.83 0-14.22-9.58-23.72-9.59-9.5-23.75-9.5H475.33q-14.16 0-23.75 9.62-9.58 9.62-9.58 23.83 0 14.22 9.58 23.72 9.59 9.5 23.75 9.5ZM306-226.67h507.33V-612H306v385.33Zm0 0V-612v385.33Z"/>
+          </svg>
+          <button 
+            className="text-lg font-semibold text-white bg-transparent border-0 cursor-pointer"
+            onClick={handleShowConfirmation}
+          >
+            Confirmation de Livraison
+          </button>
+        </div>
+      </div>
 </div>
 
     </main>
