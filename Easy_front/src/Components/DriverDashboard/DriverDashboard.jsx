@@ -831,16 +831,7 @@ function DriverDashboard() {
               <span class="ml-3">Historique Livraison</span>
             </a>
           </li>
-         
-          <li>
-            <a
-              href="#"
-              class="flex items-center p-2 text-base font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-600 340-740l140-140 140 140-140 140ZM40-160v-160q0-34 23.5-57t56.5-23h131q20 0 38 10t29 27q29 39 71.5 61t90.5 22q49 0 91.5-22t70.5-61q13-17 30.5-27t36.5-10h131q34 0 57 23t23 57v160H640v-91q-35 25-75.5 38T480-200q-43 0-84-13.5T320-252v92H40Zm120-280q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T280-560q0 50-34.5 85T160-440Zm640 0q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T920-560q0 50-34.5 85T800-440Z"/></svg>
-              <span class="ml-3">Passer colis</span>
-            </a>
-          </li> 
+          
           <li>
             <a
               href="#"
@@ -1254,18 +1245,20 @@ function DriverDashboard() {
       
       <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"> 
 
-        
+
       </div>
 
 <div class="grid grid-cols-2 gap-4 mb-2"> 
-      <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-70 p-4 bg-gray-800 hover:bg-gray-900 transition-all ease-in-out duration-300 cursor-pointer">
+<div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-70 p-4 bg-gray-800 hover:bg-gray-900 transition-all ease-in-out duration-300 cursor-pointer">
   <div class="flex flex-col items-center space-y-2">
-  <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#e8eaed"><path d="M478-120q-145.33 0-248.83-100.83-103.5-100.84-108.5-246.5H188q4.67 118 88.17 199.33 83.5 81.33 201.83 81.33 123.67 0 209.5-86.5t85.83-210.16q0-121.67-86.5-205.84-86.5-84.16-208.83-84.16-68.33 0-128 31.33t-102.67 84H354v66.67H134.67V-810h66.66v102q51.67-62 123.84-97 72.16-35 152.83-35 75 0 140.83 28.17 65.84 28.16 115 76.66Q783-686.67 811.5-621.5T840-481.33q0 75-28.5 140.83-28.5 65.83-77.67 114.67-49.16 48.83-115 77.33Q553-120 478-120Zm122.67-195.33-153.34-152V-682H514v187.33l134 132-47.33 47.34Z"/></svg>
-    <button class="text-lg font-semibold text-white bg-transparent border-0 cursor-pointer">
-      Historique
+  <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#e8eaed"><path d="M480-600 340-740l140-140 140 140-140 140ZM40-160v-160q0-34 23.5-57t56.5-23h131q20 0 38 10t29 27q29 39 71.5 61t90.5 22q49 0 91.5-22t70.5-61q13-17 30.5-27t36.5-10h131q34 0 57 23t23 57v160H640v-91q-35 25-75.5 38T480-200q-43 0-84-13.5T320-252v92H40Zm120-280q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T280-560q0 50-34.5 85T160-440Zm640 0q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T920-560q0 50-34.5 85T800-440Z"/></svg>
+
+    <button class="text-lg font-semibold text-white bg-transparent border-0 cursor-pointer mt-auto">
+      Demande de relaiement de colis
     </button>
   </div>
 </div>
+
 <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-70 p-4 bg-gray-800 hover:bg-gray-900 transition-all ease-in-out duration-300 cursor-pointer">
   <div class="flex flex-col items-center space-y-2">
       <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#e8eaed">
