@@ -9,6 +9,9 @@ function DriverDashboard() {
   const handleShowConfirmation = () => {
     navigate('/delevry'); // Redirection vers la page de confirmation
   };
+  const handleRelayRequest = () => {
+    navigate('/relay'); // Redirection vers la page de relaiement
+  };
     return (
 
       
