@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 
-
 function DriverDashboard() {
   const navigate = useNavigate(null);
 
@@ -841,16 +840,7 @@ function DriverDashboard() {
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-600 340-740l140-140 140 140-140 140ZM40-160v-160q0-34 23.5-57t56.5-23h131q20 0 38 10t29 27q29 39 71.5 61t90.5 22q49 0 91.5-22t70.5-61q13-17 30.5-27t36.5-10h131q34 0 57 23t23 57v160H640v-91q-35 25-75.5 38T480-200q-43 0-84-13.5T320-252v92H40Zm120-280q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T280-560q0 50-34.5 85T160-440Zm640 0q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T920-560q0 50-34.5 85T800-440Z"/></svg>
               <span class="ml-3">Passer colis</span>
             </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              class="flex items-center p-2 text-base font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M40-160v-80h200v-80H80v-80h160v-80H122v-80h118v-118l-78-168 72-34 94 200h464l-78-166 72-34 94 200v520H40Zm440-280h160q17 0 28.5-11.5T680-480q0-17-11.5-28.5T640-520H480q-17 0-28.5 11.5T440-480q0 17 11.5 28.5T480-440ZM320-240h480v-360H320v360Zm0 0v-360 360Z"/></svg>
-              <span class="ml-3">Livraison</span>
-            </a>
-          </li>
+          </li> 
           <li>
             <a
               href="#"
@@ -906,13 +896,7 @@ function DriverDashboard() {
                   >Ce mois</a
                 >
               </li>
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center p-2 pl-11 w-full text-base font-thin text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >Forgot Password</a
-                >
-              </li>
+             
             </ul>
           </li> 
         </ul>
@@ -1218,59 +1202,85 @@ function DriverDashboard() {
     </aside>
 
     <main class="p-4 md:ml-64 h-auto pt-20">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-        <div
-          class="border-2 border-dashed border-gray-300 rounded-lg dark:border-gray-600 h-32 md:h-64"
-        ></div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
-        ></div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
-        ></div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
-        ></div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+    {/* <!-- Card 1: Colis à livrer --> */}
+    <div class="bg-white dark:bg-gray-800 border border-gray-300 rounded-lg shadow-md p-4 flex items-center">
+      <div class="flex-shrink-0 bg-green-100 text-green-600 p-3 rounded-full">
+        📦
+      </div>
+      <div class="ml-4">
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Colis à livrer</h3>
+        <p class="text-2xl font-bold text-gray-900 dark:text-white">XX</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Colis en cours de traitement</p>
+      </div>
+    </div>
+
+    {/* <!-- Card 2: Colis Livrés --> */}
+    <div class="bg-white dark:bg-gray-800 border border-gray-300 rounded-lg shadow-md p-4 flex items-center">
+      <div class="flex-shrink-0 bg-blue-100 text-blue-600 p-3 rounded-full">
+        🚚
+      </div>
+      <div class="ml-4">
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Colis Livrés</h3>
+        <p class="text-2xl font-bold text-gray-900 dark:text-white">YY</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Livraisons réussies</p>
+      </div>
+    </div>
+
+    {/* <!-- Card 3: Colis en attente --> */}
+    <div class="bg-white dark:bg-gray-800 border border-gray-300 rounded-lg shadow-md p-4 flex items-center">
+      <div class="flex-shrink-0 bg-orange-100 text-orange-600 p-3 rounded-full">
+        ⏳
+      </div>
+      <div class="ml-4">
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Colis en attente</h3>
+        <p class="text-2xl font-bold text-gray-900 dark:text-white">ZZ</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400">En cours de préparation</p>
+      </div>
+    </div>
+
+    {/* <!-- Card 4: Solde --> */}
+    <div class="bg-white dark:bg-gray-800 border border-gray-300 rounded-lg shadow-md p-4 flex items-center">
+      <div class="flex-shrink-0 bg-purple-100 text-purple-600 p-3 rounded-full">
+        💰
+      </div>
+      <div class="ml-4">
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Solde</h3>
+        <p class="text-2xl font-bold text-gray-900 dark:text-white">€XXX</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Solde actuel disponible</p>
+      </div>
+    </div>
+  </div>
+      
+      <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"> 
+
+        
       </div>
 
-
-      <div
-        class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
-      ></div>
-
-
-      <div class="grid grid-cols-2 gap-4 mb-4">
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-        ></div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-        ></div>
-       
-      </div>
-
-{/* 
-     <div
-        class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
-      ></div>
-
-
-      <div class="grid grid-cols-2 gap-4">
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-        ></div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-        ></div>
-       
-      </div> */}
+<div class="grid grid-cols-2 gap-4 mb-2"> 
+      <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-70 p-4 bg-gray-800 hover:bg-gray-900 transition-all ease-in-out duration-300 cursor-pointer">
+  <div class="flex flex-col items-center space-y-2">
+  <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#e8eaed"><path d="M478-120q-145.33 0-248.83-100.83-103.5-100.84-108.5-246.5H188q4.67 118 88.17 199.33 83.5 81.33 201.83 81.33 123.67 0 209.5-86.5t85.83-210.16q0-121.67-86.5-205.84-86.5-84.16-208.83-84.16-68.33 0-128 31.33t-102.67 84H354v66.67H134.67V-810h66.66v102q51.67-62 123.84-97 72.16-35 152.83-35 75 0 140.83 28.17 65.84 28.16 115 76.66Q783-686.67 811.5-621.5T840-481.33q0 75-28.5 140.83-28.5 65.83-77.67 114.67-49.16 48.83-115 77.33Q553-120 478-120Zm122.67-195.33-153.34-152V-682H514v187.33l134 132-47.33 47.34Z"/></svg>
+    <button class="text-lg font-semibold text-white bg-transparent border-0 cursor-pointer">
+      Historique
+    </button>
+  </div>
+</div>
+<div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-70 p-4 bg-gray-800 hover:bg-gray-900 transition-all ease-in-out duration-300 cursor-pointer">
+  <div class="flex flex-col items-center space-y-2">
+      <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#e8eaed">
+        <path d="M40-160v-66.67h199.33v-94H80v-66.66h159.33v-94H124.67V-548h114.66v-126l-78-178L222-880l88.67 201.33h496L727.33-852 788-880l92 201.33V-160H40Zm435.33-288h169.34q14.16 0 23.75-9.62 9.58-9.61 9.58-23.83 0-14.22-9.58-23.72-9.59-9.5-23.75-9.5H475.33q-14.16 0-23.75 9.62-9.58 9.62-9.58 23.83 0 14.22 9.58 23.72 9.59 9.5 23.75 9.5ZM306-226.67h507.33V-612H306v385.33Zm0 0V-612v385.33Z"/>
+      </svg>
+    <button class="text-lg font-semibold text-white bg-transparent border-0 cursor-pointer">
+      Confirmation de Livraison
+    </button>
+  </div>
+</div>
+</div>
 
     </main>
-
-
   </div>
-                
-            </div>
+</div>
         
     );
 }
