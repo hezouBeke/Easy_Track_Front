@@ -40,12 +40,12 @@ function ScanQR() {
   }, []);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center font-thin min-h-screen bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-6 w-11/12 md:w-2/3 lg:w-1/3">
         <div className="flex flex-col items-center mb-6">
           {/* Icône personnalisée au-dessus du composant */}
           <img src={scanIcon} alt="Scan QR" className="w-16 h-16 mb-4" />
-          <h1 className="text-2xl font-bold text-gray-800">Scanner un QR Code</h1>
+          <h1 className="text-2xl font-thin text-gray-800">Scanner un QR Code</h1>
           <p className="text-sm text-gray-600 text-center mt-2">
             Positionnez le QR Code dans la zone ci-dessous pour le scanner.
           </p>

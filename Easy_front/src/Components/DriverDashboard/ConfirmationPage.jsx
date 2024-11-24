@@ -28,7 +28,7 @@ function ConfirmationPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-white text-black p-4">
+    <div className="flex flex-col items-center justify-center font-thin min-h-screen bg-white text-black p-4">
        {/* Icône au-dessus de la zone de signature */}
      <div className="mb-6">
         <img src={signatureIcon} alt="Icône signature" className="w-16 h-16 mx-auto" />
@@ -37,13 +37,13 @@ function ConfirmationPage() {
 
     
       {/* Zone de signature avec bordure fine */}
-      <div className="w-full max-w-md mb-6 p-4 border-2 border-gray-500 rounded-md bg-white">
+      <div className="w-full max-w-md mb-6 p-1 border-2 border-gray-500 rounded-md bg-white">
         <SignaturePad
           ref={signaturePadRef}
-          backgroundColor="rgba(255, 255, 255, 1)"
+          backgroundColor="rgba(200, 200, 200, 1)" // Gris clair
           penColor="black"
           canvasProps={{
-            className: 'w-full h-60 md:h-96', // Agrandissement de la zone de signature
+            className: 'w-full h-80 md:h-100', // Agrandissement de la zone de signature
           }}
         />
       </div>

@@ -15,7 +15,7 @@ function RelayOptions() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen font-thin bg-gray-100">
       <div className="bg-white shadow-md rounded-lg p-6 w-11/12 md:w-2/3 lg:w-1/3">
         {/* Ajouter l'image au-dessus */}
         <div className="flex justify-center mb-6">
@@ -25,7 +25,7 @@ function RelayOptions() {
             className="w-24 h-24" // Ajuster la taille
           />
         </div>
-        <h1 className="text-2xl font-bold text-center text-gray-800 mb-4">
+        <h1 className="text-2xl font-thin text-center text-gray-800 mb-4">
           Relaiement de Colis
         </h1>
         <p className="text-sm text-gray-600 text-center mb-6">

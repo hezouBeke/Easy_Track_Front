@@ -62,7 +62,7 @@ function DriverDashboard() {
               className="mr-3 h-8"
               alt="EasyTrack"
             />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">EasyTrack</span>
+            <span className="self-center text-2xl font-thin whitespace-nowrap dark:text-white">EasyTrack</span>
           </a>
           <form action="#" method="GET" className="hidden md:block md:pl-2">
             <label htmlFor="topbar-search" className="sr-only">Search</label>
@@ -177,7 +177,7 @@ function DriverDashboard() {
                     className="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
                   >
                     New message from
-                    <span className="font-semibold text-gray-900 dark:text-white"
+                    <span className="font-thin text-gray-900 dark:text-white"
                       >Bonnie Green</span
                     >: "Hey, what's up? All set htmlFor the presentation?"
                   </div>
@@ -218,7 +218,7 @@ function DriverDashboard() {
                   <div
                     className="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
                   >
-                    <span className="font-semibold text-gray-900 dark:text-white"
+                    <span className="font-thin text-gray-900 dark:text-white"
                       >Jese leos</span
                     >
                     and
@@ -266,7 +266,7 @@ function DriverDashboard() {
                   <div
                     className="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
                   >
-                    <span className="font-semibold text-gray-900 dark:text-white"
+                    <span className="font-thin text-gray-900 dark:text-white"
                       >Joseph Mcfall</span
                     >
                     and
@@ -314,7 +314,7 @@ function DriverDashboard() {
                   <div
                     className="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
                   >
-                    <span className="font-semibold text-gray-900 dark:text-white"
+                    <span className="font-thin text-gray-900 dark:text-white"
                       >Leslie Livingston</span
                     >
                     mentioned you in a comment:
@@ -361,7 +361,7 @@ function DriverDashboard() {
                   <div
                     className="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
                   >
-                    <span className="font-semibold text-gray-900 dark:text-white"
+                    <span className="font-thin text-gray-900 dark:text-white"
                       >Robert Brown</span
                     >
                     posted a new video: Glassmorphism - learn how to implement
@@ -639,7 +639,7 @@ function DriverDashboard() {
           >
             <div className="py-3 px-4">
               <span
-                className="block text-sm font-semibold text-gray-900 dark:text-white"
+                className="block text-sm font-thin text-gray-900 dark:text-white"
                 >Neil Sims</span
               >
               <span
@@ -847,7 +847,7 @@ function DriverDashboard() {
            
               <span className="flex-1 ml-3 whitespace-nowrap">Messages</span>
               <span
-                className="inline-flex justify-center items-center w-5 h-5 text-xs font-semibold rounded-full text-primary-800 bg-primary-100 dark:bg-primary-200 dark:text-primary-800"
+                className="inline-flex justify-center items-center w-5 h-5 text-xs font-thin rounded-full text-primary-800 bg-primary-100 dark:bg-primary-200 dark:text-primary-800"
               >
                 4
               </span>
@@ -1206,8 +1206,8 @@ function DriverDashboard() {
         📦
       </div>
       <div className="ml-4">
-        <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Colis à livrer</h3>
-        <p className="text-2xl font-bold text-gray-900 dark:text-white">XX</p>
+        <h3 className="text-lg font-thin text-gray-800 dark:text-white">Colis à livrer</h3>
+        <p className="text-2xl font-thin text-gray-900 dark:text-white">XX</p>
         <p className="text-sm text-gray-600 dark:text-gray-400">Colis en cours de traitement</p>
       </div>
     </div>
@@ -1218,8 +1218,8 @@ function DriverDashboard() {
         🚚
       </div>
       <div className="ml-4">
-        <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Colis Livrés</h3>
-        <p className="text-2xl font-bold text-gray-900 dark:text-white">YY</p>
+        <h3 className="text-lg font-thin text-gray-800 dark:text-white">Colis Livrés</h3>
+        <p className="text-2xl font-thin text-gray-900 dark:text-white">YY</p>
         <p className="text-sm text-gray-600 dark:text-gray-400">Livraisons réussies</p>
       </div>
     </div>
@@ -1230,8 +1230,8 @@ function DriverDashboard() {
         ⏳
       </div>
       <div className="ml-4">
-        <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Colis en attente</h3>
-        <p className="text-2xl font-bold text-gray-900 dark:text-white">ZZ</p>
+        <h3 className="text-lg font-thin text-gray-800 dark:text-white">Colis en attente</h3>
+        <p className="text-2xl font-thin text-gray-900 dark:text-white">ZZ</p>
         <p className="text-sm text-gray-600 dark:text-gray-400">En cours de préparation</p>
       </div>
     </div>
@@ -1242,8 +1242,8 @@ function DriverDashboard() {
         💰
       </div>
       <div className="ml-4">
-        <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Solde</h3>
-        <p className="text-2xl font-bold text-gray-900 dark:text-white">€XXX</p>
+        <h3 className="text-lg font-thin text-gray-800 dark:text-white">Solde</h3>
+        <p className="text-2xl font-thin text-gray-900 dark:text-white">€XXX</p>
         <p className="text-sm text-gray-600 dark:text-gray-400">Solde actuel disponible</p>
       </div>
     </div>
@@ -1259,7 +1259,7 @@ function DriverDashboard() {
   <div className="flex flex-col items-center space-y-2">
   <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#e8eaed"><path d="M480-600 340-740l140-140 140 140-140 140ZM40-160v-160q0-34 23.5-57t56.5-23h131q20 0 38 10t29 27q29 39 71.5 61t90.5 22q49 0 91.5-22t70.5-61q13-17 30.5-27t36.5-10h131q34 0 57 23t23 57v160H640v-91q-35 25-75.5 38T480-200q-43 0-84-13.5T320-252v92H40Zm120-280q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T280-560q0 50-34.5 85T160-440Zm640 0q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T920-560q0 50-34.5 85T800-440Z"/></svg>
 
-    <button className="text-lg font-semibold text-white bg-transparent border-0 cursor-pointer mt-auto"
+    <button className="text-lg font-thin text-white bg-transparent border-0 cursor-pointer mt-auto"
      onClick={handleRelayRequest}>
       Demande de relaiement de colis
     </button>
@@ -1272,7 +1272,7 @@ function DriverDashboard() {
             <path d="M40-160v-66.67h199.33v-94H80v-66.66h159.33v-94H124.67V-548h114.66v-126l-78-178L222-880l88.67 201.33h496L727.33-852 788-880l92 201.33V-160H40Zm435.33-288h169.34q14.16 0 23.75-9.62 9.58-9.61 9.58-23.83 0-14.22-9.58-23.72-9.59-9.5-23.75-9.5H475.33q-14.16 0-23.75 9.62-9.58 9.62-9.58 23.83 0 14.22 9.58 23.72 9.59 9.5 23.75 9.5ZM306-226.67h507.33V-612H306v385.33Zm0 0V-612v385.33Z"/>
           </svg>
           <button 
-            className="text-lg font-semibold text-white bg-transparent border-0 cursor-pointer"
+            className="text-lg font-thin text-white bg-transparent border-0 cursor-pointer"
             onClick={handleShowConfirmation}
           >
             Confirmation de Livraison
