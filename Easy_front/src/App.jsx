@@ -19,6 +19,7 @@ import ExpeditionList from "./Components/Admin/ExpeditionList";
 import Stats from "./Components/Admin/Stats";
 import Hisrotiques from "./Components/Admin/Historiques";
 import ConfirmationPage from "./Components/DriverDashboard/ConfirmationPage";
+import RelayOptions from "./Components/DriverDashboard/RelayOptions";
 function App() {
   return (
     <Router>
@@ -42,6 +43,7 @@ function App() {
         <Route path="/dashboard/admin/expeditions" element={<Expeditions />} />
         <Route path="/dashboard/admin/historiques" element={<Hisrotiques />} />
         <Route path="/delevry" element={<ConfirmationPage />} />
+        <Route path="/relay" element={<RelayOptions />} />
         {/* Redirection de la racine vers Home */}
         <Route path="/" element={<Navigate replace to="/home" />} />
         {/* Gestion des routes non trouvées : redirection vers Home */}
