@@ -55,7 +55,7 @@ function CustomerDashboard(){
                   class="mr-3 h-8"
                   alt="EasyTrack"
                 />
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">EasyTrack</span>
+                <span class="self-center text-2xl font-thin whitespace-nowrap dark:text-white">EasyTrack</span>
               </a>
               <form action="#" method="GET" class="hidden md:block md:pl-2">
                 <label for="topbar-search" class="sr-only">Search</label>
@@ -123,11 +123,11 @@ function CustomerDashboard(){
     
     
               <div
-                class="hidden overflow-hidden z-50 my-4 max-w-sm text-base list-none bg-white rounded divide-y divide-gray-100 shadow-lg dark:divide-gray-600 dark:bg-gray-700 rounded-xl"
+                class="hidden overflow-hidden z-50 my-4 max-w-sm text-lg list-none bg-white rounded divide-y divide-gray-100 shadow-lg dark:divide-gray-600 dark:bg-gray-700 rounded-xl"
                 id="notification-dropdown"
               >
                 <div
-                  class="block py-2 px-4 text-base font-medium text-center text-gray-700 bg-gray-50 dark:bg-gray-600 dark:text-gray-300"
+                  class="block py-2 px-4 text-lg font-thin text-center text-gray-700 bg-gray-50 dark:bg-gray-600 dark:text-gray-300"
                 >
                   Notifications
                 </div>
@@ -166,12 +166,12 @@ function CustomerDashboard(){
                         class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
                       >
                         New message from
-                        <span class="font-semibold text-gray-900 dark:text-white"
+                        <span class="font-thin text-gray-900 dark:text-white"
                           >Bonnie Green</span
                         >: "Hey, what's up? All set for the presentation?"
                       </div>
                       <div
-                        class="text-xs font-medium text-primary-600 dark:text-primary-500"
+                        class="text-xs font-thin text-primary-600 dark:text-primary-500"
                       >
                         a few moments ago
                       </div>
@@ -207,17 +207,17 @@ function CustomerDashboard(){
                       <div
                         class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
                       >
-                        <span class="font-semibold text-gray-900 dark:text-white"
+                        <span class="font-thin text-gray-900 dark:text-white"
                           >Jese leos</span
                         >
                         and
-                        <span class="font-medium text-gray-900 dark:text-white"
+                        <span class="font-thin text-gray-900 dark:text-white"
                           >5 others</span
                         >
                         started following you.
                       </div>
                       <div
-                        class="text-xs font-medium text-primary-600 dark:text-primary-500"
+                        class="text-xs font-thin text-primary-600 dark:text-primary-500"
                       >
                         10 minutes ago
                       </div>
@@ -255,17 +255,17 @@ function CustomerDashboard(){
                       <div
                         class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
                       >
-                        <span class="font-semibold text-gray-900 dark:text-white"
+                        <span class="font-thin text-gray-900 dark:text-white"
                           >Joseph Mcfall</span
                         >
                         and
-                        <span class="font-medium text-gray-900 dark:text-white"
+                        <span class="font-thin text-gray-900 dark:text-white"
                           >141 others</span
                         >
                         love your story. See it and view more stories.
                       </div>
                       <div
-                        class="text-xs font-medium text-primary-600 dark:text-primary-500"
+                        class="text-xs font-thin text-primary-600 dark:text-primary-500"
                       >
                         44 minutes ago
                       </div>
@@ -303,18 +303,18 @@ function CustomerDashboard(){
                       <div
                         class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
                       >
-                        <span class="font-semibold text-gray-900 dark:text-white"
+                        <span class="font-thin text-gray-900 dark:text-white"
                           >Leslie Livingston</span
                         >
                         mentioned you in a comment:
                         <span
-                          class="font-medium text-primary-600 dark:text-primary-500"
+                          class="font-thin text-primary-600 dark:text-primary-500"
                           >@bonnie.green</span
                         >
                         what do you say?
                       </div>
                       <div
-                        class="text-xs font-medium text-primary-600 dark:text-primary-500"
+                        class="text-xs font-thin text-primary-600 dark:text-primary-500"
                       >
                         1 hour ago
                       </div>
@@ -350,14 +350,14 @@ function CustomerDashboard(){
                       <div
                         class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
                       >
-                        <span class="font-semibold text-gray-900 dark:text-white"
+                        <span class="font-thin text-gray-900 dark:text-white"
                           >Robert Brown</span
                         >
                         posted a new video: Glassmorphism - learn how to implement
                         the new design trend.
                       </div>
                       <div
-                        class="text-xs font-medium text-primary-600 dark:text-primary-500"
+                        class="text-xs font-thin text-primary-600 dark:text-primary-500"
                       >
                         3 hours ago
                       </div>
@@ -366,7 +366,7 @@ function CustomerDashboard(){
                 </div>
                 <a
                   href="#"
-                  class="block py-2 text-md font-medium text-center text-gray-900 bg-gray-50 hover:bg-gray-100 dark:bg-gray-600 dark:text-white dark:hover:underline"
+                  class="block py-2 text-md font-thin text-center text-gray-900 bg-gray-50 hover:bg-gray-100 dark:bg-gray-600 dark:text-white dark:hover:underline"
                 >
                   <div class="inline-flex items-center">
                     <svg
@@ -408,11 +408,11 @@ function CustomerDashboard(){
               </button>
               {/* <!-- Dropdown menu --> */}
               <div
-                class="hidden overflow-hidden z-50 my-4 max-w-sm text-base list-none bg-white rounded divide-y divide-gray-100 shadow-lg dark:bg-gray-700 dark:divide-gray-600 rounded-xl"
+                class="hidden overflow-hidden z-50 my-4 max-w-sm text-lg list-none bg-white rounded divide-y divide-gray-100 shadow-lg dark:bg-gray-700 dark:divide-gray-600 rounded-xl"
                 id="apps-dropdown"
               >
                 <div
-                  class="block py-2 px-4 text-base font-medium text-center text-gray-700 bg-gray-50 dark:bg-gray-600 dark:text-gray-300"
+                  class="block py-2 px-4 text-lg font-thin text-center text-gray-700 bg-gray-50 dark:bg-gray-600 dark:text-gray-300"
                 >
                   Apps
                 </div>
@@ -623,12 +623,12 @@ function CustomerDashboard(){
               </button>
              
               <div
-                class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 rounded-xl"
+                class="hidden z-50 my-4 w-56 text-lg list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 rounded-xl"
                 id="dropdown"
               >
                 <div class="py-3 px-4">
                   <span
-                    class="block text-sm font-semibold text-gray-900 dark:text-white"
+                    class="block text-sm font-thin text-gray-900 dark:text-white"
                     >Neil Sims</span
                   >
                   <span
@@ -793,7 +793,7 @@ function CustomerDashboard(){
               <li>
                 <a
                   href="#"
-                  class="flex items-center font-thin p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                  class="flex items-center font-thin p-2 text-lg font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                 >
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg>
                   <span class="ml-3">Tableau de bord</span>
@@ -803,7 +803,7 @@ function CustomerDashboard(){
               <li>
                 <a
                   href="#"
-                  class="flex items-center p-2 text-base font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                  class="flex items-center p-2 text-lg font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M120-160v-640l572 240h-12q-35 0-66 8t-60 22L200-680v140l240 60-240 60v140l216-92q-8 23-12 45.5t-4 46.5v2L120-160Zm560 80q-83 0-141.5-58.5T480-280q0-83 58.5-141.5T680-480q83 0 141.5 58.5T880-280q0 83-58.5 141.5T680-80Zm66-106 28-28-74-74v-112h-40v128l86 86ZM200-372v-308 400-92Z"/></svg>
                   <span class="ml-3">Expéditions</span>
@@ -812,7 +812,7 @@ function CustomerDashboard(){
               <li>
                 <a
                   href="#"
-                  class="flex items-center p-2 text-base font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                  class="flex items-center p-2 text-lg font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-80q-106 0-173-33.5T240-200q0-24 14.5-44.5T295-280l63 59q-9 4-19.5 9T322-200q13 16 60 28t98 12q51 0 98.5-12t60.5-28q-7-8-18-13t-21-9l62-60q28 16 43 36.5t15 45.5q0 53-67 86.5T480-80Zm1-220q99-73 149-146.5T680-594q0-102-65-154t-135-52q-70 0-135 52t-65 154q0 67 49 139.5T481-300Zm-1 100Q339-304 269.5-402T200-594q0-71 25.5-124.5T291-808q40-36 90-54t99-18q49 0 99 18t90 54q40 36 65.5 89.5T760-594q0 94-69.5 192T480-200Zm0-320q33 0 56.5-23.5T560-600q0-33-23.5-56.5T480-680q-33 0-56.5 23.5T400-600q0 33 23.5 56.5T480-520Zm0-80Z"/></svg>
                   <span class="ml-3">Tracking</span>
@@ -821,7 +821,7 @@ function CustomerDashboard(){
               <li>
                 <a
                   href="#"
-                  class="flex items-center p-2 text-base font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                  class="flex items-center p-2 text-lg font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                 >
                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-120q-138 0-240.5-91.5T122-440h82q14 104 92.5 172T480-200q117 0 198.5-81.5T760-480q0-117-81.5-198.5T480-760q-69 0-129 32t-101 88h110v80H120v-240h80v94q51-64 124.5-99T480-840q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-480q0 75-28.5 140.5t-77 114q-48.5 48.5-114 77T480-120Zm112-192L440-464v-216h80v184l128 128-56 56Z"/></svg>
                   <span class="ml-3">Historique expéditions </span>
@@ -831,13 +831,13 @@ function CustomerDashboard(){
               <li>
                 <a
                   href="#"
-                  class="flex items-center p-2 text-base font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                  class="flex items-center p-2 text-lg font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M240-400h320v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Zm126-240h594v-480H160v525l46-45Zm-46 0v-480 480Z"/></svg>
                
                   <span class="flex-1 ml-3 whitespace-nowrap">Messages</span>
                   <span
-                    class="inline-flex justify-center items-center w-5 h-5 text-xs font-semibold rounded-full text-primary-800 bg-primary-100 dark:bg-primary-200 dark:text-primary-800"
+                    class="inline-flex justify-center items-center w-5 h-5 text-xs font-thin rounded-full text-primary-800 bg-primary-100 dark:bg-primary-200 dark:text-primary-800"
                   >
                     4
                   </span>
@@ -855,7 +855,7 @@ function CustomerDashboard(){
               <li>
                 <a
                   href="#"
-                  class="flex items-center p-2 text-base font-thin text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
+                  class="flex items-center p-2 text-lg font-thin text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
                 >
                   <svg
                     aria-hidden="true"
@@ -878,7 +878,7 @@ function CustomerDashboard(){
               <li>
                 <a
                   href="#"
-                  class="flex items-center p-2 text-base font-thin text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
+                  class="flex items-center p-2 text-lg font-thin text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
                 >
                   <svg
                     aria-hidden="true"
