@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaQrcode, FaCamera } from 'react-icons/fa'; // Importer des icônes
+import interchangeImage from '../../assets/interchange.png';
 
 function RelayOptions() {
   const navigate = useNavigate();
@@ -14,8 +15,16 @@ function RelayOptions() {
   };
 
   return (
-    <div className="flex flex-col items-center mt-12">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white shadow-md rounded-lg p-6 w-11/12 md:w-2/3 lg:w-1/3">
+        {/* Ajouter l'image au-dessus */}
+        <div className="flex justify-center mb-6">
+          <img
+            src={interchangeImage}
+            alt="Interaction entre coursiers"
+            className="w-24 h-24" // Ajuster la taille
+          />
+        </div>
         <h1 className="text-2xl font-bold text-center text-gray-800 mb-4">
           Relaiement de Colis
         </h1>
