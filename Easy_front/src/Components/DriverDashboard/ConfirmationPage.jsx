@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SignaturePad from 'react-signature-canvas';
-
+import signatureIcon from '../../assets/electronic-signature.png'; // Icône personnalisée
 function ConfirmationPage() {
   const signaturePadRef = useRef(null);
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
@@ -15,7 +15,7 @@ function ConfirmationPage() {
   const saveSignature = () => {
     if (signaturePadRef.current.isEmpty()) {
       setErrorMessageVisible(true);
-      setTimeout(() => setErrorMessageVisible(false), 3000); // Cacher après 3 secondes
+      setTimeout(() => setErrorMessageVisible(false), 30.00); // Cacher après 3 secondes
     } else {
       const signatureData = signaturePadRef.current.toDataURL();
       console.log('Signature enregistrée:', signatureData);
@@ -28,34 +28,48 @@ function ConfirmationPage() {
   };
 
   return (
-    <div className="flex flex-col items-center p-4 bg-gray-800 text-white">
-      <h2 className="text-xl mb-4">Veuillez signer pour confirmer la réception du colis</h2>
-
-      {/* Zone de signature */}
-      <SignaturePad
-        ref={signaturePadRef}
-        backgroundColor="rgba(255, 255, 255, 0.5)"
-        penColor="black"
-        canvasProps={{
-          className: 'border-2 border-gray-500 w-full h-48 md:h-72 rounded-md',
-        }}
-      />
-
-      {/* Boutons */}
-      <div className="flex justify-center gap-4 mt-4">
-        <button
-          onClick={clearSignature}
-          className="px-4 py-2 bg-red-500 text-white rounded"
-        >
-          Réinitialiser
-        </button>
-        <button
-          onClick={saveSignature}
-          className="px-4 py-2 bg-green-500 text-white rounded"
-        >
-          Enregistrer
-        </button>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-white text-black p-4">
+       {/* Icône au-dessus de la zone de signature */}
+     <div className="mb-6">
+        <img src={signatureIcon} alt="Icône signature" className="w-16 h-16 mx-auto" />
       </div>
+      <h2 className="text-xl mb-4 text-center">Veuillez signer pour confirmer la réception du colis</h2>
+
+    
+      {/* Zone de signature avec bordure fine */}
+      <div className="w-full max-w-md mb-6 p-4 border-2 border-gray-500 rounded-md bg-white">
+        <SignaturePad
+          ref={signaturePadRef}
+          backgroundColor="rgba(255, 255, 255, 1)"
+          penColor="black"
+          canvasProps={{
+            className: 'w-full h-60 md:h-96', // Agrandissement de la zone de signature
+          }}
+        />
+      </div>
+{/* Boutons */}
+<div className="flex justify-center gap-4 mt-4">
+  <button
+    onClick={clearSignature}
+    className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 flex items-center gap-2"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#e8eaed">
+      <path d="M480-354v-75.33q0-21 14.5-35.5t35.5-14.5l74.67.66L480-354Zm0 161v-85l201.33-200.67h84.34L480-193Zm3.33 69 352.34-352.67Q851-472 862.17-460.5 873.33-449 878-433.67L526-81.33q-16-5-26.83-15.84Q488.33-108 483.33-124Zm120.34 44L880-356.33v85L688.67-80h-85Zm161.66 0L880-194.67V-130q0 21-14.5 35.5T830-80h-64.67Zm68.34-466.67h-69q-24-97.33-102.34-162Q584-773.33 480-773.33q-122.33 0-207.83 85.5-85.5 85.5-85.5 207.83 0 78 36.5 142.33Q259.67-273.33 320-234v-112.67h66.67V-120H160v-66.67h112q-69.33-48.66-110.67-125.5Q120-389 120-480q0-75 28.5-140.5t77-114q48.5-48.5 114-77T480-840q132.33 0 231.17 83.83 98.83 83.84 122.5 209.5Z"/>
+    </svg>
+    Réinitialiser
+  </button>
+
+  <button
+    onClick={saveSignature}
+    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 flex items-center gap-2"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#e8eaed">
+      <path d="M379.33-244 154-469.33 201.67-517l177.66 177.67 378.34-378.34L805.33-670l-426 426Z"/>
+    </svg>
+    Enregistrer
+  </button>
+</div>
+
 
       {/* Alerte de succès */}
       {successMessageVisible && (
