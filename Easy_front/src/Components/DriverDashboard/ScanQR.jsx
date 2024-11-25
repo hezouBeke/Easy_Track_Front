@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Html5QrcodeScanner } from 'html5-qrcode';
 import scanIcon from '../../assets/scan.png'; // Icône personnalisée
+import { useNavigate } from 'react-router-dom';
 
 function ScanQR() {
+     
+  const navigate = useNavigate();
+const handleGoBack = () => {
+    navigate('/relay'); // Retour au dashboard
+    };
+
   const [scanner, setScanner] = useState(null);
 
   useEffect(() => {
@@ -41,6 +48,15 @@ function ScanQR() {
 
   return (
     <div className="flex items-center justify-center font-thin min-h-screen bg-gray-100">
+         {/* Bouton de retour */}
+      <button
+        onClick={handleGoBack}
+        className="absolute top-4 left-4 flex items-center px-3 py-2 text-black  text-lg"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/></svg>
+        Options de Scan Qr
+      </button>
+
       <div className="bg-white shadow-lg rounded-lg p-6 w-11/12 md:w-2/3 lg:w-1/3">
         <div className="flex flex-col items-center mb-6">
           {/* Icône personnalisée au-dessus du composant */}

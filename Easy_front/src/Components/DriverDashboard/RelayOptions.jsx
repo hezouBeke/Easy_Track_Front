@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaQrcode, FaCamera, FaArrowLeft } from 'react-icons/fa'; // Importer des icônes
+import { FaQrcode, FaCamera } from 'react-icons/fa'; // Importer des icônes
 import interchangeImage from '../../assets/interchange.png';
 
 function RelayOptions() {
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const handleScanQR = () => {
     navigate('/scan-qr'); // Redirection vers la page de scan
   };
@@ -18,6 +18,7 @@ function RelayOptions() {
     navigate('/dashboard/driver'); // Retour au dashboard
   };
 
+  
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 px-4">
       {/* Bouton de retour */}

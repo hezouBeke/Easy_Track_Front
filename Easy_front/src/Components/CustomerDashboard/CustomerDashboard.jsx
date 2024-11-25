@@ -387,6 +387,9 @@ function CustomerDashboard(){
                   </div>
                 </a>
               </div>
+
+
+
               {/* <!-- Apps --> */}
               <button
                 type="button"
@@ -406,6 +409,8 @@ function CustomerDashboard(){
                   ></path>
                 </svg>
               </button>
+
+
               {/* <!-- Dropdown menu --> */}
               <div
                 class="hidden overflow-hidden z-50 my-4 max-w-sm text-lg list-none bg-white rounded divide-y divide-gray-100 shadow-lg dark:bg-gray-700 dark:divide-gray-600 rounded-xl"

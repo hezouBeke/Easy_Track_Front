@@ -16,7 +16,7 @@
     "@mui/icons-material": "^6.1.2",
     "@mui/material": "^6.1.1",
     "@react-google-maps/api": "^2.19.3",
-    "antd": "^5.21.0",
+    "antd": "^5.22.2",
     "axios": "^1.7.2",
     "chart.js": "^4.4.4",
     "flowbite": "^2.4.1",
