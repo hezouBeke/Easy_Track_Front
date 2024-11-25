@@ -22,6 +22,8 @@ import ConfirmationPage from "./Components/DriverDashboard/ConfirmationPage";
 import RelayOptions from "./Components/DriverDashboard/RelayOptions";
 import ScanQR from "./Components/DriverDashboard/ScanQR";
 import ShowQR from "./Components/DriverDashboard/ShowQR";
+import Races from "./Components/DriverDashboard/Races";
+
 function App() {
   return (
     <Router>
@@ -35,9 +37,13 @@ function App() {
         <Route path="/expeditions-list" element={<ExpeditionList />} />
         <Route path="/dashboard/customer" element={<CustomerDashboard />} />
         <Route path="/dashboard/driver" element={<DriverDashboard />} />
+
+        <Route path="/dashboard/driver/courses" element={<Races />} />
+
         <Route path="/dashboard/admin" element={<AdminDashboard />} />
         <Route path="/dashboard/admin/createshipment" element={<CreateExpedition />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+
         <Route path="/dashboard/admin/clients" element={<Customer />} />
         <Route path="/dashboard/admin/stats" element={<Stats />} />
         <Route path="/dashboard/admin/coursiers" element={<Coursiers />} />
