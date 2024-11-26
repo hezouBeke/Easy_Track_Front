@@ -18,7 +18,16 @@ const deleteCoursierById = (id) => {
 }
 const updateCoursierStatus = (id, status) => {
     return axios.patch(`${API_URL}coursier/${id}/status`, { status });
+}
+
+const getConnectedCoursier = () => {
+    return axios.get(`${API_URL}coursier/me`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`, // Assurez-vous que le token est stocké dans localStorage
+        },
+    });
 };
+
 
 
 
@@ -27,5 +36,6 @@ export default {
     getCoursierById,
     deleteCoursierById,
     updateCoursierStatus,
+    getConnectedCoursier
    
 };

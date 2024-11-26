@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import coursierService from '../../services/coursierService';
 
 function DriverDashboard() {
   const navigate = useNavigate(null);
@@ -310,6 +311,8 @@ function DriverDashboard() {
               alt="user photo"
             />
           </button>
+
+
           {/* <!-- Dropdown menu --> */}
           <div
             className="hidden z-50 my-4 w-56 text-lg list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 rounded-xl"
@@ -436,6 +439,11 @@ function DriverDashboard() {
               </li>
             </ul>
           </div>
+
+
+
+
+
         </div>
       </div>
     </nav>
