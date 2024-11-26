@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import coursierService from '../../services/coursierService';
 import React, { useEffect, useState } from 'react';
+import 'flowbite';
+
 function DriverDashboard() {
   const navigate = useNavigate(null);
   const [coursier, setCoursier] = useState({ completename: '', email: '' });
@@ -33,9 +35,15 @@ function DriverDashboard() {
     return (
     <div className="flex flex-col w-full">    
     <div className="antialiased bg-gray-50 dark:bg-gray-100">
+
+      {/* debut de la nav qui regroupe le header */}
     <nav className="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-50">
       <div className="flex flex-wrap justify-between items-center">
+
+
+        {/* partie menu hamberger et barrre de recherche  */}
         <div className="flex justify-start items-center">
+
           <button
             data-drawer-target="drawer-navigation"
             data-drawer-toggle="drawer-navigation"
@@ -70,6 +78,7 @@ function DriverDashboard() {
             </svg>
             <span className="sr-only">Toggle sidebar</span>
           </button>
+
 
 
           <a href="/home" className="flex items-center justify-between mr-4">
@@ -111,8 +120,12 @@ function DriverDashboard() {
         </div>
 
 
+
+
         
         <div className="flex items-center lg:order-2">
+          
+          {/* pour le boutton de  cherche */}
           <button
             type="button"
             data-drawer-toggle="drawer-navigation"
@@ -124,15 +137,18 @@ function DriverDashboard() {
               <path clipRule="evenodd" fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"></path>
             </svg>
           </button>
+  
 
-
-          {/* <!-- Notifications --> */}
+   
+          {/* <!-- partie des Notifications --> */}
           <button
             type="button"
             data-dropdown-toggle="notification-dropdown"
             className="p-2 mr-1 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
           >
+
             <span className="sr-only">View notifications</span>
+
             {/* <!-- Bell icon --> */}
             <svg
               aria-hidden="true"
@@ -146,9 +162,8 @@ function DriverDashboard() {
               ></path>
             </svg>
           </button>
-
-
           {/* <!-- Dropdown menu --> */}
+
           <div
             className="hidden overflow-hidden z-50 my-4 max-w-sm text-lg list-none bg-white rounded divide-y divide-gray-100 shadow-lg dark:divide-gray-600 dark:bg-gray-700 rounded-xl"
             id="notification-dropdown"
@@ -206,9 +221,6 @@ function DriverDashboard() {
                   </div>
                 </div>
               </a>
-
-
-
             </div>
             <a
               href="#"
@@ -233,7 +245,13 @@ function DriverDashboard() {
               </div>
             </a>
           </div>
-          {/* <!-- Apps --> */}
+          {/* fin partie des notifications */}
+
+
+
+
+
+          {/* <!-- debut  partie des Apps --> */}
           <button
             type="button"
             data-dropdown-toggle="apps-dropdown"
@@ -309,7 +327,12 @@ function DriverDashboard() {
 
             </div>
           </div>
+          {/* fin de la partie reserver au app  */}
           
+
+
+
+          {/* partie pour le profile de l'utilisateur */}
           <button
             type="button"
             className="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
@@ -452,6 +475,7 @@ function DriverDashboard() {
               </li>
             </ul>
           </div>
+          {/* fin de la patie reserver au profile*/}
 
 
 
@@ -459,7 +483,11 @@ function DriverDashboard() {
 
         </div>
       </div>
+
+
+
     </nav>
+    {/* fin de la nav */}
 
     {/* <!-- Sidebar --> */}
 
