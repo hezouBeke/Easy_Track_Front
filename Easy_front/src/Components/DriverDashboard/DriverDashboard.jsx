@@ -1,9 +1,21 @@
 import { useNavigate } from 'react-router-dom';
 import coursierService from '../../services/coursierService';
-
+import React, { useEffect, useState } from 'react';
 function DriverDashboard() {
   const navigate = useNavigate(null);
+  const [coursier, setCoursier] = useState({ completename: '', email: '' });
 
+  useEffect(() => {
+      const fetchCoursier = async () => {
+          try {
+              const response = await coursierService.getConnectedCoursier();
+              setCoursier(response.data);
+          } catch (error) {
+              console.error('Erreur lors de la récupération du coursier connecté', error);
+          }
+      };
+      fetchCoursier();
+  }, []);
   const handleLogout = () => {
     navigate('/'); 
   };
@@ -16,6 +28,7 @@ function DriverDashboard() {
   const handleRacesClick= () => {
     navigate("/dashboard/driver/courses");
   };
+
 
     return (
     <div className="flex flex-col w-full">    
@@ -321,11 +334,11 @@ function DriverDashboard() {
             <div className="py-3 px-4">
               <span
                 className="block text-sm font-thin text-gray-900 dark:text-white"
-                >Neil Sims</span
+                > {coursier.completename || 'Nom inconnu'}</span
               >
               <span
                 className="block text-sm text-gray-900 truncate dark:text-white"
-                >name@flowbite.com</span
+                >{coursier.email || 'Email inconnu'}</span
               >
             </div>
             <ul
