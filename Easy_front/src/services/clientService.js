@@ -20,10 +20,20 @@ const deleteClientById = (id) => {
 const updateClientStatus = (id, status) => {
     return axios.patch(`${API_URL}client/${id}/status`, { status });
 };
+const getConnectedClient = () => {
+    return axios.get(`${API_URL}client/me`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`, // Assurez-vous que le token est stocké dans localStorage
+        },
+    });
+};
+
 
 export default {
     getAllClients,
     getClientById,
     deleteClientById,
-    updateClientStatus
+    updateClientStatus,
+    getConnectedClient
+
 };

@@ -1,11 +1,28 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import 'flowbite';
+import React, { useEffect, useState } from 'react';
+import clientService from '../../services/clientService';
+
 function CustomerDashboard(){
+    const [client, setClient] = useState({ completename: '', email: '' });
+
     const navigate = useNavigate(null);
 
     const handleLogout = () => {
       navigate('/'); 
     };
+    
+    useEffect(() => {
+      const fetchClient = async () => {
+          try {
+              const response = await clientService.getConnectedClient();
+              setClient(response.data);
+          } catch (error) {
+              console.error('Erreur lors de la récupération du client connecté', error);
+          }
+      };
+      fetchClient();
+  }, []);
     
     return (
         <div className="flex flex-col w-full">    
@@ -176,193 +193,10 @@ function CustomerDashboard(){
                         a few moments ago
                       </div>
                     </div>
-                  </a>
-                  <a
-                    href="#"
-                    class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600"
-                  >
-                    <div class="flex-shrink-0">
-                      <img
-                        class="w-11 h-11 rounded-full"
-                        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
-                        alt="Jese Leos avatar"
-                      />
-                      <div
-                        class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 bg-gray-900 rounded-full border border-white dark:border-gray-700"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          class="w-3 h-3 text-white"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"
-                          ></path>
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="pl-3 w-full">
-                      <div
-                        class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
-                      >
-                        <span class="font-thin text-gray-900 dark:text-white"
-                          >Jese leos</span
-                        >
-                        and
-                        <span class="font-thin text-gray-900 dark:text-white"
-                          >5 others</span
-                        >
-                        started following you.
-                      </div>
-                      <div
-                        class="text-xs font-thin text-primary-600 dark:text-primary-500"
-                      >
-                        10 minutes ago
-                      </div>
-                    </div>
-                  </a>
-                  <a
-                    href="#"
-                    class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600"
-                  >
-                    <div class="flex-shrink-0">
-                      <img
-                        class="w-11 h-11 rounded-full"
-                        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png"
-                        alt="Joseph McFall avatar"
-                      />
-                      <div
-                        class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 bg-red-600 rounded-full border border-white dark:border-gray-700"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          class="w-3 h-3 text-white"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                            clip-rule="evenodd"
-                          ></path>
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="pl-3 w-full">
-                      <div
-                        class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
-                      >
-                        <span class="font-thin text-gray-900 dark:text-white"
-                          >Joseph Mcfall</span
-                        >
-                        and
-                        <span class="font-thin text-gray-900 dark:text-white"
-                          >141 others</span
-                        >
-                        love your story. See it and view more stories.
-                      </div>
-                      <div
-                        class="text-xs font-thin text-primary-600 dark:text-primary-500"
-                      >
-                        44 minutes ago
-                      </div>
-                    </div>
-                  </a>
-                  <a
-                    href="#"
-                    class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600"
-                  >
-                    <div class="flex-shrink-0">
-                      <img
-                        class="w-11 h-11 rounded-full"
-                        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/roberta-casas.png"
-                        alt="Roberta Casas image"
-                      />
-                      <div
-                        class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 bg-green-400 rounded-full border border-white dark:border-gray-700"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          class="w-3 h-3 text-white"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z"
-                            clip-rule="evenodd"
-                          ></path>
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="pl-3 w-full">
-                      <div
-                        class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
-                      >
-                        <span class="font-thin text-gray-900 dark:text-white"
-                          >Leslie Livingston</span
-                        >
-                        mentioned you in a comment:
-                        <span
-                          class="font-thin text-primary-600 dark:text-primary-500"
-                          >@bonnie.green</span
-                        >
-                        what do you say?
-                      </div>
-                      <div
-                        class="text-xs font-thin text-primary-600 dark:text-primary-500"
-                      >
-                        1 hour ago
-                      </div>
-                    </div>
-                  </a>
-                  <a
-                    href="#"
-                    class="flex py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-600"
-                  >
-                    <div class="flex-shrink-0">
-                      <img
-                        class="w-11 h-11 rounded-full"
-                        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/robert-brown.png"
-                        alt="Robert image"
-                      />
-                      <div
-                        class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 bg-purple-500 rounded-full border border-white dark:border-gray-700"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          class="w-3 h-3 text-white"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"
-                          ></path>
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="pl-3 w-full">
-                      <div
-                        class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
-                      >
-                        <span class="font-thin text-gray-900 dark:text-white"
-                          >Robert Brown</span
-                        >
-                        posted a new video: Glassmorphism - learn how to implement
-                        the new design trend.
-                      </div>
-                      <div
-                        class="text-xs font-thin text-primary-600 dark:text-primary-500"
-                      >
-                        3 hours ago
-                      </div>
-                    </div>
-                  </a>
+    </a>
+
+
+
                 </div>
                 <a
                   href="#"
@@ -422,42 +256,7 @@ function CustomerDashboard(){
                   Apps
                 </div>
                 <div class="grid grid-cols-3 gap-4 p-4">
-                  <a
-                    href="#"
-                    class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      class="mx-auto mb-1 w-7 h-7 text-gray-400 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
-                    <div class="text-sm text-gray-900 dark:text-white">Sales</div>
-                  </a>
-                  <a
-                    href="#"
-                    class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      class="mx-auto mb-1 w-7 h-7 text-gray-400 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"
-                      ></path>
-                    </svg>
-                    <div class="text-sm text-gray-900 dark:text-white">Users</div>
-                  </a>
+ 
                   <a
                     href="#"
                     class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group"
@@ -477,27 +276,7 @@ function CustomerDashboard(){
                     </svg>
                     <div class="text-sm text-gray-900 dark:text-white">Inbox</div>
                   </a>
-                  <a
-                    href="#"
-                    class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      class="mx-auto mb-1 w-7 h-7 text-gray-400 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
-                    <div class="text-sm text-gray-900 dark:text-white">
-                      Profile
-                    </div>
-                  </a>
+                 
                   <a
                     href="#"
                     class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group"
@@ -519,28 +298,7 @@ function CustomerDashboard(){
                       Settings
                     </div>
                   </a>
-                  <a
-                    href="#"
-                    class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      class="mx-auto mb-1 w-7 h-7 text-gray-400 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z"></path>
-                      <path
-                        fill-rule="evenodd"
-                        d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
-                    <div class="text-sm text-gray-900 dark:text-white">
-                      Products
-                    </div>
-                  </a>
+             
                   <a
                     href="#"
                     class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group"
@@ -565,50 +323,8 @@ function CustomerDashboard(){
                       Pricing
                     </div>
                   </a>
-                  <a
-                    href="#"
-                    class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      class="mx-auto mb-1 w-7 h-7 text-gray-400 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M5 2a2 2 0 00-2 2v14l3.5-2 3.5 2 3.5-2 3.5 2V4a2 2 0 00-2-2H5zm2.5 3a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6.207.293a1 1 0 00-1.414 0l-6 6a1 1 0 101.414 1.414l6-6a1 1 0 000-1.414zM12.5 10a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
-                    <div class="text-sm text-gray-900 dark:text-white">
-                      Billing
-                    </div>
-                  </a>
-                  <a
-                    href="#"
-                    class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      class="mx-auto mb-1 w-7 h-7 text-gray-400 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-                      ></path>
-                    </svg>
-                    <div class="text-sm text-gray-900 dark:text-white">
-                      Logout
-                    </div>
-                  </a>
+                  
+                
                 </div>
               </div>
               
@@ -634,11 +350,11 @@ function CustomerDashboard(){
                 <div class="py-3 px-4">
                   <span
                     class="block text-sm font-thin text-gray-900 dark:text-white"
-                    >Neil Sims</span
+                    >{client.completename || 'Nom inconnu'}</span
                   >
                   <span
                     class="block text-sm text-gray-900 truncate dark:text-white"
-                    >name@flowbite.com</span
+                    >{client.email || 'Email inconnu'}</span
                   >
                 </div>
                 <ul
@@ -833,21 +549,7 @@ function CustomerDashboard(){
                 </a>
               </li>
              
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center p-2 text-lg font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M240-400h320v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Zm126-240h594v-480H160v525l46-45Zm-46 0v-480 480Z"/></svg>
-               
-                  <span class="flex-1 ml-3 whitespace-nowrap">Messages</span>
-                  <span
-                    class="inline-flex justify-center items-center w-5 h-5 text-xs font-thin rounded-full text-primary-800 bg-primary-100 dark:bg-primary-200 dark:text-primary-800"
-                  >
-                    4
-                  </span>
-                </a>
-              </li>
+           
               <li>
                 
               </li> 
