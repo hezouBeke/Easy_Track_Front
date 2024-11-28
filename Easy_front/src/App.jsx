@@ -1,5 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import PrivateRoute from './Components/PrivateRoute';  // Assure-toi que le chemin d'importation est correct
+
+// Importation des composants
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 import Home from "./Components/Homepage/Home";
@@ -27,39 +30,86 @@ import Races from "./Components/DriverDashboard/Races";
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/user-list" element={<UserList />} />
-        <Route path="/colis-list" element={<ColisList />} />
-        <Route path="/coursiers-list" element={<CoursierList />} />
-        <Route path="/expeditions-list" element={<ExpeditionList />} />
-        <Route path="/dashboard/customer" element={<CustomerDashboard />} />
-        <Route path="/dashboard/driver" element={<DriverDashboard />} />
-
-        <Route path="/dashboard/driver/courses" element={<Races />} />
-
-        <Route path="/dashboard/admin" element={<AdminDashboard />} />
-        <Route path="/dashboard/admin/createshipment" element={<CreateExpedition />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-
-        <Route path="/dashboard/admin/clients" element={<Customer />} />
-        <Route path="/dashboard/admin/stats" element={<Stats />} />
-        <Route path="/dashboard/admin/coursiers" element={<Coursiers />} />
-        <Route path="/dashboard/admin/colis" element={<Colis />} />
-        <Route path="/dashboard/admin/expeditions" element={<Expeditions />} />
-        <Route path="/dashboard/admin/historiques" element={<Hisrotiques />} />
-        <Route path="/delevry" element={<ConfirmationPage />} />
-        <Route path="/relay" element={<RelayOptions />} />
-        <Route path="/scan-qr" element={<ScanQR />} />
-        <Route path="/show-qr" element={<ShowQR />} />
-        {/* Redirection de la racine vers Home */}
-        <Route path="/" element={<Navigate replace to="/home" />} />
-        {/* Gestion des routes non trouvées : redirection vers Home */}
-        <Route path="*" element={<Navigate to="/home" />} />
-      </Routes>
-    </Router>
+    <Routes>
+      {/* Routes publiques */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/" element={<Navigate replace to="/home" />} />
+      <Route path="*" element={<Navigate to="/home" />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
+  
+      {/* Routes protégées : dashboard admin */}
+      <Route 
+        path="/dashboard/admin" 
+        element={<PrivateRoute element={AdminDashboard} allowedRoles={['Admin']} />} 
+      />
+      <Route 
+        path="/dashboard/admin/createshipment" 
+        element={<PrivateRoute element={CreateExpedition} allowedRoles={['Admin']} />} 
+      />
+      <Route 
+        path="/dashboard/admin/clients" 
+        element={<PrivateRoute element={Customer} allowedRoles={['Admin']} />} 
+      />
+      <Route 
+        path="/dashboard/admin/stats" 
+        element={<PrivateRoute element={Stats} allowedRoles={['Admin']} />} 
+      />
+      <Route 
+        path="/dashboard/admin/coursiers" 
+        element={<PrivateRoute element={Coursiers} allowedRoles={['Admin']} />} 
+      />
+      <Route 
+        path="/dashboard/admin/colis" 
+        element={<PrivateRoute element={Colis} allowedRoles={['Admin']} />} 
+      />
+      <Route 
+        path="/dashboard/admin/expeditions" 
+        element={<PrivateRoute element={Expeditions} allowedRoles={['Admin']} />} 
+      />
+      <Route 
+        path="/dashboard/admin/historiques" 
+        element={<PrivateRoute element={Hisrotiques} allowedRoles={['Admin']} />} 
+      />
+      <Route path="/user-list" element={<UserList />} />
+      <Route path="/colis-list" element={<ColisList />} />
+      <Route path="/coursiers-list" element={<CoursierList />} />
+      <Route path="/expeditions-list" element={<ExpeditionList />} />
+  
+      {/* Routes protégées : dashboard coursier */}
+      <Route 
+        path="/dashboard/driver" 
+        element={<PrivateRoute element={DriverDashboard} allowedRoles={['Driver']} />} 
+      />
+      <Route 
+        path="/dashboard/driver/courses" 
+        element={<PrivateRoute element={Races} allowedRoles={['Driver']} />} 
+      />
+      <Route 
+        path="/delevry" 
+        element={<PrivateRoute element={ConfirmationPage} allowedRoles={['Driver']} />} 
+      />
+      <Route 
+        path="/relay" 
+        element={<PrivateRoute element={RelayOptions} allowedRoles={['Driver']} />} 
+      />
+      <Route 
+        path="/scan-qr" 
+        element={<PrivateRoute element={ScanQR} allowedRoles={['Driver']} />} 
+      />
+      <Route 
+        path="/show-qr" 
+        element={<PrivateRoute element={ShowQR} allowedRoles={['Driver']} />} 
+      />
+  
+      {/* Routes protégées : dashboard client */}
+      <Route 
+        path="/dashboard/customer" 
+        element={<PrivateRoute element={CustomerDashboard} allowedRoles={['Client']} />} 
+      />
+    </Routes>
+  </Router>
   );
 }
 
