@@ -21,11 +21,12 @@ const updateClientStatus = (id, status) => {
     return axios.patch(`${API_URL}client/${id}/status`, { status });
 };
 const getConnectedClient = () => {
-    const token = localStorage.getItem('token');  // Récupère le token de localStorage
+    const user = JSON.parse(localStorage.getItem('user'));  // Récupère l'objet 'user'
+    const token = user ? user.token : null;  // Extrait le token de l'objet 'user'
 
     if (!token) {
         console.log("Token JWT manquant");
-        return Promise.reject('Token manquant'); // Si le token est absent, on retourne une erreur
+        return Promise.reject('Token manquant');  // Si le token est absent, retourne une erreur
     }
 
     // Effectue la requête axios avec le token dans l'entête Authorization
@@ -35,7 +36,6 @@ const getConnectedClient = () => {
         },
     });
 };
-
 
 export default {
     getAllClients,
