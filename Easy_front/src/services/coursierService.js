@@ -29,8 +29,6 @@ const getConnectedCoursier = () => {
 };
 
 
-
-
 export default {
     getAllCoursiers,
     getCoursierById,
