@@ -21,9 +21,17 @@ const updateClientStatus = (id, status) => {
     return axios.patch(`${API_URL}client/${id}/status`, { status });
 };
 const getConnectedClient = () => {
+    const token = localStorage.getItem('token');  // Récupère le token de localStorage
+
+    if (!token) {
+        console.log("Token JWT manquant");
+        return Promise.reject('Token manquant'); // Si le token est absent, on retourne une erreur
+    }
+
+    // Effectue la requête axios avec le token dans l'entête Authorization
     return axios.get(`${API_URL}client/me`, {
         headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`, // Assurez-vous que le token est stocké dans localStorage
+            Authorization: `Bearer ${token}`,  // Passe le token dans les entêtes
         },
     });
 };
