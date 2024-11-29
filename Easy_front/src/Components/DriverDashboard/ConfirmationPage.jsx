@@ -27,8 +27,20 @@ function ConfirmationPage() {
     }
   };
 
+  const handleGoBack = () => {
+    navigate('/dashboard/driver'); // Retour au dashboard
+    };
+
   return (
     <div className="flex flex-col items-center justify-center font-thin min-h-screen bg-white text-black p-4">
+        <button
+        onClick={handleGoBack}
+        className="absolute top-4 left-4 flex items-center px-3 py-2 text-black  text-lg"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/></svg>
+        Onglet de confirmation de reception
+      </button>
+     
        {/* Icône au-dessus de la zone de signature */}
      <div className="mb-6">
         <img src={signatureIcon} alt="Icône signature" className="w-16 h-16 mx-auto" />
