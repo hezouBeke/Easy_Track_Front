@@ -538,6 +538,7 @@ function CustomerDashboard(){
               <li>
                 <a
                   href="#"
+                  onClick={() => handleSidebarClick('Trackings')}
                   className="flex items-center p-2 text-lg font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-80q-106 0-173-33.5T240-200q0-24 14.5-44.5T295-280l63 59q-9 4-19.5 9T322-200q13 16 60 28t98 12q51 0 98.5-12t60.5-28q-7-8-18-13t-21-9l62-60q28 16 43 36.5t15 45.5q0 53-67 86.5T480-80Zm1-220q99-73 149-146.5T680-594q0-102-65-154t-135-52q-70 0-135 52t-65 154q0 67 49 139.5T481-300Zm-1 100Q339-304 269.5-402T200-594q0-71 25.5-124.5T291-808q40-36 90-54t99-18q49 0 99 18t90 54q40 36 65.5 89.5T760-594q0 94-69.5 192T480-200Zm0-320q33 0 56.5-23.5T560-600q0-33-23.5-56.5T480-680q-33 0-56.5 23.5T400-600q0 33 23.5 56.5T480-520Zm0-80Z"/></svg>
@@ -547,6 +548,7 @@ function CustomerDashboard(){
               <li>
                 <a
                   href="#"
+                  onClick={() => handleSidebarClick('historique')}
                   className="flex items-center p-2 text-lg font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                 >
                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-120q-138 0-240.5-91.5T122-440h82q14 104 92.5 172T480-200q117 0 198.5-81.5T760-480q0-117-81.5-198.5T480-760q-69 0-129 32t-101 88h110v80H120v-240h80v94q51-64 124.5-99T480-840q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-480q0 75-28.5 140.5t-77 114q-48.5 48.5-114 77T480-120Zm112-192L440-464v-216h80v184l128 128-56 56Z"/></svg>
@@ -613,6 +615,8 @@ function CustomerDashboard(){
         </aside>
     
         <main className="p-4 md:ml-64 h-auto pt-20">
+        {activeSection === 'dashboard' && (
+          <div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
             <div
               className="border-2 border-dashed border-gray-300 rounded-lg dark:border-gray-600 h-32 md:h-64"
@@ -669,12 +673,22 @@ function CustomerDashboard(){
               className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
             ></div>
           </div>
+          </div>
+            )}
+            {activeSection === 'expeditions' && (
+              <div>Contenu des Expéditions</div>
+            )}
+            {activeSection === 'Trackings' && (
+              <div>Contenu des Trackings de colis</div>
+            )}
+            {activeSection === 'historique' && (
+              <div>Contenu de l'Historique Livraison</div>
+            )}
         </main>
     
     
       </div>
-                    
-                </div>
+   </div>
             
         );
 }
