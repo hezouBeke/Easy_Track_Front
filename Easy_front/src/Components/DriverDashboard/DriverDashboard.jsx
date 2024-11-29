@@ -9,15 +9,16 @@ function DriverDashboard() {
 
   useEffect(() => {
     const fetchCoursier = async () => {
-        try {
-            const data = await coursierService.getConnectedCoursier();
-            setCoursier(data);
-        } catch (error) {
-            console.error('Erreur lors de la récupération du coursier connecté', error);
-        }
-    };
+      try {
+          const response = await coursierService.getConnectedCoursier();
+          setCoursier(response.data);
+      } catch (error) {
+          console.error('Erreur lors de la récupération du coursier connecté', error);
+      }
+  };
     fetchCoursier();
 }, []);
+
 
   const handleLogout = () => {
     navigate('/'); 

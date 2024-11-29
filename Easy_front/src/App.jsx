@@ -56,12 +56,12 @@ function App() {
 
 
     {/* Routes protégées : dashboard coursier */}
-    <Route path="/dashboard/driver" element={<PrivateRoute element={DriverDashboard} allowedRoles={['Driver']} />} />
-    <Route path="/dashboard/driver/courses" element={<PrivateRoute element={Races} allowedRoles={['Driver']} />} />
-    <Route path="/delevry" element={<PrivateRoute element={ConfirmationPage} allowedRoles={['Driver']} />} />
-    <Route path="/relay" element={<PrivateRoute element={RelayOptions} allowedRoles={['Driver']} />} />
-    <Route path="/scan-qr" element={<PrivateRoute element={ScanQR} allowedRoles={['Driver']} />} />
-    <Route path="/show-qr" element={<PrivateRoute element={ShowQR} allowedRoles={['Driver']} />} />
+    <Route path="/dashboard/driver" element={<PrivateRoute element={DriverDashboard} allowedRoles={['Coursier']} />} />
+    <Route path="/dashboard/driver/courses" element={<PrivateRoute element={Races} allowedRoles={['Coursier']} />} />
+    <Route path="/delevry" element={<PrivateRoute element={ConfirmationPage} allowedRoles={['Coursier']} />} />
+    <Route path="/relay" element={<PrivateRoute element={RelayOptions} allowedRoles={['Coursier']} />} />
+    <Route path="/scan-qr" element={<PrivateRoute element={ScanQR} allowedRoles={['Coursier']} />} />
+    <Route path="/show-qr" element={<PrivateRoute element={ShowQR} allowedRoles={['Coursier']} />} />
     
     {/* Routes protégées : dashboard client */}
     <Route path="/dashboard/customer" element={<PrivateRoute element={CustomerDashboard} allowedRoles={['Client']} />} />
