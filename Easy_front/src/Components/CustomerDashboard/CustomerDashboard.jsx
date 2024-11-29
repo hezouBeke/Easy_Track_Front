@@ -5,11 +5,14 @@ import clientService from '../../services/clientService';
 
 function CustomerDashboard(){
     const [client, setClient] = useState({ completename: '', email: '' });
-
+    const [activeSection, setActiveSection] = useState('dashboard');
     const navigate = useNavigate(null);
 
     const handleLogout = () => {
       navigate('/'); 
+    };
+    const handleSidebarClick = (section) => {
+      setActiveSection(section);
     };
     
     useEffect(() => {
@@ -514,6 +517,7 @@ function CustomerDashboard(){
               <li>
                 <a
                   href="#"
+                  onClick={() => handleSidebarClick('dashboard')}
                   className="flex items-center font-thin p-2 text-lg font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                 >
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg>
@@ -524,6 +528,7 @@ function CustomerDashboard(){
               <li>
                 <a
                   href="#"
+                  onClick={() => handleSidebarClick('expeditions')}
                   className="flex items-center p-2 text-lg font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M120-160v-640l572 240h-12q-35 0-66 8t-60 22L200-680v140l240 60-240 60v140l216-92q-8 23-12 45.5t-4 46.5v2L120-160Zm560 80q-83 0-141.5-58.5T480-280q0-83 58.5-141.5T680-480q83 0 141.5 58.5T880-280q0 83-58.5 141.5T680-80Zm66-106 28-28-74-74v-112h-40v128l86 86ZM200-372v-308 400-92Z"/></svg>

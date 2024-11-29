@@ -554,7 +554,7 @@ function DriverDashboard() {
         <ul className="space-y-5">
           <li>
             <a
-              href="/dashboard/driver"
+              href="#"
               onClick={() => handleSidebarClick('dashboard')}
               className="flex items-center font-thin p-2 text-lg  text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
