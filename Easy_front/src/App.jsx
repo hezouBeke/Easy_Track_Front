@@ -26,7 +26,7 @@ import ConfirmationPage from "./Components/DriverDashboard/ConfirmationPage";
 import RelayOptions from "./Components/DriverDashboard/RelayOptions";
 import ScanQR from "./Components/DriverDashboard/ScanQR";
 import ShowQR from "./Components/DriverDashboard/ShowQR";
-import Races from "./Components/DriverDashboard/Races";
+
 
 function App() {
   return (
@@ -57,7 +57,6 @@ function App() {
 
     {/* Routes protégées : dashboard coursier */}
     <Route path="/dashboard/driver" element={<PrivateRoute element={DriverDashboard} allowedRoles={['Coursier']} />} />
-    <Route path="/dashboard/driver/courses" element={<PrivateRoute element={Races} allowedRoles={['Coursier']} />} />
     <Route path="/delevry" element={<PrivateRoute element={ConfirmationPage} allowedRoles={['Coursier']} />} />
     <Route path="/relay" element={<PrivateRoute element={RelayOptions} allowedRoles={['Coursier']} />} />
     <Route path="/scan-qr" element={<PrivateRoute element={ScanQR} allowedRoles={['Coursier']} />} />

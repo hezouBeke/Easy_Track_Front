@@ -6,6 +6,7 @@ import 'flowbite';
 function DriverDashboard() {
   const navigate = useNavigate(null);
   const [coursier, setCoursier] = useState({ completename: '', email: '' });
+  const [activeSection, setActiveSection] = useState('dashboard');
 
   useEffect(() => {
     const fetchCoursier = async () => {
@@ -29,11 +30,10 @@ function DriverDashboard() {
   const handleRelayRequest = () => {
     navigate('/relay'); // Redirection vers la page de relaiement
   };
-  const handleRacesClick= () => {
-    navigate("/dashboard/driver/courses");
+  const handleSidebarClick = (section) => {
+    setActiveSection(section);
   };
-
-
+  
     return (
     <div className="flex flex-col w-full">    
     <div className="antialiased bg-gray-50 dark:bg-gray-100">
@@ -555,15 +555,18 @@ function DriverDashboard() {
           <li>
             <a
               href="/dashboard/driver"
+              onClick={() => handleSidebarClick('dashboard')}
               className="flex items-center font-thin p-2 text-lg  text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg>
               <span className="ml-3">Tableau de bord</span>
             </a>
           </li>
+          
           <li>
             <a
               href="#"
+              onClick={() => handleSidebarClick('expeditions')}
               className="flex items-center p-2 text-lg font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M120-160v-640l572 240h-12q-35 0-66 8t-60 22L200-680v140l240 60-240 60v140l216-92q-8 23-12 45.5t-4 46.5v2L120-160Zm560 80q-83 0-141.5-58.5T480-280q0-83 58.5-141.5T680-480q83 0 141.5 58.5T880-280q0 83-58.5 141.5T680-80Zm66-106 28-28-74-74v-112h-40v128l86 86ZM200-372v-308 400-92Z"/></svg>
@@ -572,17 +575,18 @@ function DriverDashboard() {
           </li>
           <li>
                 <a
-                  href="/dashboard/driver/courses"
-                  onClick={handleRacesClick}
+                  href="#"
+                  onClick={() => handleSidebarClick('courses')}
                   className="flex items-center p-2 text-lg font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="30px" fill="#e8eaed"><path d="M280-160q-50 0-85-35t-35-85H60l18-80h113q17-19 40-29.5t49-10.5q26 0 49 10.5t40 29.5h167l84-360H182l4-17q6-28 27.5-45.5T264-800h456l-37 160h117l120 160-40 200h-80q0 50-35 85t-85 35q-50 0-85-35t-35-85H400q0 50-35 85t-85 35Zm357-280h193l4-21-74-99h-95l-28 120Zm-19-273 2-7-84 360 2-7 34-146 46-200ZM20-427l20-80h220l-20 80H20Zm80-146 20-80h260l-20 80H100Zm180 333q17 0 28.5-11.5T320-280q0-17-11.5-28.5T280-320q-17 0-28.5 11.5T240-280q0 17 11.5 28.5T280-240Zm400 0q17 0 28.5-11.5T720-280q0-17-11.5-28.5T680-320q-17 0-28.5 11.5T640-280q0 17 11.5 28.5T680-240Z"/></svg>
                   <span className="ml-3">Courses</span>
                 </a>
-              </li>
+          </li>
           <li>
             <a
               href="#"
+              onClick={() => handleSidebarClick('historique')}
               className="flex items-center p-2 text-lg font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-120q-138 0-240.5-91.5T122-440h82q14 104 92.5 172T480-200q117 0 198.5-81.5T760-480q0-117-81.5-198.5T480-760q-69 0-129 32t-101 88h110v80H120v-240h80v94q51-64 124.5-99T480-840q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-480q0 75-28.5 140.5t-77 114q-48.5 48.5-114 77T480-120Zm112-192L440-464v-216h80v184l128 128-56 56Z"/></svg>
@@ -593,6 +597,7 @@ function DriverDashboard() {
           <li>
             <a
               href="#"
+              onClick={() => handleSidebarClick('messages')}
               className="flex items-center p-2 text-lg font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M240-400h320v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Zm126-240h594v-480H160v525l46-45Zm-46 0v-480 480Z"/></svg>
@@ -631,7 +636,7 @@ function DriverDashboard() {
                 ></path>
               </svg>
             </button>
-            <ul id="dropdown-authentication" className="hidden py-2 space-y-2">=
+            <ul id="dropdown-authentication" className="hidden py-2 space-y-2">
               <li>
                 <a
                   href="#"
@@ -954,7 +959,8 @@ function DriverDashboard() {
     </aside>
 
     <main className="p-4 md:ml-64 h-auto pt-20">
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+  {activeSection === 'dashboard' && (
+    <div>    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
     {/* <!-- Card 1: Colis à livrer --> */}
     <div className="bg-white dark:bg-gray-800 border border-gray-300 rounded-lg shadow-md p-4 flex items-center">
       <div className="flex-shrink-0 bg-white p-3 rounded-full">
@@ -1005,8 +1011,6 @@ function DriverDashboard() {
   </div>
       
       <div className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"> 
-
-
       </div>
 
 <div className="grid grid-cols-2 gap-4 mb-2"> 
@@ -1034,9 +1038,33 @@ function DriverDashboard() {
           </button>
         </div>
       </div>
-</div>
+</div></div>
+  )}
+  {activeSection === 'expeditions' && (
+    <div>Contenu des Expéditions</div>
+  )}
+  {activeSection === 'courses' && (
+    <div>Contenu des Courses</div>
+  )}
+  {activeSection === 'historique' && (
+    <div>Contenu de l'Historique Livraison</div>
+  )}
+    {activeSection === 'messages' && (
+    <div>Contenu des messages</div>
+  )}
+  {/* Ajoute d'autres sections selon besoin */}
+</main>
 
-    </main>
+
+
+
+
+
+
+
+
+
+
   </div>
 </div>
         
