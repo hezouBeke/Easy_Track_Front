@@ -1,14 +1,25 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
-
 const ProtectedRoute = ({ children }) => {
     const user = JSON.parse(localStorage.getItem('user'));
 
+    // Vérifie le contenu du user dans le localStorage
+    console.log("User from localStorage:", user);
+
     if (!user || !user.token) {
-        return <Navigate to="/login" />;  // Rediriger vers la page de connexion si l'utilisateur n'est pas authentifié
+        return <Navigate to="/login" />;
     }
 
-    return children;  // Si l'utilisateur est authentifié, rendre la route demandée
-};
+    // Redirige vers le bon tableau de bord en fonction du rôle
+    if (user.role === 'Admin') {
+        return <Navigate to="/dashboard/admin" />;
+    }
 
-export default ProtectedRoute;
+    if (user.role === 'Coursier') {
+        return <Navigate to="/dashboard/driver" />;
+    }
+
+    if (user.role === 'Client') {
+        return <Navigate to="/dashboard/customer" />;
+    }
+
+    return children;
+};
