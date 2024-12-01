@@ -3,7 +3,7 @@ import 'flowbite'
 function Header() {
     return (
         <header>
-        <nav className="bg-white border-gray-300 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+        <nav className="bg-white border-gray-300 px-4 lg:px-6 py-2.5 dark:bg-blue-800">
             <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
             <a href="https://flowbite.com" className="flex items-center">
                         <img src="src/assets/logo2.png" className="mr-2 h-5 sm:h-9" alt="Logo EasyTrack" />
