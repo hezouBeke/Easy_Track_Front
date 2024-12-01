@@ -203,9 +203,20 @@ function Register() {
                                         <input type="text" name="vehiculeBrand" id="vehiculeBrand" onChange={handleChange} value={formData.vehiculeBrand} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Marque" required=""/>
                                     </div>
                                     <div className="col-span-2">
-                                        <label htmlFor="vehiculePlate" className="block mb-2 text-sm font-thin text-white">Plaque d'immatriculation</label>
-                                        <input type="text" name="vehiculePlate" id="vehiculePlate" onChange={handleChange}  value={formData.vehiculePlate} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="AA 0000" required=""/>
-                                    </div>
+    <label htmlFor="vehiculePlate" className="block mb-2 text-sm font-thin text-white">Plaque d'immatriculation</label>
+    <input 
+        type="text" 
+        name="vehiculePlate" 
+        id="vehiculePlate" 
+        onChange={handleChange} 
+        value={formData.vehiculePlate} 
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" 
+        placeholder="AA 0000" 
+        required 
+        pattern="^[A-Za-z]{2} \d{4}$" 
+        title="Format : AA 0000" 
+    />
+</div>
                                 </div>
                             )}
                             <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-thin rounded-lg text-sm px-5 py-2.5 text-center">Créer un compte</button>
