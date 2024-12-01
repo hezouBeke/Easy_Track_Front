@@ -68,12 +68,9 @@ function Register() {
     return (
         <section className="h-screen flex font-thin ">
             
-            {/* Section pour l'image */}
-            <div className="hidden md:block w-1/2 bg-cover bg-center" style={{ backgroundImage: "url('./src/assets/register.jpg')" }}>
-            </div>
-
+            
             {/* Section pour le formulaire */}
-            <div className="w-full md:w-1/2 flex items-center justify-center font-thin  p-6 bg-white">
+            <div className="w-full md:w flex items-center justify-center font-thin  p-6 bg-white">
                 <div className="w-full max-w-md bg-gray-800 rounded-lg shadow">
                     <div className="p-6 space-y-4 md:space-y-6">
                         <div className="text-center">

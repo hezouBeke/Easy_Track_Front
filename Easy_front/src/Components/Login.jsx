@@ -30,6 +30,7 @@ const Login = () => {
 
     
     return (
+        <>
         <section className="h-screen flex">
         
 
@@ -117,6 +118,7 @@ const Login = () => {
                 </div>
             </div>
         </section>
+        </>
     );
 }
 
