@@ -239,8 +239,10 @@ function Stats() {
           <p className="text-green-500">+12</p>
         </div>
       </div>
-       {/* section pour les visite selon les ville du togo */}
-      <div className="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-3 md:p-4 ml-64">
+
+      <div className="flex justify-start items-start gap-4 mx-auto">
+       {/* graphique 1 */}
+       <div className="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-3 ml-64">
 <div class="py-6" id="pie-chart"> </div>
 <div class="flex justify-between items-start w-full">
     <div class="flex-col items-center">
@@ -371,8 +373,8 @@ function Stats() {
 </div>
 
      </div>
-     {/* section pouur les visite est fonction du telephone  */}
-      <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-3 ml-64">
+     {/* graphique 2 */}
+     <div className="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-3">
   
   <div class="flex justify-between mb-3">
       <div class="flex justify-center items-center">
@@ -467,10 +469,8 @@ function Stats() {
     </div>
   </div>
     </div>
-
-{/* section pour les colis , trackes , livre etc.. */}
-
-<div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 ml-64">
+    {/* graphique 3 */}
+    <div className="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-3 ml-auto">
   <div class="flex justify-between p-4 md:p-6 pb-0 md:pb-0">
     <div>
       <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">$12,423</h5>
@@ -529,8 +529,8 @@ function Stats() {
     </div>
   </div>
 </div>
+</div>
 
-{/* section pour les performance d'un coursier donneé  */}
 
 
     </section>
