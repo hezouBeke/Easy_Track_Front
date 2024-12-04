@@ -140,75 +140,87 @@ function Expeditions() {
                 }}
                 className="pr-2"
             >
-                {selectedExpedition.course_ids && selectedExpedition.course_ids.length > 0 ? (
-                    selectedExpedition.course_ids.map((course, index) => (
-                        <div 
-                            key={course._id} 
-                            className="mb-8 bg-white p-4 rounded-lg border border-gray-300 transition-shadow duration-300 hover:shadow-lg hover:shadow-blue-500/50" // Blue shadow on hover
-                        >
-                            {/* Section with dashed line and location icon */}
-                            <div className="flex justify-between items-center mb-4">
-                                <div className="text-left">
-                                    <p className="text-gray-500">Départ</p>
-                                    <p className="text-black font-bold">{course.depart || 'N/A'}</p>
-                                </div>
-                                <div className="flex items-center justify-center">
-                                    <div className="flex items-center justify-center">
-                                        {/* Dashed line and Location Icon */}
-                                        <span className="border-b border-dashed border-gray-500 w-16 mx-2"></span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
-                                            <path d="M519-82v-80q42-6 81.5-23t74.5-43l58 58q-47 37-101 59.5T519-82Zm270-146-56-56q26-33 42-72.5t22-83.5h82q-8 62-30.5 115.5T789-228Zm8-292q-6-45-22-84.5T733-676l56-56q38 44 61.5 98T879-520h-82ZM439-82q-153-18-255.5-131T81-480q0-155 102.5-268T439-878v80q-120 17-199 107t-79 211q0 121 79 210.5T439-162v80Zm238-650q-36-27-76-44t-82-22v-80q59 5 113 27.5T733-790l-56 58ZM480-280q-58-49-109-105t-51-131q0-68 46.5-116T480-680q67 0 113.5 48T640-516q0 75-51 131T480-280Zm0-200q18 0 30.5-12.5T523-523q0-17-12.5-30T480-566q-18 0-30.5 13T437-523q0 18 12.5 30.5T480-480Z"/>
-                                        </svg>
-                                        <span className="border-b border-dashed border-gray-500 w-16 mx-2"></span>
-                                    </div>
-                                </div>
-                                <div className="text-right">
-                                    <p className="text-gray-500">Arrivée</p>
-                                    <p className="text-black font-bold">{course.arrive || 'N/A'}</p>
-                                </div>
-                            </div>
+   {selectedExpedition.course_ids && selectedExpedition.course_ids.length > 0 ? (
+  selectedExpedition.course_ids.map((course, index) => (
+    <div 
+      key={course._id} 
+      className="mb-8 bg-white p-4 rounded-lg border border-gray-300 transition-shadow duration-300 hover:shadow-lg hover:shadow-blue-500/50" // Blue shadow on hover
+    >
+      {/* Section with dashed line and location icon */}
+      <div className="flex justify-between items-center mb-4">
+        <div className="text-left">
+          <p className="text-gray-500">Départ</p>
+          <p className="text-black font-bold">{course.depart || 'N/A'}</p>
+        </div>
+        <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center">
+            {/* Dashed line and Location Icon */}
+            <span className="border-b border-dashed border-gray-500 w-16 mx-2"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
+              <path d="M519-82v-80q42-6 81.5-23t74.5-43l58 58q-47 37-101 59.5T519-82Zm270-146-56-56q26-33 42-72.5t22-83.5h82q-8 62-30.5 115.5T789-228Zm8-292q-6-45-22-84.5T733-676l56-56q38 44 61.5 98T879-520h-82ZM439-82q-153-18-255.5-131T81-480q0-155 102.5-268T439-878v80q-120 17-199 107t-79 211q0 121 79 210.5T439-162v80Zm238-650q-36-27-76-44t-82-22v-80q59 5 113 27.5T733-790l-56 58ZM480-280q-58-49-109-105t-51-131q0-68 46.5-116T480-680q67 0 113.5 48T640-516q0 75-51 131T480-280Zm0-200q18 0 30.5-12.5T523-523q0-17-12.5-30T480-566q-18 0-30.5 13T437-523q0 18 12.5 30.5T480-480Z"/>
+            </svg>
+            <span className="border-b border-dashed border-gray-500 w-16 mx-2"></span>
+          </div>
+        </div>
+        <div className="text-right">
+          <p className="text-gray-500">Arrivée</p>
+          <p className="text-black font-bold">{course.arrive || 'N/A'}</p>
+        </div>
+      </div>
 
-                            {/* Separator line between départ - arrivée and coursier - téléphone */}
-                            <hr className="my-2 border-blue-700"/>
+      {/* Separator line between départ - arrivée and coursier - téléphone */}
+      <hr className="my-2 border-blue-700"/>
 
-                            {/* Détails du coursier et téléphone */}
-                            <div className="flex justify-between items-center mb-4">
-                                <div>
-                                    <p className="text-gray-500">Coursier</p>
-                                    <p className="text-black font-bold">{course.coursier_id?.completename || 'N/A'}</p>
-                                </div>
-                                <div>
-                                    <p className="text-gray-500">Téléphone</p>
-                                    <p className="text-black font-bold">{course.coursier_id?.tel || 'N/A'}</p>
-                                </div>
-                            </div>
+      {/* Détails du coursier et téléphone */}
+      <div className="flex justify-between items-center mb-4">
+        <div>
+          <p className="text-gray-500">Coursier</p>
+          <p className="text-black font-bold">{course.coursier_id?.completename || 'N/A'}</p>
+        </div>
+        <div>
+          <p className="text-gray-500">Téléphone</p>
+          <p className="text-black font-bold">{course.coursier_id?.tel || 'N/A'}</p>
+        </div>
+      </div>
 
-                            {/* Separator line between coursier - téléphone and véhicule info */}
-                            <hr className="my-2 border-blue-700"/>
+      {/* Separator line between coursier - téléphone and véhicule info */}
+      <hr className="my-2 border-blue-700"/>
 
-                            {/* Détails du véhicule */}
-                            {course.coursier_id?.vehic_id && (
-                                <div className="flex justify-between items-center">
-                                    <div>
-                                        <p className="text-gray-500">Type</p>
-                                        <p className="text-black font-bold">{course.coursier_id.vehic_id.type || 'N/A'}</p>
-                                    </div>
-                                    <div>
-                                        <p className="text-gray-500">Marque</p>
-                                        <p className="text-black font-bold">{course.coursier_id.vehic_id.marque || 'N/A'}</p>
-                                    </div>
-                                    <div>
-                                        <p className="text-gray-500">Immatriculation</p>
-                                        <p className="text-black font-bold">{course.coursier_id.vehic_id.immatriculation || 'N/A'}</p>
-                                    </div>
-                                </div>
-                            )}
+      {/* Détails du véhicule */}
+      {course.coursier_id?.vehic_id && (
+        <div className="flex justify-between items-center">
+          <div>
+            <p className="text-gray-500">Type</p>
+            <p className="text-black font-bold">{course.coursier_id.vehic_id.type || 'N/A'}</p>
+          </div>
+          <div>
+            <p className="text-gray-500">Marque</p>
+            <p className="text-black font-bold">{course.coursier_id.vehic_id.marque || 'N/A'}</p>
+          </div>
+          <div>
+            <p className="text-gray-500">Immatriculation</p>
+            <p className="text-black font-bold">{course.coursier_id.vehic_id.immatriculation || 'N/A'}</p>
+          </div>
+        </div>
+      )}
 
-                        </div>
-                    ))
-                ) : (
-                    <p>Aucune course prévue</p>
-                )}
+      {/* Affichage des heures de début et de fin si l'expédition dure un jour */}
+      {selectedExpedition.date_depart === selectedExpedition.date_arrivee && (
+        <div className="mt-4">
+          <p className="text-gray-500">Heure de début</p>
+          <p className="text-black font-bold">{course.heure_debut || 'N/A'}</p>
+          
+          <p className="text-gray-500">Heure de fin</p>
+          <p className="text-black font-bold">{course.heure_fin || 'N/A'}</p>
+        </div>
+      )}
+
+    </div>
+  ))
+) : (
+  <p>Aucune course prévue</p>
+)}
+
             </div>
 
             {/* Bouton de fermeture */}

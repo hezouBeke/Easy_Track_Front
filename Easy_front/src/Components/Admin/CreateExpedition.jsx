@@ -26,7 +26,7 @@ function CreateExpedition() {
   });
 
   const [coursesData, setCoursesData] = useState([
-    { depart: "", arrive: "", date_debut: "", date_fin: "", coursiers: [] },
+    { depart: "", arrive: "", date_debut: "", date_fin: "", heure_debut: "", heure_fin: "", coursiers: [] },
   ]);
 
   const [clients, setClients] = useState([]);
@@ -86,7 +86,7 @@ function CreateExpedition() {
   const addCourse = () => {
     setCoursesData([
       ...coursesData,
-      { depart: "", arrive: "", date_debut: "", date_fin: "", coursiers: [] },
+      { depart: "", arrive: "", date_debut: "", date_fin: "", heure_debut: "", heure_fin: "", coursiers: [] },
     ]);
   };
 
@@ -97,76 +97,88 @@ function CreateExpedition() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-        // 1. Créer le colis
-        const colisResponse = await colisService.createColis(colisData);
-        const colisId = colisResponse._id ;
-
-        // Vérification si l'ID du colis est correctement récupéré
-        if (!colisId) {
-            throw new Error('Erreur : l\'ID du colis n\'a pas été récupéré.');
+      // 1. Créer le colis
+      const colisResponse = await colisService.createColis(colisData);
+      const colisId = colisResponse._id;
+  
+      if (!colisId) {
+        throw new Error("Erreur : l'ID du colis n'a pas été récupéré.");
+      }
+  
+      // 2. Créer les courses
+      const courseDataToSubmit = coursesData.map((course) => {
+        if (!course.coursiers[0]) {
+          throw new Error("Erreur : le coursier n'a pas été sélectionné pour la course.");
         }
-
-        // 2. Créer les courses
-        const courseDataToSubmit = coursesData.map(course => {
-            if (!course.coursiers[0]) {
-                throw new Error('Erreur : le coursier n\'a pas été sélectionné pour la course.');
-            }
-            return {
-                depart: course.depart,
-                arrive: course.arrive,
-                date_debut: course.date_debut,
-                date_fin: course.date_fin,
-                coursier_id: course.coursiers[0],
-                colis_id: colisId
-            };
-        });
-
-        console.log('Données des courses envoyées:', courseDataToSubmit);
-
-        const courseResponse = await coursesService.createCourse(courseDataToSubmit);
-        console.log('Réponse de la création des courses:', courseResponse);
-
-        // Vérification si courseResponse contient bien data et si c'est un tableau
-        if (!courseResponse?.data || !Array.isArray(courseResponse.data)) {
-            throw new Error('Erreur : la réponse des courses est invalide.');
+  
+        if (
+          expeditionData.date_depart === expeditionData.date_arrivee &&
+          (!course.heure_debut || !course.heure_fin)
+        ) {
+          throw new Error(
+            "Erreur : les heures de début et de fin doivent être renseignées pour une expédition d'un jour."
+          );
         }
-
-        // Vérifier que chaque course a bien un _id
-        const courseIds = courseResponse.data.map(course => {
-            if (!course._id) {
-                throw new Error('Erreur : un ID de course est manquant.');
-            }
-            return course._id;
-        });
-
-        if (!courseIds.length) {
-            throw new Error('Erreur : les IDs des courses créées n\'ont pas été récupérés.');
-        }
-
-        // 3. Créer l'expédition
-        const expeditionDataToSubmit = {
-            colis_id: colisId,
-            course_ids: courseIds,
-            date_depart: expeditionData.date_depart,
-            date_arrivee: expeditionData.date_arrivee
+  
+        return {
+          depart: course.depart,
+          arrive: course.arrive,
+          date_debut: course.date_debut,
+          date_fin: course.date_fin,
+          heure_debut: course.heure_debut,
+          heure_fin: course.heure_fin,
+          coursier_id: course.coursiers[0],
+          colis_id: colisId,
         };
-
-        console.log('Données d\'expédition envoyées:', expeditionDataToSubmit);
-
-        await expeditionService.createExpedition(expeditionDataToSubmit);
-
-        // Afficher la modale de succès
-        setShowSuccessModal(true);
-
+      });
+  
+      const courseResponse = await coursesService.createCourse(courseDataToSubmit);
+  
+      if (!courseResponse?.data || !Array.isArray(courseResponse.data)) {
+        throw new Error("Erreur : la réponse des courses est invalide.");
+      }
+  
+      const courseIds = courseResponse.data.map((course) => {
+        if (!course._id) {
+          throw new Error("Erreur : un ID de course est manquant.");
+        }
+        return course._id;
+      });
+  
+      if (!courseIds.length) {
+        throw new Error("Erreur : les IDs des courses créées n'ont pas été récupérés.");
+      }
+  
+      // 3. Créer l'expédition
+      const expeditionDataToSubmit = {
+        colis_id: colisId,
+        course_ids: courseIds,
+        date_depart: expeditionData.date_depart,
+        date_arrivee: expeditionData.date_arrivee,
+        courses: coursesData.map((course) => ({
+          heure_debut: course.heure_debut,
+          heure_fin: course.heure_fin,
+        })),
+      };
+  
+      await expeditionService.createExpedition(expeditionDataToSubmit);
+  
+      // Afficher la modale de succès
+      setShowSuccessModal(true);
     } catch (error) {
-        console.error('Erreur lors de la création de l\'expédition ou des courses:', error.response ? error.response.data : error.message);
-        alert('Erreur lors de la création de l\'expédition ou des courses : ' + (error.response ? error.response.data : error.message));
+      console.error(
+        "Erreur lors de la création de l'expédition ou des courses:",
+        error.response ? error.response.data : error.message
+      );
+      alert(
+        "Erreur lors de la création de l'expédition ou des courses : " +
+          (error.response ? error.response.data : error.message)
+      );
     }
-};
-
-
+  };
+  
   const nextStep = () => {
     setStep(step + 1);
   };
@@ -187,7 +199,7 @@ function CreateExpedition() {
   };
 
   return (
-    <section className="h-screen flex items-center justify-center bg-gray-100">
+    <section className="h-screen flex items-center justify-center bg-gray-100 py-40">
     <Adminheader />
       <div className="bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full max-h-[70vh] overflow-y-auto">
       <Adminsidebar />
@@ -483,6 +495,38 @@ function CreateExpedition() {
                         required
                       />
                     </div>
+                     {/* Champs d'Heure de début et de fin */}
+          {expeditionData.date_depart === expeditionData.date_arrivee && (
+            <>
+              <div>
+                <label htmlFor={`heure_debut-${index}`} className="block mb-2 text-sm font-medium text-gray-900">
+                  Heure de début
+                </label>
+                <input
+                  type="time"
+                  name="heure_debut"
+                  id={`heure_debut-${index}`}
+                  value={course.heure_debut}
+                  onChange={(e) => handleCourseChange(index, e)}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                />
+              </div>
+
+              <div>
+                <label htmlFor={`heure_fin-${index}`} className="block mb-2 text-sm font-medium text-gray-900">
+                  Heure de fin
+                </label>
+                <input
+                  type="time"
+                  name="heure_fin"
+                  id={`heure_fin-${index}`}
+                  value={course.heure_fin}
+                  onChange={(e) => handleCourseChange(index, e)}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                />
+              </div>
+            </>
+          )}
                   </div>
 
                   <div className="flex justify-between items-center">
