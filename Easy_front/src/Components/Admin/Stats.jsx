@@ -189,7 +189,7 @@ function Stats() {
         {/* Section pour les cartes */}
         <div className="grid grid-cols-5 sm:grid-cols-5 lg:grid-cols-5 gap-10 mt-20 ml-64">
                {/* Cartes */}
-               <div className="relative p-6 bg-white shadow-md rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-blue-500/50 w-full h-full">
+         <div className="relative p-6 bg-white shadow-md rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-blue-500/50 w-full h-full">
           <div className="absolute top-2 right-2">
             <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000">
               <path d="M446.67-163.67V-461l-260-150.33V-314l260 150.33Zm66.66 0 260-150.33v-298l-260 151v297.33ZM446.67-87 153.33-256q-15.66-9-24.5-24.33-8.83-15.34-8.83-33.34v-332.66q0-18 8.83-33.34 8.84-15.33 24.5-24.33l293.34-169q15.66-9 33.33-9 17.67 0 33.33 9l293.34 169q15.66 9 24.5 24.33 8.83 15.34 8.83 33.34v332.66q0 18-8.83 33.34-8.84 15.33-24.5 24.33L513.33-87q-15.66 9-33.33 9-17.67 0-33.33-9Zm196-526 93.66-54L480-815.33 386-761l256.67 148ZM480-518l95.33-55.67-257-148.33L223-667l257 149Z"/>
@@ -208,8 +208,7 @@ function Stats() {
           <p className="text-2xl font-bold text-blue-500">362</p>
           <p className="text-green-500">+12</p>
         </div>
-
- {/* Carte pour les Colis en Transit */}
+       {/* Carte pour les Colis en Transit */}
         <div className="relative p-6 bg-white shadow-md rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-blue-500/50 w-full h-full">
           <div className="absolute top-2 right-2">
           <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000"><path d="M312-146.67h336v-124.66q0-70-49-118.67t-119-48.67q-70 0-119 48.67t-49 118.67v124.66ZM160-80v-66.67h85.33v-124.66q0-67.67 36.17-124.17t97.17-84.5q-61-28.67-97.17-85.17t-36.17-124.16v-124H160V-880h640v66.67h-85.33v124q0 67.66-36.17 124.16T581.33-480q61 28 97.17 84.5t36.17 124.17v124.66H800V-80H160Z"/></svg>
@@ -218,7 +217,6 @@ function Stats() {
           <p className="text-2xl font-bold text-blue-500">362</p>
           <p className="text-green-500">+12</p>
         </div>
-
         {/* Carte pour les Comptes Inactifs */}
         <div className="relative p-6 bg-white shadow-md rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-blue-500/50 w-full h-full">
           <div className="absolute top-2 right-2">
@@ -228,7 +226,6 @@ function Stats() {
           <p className="text-2xl font-bold text-blue-500">362</p>
           <p className="text-red-500">+12</p>
         </div>
-
         {/* Carte pour les Utilisateurs Inscrits */}
         <div className="relative p-6 bg-white shadow-md rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-blue-500/50 w-full h-full">
           <div className="absolute top-2 right-2">
@@ -240,9 +237,9 @@ function Stats() {
         </div>
       </div>
 
-      <div className="flex justify-start items-start gap-4 mx-auto">
+      <div className="flex justify-start items-start gap-4 mx-auto mt-4">
        {/* graphique 1 */}
-       <div className="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-3 ml-64">  
+       <div className="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-3 ml-64 ">  
 <div class="py-6" id="pie-chart"> </div>
 <div class="flex justify-between items-start w-full">
     <div class="flex-col items-center">
@@ -595,7 +592,6 @@ function Stats() {
     </div>
   </div>
 </div>
-
 </div>
 
 
