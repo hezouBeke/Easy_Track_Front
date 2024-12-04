@@ -35,7 +35,8 @@ const TrackingOrder = () => {
 
     
     return (
-        <div className="p-2 bg-white rounded-lg shadow-lg w-full max-w-full lg:max-w-[1810px] mt-[-10px]">
+        <div className="p-2 bg-white rounded-lg shadow-lg w-full max-w-full lg:max-w-[1440px] mt-[-1px] ml-4">
+
             {/* En-tête avec barre de recherche et bouton Export */}
             <div className="flex justify-between items-center mb-4 p-4 bg-white">
                 <input

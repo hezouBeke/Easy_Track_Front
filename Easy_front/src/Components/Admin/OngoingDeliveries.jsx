@@ -22,7 +22,7 @@ const OngoingDeliveries = () => {
     return <div>{error}</div>;  // Afficher le message d'erreur s'il y en a une
   }
   return (
-    <div className="flex flex-col items-start space-y-12 p-8 mt-6 w-full lg:ml-[-2] lg:mr-16 ">
+    <div className="flex flex-col items-start space-y-10 p-8 mt-6 w-full  mr-10">
     <div className="p-3 bg-white text-black rounded-lg shadow-lg mt- w-full">
       {/* En-tête figée avec fond bleu */}
       <div className="flex justify-between items-center p-4 bg-blue-500 text-white rounded-t-none shadow-md w-full">

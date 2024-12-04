@@ -70,7 +70,7 @@ function Adminsidebar() {
     </a>
   </li>
 </ul>
-          <ul className="pt-5 mt-5 space-y-5 border-t  border-gray-200 dark:border-gray-700">
+          <ul className="pt-5 mt-2 space-y-6 border-t  border-gray-200 dark:border-gray-800">
             <li>
               <a
                 href="/dashboard/admin/clients"

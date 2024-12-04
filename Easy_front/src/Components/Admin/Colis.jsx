@@ -74,6 +74,8 @@ function Colis() {
                             </div>
                         </div>
 
+
+
                         <div className="overflow-x-auto mt-0">
                             <table className="w-full text-sm text-left text-gray-100">
                                 <thead className="text-xs uppercase bg-gray-700 text-white font-thin">
@@ -143,6 +145,8 @@ function Colis() {
                 </div>
                 
             )}
+
+
         </section>
     );
 }
