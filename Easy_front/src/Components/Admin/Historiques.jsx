@@ -32,7 +32,6 @@ const Historiques = () => {
             <div className="flex flex-grow">
                 <Adminsidebar />
                 <div className="flex flex-col w-full px-6 py-28">
-                    
                     <div className="flex items-center mb-6">
                         <span className="inline-block bg-blue-600 p-2 rounded-lg mr-3">
                             <svg
@@ -47,11 +46,8 @@ const Historiques = () => {
                         </span>
                         <h1 className="text-2xl font-bold">Historique des expéditions</h1>
                     </div>
-
-
-
                     <div className="overflow-x-auto bg-gray-800 shadow-lg rounded-lg">
-                        <table className="min-w-full table-auto text-left text-gray-200 ">
+                        <table className="min-w-full table-auto text-left text-gray-200">
                             <thead className="bg-gray-700">
                                 <tr>
                                     <th className="py-3 px-4 text-sm font-semibold">Code Expédition</th>
@@ -103,13 +99,17 @@ const Historiques = () => {
                                                         <ul>
                                                             {expedition.course_ids.map((course, i) => (
                                                                 <li key={i} className="mb-2">
-                                                                    <strong>Coursier : </strong>
-                                                                    {course.coursier_id?.completename || "N/A"} (
-                                                                    {course.coursier_id?.tel || "N/A"})
-                                                                    <br />
-                                                                    <strong>Véhicule : </strong>
-                                                                    {course.coursier_id?.vehic_id?.type || "N/A"} -{" "}
-                                                                    {course.coursier_id?.vehic_id?.immatriculation || "N/A"}
+                                                                    <p><strong>Départ : </strong>{course.depart || "N/A"}</p>
+                                                                    <p><strong>Arrivée : </strong>{course.arrive || "N/A"}</p>
+                                                                    <p><strong>Coursier : </strong>
+                                                                        {course.coursier_id?.completename || "N/A"} (
+                                                                        {course.coursier_id?.tel || "N/A"})
+                                                                    </p>
+                                                                    <p><strong>Véhicule : </strong>
+                                                                        {course.coursier_id?.vehic_id?.type || "N/A"} -{" "}
+                                                                        {course.coursier_id?.vehic_id?.immatriculation || "N/A"}
+                                                                    </p>
+                                                                    <hr className="my-2 border-gray-600" />
                                                                 </li>
                                                             ))}
                                                         </ul>
@@ -120,13 +120,8 @@ const Historiques = () => {
                                     </React.Fragment>
                                 ))}
                             </tbody>
-                        </table> 
+                        </table>
                     </div>
-
-
-
-
-
                 </div>
             </div>
         </section>

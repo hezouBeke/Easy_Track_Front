@@ -1,64 +1,193 @@
-
+import React, { useEffect } from "react";
 import Adminheader from "./Adminheader";
 import Adminsidebar from "./Adminsidebar";
-import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
-import coursierService from "../../services/coursierService";
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
+import ApexCharts from "apexcharts";
 
-import React, { useState, useEffect } from "react";
-// Données pour le PieChart
-const pieData = [
-  { name: "America", value: 400 },
-  { name: "Asia", value: 300 },
-  { name: "Europe", value: 300 },
-  { name: "Africa", value: 200 },
-];
+// Options pour le graphique en camembert
+const getPieChartOptions = () => {
+  return {
+    series: [52.8, 26.8, 20.4],
+    colors: ["#1C64F2", "#16BDCA", "#9061F9"],
+    chart: {
+      height: 420,
+      width: "100%",
+      type: "pie",
+    },
+    stroke: {
+      colors: ["white"],
+    },
+    plotOptions: {
+      pie: {
+        size: "100%",
+        dataLabels: {
+          offset: -25,
+        },
+      },
+    },
+    labels: ["Direct", "Organic search", "Referrals"],
+    dataLabels: {
+      enabled: true,
+      style: {
+        fontFamily: "Inter, sans-serif",
+      },
+    },
+    legend: {
+      position: "bottom",
+      fontFamily: "Inter, sans-serif",
+    },
+  };
+};
 
-// Données pour le BarChart
-const barData = [
-  { name: "Jan", TeamA: 40, TeamB: 24 },
-  { name: "Feb", TeamA: 30, TeamB: 13 },
-  { name: "Mar", TeamA: 20, TeamB: 98 },
-  { name: "Apr", TeamA: 27, TeamB: 39 },
-  { name: "May", TeamA: 18, TeamB: 47},                                                                                                                                                                                                                                                                    
-  { name: "Jun", TeamA: 23, TeamB: 38 },
-  { name: "Jul", TeamA: 34, TeamB: 48 },
-  { name: "Aug", TeamA: 56, TeamB: 68 },
-  { name: "Sep", TeamA: 45, TeamB: 32 },
-];
+// Options pour le graphique en donut
+const getDonutChartOptions = () => {
+  return {
+    series: [35.1, 23.5, 2.4, 5.4],
+    colors: ["#1C64F2", "#16BDCA", "#FDBA8C", "#E74694"],
+    chart: {
+      height: 320,
+      width: "100%",
+      type: "donut",
+    },
+    plotOptions: {
+      pie: {
+        donut: {
+          labels: {
+            show: true,
+            total: {
+              show: true,
+              label: "Unique visitors",
+              formatter: (w) => {
+                const sum = w.globals.seriesTotals.reduce((a, b) => a + b, 0);
+                return `$${sum}k`;
+              },
+            },
+          },
+          size: "80%",
+        },
+      },
+    },
+    labels: ["Direct", "Sponsor", "Affiliate", "Email marketing"],
+    legend: {
+      position: "bottom",
+      fontFamily: "Inter, sans-serif",
+    },
+  };
+};
 
-// Couleurs pour le PieChart
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+// Options pour le graphique "Sales this week"
+const getSalesChartOptions = () => {
+  return {
+    xaxis: {
+      show: true,
+      categories: ['01 Feb', '02 Feb', '03 Feb', '04 Feb', '05 Feb', '06 Feb', '07 Feb'],
+      labels: {
+        show: true,
+        style: {
+          fontFamily: "Inter, sans-serif",
+          cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400',
+        },
+      },
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
+    },
+    yaxis: {
+      show: true,
+      labels: {
+        show: true,
+        style: {
+          fontFamily: "Inter, sans-serif",
+          cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400',
+        },
+        formatter: (value) => `$${value}`,
+      },
+    },
+    series: [
+      {
+        name: "Developer Edition",
+        data: [150, 141, 145, 152, 135, 125],
+        color: "#1A56DB",
+      },
+      {
+        name: "Designer Edition",
+        data: [43, 13, 65, 12, 42, 73],
+        color: "#7E3BF2",
+      },
+    ],
+    chart: {
+      sparkline: {
+        enabled: false,
+      },
+      height: "100%",
+      width: "100%",
+      type: "area",
+      fontFamily: "Inter, sans-serif",
+      toolbar: {
+        show: false,
+      },
+    },
+    tooltip: {
+      enabled: true,
+      x: {
+        show: false,
+      },
+    },
+    fill: {
+      type: "gradient",
+      gradient: {
+        opacityFrom: 0.55,
+        opacityTo: 0,
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      width: 6,
+    },
+    legend: {
+      show: false,
+    },
+    grid: {
+      show: false,
+    },
+  };
+};
 
 function Stats() {
-
-  const [coursiers, setCoursiers] = useState([]);
-  const [selectedCoursier, setSelectedCoursier] = useState("");
   useEffect(() => {
-    const fetchCoursiers = async () => {
-      try {
-        const response = await coursierService.getAllCoursiers();
-        setCoursiers(response.data);
-      } catch (error) {
-        console.error("Erreur lors de la récupération des coursiers", error);
-      }
-    };
-    fetchCoursiers();
+    // Initialiser le graphique en camembert
+    const pieChartContainer = document.getElementById("pie-chart");
+    if (pieChartContainer) {
+      const pieChart = new ApexCharts(pieChartContainer, getPieChartOptions());
+      pieChart.render();
+    }
+
+    // Initialiser le graphique en donut
+    const donutChartContainer = document.getElementById("donut-chart");
+    if (donutChartContainer) {
+      const donutChart = new ApexCharts(donutChartContainer, getDonutChartOptions());
+      donutChart.render();
+    }
+
+    // Initialiser le graphique "Sales this week"
+    const salesChartContainer = document.getElementById("labels-chart");
+    if (salesChartContainer) {
+      const salesChart = new ApexCharts(salesChartContainer, getSalesChartOptions());
+      salesChart.render();
+    }
   }, []);
 
-  const handleCoursierSelection = (index, e) => {
-    const selectedCoursierId = e.target.value;
-   
-  };
-  
 
   return (
     <section className="relative bg-gray-50 dark:bg-gray-100 p-3 sm:p-5">
       <Adminheader />
       <Adminsidebar />
-
-      {/* Section pour les cartes */}
-      <div className="grid grid-cols-5 sm:grid-cols-5 lg:grid-cols-5 gap-10 mt-20 ml-64">
+        {/* Section pour les cartes */}
+        <div className="grid grid-cols-5 sm:grid-cols-5 lg:grid-cols-5 gap-10 mt-20 ml-64">
                {/* Cartes */}
                <div className="relative p-6 bg-white shadow-md rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-blue-500/50 w-full h-full">
           <div className="absolute top-2 right-2">
@@ -110,205 +239,299 @@ function Stats() {
           <p className="text-green-500">+12</p>
         </div>
       </div>
-
-      {/* Section pour les charts */}
-      <div className="grid grid-cols-2 gap-10 mt-10 ml-64">
-        {/* PieChart */}
-        <div className="p-6 bg-white shadow-md rounded-lg">
-          <h3 className="text-xl text-gray-500 font-thin">Current Visits</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
-                data={pieData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                outerRadius={100}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {pieData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-              <Legend />
-              <Tooltip />
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
-
-        {/* BarChart */}
-        <div className="p-6 bg-white shadow-md rounded-lg">
-          <h3 className="text-xl text-gray-500 font-thin">Website Visits</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={barData}>
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="TeamA" fill="#8884d8" />
-              <Bar dataKey="TeamB" fill="#82ca9d" />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
+       {/* section pour les visite selon les ville du togo */}
+      <div className="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-3 md:p-4 ml-64">
+<div class="py-6" id="pie-chart"> </div>
+<div class="flex justify-between items-start w-full">
+    <div class="flex-col items-center">
+      <div class="flex items-center mb-1">
+          <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white me-1">Website traffic</h5>
+          <svg data-popover-target="chart-info" data-popover-placement="bottom" class="w-3.5 h-3.5 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white cursor-pointer ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm0 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm1-5.034V12a1 1 0 0 1-2 0v-1.418a1 1 0 0 1 1.038-.999 1.436 1.436 0 0 0 1.488-1.441 1.501 1.501 0 1 0-3-.116.986.986 0 0 1-1.037.961 1 1 0 0 1-.96-1.037A3.5 3.5 0 1 1 11 11.466Z"/>
+          </svg>
+          <div data-popover id="chart-info" role="tooltip" class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
+              <div class="p-3 space-y-2">
+                  <h3 class="font-semibold text-gray-900 dark:text-white">Activity growth - Incremental</h3>
+                  <p>Report helps navigate cumulative growth of community activities. Ideally, the chart should have a growing trend, as stagnating chart signifies a significant decrease of community activity.</p>
+                  <h3 class="font-semibold text-gray-900 dark:text-white">Calculation</h3>
+                  <p>For each date bucket, the all-time volume of activities is calculated. This means that activities in period n contain all activities up to period n, plus the activities generated by your community in period.</p>
+                  <a href="#" class="flex items-center font-medium text-blue-600 dark:text-blue-500 dark:hover:text-blue-600 hover:text-blue-700 hover:underline">Read more <svg class="w-2 h-2 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+            </svg></a>
+          </div>
+          <div data-popper-arrow></div>
       </div>
-    
-          
-      <div className="grid grid-cols-2 gap-4 max-w-5xl mx-64 mt-10"> 
-  {/* Bloc gauche - Détails du véhicule */}
-  <div className="bg-white p-6 shadow-md rounded-lg">
-  {/* Bloc de sélection des coursiers */}
-  <div className="mb-6">
-    <label
-      htmlFor="coursier-select"
-      className="block mb-2 text-sm font-medium text-gray-900"
-    >
-      Sélectionner un coursier
-    </label>
-    <select
-      id="coursier-select"
-      name="coursier"
-      value={selectedCoursier}
-      onChange={handleCoursierSelection}
-      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-    >
-      <option value="">Sélectionnez un coursier</option>
-      {coursiers.map((coursier) => (
-        <option key={coursier._id} value={coursier._id}>
-          {coursier.completename}
-        </option>
-      ))}
-    </select>
+    </div>
+    <button id="dateRangeButton" data-dropdown-toggle="dateRangeDropdown" data-dropdown-ignore-click-outside-class="datepicker" type="button" class="inline-flex items-center text-blue-700 dark:text-blue-600 font-medium hover:underline">31 Nov - 31 Dev <svg class="w-3 h-3 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+      </svg>
+    </button>
+    <div id="dateRangeDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-80 lg:w-96 dark:bg-gray-700 dark:divide-gray-600">
+        <div class="p-3" aria-labelledby="dateRangeButton">
+          <div date-rangepicker datepicker-autohide class="flex items-center">
+              <div class="relative">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                    </svg>
+                </div>
+                <input name="start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Start date" />
+              </div>
+              <span class="mx-2 text-gray-500 dark:text-gray-400">to</span>
+              <div class="relative">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                    </svg>
+                </div>
+                <input name="end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="End date" />
+            </div>
+          </div>
+        </div>
+    </div>
   </div>
-  <div className="flex justify-between items-start">
-    <img
-      src="/src/assets/car.jpg"
-      alt="Vehicle"
-      className="w-36 h-auto object-cover rounded-md"
-    />
-    <div className="flex flex-col justify-center space-y-1 font-thin text-right ml-4">
+  <div class="flex justify-end items-center">
+    <button id="widgetDropdownButton" data-dropdown-toggle="widgetDropdown" data-dropdown-placement="bottom" type="button"  class="inline-flex items-center justify-center text-gray-500 w-8 h-8 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm"><svg class="w-3.5 h-3.5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
+        <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
+      </svg><span class="sr-only">Open dropdown</span>
+    </button>
+    <div id="widgetDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="widgetDropdownButton">
+          <li>
+            <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"><svg class="w-3 h-3 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 21 21">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.418 17.861 1 20l2.139-6.418m4.279 4.279 10.7-10.7a3.027 3.027 0 0 0-2.14-5.165c-.802 0-1.571.319-2.139.886l-10.7 10.7m4.279 4.279-4.279-4.279m2.139 2.14 7.844-7.844m-1.426-2.853 4.279 4.279"/>
+              </svg>Edit widget
+            </a>
+          </li>
+          <li>
+            <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"><svg class="w-3 h-3 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
+                <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
+              </svg>Download data
+            </a>
+          </li>
+          <li>
+            <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"><svg class="w-3 h-3 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5.953 7.467 6.094-2.612m.096 8.114L5.857 9.676m.305-1.192a2.581 2.581 0 1 1-5.162 0 2.581 2.581 0 0 1 5.162 0ZM17 3.84a2.581 2.581 0 1 1-5.162 0 2.581 2.581 0 0 1 5.162 0Zm0 10.322a2.581 2.581 0 1 1-5.162 0 2.581 2.581 0 0 1 5.162 0Z"/>
+              </svg>Add to repository
+            </a>
+          </li>
+          <li>
+            <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"><svg class="w-3 h-3 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"/>
+              </svg>Delete widget
+            </a>
+          </li>
+        </ul>
+  </div>
+</div>
+</div>
+<div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
+  <div class="flex justify-between items-center pt-5">
+  
+    <button
+      id="dropdownDefaultButton"
+      data-dropdown-toggle="lastDaysdropdown"
+      data-dropdown-placement="bottom"
+      class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
+      type="button">
+      Last 7 days
+      <svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+      </svg>
+    </button>
+    <div id="lastDaysdropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+          <li>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Yesterday</a>
+          </li>
+          <li>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Today</a>
+          </li>
+          <li>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 7 days</a>
+          </li>
+          <li>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 30 days</a>
+          </li>
+          <li>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 90 days</a>
+          </li>
+        </ul>
+    </div>
+    <a
+      href="#"
+      class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
+      Traffic analysis
+      <svg class="w-2.5 h-2.5 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+      </svg>
+    </a>
+  </div>
+</div>
+
+     </div>
+     {/* section pouur les visite est fonction du telephone  */}
+      <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-3 ml-64">
+  
+  <div class="flex justify-between mb-3">
+      <div class="flex justify-center items-center">
+          <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pe-1">Website traffic</h5>
+          <svg data-popover-target="chart-info" data-popover-placement="bottom" class="w-3.5 h-3.5 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white cursor-pointer ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm0 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm1-5.034V12a1 1 0 0 1-2 0v-1.418a1 1 0 0 1 1.038-.999 1.436 1.436 0 0 0 1.488-1.441 1.501 1.501 0 1 0-3-.116.986.986 0 0 1-1.037.961 1 1 0 0 1-.96-1.037A3.5 3.5 0 1 1 11 11.466Z"/>
+          </svg>
+          <div data-popover id="chart-info" role="tooltip" class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
+              <div class="p-3 space-y-2">
+                  <h3 class="font-semibold text-gray-900 dark:text-white">Activity growth - Incremental</h3>
+                  <p>Report helps navigate cumulative growth of community activities. Ideally, the chart should have a growing trend, as stagnating chart signifies a significant decrease of community activity.</p>
+                  <h3 class="font-semibold text-gray-900 dark:text-white">Calculation</h3>
+                  <p>For each date bucket, the all-time volume of activities is calculated. This means that activities in period n contain all activities up to period n, plus the activities generated by your community in period.</p>
+                  <a href="#" class="flex items-center font-medium text-blue-600 dark:text-blue-500 dark:hover:text-blue-600 hover:text-blue-700 hover:underline">Read more <svg class="w-2 h-2 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+            </svg></a>
+              </div>
+              <div data-popper-arrow></div>
+          </div>
+        </div>
       <div>
-        <p className="text-gray-600">Body Style:</p>
-        <p className="text-black">Cargo Van</p>
+        <button type="button" data-tooltip-target="data-tooltip" data-tooltip-placement="bottom" class="hidden sm:inline-flex items-center justify-center text-gray-500 w-8 h-8 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm"><svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 18">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3"/>
+  </svg><span class="sr-only">Download data</span>
+        </button>
+        <div id="data-tooltip" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+            Download CSV
+            <div class="tooltip-arrow" data-popper-arrow></div>
+        </div>
+      </div>
+  </div>
+
+  <div>
+    <div class="flex" id="devices">
+      <div class="flex items-center me-4">
+          <input id="desktop" type="checkbox" value="desktop" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+          <label for="desktop" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Desktop</label>
+      </div>
+      <div class="flex items-center me-4">
+          <input id="tablet" type="checkbox" value="tablet" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+          <label for="tablet" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tablet</label>
+      </div>
+      <div class="flex items-center me-4">
+          <input id="mobile" type="checkbox" value="mobile" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+          <label for="mobile" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mobile</label>
       </div>
     </div>
   </div>
 
-  <div className="flex justify-between mt-4 space-x-10">
-    <div className="mr-2">
-      <p className="text-gray-600">Vehicle Number:</p>
-      <p className="text-black">SYL - 06048CV</p>
+  <div class="py-6" id="donut-chart"></div>
+
+  <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
+    <div class="flex justify-between items-center pt-5">
+      <button
+        id="dropdownDefaultButton"
+        data-dropdown-toggle="lastDaysdropdown"
+        data-dropdown-placement="bottom"
+        class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
+        type="button">
+        Last 7 days
+        <svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+        </svg>
+      </button>
+      <div id="lastDaysdropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+          <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+            <li>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Yesterday</a>
+            </li>
+            <li>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Today</a>
+            </li>
+            <li>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 7 days</a>
+            </li>
+            <li>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 30 days</a>
+            </li>
+            <li>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 90 days</a>
+            </li>
+          </ul>
+      </div>
+      <a
+        href="#"
+        class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
+        Traffic analysis
+        <svg class="w-2.5 h-2.5 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+        </svg>
+      </a>
     </div>
-    <div className="mr-2">
-      <p className="text-gray-600">Load Volume:</p>
-      <p className="text-black">326,548 in³</p>
+  </div>
     </div>
+
+{/* section pour les colis , trackes , livre etc.. */}
+
+<div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 ml-64">
+  <div class="flex justify-between p-4 md:p-6 pb-0 md:pb-0">
     <div>
-      <p className="text-gray-600">Consumer Rating:</p>
-      <p className="text-yellow-400">
-        ★★★★☆ <span className="text-gray-500">(34 reviews)</span>
-      </p>
+      <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">$12,423</h5>
+      <p class="text-base font-normal text-gray-500 dark:text-gray-400">Sales this week</p>
+    </div>
+    <div
+      class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
+      23%
+      <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
+      </svg>
+    </div>
+  </div>
+  <div id="labels-chart" class="px-2.5"></div>
+  <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between mt-5 p-4 md:p-6 pt-0 md:pt-0">
+    <div class="flex justify-between items-center pt-5">
+  
+      <button
+        id="dropdownDefaultButton"
+        data-dropdown-toggle="lastDaysdropdown"
+        data-dropdown-placement="bottom"
+        class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
+        type="button">
+        Last 7 days
+        <svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+        </svg>
+      </button>
+      <div id="lastDaysdropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+          <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+            <li>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Yesterday</a>
+            </li>
+            <li>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Today</a>
+            </li>
+            <li>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 7 days</a>
+            </li>
+            <li>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 30 days</a>
+            </li>
+            <li>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 90 days</a>
+            </li>
+          </ul>
+      </div>
+      <a
+        href="#"
+        class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
+        Sales Report
+        <svg class="w-2.5 h-2.5 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+        </svg>
+      </a>
     </div>
   </div>
 </div>
 
+{/* section pour les performance d'un coursier donneé  */}
 
-
-  {/* Bloc droite - Informations et contact du conducteur */}
-  <div className="bg-white p-4 shadow-md rounded-lg flex flex-col items-center space-y-3" style={{ maxWidth: '280px', paddingBottom: '25px', marginBottom: '1px', height: 'auto' }}>
-    <img
-      src="/src/assets/man.jpg"
-      alt="Driver"
-      className="w-20 h-20 rounded-full mb-2 object-cover"
-    />
-    <h4 className="text-base font-semibold text-black">Cameron Williamson</h4>
-    
-    <div className="flex items-center space-x-1 text-xs text-gray-500">
-      <span className="inline-block w-2 h-2 bg-green-500 rounded-full"></span>
-      <span>Online</span>
-    </div>
-    <div className="w-full border-t border-gray-300 my-1"></div>
- 
-    <div className="flex space-x-3 mt-2 mb-0">
-      <button className="flex items-center justify-center space-x-2 bg-white border border-gray-300 text-black py-1 px-3 rounded-lg hover:bg-gray-100 transition text-xs">
-        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#000000">
-          <path d="M760-480q0-117-81.5-198.5T480-760v-80q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-480h-80Zm-160 0q0-50-35-85t-85-35v-80q83 0 141.5 58.5T680-480h-80Zm198 360q-125 0-247-54.5T329-329Q229-429 174.5-551T120-798q0-18 12-30t30-12h162q14 0 25 9.5t13 22.5l26 140q2 16-1 27t-11 19l-97 98q20 37 47.5 71.5T387-386q31 31 65 57.5t72 48.5l94-94q9-9 23.5-13.5T670-390l138 28q14 4 23 14.5t9 23.5v162q0 18-12 30t-30 12ZM241-600l66-66-17-94h-89q5 41 14 81t26 79Zm358 358q39 17 79.5 27t81.5 13v-88l-94-19-67 67ZM241-600Zm358 358Z"/>
-        </svg>
-        <span>Call</span>
-      </button>
-      <button className="flex items-center justify-center space-x-2 bg-blue-500 text-white py-1 px-4 rounded-lg hover:bg-blue-600 transition text-xs">
-        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#FFFFFF">
-          <path d="M240-400h320v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Zm126-240h594v-480H160v525l46-45Zm-46 0v-480 480Z"/>
-        </svg>
-        <span>Message</span>
-      </button>
-    </div>
-  </div>  
-
-
-  <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-{/* Bloc avec les onglets pour Prochaine Destination, Historique de Livraison, et Messages */}
-<div className="bg-gray-50 p-8 shadow-lg rounded-xl col-span-1 lg:col-span-2 mt-4">
-  <h2 className="text-2xl font-bold text-gray-800 mb-6">Informations du Coursier</h2>
-
-  {/* Onglets avec Chakra UI */}
-  <Tabs isFitted variant="solid-rounded" colorScheme="blue">
-    <TabList>
-      <Tab fontWeight="bold" _selected={{ color: 'white', bg: 'blue.500' }}>Prochaine Destination</Tab>
-      <Tab fontWeight="bold" _selected={{ color: 'white', bg: 'blue.500' }}>Historique de Livraison</Tab>
-      <Tab fontWeight="bold" _selected={{ color: 'white', bg: 'blue.500' }}>Messages du Coursier</Tab>
-    </TabList>
-
-    <TabPanels>
-      {/* Onglet Prochaine Destination */}
-      <TabPanel>
-        <div className="mt-6">
-          <div className="text-left mb-6">
-            <p className="text-gray-700 font-semibold text-xl">Destination :</p>
-            <p className="text-gray-600 text-lg">123 Rue de la Paix, Paris</p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-8">
-            <div className="bg-blue-100 p-6 rounded-xl shadow-md text-center">
-              <p className="text-blue-600">Distance Restante</p>
-              <p className="text-gray-900 font-bold text-3xl">0.542 km</p>
-            </div>
-            <div className="bg-blue-100 p-6 rounded-xl shadow-md text-center">
-              <p className="text-blue-600">Temps Estimé</p>
-              <p className="text-gray-900 font-bold text-3xl">3 Min</p>
-            </div>
-          </div>
-        </div>
-      </TabPanel>
-
-      {/* Onglet Historique de Livraison */}
-      <TabPanel>
-        <div className="mt-4">
-          <ul className="list-disc list-inside space-y-2">
-            <li className="text-gray-700 text-lg">Colis #123 - Livré le 20/09/2024</li>
-            <li className="text-gray-700 text-lg">Colis #456 - Livré le 18/09/2024</li>
-            <li className="text-gray-700 text-lg">Colis #789 - En cours de livraison</li>
-          </ul>
-        </div>
-      </TabPanel>
-
-      {/* Onglet Messages du Coursier */}
-      <TabPanel>
-        <div className="mt-4">
-          <ul className="list-disc list-inside space-y-2">
-            <li className="text-gray-700 text-lg">Message : Prêt pour la livraison !</li>
-            <li className="text-gray-700 text-lg">Message : Retard à cause de la circulation.</li>
-          </ul>
-        </div>
-      </TabPanel>
-    </TabPanels>
-  </Tabs>
-</div>
-
-
-</div>
-
-</div>
 
     </section>
   );
