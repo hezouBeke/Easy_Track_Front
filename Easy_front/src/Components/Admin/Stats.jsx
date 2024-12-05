@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
 import Adminheader from "./Adminheader";
 import Adminsidebar from "./Adminsidebar";
 import ApexCharts from "apexcharts";
+import coursierService from "../../services/coursierService";
+import React, { useState, useEffect } from "react";
+import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react"; // Import des composants Chakra UI
 
 // Options pour le graphique en camembert
 const getPieChartOptions = () => {
@@ -157,31 +159,58 @@ const getSalesChartOptions = () => {
   };
 };
 
-function Stats() {
-  useEffect(() => {
-    // Initialiser le graphique en camembert
-    const pieChartContainer = document.getElementById("pie-chart");
-    if (pieChartContainer) {
-      const pieChart = new ApexCharts(pieChartContainer, getPieChartOptions());
-      pieChart.render();
-    }
+  function Stats() {
+    const [coursiers, setCoursiers] = useState([]);
+  const [selectedCoursier, setSelectedCoursier] = useState("");
 
-    // Initialiser le graphique en donut
-    const donutChartContainer = document.getElementById("donut-chart");
-    if (donutChartContainer) {
-      const donutChart = new ApexCharts(donutChartContainer, getDonutChartOptions());
-      donutChart.render();
-    }
+    useEffect(() => {
+      const fetchCoursiers = async () => {
+        try {
+          const response = await coursierService.getAllCoursiers();
+          setCoursiers(response.data);
+        } catch (error) {
+          console.error("Erreur lors de la récupération des coursiers", error);
+        }
+      };
+      fetchCoursiers();
+    }, []);
+  
+    const handleCoursierSelection = (e) => {
+      const selectedCoursierId = e.target.value;
+      setSelectedCoursier(selectedCoursierId);
+    };
 
-    // Initialiser le graphique "Sales this week"
-    const salesChartContainer = document.getElementById("labels-chart");
-    if (salesChartContainer) {
-      const salesChart = new ApexCharts(salesChartContainer, getSalesChartOptions());
-      salesChart.render();
-    }
-  }, []);
-
-
+    useEffect(() => {
+      const pieChartContainer = document.getElementById("pie-chart");
+      const donutChartContainer = document.getElementById("donut-chart");
+      const salesChartContainer = document.getElementById("labels-chart");
+  
+      // Instances des graphiques
+      let pieChart, donutChart, salesChart;
+  
+      if (pieChartContainer) {
+        pieChart = new ApexCharts(pieChartContainer, getPieChartOptions());
+        pieChart.render();
+      }
+  
+      if (donutChartContainer) {
+        donutChart = new ApexCharts(donutChartContainer, getDonutChartOptions());
+        donutChart.render();
+      }
+  
+      if (salesChartContainer) {
+        salesChart = new ApexCharts(salesChartContainer, getSalesChartOptions());
+        salesChart.render();
+      }
+  
+      // Nettoyer les graphiques au démontage du composant
+      return () => {
+        if (pieChart) pieChart.destroy();
+        if (donutChart) donutChart.destroy();
+        if (salesChart) salesChart.destroy();
+      };
+    }, []);
+  
   return (
     <section className="relative bg-gray-50 dark:bg-gray-100 p-3 sm:p-5">
       <Adminheader />
@@ -591,8 +620,165 @@ function Stats() {
       </a>
     </div>
   </div>
+     </div>
+    </div>
+    
+    <div className="grid grid-cols-2 gap-4 max-w-5xl mx-64 mt-10"> 
+  {/* Bloc gauche - Détails du véhicule */}
+  <div className="bg-white p-6 shadow-md rounded-lg">
+  {/* Bloc de sélection des coursiers */}
+  <div className="mb-6">
+    <label
+      htmlFor="coursier-select"
+      className="block mb-2 text-sm font-medium text-gray-900"
+    >
+      Sélectionner un coursier
+    </label>
+    <select
+      id="coursier-select"
+      name="coursier"
+      value={selectedCoursier}
+      onChange={handleCoursierSelection}
+      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+    >
+      <option value="">Sélectionnez un coursier</option>
+      {coursiers.map((coursier) => (
+        <option key={coursier._id} value={coursier._id}>
+          {coursier.completename}
+        </option>
+      ))}
+    </select>
+  </div>
+  <div className="flex justify-between items-start">
+    <img
+      src="/src/assets/car.jpg"
+      alt="Vehicle"
+      className="w-36 h-auto object-cover rounded-md"
+    />
+    <div className="flex flex-col justify-center space-y-1 font-thin text-right ml-4">
+      <div>
+        <p className="text-gray-600">Body Style:</p>
+        <p className="text-black">Cargo Van</p>
+      </div>
+    </div>
+  </div>
+
+  <div className="flex justify-between mt-4 space-x-10">
+    <div className="mr-2">
+      <p className="text-gray-600">Vehicle Number:</p>
+      <p className="text-black">SYL - 06048CV</p>
+    </div>
+    <div className="mr-2">
+      <p className="text-gray-600">Load Volume:</p>
+      <p className="text-black">326,548 in³</p>
+    </div>
+    <div>
+      <p className="text-gray-600">Consumer Rating:</p>
+      <p className="text-yellow-400">
+        ★★★★☆ <span className="text-gray-500">(34 reviews)</span>
+      </p>
+    </div>
+  </div>
 </div>
+
+
+
+  {/* Bloc droite - Informations et contact du conducteur */}
+  <div className="bg-white p-4 shadow-md rounded-lg flex flex-col items-center space-y-3" style={{ maxWidth: '280px', paddingBottom: '25px', marginBottom: '1px', height: 'auto' }}>
+    <img
+      src="/src/assets/man.jpg"
+      alt="Driver"
+      className="w-20 h-20 rounded-full mb-2 object-cover"
+    />
+    <h4 className="text-base font-semibold text-black">Cameron Williamson</h4>
+    
+    <div className="flex items-center space-x-1 text-xs text-gray-500">
+      <span className="inline-block w-2 h-2 bg-green-500 rounded-full"></span>
+      <span>Online</span>
+    </div>
+    <div className="w-full border-t border-gray-300 my-1"></div>
+ 
+    <div className="flex space-x-3 mt-2 mb-0">
+      <button className="flex items-center justify-center space-x-2 bg-white border border-gray-300 text-black py-1 px-3 rounded-lg hover:bg-gray-100 transition text-xs">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#000000">
+          <path d="M760-480q0-117-81.5-198.5T480-760v-80q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-480h-80Zm-160 0q0-50-35-85t-85-35v-80q83 0 141.5 58.5T680-480h-80Zm198 360q-125 0-247-54.5T329-329Q229-429 174.5-551T120-798q0-18 12-30t30-12h162q14 0 25 9.5t13 22.5l26 140q2 16-1 27t-11 19l-97 98q20 37 47.5 71.5T387-386q31 31 65 57.5t72 48.5l94-94q9-9 23.5-13.5T670-390l138 28q14 4 23 14.5t9 23.5v162q0 18-12 30t-30 12ZM241-600l66-66-17-94h-89q5 41 14 81t26 79Zm358 358q39 17 79.5 27t81.5 13v-88l-94-19-67 67ZM241-600Zm358 358Z"/>
+        </svg>
+        <span>Call</span>
+      </button>
+      <button className="flex items-center justify-center space-x-2 bg-blue-500 text-white py-1 px-4 rounded-lg hover:bg-blue-600 transition text-xs">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#FFFFFF">
+          <path d="M240-400h320v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Zm126-240h594v-480H160v525l46-45Zm-46 0v-480 480Z"/>
+        </svg>
+        <span>Message</span>
+      </button>
+    </div>
+  </div>  
+
+
+  <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+{/* Bloc avec les onglets pour Prochaine Destination, Historique de Livraison, et Messages */}
+<div className="bg-gray-50 p-8 shadow-lg rounded-xl col-span-1 lg:col-span-2 mt-4">
+  <h2 className="text-2xl font-bold text-gray-800 mb-6">Informations du Coursier</h2>
+
+  {/* Onglets avec Chakra UI */}
+  <Tabs isFitted variant="solid-rounded" colorScheme="blue">
+    <TabList>
+      <Tab fontWeight="bold" _selected={{ color: 'white', bg: 'blue.500' }}>Prochaine Destination</Tab>
+      <Tab fontWeight="bold" _selected={{ color: 'white', bg: 'blue.500' }}>Historique de Livraison</Tab>
+      <Tab fontWeight="bold" _selected={{ color: 'white', bg: 'blue.500' }}>Messages du Coursier</Tab>
+    </TabList>
+
+    <TabPanels>
+      {/* Onglet Prochaine Destination */}
+      <TabPanel>
+        <div className="mt-6">
+          <div className="text-left mb-6">
+            <p className="text-gray-700 font-semibold text-xl">Destination :</p>
+            <p className="text-gray-600 text-lg">123 Rue de la Paix, Paris</p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-8">
+            <div className="bg-blue-100 p-6 rounded-xl shadow-md text-center">
+              <p className="text-blue-600">Distance Restante</p>
+              <p className="text-gray-900 font-bold text-3xl">0.542 km</p>
+            </div>
+            <div className="bg-blue-100 p-6 rounded-xl shadow-md text-center">
+              <p className="text-blue-600">Temps Estimé</p>
+              <p className="text-gray-900 font-bold text-3xl">3 Min</p>
+            </div>
+          </div>
+        </div>
+      </TabPanel>
+
+      {/* Onglet Historique de Livraison */}
+      <TabPanel>
+        <div className="mt-4">
+          <ul className="list-disc list-inside space-y-2">
+            <li className="text-gray-700 text-lg">Colis #123 - Livré le 20/09/2024</li>
+            <li className="text-gray-700 text-lg">Colis #456 - Livré le 18/09/2024</li>
+            <li className="text-gray-700 text-lg">Colis #789 - En cours de livraison</li>
+          </ul>
+        </div>
+      </TabPanel>
+
+      {/* Onglet Messages du Coursier */}
+      <TabPanel>
+        <div className="mt-4">
+          <ul className="list-disc list-inside space-y-2">
+            <li className="text-gray-700 text-lg">Message : Prêt pour la livraison !</li>
+            <li className="text-gray-700 text-lg">Message : Retard à cause de la circulation.</li>
+          </ul>
+        </div>
+      </TabPanel>
+    </TabPanels>
+  </Tabs>
 </div>
+
+
+</div>
+
+</div>
+   
 
 
 
