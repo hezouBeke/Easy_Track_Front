@@ -763,23 +763,30 @@ const getSalesChartOptions = () => {
   <div className="h-full border-l border-gray-300"></div>
 
   {/* Section droite - Menu de navigation */}
-  <div className="flex flex-col flex-grow space-y-4">
-    <h2 className="text-2xl font-bold text-gray-800">Informations du Coursier</h2>
-    <div className="flex space-x-4">
-      <button className="flex-grow bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 text-center">
-        Prochaine Destination
+<div className="flex flex-col flex-grow space-y-4">
+  {/* Barre de navigation avec onglets */}
+  <div className="border-b border-gray-200">
+    <nav className="flex space-x-4">
+     
+      <button className="py-2 px-4 text-sm font-medium text-blue-500 border-b-2 border-blue-500">
+      Prochaine Destination
       </button>
-      <button className="flex-grow bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 text-center">
-        Historique de Livraison
+      <button className="py-2 px-4 text-sm font-medium text-gray-700 hover:text-blue-500 border-b-2 border-transparent hover:border-blue-500 focus:border-blue-500">
+      Historique de Livraison
       </button>
-      <button className="flex-grow bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 text-center">
-        Messages du Coursier
+      <button className="py-2 px-4 text-sm font-medium text-gray-700 hover:text-blue-500 border-b-2 border-transparent hover:border-blue-500 focus:border-blue-500">
+      Messages du Coursie
       </button>
-    </div>
-    <div className="bg-gray-50 p-6 rounded-lg shadow">
-      <p className="text-gray-700">Contenu de l'onglet sélectionné.</p>
-    </div>
+    </nav>
   </div>
+
+  {/* Contenu de l'onglet sélectionné */}
+  <div className="bg-gray-50 p-6 rounded-lg shadow">
+    <p className="text-gray-700">Contenu de l'onglet sélectionné.</p>
+  </div>
+</div>
+
+
      </div>
 
 
