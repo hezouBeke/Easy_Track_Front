@@ -21,12 +21,12 @@ function AdminDashboard() {
         <div className="flex-grow p-6 space-y-8 bg-gray-200">
           <div className="grid grid-cols-1 lg:grid-cols-[2fr,2.8fr] gap-4"> {/* Ajout de gap-4 et ajustement de la grille */}
             {/* Colonne pour OngoingDeliveries */}
-            <div className="w-full lg:ml-[-30px]"> {/* Ajout de marge négative pour rapprocher vers la gauche */}
+            <div className="w-lg lg:ml-[-20px]"> {/* Ajout de marge négative pour rapprocher vers la gauche */}
               <OngoingDeliveries />
             </div>
 
             {/* Colonne pour la carte Google Maps */}
-            <div className="w-full">
+            <div className="w-full mt-14">
               <MyGoogleMap />
             </div>
           </div>

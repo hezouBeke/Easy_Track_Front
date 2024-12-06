@@ -159,7 +159,11 @@ const getSalesChartOptions = () => {
   };
 };
 
+
   function Stats() {
+    // Déclare l'état pour l'onglet actif
+  const [activeTab, setActiveTab] = useState("destination");
+
     const [coursiers, setCoursiers] = useState([]);
     const [selectedCoursier, setSelectedCoursier] = useState(null);
   
@@ -762,30 +766,86 @@ const getSalesChartOptions = () => {
   {/* Trait séparateur */}
   <div className="h-full border-l border-gray-300"></div>
 
-  {/* Section droite - Menu de navigation */}
-<div className="flex flex-col flex-grow space-y-4">
-  {/* Barre de navigation avec onglets */}
-  <div className="border-b border-gray-200">
-    <nav className="flex space-x-4">
-     
-      <button className="py-2 px-4 text-sm font-medium text-blue-500 border-b-2 border-blue-500">
-      Prochaine Destination
-      </button>
-      <button className="py-2 px-4 text-sm font-medium text-gray-700 hover:text-blue-500 border-b-2 border-transparent hover:border-blue-500 focus:border-blue-500">
-      Historique de Livraison
-      </button>
-      <button className="py-2 px-4 text-sm font-medium text-gray-700 hover:text-blue-500 border-b-2 border-transparent hover:border-blue-500 focus:border-blue-500">
-      Messages du Coursie
-      </button>
-    </nav>
-  </div>
+    <div className="flex flex-col flex-grow space-y-4 -mt-44">
+      {/* Barre de navigation avec onglets */}
+      <div className="border-b border-gray-200">
+        <nav className="flex space-x-4">
+          <button
+            onClick={() => setActiveTab("destination")}
+            className={`py-2 px-4 text-sm font-medium ${
+              activeTab === "destination"
+                ? "text-blue-500 border-b-2 border-blue-500"
+                : "text-gray-700 border-b-2 border-transparent hover:text-blue-500 hover:border-blue-500"
+            }`}
+          >
+            Prochaine Destination
+          </button>
+          <button
+            onClick={() => setActiveTab("historique")}
+            className={`py-2 px-4 text-sm font-medium ${
+              activeTab === "historique"
+                ? "text-blue-500 border-b-2 border-blue-500"
+                : "text-gray-700 border-b-2 border-transparent hover:text-blue-500 hover:border-blue-500"
+            }`}
+          >
+            Historique de Livraison
+          </button>
+          <button
+            onClick={() => setActiveTab("messages")}
+            className={`py-2 px-4 text-sm font-medium ${
+              activeTab === "messages"
+                ? "text-blue-500 border-b-2 border-blue-500"
+                : "text-gray-700 border-b-2 border-transparent hover:text-blue-500 hover:border-blue-500"
+            }`}
+          >
+            Messages du Coursier
+          </button>
+        </nav>
+      </div>
 
-  {/* Contenu de l'onglet sélectionné */}
-  <div className="bg-gray-50 p-6 rounded-lg shadow">
-    <p className="text-gray-700">Contenu de l'onglet sélectionné.</p>
-  </div>
-</div>
+      {/* Contenu de l'onglet sélectionné */}
+      <div className="bg-gray-50 p-6 rounded-lg shadow">
+        {activeTab === "destination" && (
+          <div>
+            <h3 className="text-xl font-bold text-gray-800 mb-4">Prochaine Destination</h3>
+            <p className="text-gray-700 mb-4">
+              Votre prochaine destination est : <strong>123 Rue de la Paix, Paris</strong>.
+            </p>
+            <div className="grid grid-cols-2 gap-6">
+              <div className="bg-blue-100 p-4 rounded-lg shadow text-center">
+                <p className="text-blue-600 font-semibold">Distance Restante</p>
+                <p className="text-gray-900 font-bold text-2xl">0.542 km</p>
+              </div>
+              <div className="bg-blue-100 p-4 rounded-lg shadow text-center">
+                <p className="text-blue-600 font-semibold">Temps Estimé</p>
+                <p className="text-gray-900 font-bold text-2xl">3 Min</p>
+              </div>
+            </div>
+          </div>
+        )}
 
+        {activeTab === "historique" && (
+          <div>
+            <h3 className="text-xl font-bold text-gray-800 mb-4">Historique de Livraison</h3>
+            <ul className="list-disc list-inside text-gray-700">
+              <li>Colis #123 - Livré le 20/09/2024</li>
+              <li>Colis #456 - Livré le 18/09/2024</li>
+              <li>Colis #789 - En cours de livraison</li>
+            </ul>
+          </div>
+        )}
+
+        {activeTab === "messages" && (
+          <div>
+            <h3 className="text-xl font-bold text-gray-800 mb-4">Messages du Coursier</h3>
+            <ul className="list-disc list-inside text-gray-700">
+              <li>Message : Prêt pour la livraison !</li>
+              <li>Message : Retard à cause de la circulation.</li>
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
 
      </div>
 

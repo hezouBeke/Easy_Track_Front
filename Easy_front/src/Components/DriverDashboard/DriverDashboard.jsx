@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import coursierService from '../../services/coursierService';
 import React, { useEffect, useState } from 'react';
+import MyGoogleMap from '../MyGoogleMap';
 import 'flowbite';
 
 function DriverDashboard() {
@@ -563,7 +564,7 @@ function DriverDashboard() {
             </a>
           </li>
           
-          <li>
+          {/* <li>
             <a
               href="#"
               onClick={() => handleSidebarClick('expeditions')}
@@ -572,7 +573,7 @@ function DriverDashboard() {
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M120-160v-640l572 240h-12q-35 0-66 8t-60 22L200-680v140l240 60-240 60v140l216-92q-8 23-12 45.5t-4 46.5v2L120-160Zm560 80q-83 0-141.5-58.5T480-280q0-83 58.5-141.5T680-480q83 0 141.5 58.5T880-280q0 83-58.5 141.5T680-80Zm66-106 28-28-74-74v-112h-40v128l86 86ZM200-372v-308 400-92Z"/></svg>
               <span className="ml-3">Expéditions</span>
             </a>
-          </li>
+          </li> */}
           <li>
                 <a
                   href="#"
@@ -620,7 +621,7 @@ function DriverDashboard() {
             >
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M280-280h80v-200h-80v200Zm320 0h80v-400h-80v400Zm-160 0h80v-120h-80v120Zm0-200h80v-80h-80v80ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
               <span className="flex-1 ml-3 text-left whitespace-nowrap"
-                >Analytics</span
+                >Statistiques</span
               >
               <svg
                 aria-hidden="true"
@@ -637,21 +638,44 @@ function DriverDashboard() {
               </svg>
             </button>
             <ul id="dropdown-authentication" className="hidden py-2 space-y-2">
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center p-2 pl-11 w-full text-lg font-thin text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >Cette semaine</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center p-2 pl-11 w-full text-lg font-thin text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >Ce mois</a
-                >
-              </li>
-            </ul>
+  <li>
+    <a
+      href="#"
+      className="flex items-center p-2 pl-11 w-full text-lg font-thin text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="20px"
+        viewBox="0 -960 960 960"
+        width="20px"
+        fill="#FFFFFF"
+        className="mr-2" // Ajout d'une marge pour espacer le SVG et le texte
+      >
+        <path d="M216-96q-29.7 0-50.85-21.5Q144-139 144-168v-528q0-29 21.15-50.5T216-768h72v-96h72v96h240v-96h72v96h72q29.7 0 50.85 21.5Q816-725 816-696v528q0 29-21.15 50.5T744-96H216Zm0-72h528v-360H216v360Zm0-432h528v-96H216v96Zm0 0v-96 96Zm264.21 216q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Zm-156 0q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Zm312 0q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Zm-156 144q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Zm-156 0q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Zm312 0q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Z" />
+      </svg>
+      Cette semaine
+    </a>
+  </li>
+  <li>
+    <a
+      href="#"
+      className="flex items-center p-2 pl-11 w-full text-lg font-thin text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="20px"
+        viewBox="0 -960 960 960"
+        width="20px"
+        fill="#FFFFFF"
+        className="mr-2" // Ajout d'une marge pour espacer le SVG et le texte
+      >
+        <path d="M216-96q-29.7 0-50.85-21.5Q144-139 144-168v-528q0-29 21.15-50.5T216-768h72v-96h72v96h240v-96h72v96h72q29.7 0 50.85 21.5Q816-725 816-696v528q0 29-21.15 50.5T744-96H216Zm0-72h528v-360H216v360Zm0-432h528v-96H216v96Zm0 0v-96 96Zm264.21 216q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Zm-156 0q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Zm312 0q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Zm-156 144q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Zm-156 0q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Zm312 0q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Z" />
+      </svg>
+      Ce mois
+    </a>
+  </li>
+</ul>
+
           </li> 
         </ul>
 
@@ -1010,8 +1034,19 @@ function DriverDashboard() {
     </div>
   </div>
       
-      <div className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"> 
-      </div>
+  <div
+  className="border-2 border-collapse rounded-lg border-gray-300 dark:border-gray-600 mb-4"
+  style={{
+    width: '100%', // Largeur de 100% du parent
+    height: '440px', // Hauteur fixe ou variable selon vos besoins
+    overflow: 'hidden', // Empêche tout débordement
+  }}
+>
+  <MyGoogleMap />
+</div>
+
+
+
 
 <div className="grid grid-cols-2 gap-4 mb-2"> 
 <div className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-70 p-4 bg-gray-800 hover:bg-gray-900 transition-all ease-in-out duration-300 cursor-pointer">
@@ -1040,9 +1075,9 @@ function DriverDashboard() {
       </div>
 </div></div>
   )}
-  {activeSection === 'expeditions' && (
+  {/* {activeSection === 'expeditions' && (
     <div>Contenu des Expéditions</div>
-  )}
+  )} */}
   {activeSection === 'courses' && (
     <div>Contenu des Courses</div>
   )}
