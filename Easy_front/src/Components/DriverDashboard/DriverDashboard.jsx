@@ -985,66 +985,86 @@ function DriverDashboard() {
     <main className="p-4 md:ml-64 h-auto pt-20">
   {activeSection === 'dashboard' && (
     <div>    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-    {/* <!-- Card 1: Colis à livrer --> */}
-    <div className="bg-white dark:bg-gray-800 border border-gray-300 rounded-lg shadow-md p-4 flex items-center">
-      <div className="flex-shrink-0 bg-white p-3 rounded-full">
-      <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000"><path d="M273.33-160q-50 0-83-35.67-33-35.66-29.66-85h-100l14.66-66.66h112.34q15.66-18.34 37.66-28.84 22-10.5 48-10.5t48 10.5q22 10.5 37.67 28.84h187.67l89.33-386H184.67l3.33-14.34q5.33-23.33 23.17-37.83Q229-800 252.67-800h466.66L681-633.33h122.33l116 154.66-39.33 198h-80q3.33 49.34-30 85Q736.67-160 686.67-160t-83-35.67q-33-35.66-29.67-85H386.67q3.33 49.34-30 85Q323.33-160 273.33-160ZM635-433.33h207.67l5.33-29-78-104.34H665.67L635-433.33Zm-5.67-273 6.67-27-89.33 386 6-26.34 34-146 42.66-186.66Zm-608 272.66L38-500.33h220l-16.67 66.66h-220Zm80-146L118-646.33h260l-16.67 66.66h-260Zm172 353q19.67 0 33.17-13.83t13.5-32.83q0-19.67-13.5-33.17T273.33-320q-19 0-32.83 13.5-13.83 13.5-13.83 33.17 0 19 13.83 32.83 13.83 13.83 32.83 13.83Zm413.34 0q19.66 0 33.16-13.83 13.5-13.83 13.5-32.83 0-19.67-13.5-33.17T686.67-320q-19 0-32.84 13.5Q640-293 640-273.33q0 19 13.83 32.83 13.84 13.83 32.84 13.83Z"/></svg>
-       </div>
-      <div className="ml-4">
-        <h3 className="text-lg font-thin text-gray-800 dark:text-white">Colis à livrer</h3>
-        <p className="text-2xl font-thin text-gray-900 dark:text-white">XX</p>
-        <p className="text-sm text-gray-600 dark:text-gray-400">Colis en cours de traitement</p>
-      </div>
+   {/* Carte pour Colis à livrer */}
+  <div className="bg-white border border-gray-300 rounded-lg shadow-md p-4 flex items-center">
+    <div className="flex-shrink-0 bg-blue-500 p-3 rounded-full">
+      <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#ffffff">
+        <path d="M273.33-160q-50 0-83-35.67-33-35.66-29.66-85h-100l14.66-66.66h112.34q15.66-18.34 37.66-28.84 22-10.5 48-10.5t48 10.5q22 10.5 37.67 28.84h187.67l89.33-386H184.67l3.33-14.34q5.33-23.33 23.17-37.83Q229-800 252.67-800h466.66L681-633.33h122.33l116 154.66-39.33 198h-80q3.33 49.34-30 85Q736.67-160 686.67-160t-83-35.67q-33-35.66-29.67-85H386.67q3.33 49.34-30 85Q323.33-160 273.33-160ZM635-433.33h207.67l5.33-29-78-104.34H665.67L635-433.33Zm-5.67-273 6.67-27-89.33 386 6-26.34 34-146 42.66-186.66Zm-608 272.66L38-500.33h220l-16.67 66.66h-220Zm80-146L118-646.33h260l-16.67 66.66h-260Zm172 353q19.67 0 33.17-13.83t13.5-32.83q0-19.67-13.5-33.17T273.33-320q-19 0-32.83 13.5-13.83 13.5-13.83 33.17 0 19 13.83 32.83 13.83 13.83 32.83 13.83Zm413.34 0q19.66 0 33.16-13.83 13.5-13.83 13.5-32.83 0-19.67-13.5-33.17T686.67-320q-19 0-32.84 13.5Q640-293 640-273.33q0 19 13.83 32.83 13.84 13.83 32.84 13.83Z"/>
+      </svg>
     </div>
+    <div className="ml-4">
+      <h3 className="text-lg font-body text-gray-800">Colis à livrer</h3>
+      <p className="text-2xl font-thin text-gray-900">XX</p>
+      <p className="text-sm font-thin text-gray-600">Colis en cours de traitement</p>
+    </div>
+  </div>
+    {/* Carte pour Colis Livrés */}
+  <div className="bg-white border border-gray-300 rounded-lg shadow-md p-4 flex items-center">
+    <div className="flex-shrink-0 bg-blue-500 p-3 rounded-full">
+      <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#ffffff">
+        <path d="M40-160v-66.67h199.33v-94H80v-66.66h159.33v-94H124.67V-548h114.66v-126l-78-178L222-880l88.67 201.33h496L727.33-852 788-880l92 201.33V-160H40Zm435.33-288h169.34q14.16 0 23.75-9.62 9.58-9.61 9.58-23.83 0-14.22-9.58-23.72-9.59-9.5-23.75-9.5H475.33q-14.16 0-23.75 9.62-9.58 9.62-9.58 23.83 0 14.22 9.58 23.72 9.59 9.5 23.75 9.5ZM306-226.67h507.33V-612H306v385.33Zm0 0V-612v385.33Z"/>
+      </svg>
+    </div>
+    <div className="ml-4">
+      <h3 className="text-lg font-thin text-gray-800">Colis Livrés</h3>
+      <p className="text-2xl font-thin text-gray-900">YY</p>
+      <p className="text-sm font-thin text-gray-600">Livraisons réussies</p>
+    </div>
+  </div>
+ {/* <!-- Card 3: Colis en attente --> */}
+<div className="bg-white border border-gray-300 rounded-lg shadow-md p-4 flex items-center">
+  <div className="flex-shrink-0 bg-blue-500 p-3 rounded-full">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="40px"
+      viewBox="0 -960 960 960"
+      width="40px"
+      fill="#ffffff"
+    >
+      <path d="M480-815.33 223-667l257 149 256.33-149L480-815.33ZM120-313.67v-332.66q0-18 8.75-33.19 8.75-15.2 24.58-24.48l293.34-169q8.66-5 16.46-7 7.81-2 16.84-2 9.03 0 17.36 2 8.34 2 16 7l293.34 169q15.83 9.28 24.58 24.48 8.75 15.19 8.75 33.19v193h-66.67V-612l-293 170.67-293.66-170V-314l280 161.67v76.66L153.33-256q-15.83-9.28-24.58-24.48-8.75-15.19-8.75-33.19Zm606.33 247q8.34 0 14.34-5.66 6-5.67 6-14.34 0-8.66-6-14.33t-14-5.67q-8.67 0-14.34 5.67-5.66 5.67-5.66 14.33 0 8.67 5.66 14.34 5.67 5.66 14 5.66Zm-19.66-80h40V-320h-40v173.33ZM726.67 0Q647 0 590.17-56.43q-56.84-56.44-56.84-136.5 0-80.07 56.84-136.9 56.83-56.84 136.5-56.84 79.66 0 136.5 56.75Q920-273.18 920-192.67q0 79.96-56.83 136.32Q806.33 0 726.67 0ZM480-482.33Z" />
+    </svg>
+  </div>
+  <div className="ml-4">
+    <h3 className="text-lg font-body text-gray-800">Colis en attente</h3>
+    <p className="text-2xl font-thin text-gray-900">ZZ</p>
+    <p className="text-sm font-thin text-gray-600">En cours de préparation</p>
+  </div>
+</div>
 
-    {/* <!-- Card 2: Colis Livrés --> */}
-    <div className="bg-white dark:bg-gray-800 border border-gray-300 rounded-lg shadow-md p-4 flex items-center">
-      <div className="flex-shrink-0 bg-white p-3 rounded-full">
-      <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000"><path d="M40-160v-66.67h199.33v-94H80v-66.66h159.33v-94H124.67V-548h114.66v-126l-78-178L222-880l88.67 201.33h496L727.33-852 788-880l92 201.33V-160H40Zm435.33-288h169.34q14.16 0 23.75-9.62 9.58-9.61 9.58-23.83 0-14.22-9.58-23.72-9.59-9.5-23.75-9.5H475.33q-14.16 0-23.75 9.62-9.58 9.62-9.58 23.83 0 14.22 9.58 23.72 9.59 9.5 23.75 9.5ZM306-226.67h507.33V-612H306v385.33Zm0 0V-612v385.33Z"/></svg>
-         </div>
-      <div className="ml-4">
-        <h3 className="text-lg font-thin text-gray-800 dark:text-white">Colis Livrés</h3>
-        <p className="text-2xl font-thin text-gray-900 dark:text-white">YY</p>
-        <p className="text-sm text-gray-600 dark:text-gray-400">Livraisons réussies</p>
-      </div>
-    </div>
+{/* <!-- Card 4: Solde --> */}
+<div className="bg-white border border-gray-300 rounded-lg shadow-md p-4 flex items-center">
+  <div className="flex-shrink-0 bg-blue-500 p-3 rounded-full">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="40px"
+      viewBox="0 -960 960 960"
+      width="40px"
+      fill="#ffffff"
+    >
+      <path d="M546.67-426.67q-50 0-85-35t-35-85q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35ZM240-293.33q-27.5 0-47.08-19.59-19.59-19.58-19.59-47.08v-373.33q0-27.5 19.59-47.09Q212.5-800 240-800h613.33q27.5 0 47.09 19.58Q920-760.83 920-733.33V-360q0 27.5-19.58 47.08-19.59 19.59-47.09 19.59H240ZM333.33-360H760q0-39 27.17-66.17 27.16-27.16 66.16-27.16V-640q-39 0-66.16-27.17Q760-694.33 760-733.33H333.33q0 39-27.16 66.16Q279-640 240-640v186.67q39 0 66.17 27.16Q333.33-399 333.33-360ZM800-160H106.67q-27.5 0-47.09-19.58Q40-199.17 40-226.67V-680h66.67v453.33H800V-160ZM240-360v-373.33V-360Z" />
+    </svg>
+  </div>
+  <div className="ml-4">
+    <h3 className="text-lg font-body text-gray-800">Solde</h3>
+    <p className="text-2xl font-thin text-gray-900">€XXX</p>
+    <p className="text-sm font-thin text-gray-600">Solde actuel disponible</p>
+  </div>
+</div>
 
-    {/* <!-- Card 3: Colis en attente --> */}
-    <div className="bg-white dark:bg-gray-800 border border-gray-300 rounded-lg shadow-md p-4 flex items-center">
-      <div className="flex-shrink-0 bg-white p-3 rounded-full">
-      <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000"><path d="M480-815.33 223-667l257 149 256.33-149L480-815.33ZM120-313.67v-332.66q0-18 8.75-33.19 8.75-15.2 24.58-24.48l293.34-169q8.66-5 16.46-7 7.81-2 16.84-2 9.03 0 17.36 2 8.34 2 16 7l293.34 169q15.83 9.28 24.58 24.48 8.75 15.19 8.75 33.19v193h-66.67V-612l-293 170.67-293.66-170V-314l280 161.67v76.66L153.33-256q-15.83-9.28-24.58-24.48-8.75-15.19-8.75-33.19Zm606.33 247q8.34 0 14.34-5.66 6-5.67 6-14.34 0-8.66-6-14.33t-14-5.67q-8.67 0-14.34 5.67-5.66 5.67-5.66 14.33 0 8.67 5.66 14.34 5.67 5.66 14 5.66Zm-19.66-80h40V-320h-40v173.33ZM726.67 0Q647 0 590.17-56.43q-56.84-56.44-56.84-136.5 0-80.07 56.84-136.9 56.83-56.84 136.5-56.84 79.66 0 136.5 56.75Q920-273.18 920-192.67q0 79.96-56.83 136.32Q806.33 0 726.67 0ZM480-482.33Z"/></svg>
-      </div>
-      <div className="ml-4">
-        <h3 className="text-lg font-thin text-gray-800 dark:text-white">Colis en attente</h3>
-        <p className="text-2xl font-thin text-gray-900 dark:text-white">ZZ</p>
-        <p className="text-sm text-gray-600 dark:text-gray-400">En cours de préparation</p>
-      </div>
-    </div>
-
-    {/* <!-- Card 4: Solde --> */}
-    <div className="bg-white dark:bg-gray-800 border border-gray-300 rounded-lg shadow-md p-4 flex items-center">
-      <div className="flex-shrink-0 bg-white p-3 rounded-full">
-      <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#000000"><path d="M546.67-426.67q-50 0-85-35t-35-85q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35ZM240-293.33q-27.5 0-47.08-19.59-19.59-19.58-19.59-47.08v-373.33q0-27.5 19.59-47.09Q212.5-800 240-800h613.33q27.5 0 47.09 19.58Q920-760.83 920-733.33V-360q0 27.5-19.58 47.08-19.59 19.59-47.09 19.59H240ZM333.33-360H760q0-39 27.17-66.17 27.16-27.16 66.16-27.16V-640q-39 0-66.16-27.17Q760-694.33 760-733.33H333.33q0 39-27.16 66.16Q279-640 240-640v186.67q39 0 66.17 27.16Q333.33-399 333.33-360ZM800-160H106.67q-27.5 0-47.09-19.58Q40-199.17 40-226.67V-680h66.67v453.33H800V-160ZM240-360v-373.33V-360Z"/></svg>
-      </div>
-      <div className="ml-4">
-        <h3 className="text-lg font-thin text-gray-800 dark:text-white">Solde</h3>
-        <p className="text-2xl font-thin text-gray-900 dark:text-white">€XXX</p>
-        <p className="text-sm text-gray-600 dark:text-gray-400">Solde actuel disponible</p>
-      </div>
-    </div>
   </div>
       
   <div
-  className="border-2 border-collapse rounded-lg border-gray-300 dark:border-gray-600 mb-4"
+  className="border-2 border-collapse rounded-lg border-gray-300 dark:border-gray-600 mb-4 relative"
   style={{
-    width: '100%', // Largeur de 100% du parent
-    height: '440px', // Hauteur fixe ou variable selon vos besoins
-    overflow: 'hidden', // Empêche tout débordement
+    width: '100%',
+    height: '500px',
+    overflow: 'hidden',
   }}
 >
-  <MyGoogleMap />
+  <div style={{ marginLeft: '1px', width: 'calc(100% - 100px)' }}>
+    <MyGoogleMap />
+  </div>
 </div>
-
 
 
 
@@ -1073,6 +1093,8 @@ function DriverDashboard() {
           </button>
         </div>
       </div>
+
+      
 </div></div>
   )}
   {/* {activeSection === 'expeditions' && (

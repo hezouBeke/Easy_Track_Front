@@ -26,13 +26,13 @@ function AdminDashboard() {
             </div>
 
             {/* Colonne pour la carte Google Maps */}
-            <div className="w-full mt-14">
+            <div className=" w-[580px]    mt-14  ">
               <MyGoogleMap />
             </div>
           </div>
 
           {/* TrackingOrder occupe toute la largeur */}
-          <div className="w-full">
+          <div className="w-full ">
             <TrackingOrder />
           </div>
         </div>

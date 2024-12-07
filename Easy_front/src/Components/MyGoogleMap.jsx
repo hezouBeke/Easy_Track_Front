@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer } from "@react-google-maps/api";
 
 const containerStyle = {
-  width: "100%",
-  height: "125%", // Garder les dimensions exactes que vous avez définies
+  width: "138%", // Prend toute la largeur visible de l'écran
+  height: "115%", // Adapte à la hauteur du conteneur
 };
 
+
 const center = {
-  lat: -4.745,
-  lng: -38.523,
+  lat: 6.1725, // Latitude approximative du centre du Togo
+  lng: 1.2314, // Longitude approximative du centre du Togo
 };
 
 function MyGoogleMap({ startPoint, endPoint }) {
