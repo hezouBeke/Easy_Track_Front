@@ -694,8 +694,12 @@ const getSalesChartOptions = () => {
 
           </div>
           <div className="mr-2">
-            <p className="text-gray-600">Volume chargement:</p>
-            <p className="text-black">326,548 in³</p>
+          <p className="text-gray-600">Type véhicule:</p>
+          <p className="text-black">
+  {selectedCoursierData && selectedCoursierData.vehic_id 
+    ? selectedCoursierData.vehic_id.type 
+    : 'Type inconnu'}
+</p>
           </div>
           <div className="mr-2">
     <p className="text-gray-600">Avis client</p>
