@@ -3,6 +3,9 @@ import Adminsidebar from "./Adminsidebar";
 import ApexCharts from "apexcharts";
 import coursierService from "../../services/coursierService";
 import React, { useState, useEffect } from "react";
+import distanceImage from '../../assets/distance.png';
+import TimeImage from '../../assets/calendar.png';
+import deliveryImage from '../../assets/delivery.png';
 import 'flowbite';
 // Options pour le graphique en camembert
 const getPieChartOptions = () => {
@@ -532,7 +535,7 @@ const getSalesChartOptions = () => {
     </div>
   </div>
 </div>
-
+  {/* graphique 3 */}
 <div className="max-w-2xl w-full bg-white rounded-lg shadow dark:bg-gray-800 p-3 ml-auto">
   <div className="flex justify-between p-4 md:p-6 pb-0 md:pb-0">
     <div>
@@ -808,16 +811,18 @@ const getSalesChartOptions = () => {
       <div className="bg-gray-50 p-6 rounded-lg shadow">
         {activeTab === "destination" && (
           <div>
-            <h3 className="text-xl font-bold text-gray-800 mb-4">Prochaine Destination</h3>
+            
             <p className="text-gray-700 mb-4">
-              Votre prochaine destination est : <strong>123 Rue de la Paix, Paris</strong>.
+               prochaine destination du coursier : <strong>123 Rue de la Paix, Paris</strong>.
             </p>
             <div className="grid grid-cols-2 gap-6">
               <div className="bg-blue-100 p-4 rounded-lg shadow text-center">
+              <img src={distanceImage} alt="Icône distance" className="w-10 h-10 mx-auto mb-2" />
                 <p className="text-blue-600 font-semibold">Distance Restante</p>
                 <p className="text-gray-900 font-bold text-2xl">0.542 km</p>
               </div>
               <div className="bg-blue-100 p-4 rounded-lg shadow text-center">
+              <img src={TimeImage} alt="Icône distance" className="w-10 h-10 mx-auto mb-2" />
                 <p className="text-blue-600 font-semibold">Temps Estimé</p>
                 <p className="text-gray-900 font-bold text-2xl">3 Min</p>
               </div>
@@ -827,7 +832,7 @@ const getSalesChartOptions = () => {
 
         {activeTab === "historique" && (
           <div>
-            <h3 className="text-xl font-bold text-gray-800 mb-4">Historique de Livraison</h3>
+             <img src={deliveryImage} alt="Icône distance" className="w-14 h-14 mx-auto mb-2" />
             <ul className="list-disc list-inside text-gray-700">
               <li>Colis #123 - Livré le 20/09/2024</li>
               <li>Colis #456 - Livré le 18/09/2024</li>
