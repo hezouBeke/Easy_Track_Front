@@ -86,12 +86,13 @@ const getDonutChartOptions = () => {
 };
 
 
-// Options pour le graphique "Sales this week"
+// Options pour le graphique avec suivi des colis
 const getSalesChartOptions = () => {
   return {
     xaxis: {
       show: true,
-      categories: ['01 Feb', '02 Feb', '03 Feb', '04 Feb', '05 Feb', '06 Feb', '07 Feb'],
+      // On peut garder les dates ou les remplacer par des jours au format FR si nécessaire
+      categories: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
       labels: {
         show: true,
         style: {
@@ -114,19 +115,25 @@ const getSalesChartOptions = () => {
           fontFamily: "Inter, sans-serif",
           cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400',
         },
-        formatter: (value) => `$${value}`,
+        // On n'utilise plus de format monétaire, juste le nombre de colis
+        formatter: (value) => `${value} colis`,
       },
     },
     series: [
       {
-        name: "Developer Edition",
-        data: [150, 141, 145, 152, 135, 125],
-        color: "#1A56DB",
+        name: "Colis en attente",
+        data: [20, 25, 22, 28, 30, 27, 26],
+        color: "#1A56DB", // Couleur bleue
       },
       {
-        name: "Designer Edition",
-        data: [43, 13, 65, 12, 42, 73],
-        color: "#7E3BF2",
+        name: "Colis trackés",
+        data: [10, 12, 15, 18, 16, 20, 22],
+        color: "#7E3BF2", // Couleur violette
+      },
+      {
+        name: "Colis livrés",
+        data: [5, 8, 10, 12, 15, 14, 16],
+        color: "#16BDCA", // Couleur bleue-verte
       },
     ],
     chart: {
@@ -144,7 +151,7 @@ const getSalesChartOptions = () => {
     tooltip: {
       enabled: true,
       x: {
-        show: false,
+        show: true,
       },
     },
     fill: {
@@ -161,13 +168,16 @@ const getSalesChartOptions = () => {
       width: 6,
     },
     legend: {
-      show: false,
+      show: true, // On peut afficher la légende pour distinguer les séries
+      fontFamily: "Inter, sans-serif",
+      position: "bottom",
     },
     grid: {
       show: false,
     },
   };
 };
+
 
 
   function Stats() {
@@ -523,12 +533,11 @@ const getSalesChartOptions = () => {
   </div>
 </div>
 
-    {/* graphique 3 */}
-    <div className="max-w-2xl w-full bg-white rounded-lg shadow dark:bg-gray-800 p-3 ml-auto">
+<div className="max-w-2xl w-full bg-white rounded-lg shadow dark:bg-gray-800 p-3 ml-auto">
   <div className="flex justify-between p-4 md:p-6 pb-0 md:pb-0">
     <div>
-      <h5 className="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">$12,423</h5>
-      <p className="text-base font-normal text-gray-500 dark:text-gray-400">Sales this week</p>
+      <h5 className="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">Statistiques des colis</h5>
+      <p className="text-base font-normal text-gray-500 dark:text-gray-400">Colis suivi cette semaine</p>
     </div>
     <div className="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
       23%
@@ -581,53 +590,18 @@ const getSalesChartOptions = () => {
         className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
       >
         <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-          <li>
-            <a
-              href="#"
-              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-            >
-              Hier
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-            >
-              Aujourd'hui
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-            >
-              Derniers 7 jours
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-            >
-              Derniers 30 jours
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-            >
-              Derniers 90 jours
-            </a>
-          </li>
+          <li><a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Hier</a></li>
+          <li><a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Aujourd'hui</a></li>
+          <li><a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Derniers 7 jours</a></li>
+          <li><a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Derniers 30 jours</a></li>
+          <li><a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Derniers 90 jours</a></li>
         </ul>
       </div>
       <a
         href="#"
         className="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500 hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2"
       >
-        Sales Report
+        Rapport de colis
         <svg
           className="w-2.5 h-2.5 ms-1.5 rtl:rotate-180"
           aria-hidden="true"
@@ -646,7 +620,8 @@ const getSalesChartOptions = () => {
       </a>
     </div>
   </div>
-     </div>
+</div>
+
     </div>
 
 
@@ -710,11 +685,16 @@ const getSalesChartOptions = () => {
 
         <div className="flex justify-between mt-4 space-x-10">
           <div className="mr-2">
-            <p className="text-gray-600">Vehicle Number:</p>
-            <p className="text-black">SYL - 06048CV</p>
+            <p className="text-gray-600">Imatriculation:</p>
+            <p className="text-black">
+  {selectedCoursierData && selectedCoursierData.vehic_id
+    ? selectedCoursierData.vehic_id.immatriculation
+    : 'Aucune immatriculation'}
+</p>
+
           </div>
           <div className="mr-2">
-            <p className="text-gray-600">Load Volume:</p>
+            <p className="text-gray-600">Volume chargement:</p>
             <p className="text-black">326,548 in³</p>
           </div>
           <div className="mr-2">
