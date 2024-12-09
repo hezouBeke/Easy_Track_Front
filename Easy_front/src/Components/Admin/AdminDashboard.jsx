@@ -26,7 +26,7 @@ function AdminDashboard() {
             </div>
 
             {/* Colonne pour la carte Google Maps */}
-            <div className=" w-[580px]    mt-14  ">
+            <div className=" w-[583px] mt-14">
               <MyGoogleMap />
             </div>
           </div>
