@@ -1054,10 +1054,10 @@ function DriverDashboard() {
   </div>
       
   <div
-  className="border-2 border-collapse rounded-lg border-gray-300 dark:border-gray-600 mb-4 relative"
+  className="border-2 border-collapse rounded-lg border-gray-300 dark:border-gray-600 mb-10 relative"
   style={{
     width: '100%',
-    height: '500px',
+    height: '600px',
     overflow: 'hidden',
   }}
 >
@@ -1069,7 +1069,7 @@ function DriverDashboard() {
 
 
 <div className="grid grid-cols-2 gap-4 mb-2"> 
-<div className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-70 p-4 bg-gray-800 hover:bg-gray-900 transition-all ease-in-out duration-300 cursor-pointer">
+<div className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-65 p-1 bg-gray-800 hover:bg-gray-900 transition-all ease-in-out duration-300 cursor-pointer">
   <div className="flex flex-col items-center space-y-2">
   <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#e8eaed"><path d="M480-600 340-740l140-140 140 140-140 140ZM40-160v-160q0-34 23.5-57t56.5-23h131q20 0 38 10t29 27q29 39 71.5 61t90.5 22q49 0 91.5-22t70.5-61q13-17 30.5-27t36.5-10h131q34 0 57 23t23 57v160H640v-91q-35 25-75.5 38T480-200q-43 0-84-13.5T320-252v92H40Zm120-280q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T280-560q0 50-34.5 85T160-440Zm640 0q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T920-560q0 50-34.5 85T800-440Z"/></svg>
 
@@ -1080,7 +1080,7 @@ function DriverDashboard() {
   </div>
 </div>
 
-<div className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-70 p-4 bg-gray-800 hover:bg-gray-900 transition-all ease-in-out duration-300 cursor-pointer">
+<div className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-65 p-1 bg-gray-800 hover:bg-gray-900 transition-all ease-in-out duration-300 cursor-pointer">
         <div className="flex flex-col items-center space-y-2">
           <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#e8eaed">
             <path d="M40-160v-66.67h199.33v-94H80v-66.66h159.33v-94H124.67V-548h114.66v-126l-78-178L222-880l88.67 201.33h496L727.33-852 788-880l92 201.33V-160H40Zm435.33-288h169.34q14.16 0 23.75-9.62 9.58-9.61 9.58-23.83 0-14.22-9.58-23.72-9.59-9.5-23.75-9.5H475.33q-14.16 0-23.75 9.62-9.58 9.62-9.58 23.83 0 14.22 9.58 23.72 9.59 9.5 23.75 9.5ZM306-226.67h507.33V-612H306v385.33Zm0 0V-612v385.33Z"/>
@@ -1095,7 +1095,8 @@ function DriverDashboard() {
       </div>
 
       
-</div></div>
+</div>
+</div>
   )}
   
   {/* {activeSection === 'expeditions' && (

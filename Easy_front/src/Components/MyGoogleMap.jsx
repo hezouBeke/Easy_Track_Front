@@ -3,7 +3,7 @@ import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer } from "@r
 
 const containerStyle = {
   width: "138%", // Prend toute la largeur visible de l'écran
-  height: "115%", // Adapte à la hauteur du conteneur
+  height: "150%", // Adapte à la hauteur du conteneur
 };
 
 
