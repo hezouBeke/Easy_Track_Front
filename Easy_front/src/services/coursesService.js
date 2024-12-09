@@ -16,9 +16,14 @@ const getAllCourses = () => {
 const getCourseDetails = (courseId) => {
     return axios.get(`${API_URL}course/${courseId}`);
 };
+// Fonction pour obtenir les courses assignées à un coursier
+const getCoursesByCoursier = (coursierId) => {
+    return axios.get(`${API_URL}coursier/${coursierId}`); // Cette route utilise le paramètre :coursierId
+};
 
 export default {
     createCourse,
     getAllCourses,
     getCourseDetails,
+    getCoursesByCoursier
 };

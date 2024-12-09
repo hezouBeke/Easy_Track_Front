@@ -1,40 +1,65 @@
 import { useNavigate } from 'react-router-dom';
-import coursierService from '../../services/coursierService';
+import coursierService from '../../services/coursierService'; // Import du service des courses
 import React, { useEffect, useState } from 'react';
 import MyGoogleMap from '../MyGoogleMap';
+import coursesService from '../../services/coursesService';
 import 'flowbite';
 
 function DriverDashboard() {
-  const navigate = useNavigate(null);
+  const navigate = useNavigate();
   const [coursier, setCoursier] = useState({ completename: '', email: '' });
+  const [courses, setCourses] = useState([]); // État pour les courses
   const [activeSection, setActiveSection] = useState('dashboard');
 
   useEffect(() => {
     const fetchCoursier = async () => {
       try {
-          const response = await coursierService.getConnectedCoursier();
-          setCoursier(response.data);
+        const response = await coursierService.getConnectedCoursier();
+        setCoursier(response.data);
       } catch (error) {
-          console.error('Erreur lors de la récupération du coursier connecté', error);
+        console.error('Erreur lors de la récupération du coursier connecté', error);
       }
-  };
-    fetchCoursier();
-}, []);
+    };
 
+    fetchCoursier();
+  }, []);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        if (coursier._id) { // Vérifie que le coursier est disponible avant de récupérer les courses
+          const response = await coursesService.getCoursesByCoursier(coursier._id);
+          setCourses(response.data);
+        }
+      } catch (error) {
+        console.error('Erreur lors de la récupération des courses', error);
+      }
+    };
+
+    fetchCourses();
+  }, [coursier._id]); // Dépendance sur l'ID du coursier pour récupérer les courses lorsqu'il est disponible
 
   const handleLogout = () => {
-    navigate('/'); 
+    navigate('/');
   };
+
   const handleShowConfirmation = () => {
     navigate('/delevry'); // Redirection vers la page de confirmation
   };
+
   const handleRelayRequest = () => {
     navigate('/relay'); // Redirection vers la page de relaiement
   };
+
   const handleSidebarClick = (section) => {
     setActiveSection(section);
   };
-  
+
+  const handleValidateCourse = (courseId) => {
+    console.log(`Course ${courseId} validée.`);
+    navigate('/dashboard/driver');
+  };
+
     return (
     <div className="flex flex-col w-full">    
     <div className="antialiased bg-gray-50 dark:bg-gray-100">
@@ -1102,9 +1127,42 @@ function DriverDashboard() {
   {/* {activeSection === 'expeditions' && (
     <div>Contenu des Expéditions</div>
   )} */}
-  {activeSection === 'courses' && (
-    <div>Contenu des Courses</div>
-  )}
+ {activeSection === 'courses' && (
+  <div>
+    <h2 className="text-xl font-semibold mb-4">Courses assignées</h2>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {courses.length > 0 ? (
+        courses.map((course) => (
+          <div
+            key={course._id}
+            className="border p-4 rounded-lg shadow-md bg-gray-800 text-white"
+          >
+            <h3 className="font-bold text-lg mb-2">Course</h3>
+            <p><strong>Départ :</strong> {course.depart}</p>
+            <p><strong>Arrivée :</strong> {course.arrive}</p>
+            <p><strong>Date de début :</strong> {new Date(course.date_debut).toLocaleString()}</p>
+            <p className="mt-2"><strong>Colis :</strong></p>
+            <ul className="ml-4">
+              <li><strong>Taille :</strong> {course.colis_id.taille}</li>
+              <li><strong>Description :</strong> {course.colis_id.description}</li>
+              <li><strong>Poids :</strong> {course.colis_id.poids} kg</li>
+              <li><strong>Particularité :</strong> {course.colis_id.particularite}</li>
+            </ul>
+            <button
+              onClick={() => handleValidateCourse(course._id)}
+              className="mt-4 bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded"
+            >
+              Valider la course
+            </button>
+          </div>
+        ))
+      ) : (
+        <p className="text-gray-400">Aucune course assignée pour le moment.</p>
+      )}
+    </div>
+  </div>
+)}
+
   {activeSection === 'historique' && (
     <div>Contenu de l'Historique Livraison</div>
   )}
