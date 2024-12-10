@@ -43,9 +43,7 @@ function DriverDashboard() {
     navigate('/');
   };
 
-  const handleShowConfirmation = () => {
-    navigate('/delevry'); // Redirection vers la page de confirmation
-  };
+
 
   const handleRelayRequest = () => {
     navigate('/relay'); // Redirection vers la page de relaiement
@@ -1141,6 +1139,7 @@ function DriverDashboard() {
             <p><strong>Départ :</strong> {course.depart}</p>
             <p><strong>Arrivée :</strong> {course.arrive}</p>
             <p><strong>Date de début :</strong> {new Date(course.date_debut).toLocaleString()}</p>
+            <p><strong>Date de fin :</strong> {new Date(course.date_fin).toLocaleString()}</p>
             <p className="mt-2"><strong>Colis :</strong></p>
             <ul className="ml-4">
               <li><strong>Taille :</strong> {course.colis_id.taille}</li>
