@@ -25,7 +25,7 @@ function MyGoogleMap({ startPoint, endPoint }) {
 
   return (
     <div className="bg-white shadow-lg transition-shadow duration-300 hover:shadow-blue-500 max-w-5xl h-[400px] lg:h-[542px] lg:ml-[-10px] lg:mr-[-10px] rounded-lg">
-      <LoadScript googleMapsApiKey="AIzaSyBKhBYPksQJERxsKO-RfwPHSnC7xFLB29U">
+      <LoadScript googleMapsApiKey="">
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}

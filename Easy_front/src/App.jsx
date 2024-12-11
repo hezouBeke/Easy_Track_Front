@@ -13,7 +13,6 @@ import CreateExpedition from "./Components/Admin/CreateExpedition";
 import ResetPassword from "./Components/ResetPassword ";
 import Customer from "./Components/Admin/Customer";
 import Coursiers from "./Components/Admin/Coursiers";
-
 import Colis from "./Components/Admin/Colis";
 import Expeditions from "./Components/Admin/Expeditions";
 import ExpeditionList from "./Components/Admin/ExpeditionList";
