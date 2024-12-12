@@ -16,6 +16,15 @@ function CreateExpedition() {
   const [courses, setCourses] = useState({});
   const [isAdding, setIsAdding] = useState(false);
 
+  const [expandedCourses, setExpandedCourses] = useState({});
+
+  const toggleExpanded = (coursier) => {
+    setExpandedCourses((prev) => ({
+      ...prev,
+      [coursier]: !prev[coursier], // Inverse l'état de la section du coursier
+    }));
+  };
+
   useEffect(() => {
     // Charger les coursiers au chargement du composant
     coursierService.getAllCoursiers()
@@ -224,200 +233,219 @@ function CreateExpedition() {
               </div>
             </div>
 
+
             {Object.keys(courses).map((coursier) => {
-              if (courses[coursier].length > 0) {
-                return (
-                  <div key={coursier}>
-                    <h3 className="font-medium text-red-600 ">Liste des courses  {coursier} :</h3>
-                    {courses[coursier].map((course, index) => (
-                      <div key={index} className="bg-gray-100 p-4 rounded-lg mb-4">
-                        <div className="grid grid-cols-4 gap-6">
-                        <div className="col-span-1">
-                          <label>Type de course :</label>
-                          <select
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
-                            value={course.type_course}
-                            onChange={(e) => {
-                              const newCourses = { ...courses };
-                              newCourses[coursier][index].type_course = e.target.value;
-                              setCourses(newCourses);
-                            }}
-                          >
-                            <option value="delivery">Livraison</option>
-                            <option value="relay">Relais</option>
-                          </select>
-                        </div>
-                        {course.type_course === "relay" && (
-                          <div className="col-span-1">
-                            <label>Coursier relais :</label>
-                            <select
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
-                              value={course.relais_coursier_id}
-                              onChange={(e) => {
-                                const newCourses = { ...courses };
-                                newCourses[coursier][index].relais_coursier_id =
-                                  e.target.value;
-                                setCourses(newCourses);
-                              }}
-                            >
-                              <option value="">-- Sélectionner un relais --</option>
-                              {coursiers.map((item) => (
-                                <option key={item.id} value={item.id}>
-                                  {item.completename}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                        )}
-                        {course.type_course === "delivery" && (
-                          <div className="col-span-1">
-                            <label>Client final :</label>
-                            <select
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
-                              value={course.client_final_id}
-                              onChange={(e) => {
-                                const newCourses = { ...courses };
-                                newCourses[coursier][index].client_final_id =
-                                  e.target.value;
-                                setCourses(newCourses);
-                              }}
-                            >
-                              <option value="">-- Sélectionner un client --</option>
-                              {clients.map((client) => (
-                                <option key={client.id} value={client.id}>
-                                  {client.completename}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                        )}
-                      </div>
-                        <div className="grid grid-cols-4 gap-6">
-                          <div className="col-span-1">
-                            <label>Départ :</label>
-                            <input
-                              type="text"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
-                              value={course.depart}
-                              placeholder="Départ"
-                              onChange={(e) => {
-                                const newCourses = { ...courses };
-                                newCourses[coursier][index].depart = e.target.value;
-                                setCourses(newCourses);
-                              }}
-                            />
-                          </div>
-                          <div className="col-span-1">
-                            <label>Arrivée :</label>
-                            <input
-                              type="text"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
-                              value={course.arrive}
-                              placeholder="Arrivée"
-                              onChange={(e) => {
-                                const newCourses = { ...courses };
-                                newCourses[coursier][index].arrive = e.target.value;
-                                setCourses(newCourses);
-                              }}
-                            />
-                          </div>
-                          <div className="col-span-1">
-                            <label>Date de début :</label>
-                            <input
-                              type="date"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
-                              value={course.date_debut}
-                              onChange={(e) => {
-                                const newCourses = { ...courses };
-                                newCourses[coursier][index].date_debut = e.target.value;
-                                setCourses(newCourses);
-                              }}
-                            />
-                          </div>
-                          <div className="col-span-1">
-                            <label>Date de fin :</label>
-                            <input
-                              type="date"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
-                              value={course.date_fin}
-                              onChange={(e) => {
-                                const newCourses = { ...courses };
-                                newCourses[coursier][index].date_fin = e.target.value;
-                                setCourses(newCourses);
-                              }}
-                            />
-                          </div>
-                        </div>
+  if (courses[coursier].length > 0) {
+    return (
+      <div key={coursier} className="mb-6">
+        {/* Titre et bouton de dépliage/repliage */}
+        <div
+          className="flex items-center justify-between bg-gray-200 px-4 py-2 cursor-pointer rounded-lg"
+          onClick={() => toggleExpanded(coursier)}
+        >
+          <h3 className="font-medium text-red-600">
+            Liste des courses {coursier} :
+          </h3>
+          <button className="text-blue-600">
+            {expandedCourses[coursier] ? "▲" : "▼"}
+          </button>
+        </div>
 
-                        <div className="grid grid-cols-4 gap-6 mt-4">
-                          <div className="col-span-1">
-                            <label>Heure de début :</label>
-                            <input
-                              type="time"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
-                              value={course.heure_debut}
-                              onChange={(e) => {
-                                const newCourses = { ...courses };
-                                newCourses[coursier][index].heure_debut = e.target.value;
-                                setCourses(newCourses);
-                              }}
-                            />
-                          </div>
-                          <div className="col-span-1">
-                            <label>Heure de fin :</label>
-                            <input
-                              type="time"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
-                              value={course.heure_fin}
-                              onChange={(e) => {
-                                const newCourses = { ...courses };
-                                newCourses[coursier][index].heure_fin = e.target.value;
-                                setCourses(newCourses);
-                              }}
-                            />
-                          </div>
-                          <div className="col-span-2">
-                            <label>Colis :</label>
-                            <select
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
-                              value={course.colis}
-                              onChange={(e) => {
-                                const newCourses = { ...courses };
-                                newCourses[coursier][index].colis = e.target.value;
-                                setCourses(newCourses);
-                              }}
-                            >
-                              <option value="">-- Sélectionner un colis --</option>
-                              {colis.map((item) => (
-                                <option key={item.id} value={item.id}>
-                                  {item.indent_colis}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                        </div>
-
-                        <div className="flex justify-center space-x-4 mt-6">
-                          <img
-                            src={binImage}
-                            alt="Poubelle"
-                            onClick={() => handleDeleteCourse(coursier, index)}
-                            className="cursor-pointer w-8 h-8"
-                          />
-                           <img
-                            src={corseajoutImage}
-                            alt="Ajouter une course"
-                            onClick={() => handleAddCourseForCoursier(coursier)}
-                            className="cursor-pointer w-8 h-8"
-                          />
-                        </div>
-                      </div>
-                    ))}
+        {/* Contenu pliable */}
+        {expandedCourses[coursier] && (
+          <div className="mt-4">
+            {courses[coursier].map((course, index) => (
+              <div key={index} className="bg-gray-100 p-4 rounded-lg mb-4">
+                <div className="grid grid-cols-4 gap-6">
+                  <div className="col-span-1">
+                    <label>Type de course :</label>
+                    <select
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
+                      value={course.type_course}
+                      onChange={(e) => {
+                        const newCourses = { ...courses };
+                        newCourses[coursier][index].type_course = e.target.value;
+                        setCourses(newCourses);
+                      }}
+                    >
+                      <option value="delivery">Livraison</option>
+                      <option value="relay">Relais</option>
+                    </select>
                   </div>
-                );
-              }
-              return null;
-            })}
+                  {course.type_course === "relay" && (
+                    <div className="col-span-1">
+                      <label>Coursier relais :</label>
+                      <select
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
+                        value={course.relais_coursier_id}
+                        onChange={(e) => {
+                          const newCourses = { ...courses };
+                          newCourses[coursier][index].relais_coursier_id =
+                            e.target.value;
+                          setCourses(newCourses);
+                        }}
+                      >
+                        <option value="">-- Sélectionner un relais --</option>
+                        {coursiers.map((item) => (
+                          <option key={item.id} value={item.id}>
+                            {item.completename}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                  {course.type_course === "delivery" && (
+                    <div className="col-span-1">
+                      <label>Client final :</label>
+                      <select
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
+                        value={course.client_final_id}
+                        onChange={(e) => {
+                          const newCourses = { ...courses };
+                          newCourses[coursier][index].client_final_id =
+                            e.target.value;
+                          setCourses(newCourses);
+                        }}
+                      >
+                        <option value="">-- Sélectionner un client --</option>
+                        {clients.map((client) => (
+                          <option key={client.id} value={client.id}>
+                            {client.completename}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-4 gap-6">
+                  <div className="col-span-1">
+                    <label>Départ :</label>
+                    <input
+                      type="text"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
+                      value={course.depart}
+                      placeholder="Départ"
+                      onChange={(e) => {
+                        const newCourses = { ...courses };
+                        newCourses[coursier][index].depart = e.target.value;
+                        setCourses(newCourses);
+                      }}
+                    />
+                  </div>
+                  <div className="col-span-1">
+                    <label>Arrivée :</label>
+                    <input
+                      type="text"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
+                      value={course.arrive}
+                      placeholder="Arrivée"
+                      onChange={(e) => {
+                        const newCourses = { ...courses };
+                        newCourses[coursier][index].arrive = e.target.value;
+                        setCourses(newCourses);
+                      }}
+                    />
+                  </div>
+                  <div className="col-span-1">
+                    <label>Date de début :</label>
+                    <input
+                      type="date"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
+                      value={course.date_debut}
+                      onChange={(e) => {
+                        const newCourses = { ...courses };
+                        newCourses[coursier][index].date_debut = e.target.value;
+                        setCourses(newCourses);
+                      }}
+                    />
+                  </div>
+                  <div className="col-span-1">
+                    <label>Date de fin :</label>
+                    <input
+                      type="date"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
+                      value={course.date_fin}
+                      onChange={(e) => {
+                        const newCourses = { ...courses };
+                        newCourses[coursier][index].date_fin = e.target.value;
+                        setCourses(newCourses);
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-4 gap-6 mt-4">
+                  <div className="col-span-1">
+                    <label>Heure de début :</label>
+                    <input
+                      type="time"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
+                      value={course.heure_debut}
+                      onChange={(e) => {
+                        const newCourses = { ...courses };
+                        newCourses[coursier][index].heure_debut = e.target.value;
+                        setCourses(newCourses);
+                      }}
+                    />
+                  </div>
+                  <div className="col-span-1">
+                    <label>Heure de fin :</label>
+                    <input
+                      type="time"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
+                      value={course.heure_fin}
+                      onChange={(e) => {
+                        const newCourses = { ...courses };
+                        newCourses[coursier][index].heure_fin = e.target.value;
+                        setCourses(newCourses);
+                      }}
+                    />
+                  </div>
+                  <div className="col-span-2">
+                    <label>Colis :</label>
+                    <select
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
+                      value={course.colis}
+                      onChange={(e) => {
+                        const newCourses = { ...courses };
+                        newCourses[coursier][index].colis = e.target.value;
+                        setCourses(newCourses);
+                      }}
+                    >
+                      <option value="">-- Sélectionner un colis --</option>
+                      {colis.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.indent_colis}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="flex justify-center space-x-4 mt-6">
+                  <img
+                    src={binImage}
+                    alt="Poubelle"
+                    onClick={() => handleDeleteCourse(coursier, index)}
+                    className="cursor-pointer w-8 h-8"
+                  />
+                  <img
+                    src={corseajoutImage}
+                    alt="Ajouter une course"
+                    onClick={() => handleAddCourseForCoursier(coursier)}
+                    className="cursor-pointer w-8 h-8"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+  return null;
+})}
           </div>
         );
       case 3:
