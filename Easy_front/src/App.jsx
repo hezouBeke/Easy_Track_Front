@@ -25,6 +25,7 @@ import ConfirmationPage from "./Components/DriverDashboard/ConfirmationPage";
 import RelayOptions from "./Components/DriverDashboard/RelayOptions";
 import ScanQR from "./Components/DriverDashboard/ScanQR";
 import ShowQR from "./Components/DriverDashboard/ShowQR";
+import CreateColis from "./Components/Admin/CreateColis";
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
     {/* Routes protégées : dashboard admin */}
     <Route path="/dashboard/admin" element={<PrivateRoute element={AdminDashboard} allowedRoles={['Admin']} />} />
     <Route path="/dashboard/admin/createshipment" element={<PrivateRoute element={CreateExpedition} allowedRoles={['Admin']} />} />
+    <Route path="/dashboard/admin/createparcel" element={<PrivateRoute element={CreateColis} allowedRoles={['Admin']} />} />
     <Route path="/dashboard/admin/clients" element={<PrivateRoute element={Customer} allowedRoles={['Admin']} />} />
     <Route path="/dashboard/admin/stats" element={<PrivateRoute element={Stats} allowedRoles={['Admin']} />} />
     <Route path="/dashboard/admin/coursiers" element={<PrivateRoute element={Coursiers} allowedRoles={['Admin']} />} />

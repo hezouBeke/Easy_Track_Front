@@ -10,6 +10,10 @@ function Adminsidebar() {
     navigate("/dashboard/admin/createshipment");
   };
 
+  const handleCreateParcelClick= () => {
+    navigate("/dashboard/admin/createparcel");
+  };
+
   const handleCustomerClick = () => {
     navigate("/dashboard/admin/clients");
   };
@@ -106,6 +110,15 @@ function Adminsidebar() {
               </a>
             </li>
             <li>
+              <button
+                onClick={handleCreateParcelClick}
+                className="flex items-center justify-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-thin rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 transition duration-150 ease-in-out"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="m720-80 120-120-28-28-72 72v-164h-40v164l-72-72-28 28L720-80ZM480-800 243-663l237 137 237-137-237-137ZM120-321v-318q0-22 10.5-40t29.5-29l280-161q10-5 19.5-8t20.5-3q11 0 21 3t19 8l280 161q19 11 29.5 29t10.5 40v159h-80v-116L479-434 200-596v274l240 139v92L160-252q-19-11-29.5-29T120-321ZM720 0q-83 0-141.5-58.5T520-200q0-83 58.5-141.5T720-400q83 0 141.5 58.5T920-200q0 83-58.5 141.5T720 0ZM480-491Z"/></svg>
+                Enregistrer un colis
+              </button>
+            </li>
+            <li>
               <a
                 href="/dashboard/admin/colis"
                 className="flex items-center p-2 text-lg font-thin text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
@@ -122,6 +135,7 @@ function Adminsidebar() {
                 <span className="ml-3">Colis</span>
               </a>
             </li>
+            
             <li>
               <a
                 href="/dashboard/admin/historiques"
@@ -156,7 +170,7 @@ function Adminsidebar() {
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14m7-7H5" />
                 </svg>
-                Créer une expédition
+                Créer expédition
               </button>
             </li>
           </ul>
