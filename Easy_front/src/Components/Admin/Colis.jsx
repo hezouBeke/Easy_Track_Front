@@ -80,7 +80,7 @@ function Colis() {
                             <table className="w-full text-sm text-left text-gray-100">
                                 <thead className="text-xs uppercase bg-gray-700 text-white font-thin">
                                     <tr>
-                                        <th scope="col" className="px-6 py-3 text-left">Numéro Colis</th>
+                                        <th scope="col" className="px-6 py-3 text-left">Indentifiant Colis</th>
                                         <th scope="col" className="px-6 py-3 text-left">Description</th>
                                         <th scope="col" className="px-6 py-3 text-left">Expéditeur</th>
                                         <th scope="col" className="px-6 py-3 text-left">Destinataire</th>
@@ -92,7 +92,7 @@ function Colis() {
                                     {colis.map(colisItem => (
                                         <tr key={colisItem._id} className="bg-gray-800 hover:bg-gray-600 transition-all font-thin">
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                {colisItem.numero_colis ? colisItem.numero_colis : 'N/A'}
+                                                {colisItem. indent_colis ? colisItem. indent_colis : 'N/A'}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 {colisItem.description ? colisItem.description : 'N/A'}
