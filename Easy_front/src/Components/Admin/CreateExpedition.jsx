@@ -228,7 +228,7 @@ function CreateExpedition() {
               if (courses[coursier].length > 0) {
                 return (
                   <div key={coursier}>
-                    <h3 className="font-medium">Courses du {coursier} :</h3>
+                    <h3 className="font-medium text-red-600 ">Liste des courses  {coursier} :</h3>
                     {courses[coursier].map((course, index) => (
                       <div key={index} className="bg-gray-100 p-4 rounded-lg mb-4">
                         <div className="grid grid-cols-4 gap-6">
@@ -285,7 +285,7 @@ function CreateExpedition() {
                               <option value="">-- Sélectionner un client --</option>
                               {clients.map((client) => (
                                 <option key={client.id} value={client.id}>
-                                  {client.name}
+                                  {client.completename}
                                 </option>
                               ))}
                             </select>
