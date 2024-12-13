@@ -18,6 +18,10 @@ function CreateExpedition() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [estimatedDuration, setEstimatedDuration] = useState("");
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [expandedCourses, setExpandedCourses] = useState({});
 
@@ -170,58 +174,84 @@ function CreateExpedition() {
       return updatedCourses;
     });
   };
+
   const handleSubmit = async () => {
     try {
-      // Validation des données
-      if (!startDate || !endDate || Object.keys(courses).length === 0) {
-        alert("Veuillez compléter toutes les informations avant de soumettre.");
-        return;
-      }
-  
-      // Préparation des données pour l'envoi
-      const expeditionData = {
-        date_debut_previsionnel: startDate,
-        date_fin_previsionnel: endDate,
-        course_ids: [], // Liste des courses à envoyer
-      };
-  
-      // Collecte des IDs des courses
-      Object.keys(courses).forEach((coursierId) => {
-        courses[coursierId].forEach((course) => {
-          expeditionData.course_ids.push({
-            depart: course.depart,
-            arrive: course.arrive,
-            date_debut: course.date_debut,
-            date_fin: course.date_fin,
-            heure_debut: course.heure_debut,
-            heure_fin: course.heure_fin,
-            type_course: course.type_course,
-            relais_coursier_id: course.relais_coursier_id || null,
-            client_final_id: course.client_final_id || null,
-            colis_id: course.colis || null,
-          });
-        });
-      });
-  
-      // Envoi des données au backend
-      const response = await expeditionService.createExpedition(expeditionData);
-  
-      if (response.status === 201) {
-        alert("Expédition créée avec succès !");
-        // Réinitialiser les champs
-        setCurrentStep(1);
-        setStartDate("");
-        setEndDate("");
-        setEstimatedDuration("");
-        setCourses({});
-      } else {
-        alert("Une erreur s'est produite lors de la création de l'expédition.");
-      }
+        if (!startDate || !endDate || Object.keys(courses).length === 0) {
+            setErrorMessage("Veuillez compléter toutes les informations avant de soumettre.");
+            setShowErrorMessage(true);
+            setTimeout(() => setShowErrorMessage(false), 2000);
+            return;
+        }
+
+        const expeditionData = {
+            date_debut_previsionnel: startDate,
+            date_fin_previsionnel: endDate,
+            course_ids: Object.keys(courses).flatMap(coursier =>
+                courses[coursier].map(course => ({
+                    depart: course.depart,
+                    arrive: course.arrive,
+                    date_debut: course.date_debut,
+                    date_fin: course.date_fin,
+                    heure_debut: course.heure_debut,
+                    heure_fin: course.heure_fin,
+                    type_course: course.type_course,
+                    relais_coursier_id: course.relais_coursier_id || null,
+                    client_final_id: course.client_final_id || null,
+                    colis_id: course.colis || null,
+                }))
+            ),
+        };
+
+        const response = await expeditionService.createExpedition(expeditionData);
+
+        if (response.status === 201) {
+            setShowSuccessMessage(true);
+            setTimeout(() => setShowSuccessMessage(false), 2000);
+            setCurrentStep(1);
+            setStartDate("");
+            setEndDate("");
+            setEstimatedDuration("");
+            setCourses({});
+        }
     } catch (error) {
-      console.error("Erreur lors de la soumission :", error);
-      alert("Une erreur s'est produite. Veuillez réessayer.");
+        if (error.response) {
+            // Gestion des erreurs spécifiques
+            const { errorCode, message } = error.response.data;
+
+            switch (errorCode) {
+                case "INVALID_COURSES":
+                    setErrorMessage("La liste des courses est invalide. Veuillez vérifier.");
+                    break;
+                case "MISSING_DATES":
+                    setErrorMessage("Les dates prévisionnelles sont obligatoires.");
+                    break;
+                case "INVALID_DATES":
+                    setErrorMessage("Les dates prévisionnelles doivent être valides.");
+                    break;
+                case "DATE_ORDER":
+                    setErrorMessage("La date de début doit être antérieure à la date de fin.");
+                    break;
+                case "COURSE_NOT_FOUND":
+                    setErrorMessage(message); // Message détaillé
+                    break;
+                case "COURSE_DATE_CONFLICT":
+                    setErrorMessage(message); // Message détaillé
+                    break;
+                default:
+                    setErrorMessage("Une erreur s'est produite. Veuillez réessayer.");
+            }
+        } else {
+            setErrorMessage("Erreur de connexion au serveur. Veuillez vérifier votre connexion.");
+        }
+
+        setShowErrorMessage(true);
+        setTimeout(() => setShowErrorMessage(false), 2000);
     }
-  };
+};
+
+  
+  
   
   const renderStepContent = () => {
     switch (currentStep) {
@@ -600,11 +630,52 @@ function CreateExpedition() {
   };
 
   return (
-    <section className="bg-white">
+    <section className="bg-white  ">
       <Adminheader />
+      {showSuccessMessage && (
+    <div className="fixed top-4 right-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded shadow-lg">
+      <div className="flex items-center">
+        <svg
+          className="w-6 h-6 mr-2 text-green-600"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fillRule="evenodd"
+            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+            clipRule="evenodd"
+          ></path>
+        </svg>
+        <p>Expédition créée avec succès !</p>
+      </div>
+    </div>
+  )}
+
+  {showErrorMessage && (
+  <div className="fixed top-4 right-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow-lg">
+    <div className="flex items-center">
+      <svg
+        className="w-6 h-6 mr-2 text-red-600"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fillRule="evenodd"
+          d="M8.707 13.707a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 11.586l6.293-6.293a1 1 0 111.414 1.414l-7 7z"
+          clipRule="evenodd"
+        ></path>
+      </svg>
+      <p>{errorMessage}</p>
+    </div>
+  </div>
+)}
+
       <div className="pt-12 mx-auto max-w-7xl lg:pt-10 ml-80">
+        
         <Adminsidebar />
-        <ol className="items-center w-full space-y-4 sm:flex sm:space-x-8 sm:space-y-0 rtl:space-x-reverse mt-24">
+        <ol className="items-center w-full space-y-4 sm:flex sm:space-x-8 sm:space-y-0 rtl:space-x-reverse mt-48">
           <li
             className={`flex items-center space-x-2.5 rtl:space-x-reverse ${
               currentStep === 1 ? "text-blue-600" : "text-gray-500"
@@ -667,23 +738,25 @@ function CreateExpedition() {
         <div className="mt-10">{renderStepContent()}</div>
 
         <div className="mt-6 flex justify-between">
-          <button
-            type="button"
-            onClick={prevStep}
-            className="px-4 py-2 text-sm font-medium text-gray-900 bg-gray-200 rounded-lg"
-            disabled={currentStep === 1}
-          >
-            Précédent
-          </button>
-          <button
-            type="button"
-            onClick={nextStep}
-            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg"
-            disabled={currentStep === 3}
-          >
-            Suivant
-          </button>
-        </div>
+  <button
+    type="button"
+    onClick={prevStep}
+    className="px-4 py-2 text-sm font-medium text-gray-900 bg-gray-200 rounded-lg"
+    disabled={currentStep === 1}
+  >
+    Précédent
+  </button>
+  {currentStep !== 3 && ( // N'affiche pas le bouton "Suivant" si c'est la dernière étape
+    <button
+      type="button"
+      onClick={nextStep}
+      className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg"
+    >
+      Suivant
+    </button>
+  )}
+</div>
+
       </div>
     </section>
   );

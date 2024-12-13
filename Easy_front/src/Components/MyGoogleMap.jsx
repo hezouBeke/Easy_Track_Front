@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer } from "@react-google-maps/api";
 
 const containerStyle = {
-  width: "138%", // Prend toute la largeur visible de l'écran
-  height: "150%", // Adapte à la hauteur du conteneur
+  width: "158%", // Prend toute la largeur visible de l'écran
+  height: "139%", // Adapte à la hauteur du conteneur
 };
 
 
