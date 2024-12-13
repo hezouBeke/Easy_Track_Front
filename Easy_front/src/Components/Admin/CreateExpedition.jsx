@@ -170,7 +170,59 @@ function CreateExpedition() {
       return updatedCourses;
     });
   };
-
+  const handleSubmit = async () => {
+    try {
+      // Validation des données
+      if (!startDate || !endDate || Object.keys(courses).length === 0) {
+        alert("Veuillez compléter toutes les informations avant de soumettre.");
+        return;
+      }
+  
+      // Préparation des données pour l'envoi
+      const expeditionData = {
+        date_debut_previsionnel: startDate,
+        date_fin_previsionnel: endDate,
+        course_ids: [], // Liste des courses à envoyer
+      };
+  
+      // Collecte des IDs des courses
+      Object.keys(courses).forEach((coursierId) => {
+        courses[coursierId].forEach((course) => {
+          expeditionData.course_ids.push({
+            depart: course.depart,
+            arrive: course.arrive,
+            date_debut: course.date_debut,
+            date_fin: course.date_fin,
+            heure_debut: course.heure_debut,
+            heure_fin: course.heure_fin,
+            type_course: course.type_course,
+            relais_coursier_id: course.relais_coursier_id || null,
+            client_final_id: course.client_final_id || null,
+            colis_id: course.colis || null,
+          });
+        });
+      });
+  
+      // Envoi des données au backend
+      const response = await expeditionService.createExpedition(expeditionData);
+  
+      if (response.status === 201) {
+        alert("Expédition créée avec succès !");
+        // Réinitialiser les champs
+        setCurrentStep(1);
+        setStartDate("");
+        setEndDate("");
+        setEstimatedDuration("");
+        setCourses({});
+      } else {
+        alert("Une erreur s'est produite lors de la création de l'expédition.");
+      }
+    } catch (error) {
+      console.error("Erreur lors de la soumission :", error);
+      alert("Une erreur s'est produite. Veuillez réessayer.");
+    }
+  };
+  
   const renderStepContent = () => {
     switch (currentStep) {
       case 1:
@@ -492,7 +544,56 @@ function CreateExpedition() {
           </div>
         );
       case 3:
-        return <div>Contenu pour la troisième étape</div>;
+        return (
+          <div>
+          <h1 className="mb-4 text-xl font-thin text-gray-900">
+            Validation et Récapitulatif
+          </h1>
+          <div className="bg-gray-100 p-6 rounded-lg shadow-md">
+            <h2 className="text-lg font-semibold mb-4 text-gray-900">
+              Informations principales :
+            </h2>
+            <p><strong>Date de début :</strong> {startDate}</p>
+            <p><strong>Date de fin :</strong> {endDate}</p>
+            <p><strong>Durée estimée :</strong> {estimatedDuration}</p>
+            
+            <h2 className="text-lg font-semibold mt-6 mb-4 text-gray-900">
+              Liste des coursiers et leurs courses :
+            </h2>
+            {Object.keys(courses).map((coursier) => (
+              <div key={coursier} className="mb-6">
+                <h3 className="font-medium text-blue-600">Coursier ID : {coursier}</h3>
+                {courses[coursier].map((course, index) => (
+                  <div key={index} className="ml-4 mt-4 bg-white p-4 rounded-lg shadow">
+                    <p><strong>Départ :</strong> {course.depart || "Non spécifié"}</p>
+                    <p><strong>Arrivée :</strong> {course.arrive || "Non spécifié"}</p>
+                    <p><strong>Type de course :</strong> {course.type_course}</p>
+                    {course.type_course === "relay" && (
+                      <p><strong>Relais Coursier ID :</strong> {course.relais_coursier_id || "Non spécifié"}</p>
+                    )}
+                    {course.type_course === "delivery" && (
+                      <p><strong>Client Final ID :</strong> {course.client_final_id || "Non spécifié"}</p>
+                    )}
+                    <p><strong>Colis ID :</strong> {course.colis || "Non spécifié"}</p>
+                    <p><strong>Date de début :</strong> {course.date_debut || "Non spécifiée"}</p>
+                    <p><strong>Date de fin :</strong> {course.date_fin || "Non spécifiée"}</p>
+                    <p><strong>Heure de début :</strong> {course.heure_debut || "Non spécifiée"}</p>
+                    <p><strong>Heure de fin :</strong> {course.heure_fin || "Non spécifiée"}</p>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-end mt-6">
+            <button
+              onClick={handleSubmit}
+              className="px-4 py-2 text-white bg-green-600 rounded-lg"
+            >
+              Créer l'expédition
+            </button>
+          </div>
+        </div>
+        );
       default:
         return null;
     }
