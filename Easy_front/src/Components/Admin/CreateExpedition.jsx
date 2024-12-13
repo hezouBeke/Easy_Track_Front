@@ -15,6 +15,9 @@ function CreateExpedition() {
   const [clients, setClients] = useState([]);
   const [courses, setCourses] = useState({});
   const [isAdding, setIsAdding] = useState(false);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [estimatedDuration, setEstimatedDuration] = useState("");
 
   const [expandedCourses, setExpandedCourses] = useState({});
 
@@ -24,6 +27,40 @@ function CreateExpedition() {
       [coursier]: !prev[coursier], // Inverse l'état de la section du coursier
     }));
   };
+
+  const calculateDuration = (start, end) => {
+    if (!start || !end) return "";
+
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+
+    if (isNaN(startDate) || isNaN(endDate) || endDate < startDate) {
+      return "Dates invalides";
+    }
+
+    const diffInDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+
+    if (diffInDays >= 30) {
+      const months = Math.floor(diffInDays / 30);
+      const days = diffInDays % 30;
+      return `${months} mois ${days} jours`;
+    } else {
+      return `${diffInDays} jours`;
+    }
+  };
+
+  const handleStartDateChange = (e) => {
+    const value = e.target.value;
+    setStartDate(value);
+    setEstimatedDuration(calculateDuration(value, endDate));
+  };
+
+  const handleEndDateChange = (e) => {
+    const value = e.target.value;
+    setEndDate(value);
+    setEstimatedDuration(calculateDuration(startDate, value));
+  };
+
 
   useEffect(() => {
     // Charger les coursiers au chargement du composant
@@ -155,6 +192,8 @@ function CreateExpedition() {
                     type="date"
                     name="start-date"
                     id="start-date"
+                    value={startDate}
+                    onChange={handleStartDateChange}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
                     required
                   />
@@ -170,6 +209,8 @@ function CreateExpedition() {
                     type="date"
                     name="end-date"
                     id="end-date"
+                    value={endDate}
+                    onChange={handleEndDateChange}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
                     required
                   />
@@ -185,15 +226,17 @@ function CreateExpedition() {
                     type="text"
                     name="estimated-duration"
                     id="estimated-duration"
+                    value={estimatedDuration}
+                    readOnly
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
                     placeholder="ex : 2 mois 3 jours ou 15 jours"
-                    required
                   />
                 </div>
               </div>
             </form>
           </div>
         );
+      
       case 2:
         return (
           <div>
