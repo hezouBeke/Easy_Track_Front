@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import coursierService from '../../services/coursierService'; // Import du service des courses
+import coursierService from '../../services/coursierService';
 import React, { useEffect, useState } from 'react';
 import MyGoogleMap from '../MyGoogleMap';
 import coursesService from '../../services/coursesService';
@@ -10,7 +10,33 @@ function DriverDashboard() {
   const [coursier, setCoursier] = useState({ completename: '', email: '' });
   const [courses, setCourses] = useState([]); // État pour les courses
   const [activeSection, setActiveSection] = useState('dashboard');
+  const [expandedCourses, setExpandedCourses] = useState({}); // Gestion des courses étendues
+  const [successMessage, setSuccessMessage] = useState('');
+  const [messages, setMessages] = useState([]); // État pour les messages
+  const [selectedMessage, setSelectedMessage] = useState(null); // État pour le message sélectionné
 
+  // Fonction pour gérer les options du message (Répondre, Transférer, etc.)
+  const handleMessageOptions = (messageId) => {
+    setSelectedMessage(messageId);
+    console.log(`Options pour le message ${messageId} : Répondre, Transférer, etc.`);
+    // Ici tu peux ajouter un menu avec des options
+  };
+
+  // Fonction pour répondre au message
+  const handleReply = (messageId) => {
+    console.log(`Répondre au message avec l'ID : ${messageId}`);
+    // Implémenter l'ouverture d'un formulaire de réponse (par exemple, un textarea pour la réponse)
+    alert("Répondre au message");
+  };
+
+  // Fonction pour transférer le message
+  const handleForward = (messageId) => {
+    console.log(`Transférer le message avec l'ID : ${messageId}`);
+    // Implémenter la logique pour transférer un message à un autre utilisateur
+    alert("Transférer le message");
+  };
+
+  // Utilisation des effets pour récupérer les informations du coursier et des courses
   useEffect(() => {
     const fetchCoursier = async () => {
       try {
@@ -39,27 +65,36 @@ function DriverDashboard() {
     fetchCourses();
   }, [coursier._id]); // Dépendance sur l'ID du coursier pour récupérer les courses lorsqu'il est disponible
 
+  const toggleCourseDetails = (courseId) => {
+    setExpandedCourses((prevState) => ({
+      ...prevState,
+      [courseId]: !prevState[courseId], // Toggle visibility of details for this course
+    }));
+  };
+
   const handleLogout = () => {
     navigate('/');
   };
 
   const handleShowConfirmation = () => {
-    navigate('/delevry'); // Redirection vers la page de confirmation
+    navigate('/delevry');
   };
 
   const handleRelayRequest = () => {
-    navigate('/relay'); // Redirection vers la page de relaiement
+    navigate('/relay');
   };
 
   const handleSidebarClick = (section) => {
     setActiveSection(section);
   };
 
-  const handleValidateCourse = (courseId) => {
-    console.log(`Course ${courseId} validée.`);
-    navigate('/dashboard/driver');
+  const handleValidateCourse = () => {
+    setSuccessMessage('Course validée avec succès !');
+    setTimeout(() => {
+      setSuccessMessage('');
+      setActiveSection('dashboard');
+    }, 2000);
   };
-
     return (
     <div className="flex flex-col w-full">    
     <div className="antialiased bg-gray-50 dark:bg-gray-100">
@@ -628,71 +663,17 @@ function DriverDashboard() {
             </a>
           </li>
           <li>
-
-            <button
-              type="button"
-              className="flex items-center p-2 w-full text-lg font-thin text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-              aria-controls="dropdown-authentication"
-              data-collapse-toggle="dropdown-authentication"
+            <a
+              href="#"
+              onClick={() => handleSidebarClick('statistiques')}
+              className="flex items-center p-2 text-lg font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M280-280h80v-200h-80v200Zm320 0h80v-400h-80v400Zm-160 0h80v-120h-80v120Zm0-200h80v-80h-80v80ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
-              <span className="flex-1 ml-3 text-left whitespace-nowrap"
-                >Statistiques</span
-              >
-              <svg
-                aria-hidden="true"
-                className="w-6 h-6"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-            </button>
-            <ul id="dropdown-authentication" className="hidden py-2 space-y-2">
-  <li>
-    <a
-      href="#"
-      className="flex items-center p-2 pl-11 w-full text-lg font-thin text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        height="20px"
-        viewBox="0 -960 960 960"
-        width="20px"
-        fill="#FFFFFF"
-        className="mr-2" // Ajout d'une marge pour espacer le SVG et le texte
-      >
-        <path d="M216-96q-29.7 0-50.85-21.5Q144-139 144-168v-528q0-29 21.15-50.5T216-768h72v-96h72v96h240v-96h72v96h72q29.7 0 50.85 21.5Q816-725 816-696v528q0 29-21.15 50.5T744-96H216Zm0-72h528v-360H216v360Zm0-432h528v-96H216v96Zm0 0v-96 96Zm264.21 216q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Zm-156 0q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Zm312 0q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Zm-156 144q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Zm-156 0q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Zm312 0q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Z" />
-      </svg>
-      Cette semaine
-    </a>
-  </li>
-  <li>
-    <a
-      href="#"
-      className="flex items-center p-2 pl-11 w-full text-lg font-thin text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        height="20px"
-        viewBox="0 -960 960 960"
-        width="20px"
-        fill="#FFFFFF"
-        className="mr-2" // Ajout d'une marge pour espacer le SVG et le texte
-      >
-        <path d="M216-96q-29.7 0-50.85-21.5Q144-139 144-168v-528q0-29 21.15-50.5T216-768h72v-96h72v96h240v-96h72v96h72q29.7 0 50.85 21.5Q816-725 816-696v528q0 29-21.15 50.5T744-96H216Zm0-72h528v-360H216v360Zm0-432h528v-96H216v96Zm0 0v-96 96Zm264.21 216q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Zm-156 0q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Zm312 0q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Zm-156 144q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Zm-156 0q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Zm312 0q-15.21 0-25.71-10.29t-10.5-25.5q0-15.21 10.29-25.71t25.5-10.5q15.21 0 25.71 10.29t10.5 25.5q0 15.21-10.29 25.71t-25.5 10.5Z" />
-      </svg>
-      Ce mois
-    </a>
-  </li>
-</ul>
-
-          </li> 
+<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M280-280h80v-200h-80v200Zm320 0h80v-400h-80v400Zm-160 0h80v-120h-80v120Zm0-200h80v-80h-80v80ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>           
+              <span className="flex-1 ml-3 whitespace-nowrap">Statistiques</span>
+             
+            </a>
+          </li>
+         
         </ul>
 
 
@@ -702,22 +683,10 @@ function DriverDashboard() {
           <li>
             <a
               href="#"
+              onClick={() => handleSidebarClick('docs')}
               className="flex items-center p-2 text-lg font-thin text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
             >
-              <svg
-                aria-hidden="true"
-                className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
-                <path
-                  fillRule="evenodd"
-                  d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M320-440h320v-80H320v80Zm0 120h320v-80H320v80Zm0 120h200v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/></svg>
               <span className="ml-3">Docs</span>
             </a>
           </li>
@@ -725,21 +694,10 @@ function DriverDashboard() {
           <li>
             <a
               href="#"
+              onClick={() => handleSidebarClick('help')}
               className="flex items-center p-2 text-lg font-thin text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
             >
-              <svg
-                aria-hidden="true"
-                className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-2 0c0 .993-.241 1.929-.668 2.754l-1.524-1.525a3.997 3.997 0 00.078-2.183l1.562-1.562C15.802 8.249 16 9.1 16 10zm-5.165 3.913l1.58 1.58A5.98 5.98 0 0110 16a5.976 5.976 0 01-2.516-.552l1.562-1.562a4.006 4.006 0 001.789.027zm-4.677-2.796a4.002 4.002 0 01-.041-2.08l-.08.08-1.53-1.533A5.98 5.98 0 004 10c0 .954.223 1.856.619 2.657l1.54-1.54zm1.088-6.45A5.974 5.974 0 0110 4c.954 0 1.856.223 2.657.619l-1.54 1.54a4.002 4.002 0 00-2.346.033L7.246 4.668zM12 10a2 2 0 11-4 0 2 2 0 014 0z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M478-240q21 0 35.5-14.5T528-290q0-21-14.5-35.5T478-340q-21 0-35.5 14.5T428-290q0 21 14.5 35.5T478-240Zm-36-154h74q0-33 7.5-52t42.5-52q26-26 41-49.5t15-56.5q0-56-41-86t-97-30q-57 0-92.5 30T342-618l66 26q5-18 22.5-39t53.5-21q32 0 48 17.5t16 38.5q0 20-12 37.5T506-526q-44 39-54 59t-10 73Zm38 314q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
               <span className="ml-3">Help</span>
             </a>
           </li>
@@ -1073,11 +1031,11 @@ function DriverDashboard() {
   className="border-2 border-collapse rounded-lg border-gray-300 dark:border-gray-600 mb-10 relative"
   style={{
     width: '100%',
-    height: '600px',
+    height: '550px',
     overflow: 'hidden',
   }}
 >
-  <div style={{ marginLeft: '1px', width: 'calc(100% - 100px)' }}>
+  <div style={{ marginLeft: '5px', width: 'calc(100% - 150px)' }}>
     <MyGoogleMap />
   </div>
 </div>
@@ -1118,7 +1076,7 @@ function DriverDashboard() {
   {/* {activeSection === 'expeditions' && (
     <div>Contenu des Expéditions</div>
   )} */}
- {activeSection === 'courses' && (
+{activeSection === 'courses' && (
   <div>
     <h2 className="text-xl font-semibold mb-4">Courses assignées</h2>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1129,23 +1087,71 @@ function DriverDashboard() {
             className="border p-4 rounded-lg shadow-md bg-gray-800 text-white"
           >
             <h3 className="font-bold text-lg mb-2">Course</h3>
+            <p><strong>Type de course :</strong> {course.type_course === 'relay' ? 'Relay' : 'Delivery'}</p>
             <p><strong>Départ :</strong> {course.depart}</p>
             <p><strong>Arrivée :</strong> {course.arrive}</p>
             <p><strong>Date de début :</strong> {new Date(course.date_debut).toLocaleString()}</p>
             <p><strong>Date de fin :</strong> {new Date(course.date_fin).toLocaleString()}</p>
-            <p className="mt-2"><strong>Colis :</strong></p>
-            <ul className="ml-4">
-              <li><strong>Taille :</strong> {course.colis_id.taille}</li>
-              <li><strong>Description :</strong> {course.colis_id.description}</li>
-              <li><strong>Poids :</strong> {course.colis_id.poids} kg</li>
-              <li><strong>Particularité :</strong> {course.colis_id.particularite}</li>
-            </ul>
+
+            {/* Bouton pour ouvrir/fermer le dépliant */}
             <button
-              onClick={() => handleValidateCourse(course._id)}
-              className="mt-4 bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded"
+              onClick={() => toggleCourseDetails(course._id)}
+              className="mt-2 bg-blue-700 text-white px-4 py-2 rounded mr-2"
             >
-              Valider la course
+              {expandedCourses[course._id] ? 'Masquer les détails' : 'Voir les détails'}
             </button>
+
+            {/* Informations supplémentaires dépliables */}
+            {expandedCourses[course._id] && (
+              <div className="mt-2">
+                {/* Informations spécifiques au type de course */}
+                {course.type_course === 'relay' && course.relais_coursier_id && (
+                  <div>
+                    <p><strong>Relai vers :</strong> {course.relais_coursier_id.completename}</p>
+                    <p><strong>Téléphone :</strong> {course.relais_coursier_id.tel}</p>
+                    {course.relais_coursier_id.vehic_id && (
+                      <>
+                        <p><strong>Véhicule :</strong> {course.relais_coursier_id.vehic_id.type}</p>
+                        <p><strong>Marque :</strong> {course.relais_coursier_id.vehic_id.marque}</p>
+                        <p><strong>Immatriculation :</strong> {course.relais_coursier_id.vehic_id.immatriculation}</p>
+                      </>
+                    )}
+                  </div>
+                )}
+
+                {course.type_course === 'delivery' && course.client_final_id && (
+                  <div>
+                    <p><strong>Livraison pour :</strong> {course.client_final_id.completename}</p>
+                    <p><strong>Téléphone :</strong> {course.client_final_id.tel}</p>
+                  </div>
+                )}
+
+                {/* Informations sur le colis */}
+                <p className="mt-2"><strong>Colis :</strong></p>
+                <ul className="ml-4">
+                  <li><strong>Taille :</strong> {course.colis_id.taille}</li>
+                  <li><strong>Description :</strong> {course.colis_id.description}</li>
+                  <li><strong>Poids :</strong> {course.colis_id.poids} kg</li>
+                  <li><strong>Particularité :</strong> {course.colis_id.particularite}</li>
+                </ul>
+              </div>
+            )}
+                   
+           {/* Message de succès affiché au centre de l'écran */}
+      {successMessage && (
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-4 bg-green-500 text-white text-center rounded-lg shadow-md">
+          {successMessage}
+        </div>
+      )}
+
+      {/* Le reste du composant avec les boutons */}
+      <button
+        onClick={handleValidateCourse}
+        className="mt-4 bg-green-700 hover:bg-green-800 text-white px-4 py-2 rounded"
+      >
+        Valider la course
+      </button>
+     
           </div>
         ))
       ) : (
@@ -1155,11 +1161,141 @@ function DriverDashboard() {
   </div>
 )}
 
-  {activeSection === 'historique' && (
-    <div>Contenu de l'Historique Livraison</div>
+
+
+{activeSection === 'historique' && (
+  <div>
+    <h2 className="text-xl font-semibold mb-4">Historique des Courses</h2>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {courses.filter(course => course.isValidated).length > 0 ? (
+        courses.filter(course => course.isValidated).map((course) => (
+          <div
+            key={course._id}
+            className="border p-4 rounded-lg shadow-md bg-gray-800 text-white"
+          >
+            <h3 className="font-bold text-lg mb-2">Course {course._id}</h3>
+            <p><strong>Type de course :</strong> {course.type_course === 'relay' ? 'Relai' : 'Livraison'}</p>
+            <p><strong>Départ :</strong> {course.depart}</p>
+            <p><strong>Arrivée :</strong> {course.arrive}</p>
+            <p><strong>Date de début :</strong> {new Date(course.date_debut).toLocaleString()}</p>
+            <p><strong>Date de fin :</strong> {new Date(course.date_fin).toLocaleString()}</p>
+            <p><strong>Colis :</strong></p>
+            <ul className="ml-4">
+              <li><strong>Taille :</strong> {course.colis_id.taille}</li>
+              <li><strong>Description :</strong> {course.colis_id.description}</li>
+              <li><strong>Poids :</strong> {course.colis_id.poids} kg</li>
+              <li><strong>Particularité :</strong> {course.colis_id.particularite}</li>
+            </ul>
+            {course.type_course === 'delivery' && course.client_final_id && (
+              <div>
+                <p><strong>Livraison pour :</strong> {course.client_final_id.completename}</p>
+                <p><strong>Téléphone :</strong> {course.client_final_id.tel}</p>
+              </div>
+            )}
+            {course.type_course === 'relay' && course.relais_coursier_id && (
+              <div>
+                <p><strong>Relai vers :</strong> {course.relais_coursier_id.completename}</p>
+                <p><strong>Téléphone :</strong> {course.relais_coursier_id.tel}</p>
+              </div>
+            )}
+            <button
+              onClick={() => toggleCourseDetails(course._id)}
+              className="mt-2 bg-blue-700 text-white px-4 py-2 rounded mr-2"
+            >
+              {expandedCourses[course._id] ? 'Masquer les détails' : 'Voir les détails'}
+            </button>
+          </div>
+        ))
+      ) : (
+        <p className="text-gray-400">Aucune course validée pour le moment.</p>
+      )}
+    </div>
+  </div>
+)}
+{activeSection === 'messages' && (
+  <div className="space-y-4">
+    <h2 className="text-xl font-semibold mb-4">Messagerie</h2>
+    <div className="space-y-4">
+      {messages.length > 0 ? (
+        messages.map((message) => (
+          <div key={message.id} className="flex items-start gap-4 bg-gray-100 p-4 rounded-lg shadow-md">
+            <img className="w-10 h-10 rounded-full" src={message.senderAvatar} alt={message.senderName} />
+            <div className="flex flex-col gap-2 w-full">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="font-semibold text-gray-900">{message.senderName}</span>
+                  <span className="text-sm text-gray-500">{new Date(message.timestamp).toLocaleString()}</span>
+                </div>
+                <button
+                  className="text-gray-500 hover:text-gray-700"
+                  onClick={() => handleMessageOptions(message.id)}
+                >
+                  <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M10 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1z" />
+                    <path d="M3 10a1 1 0 011 1h12a1 1 0 110 2H4a1 1 0 01-1-2z" />
+                  </svg>
+                </button>
+              </div>
+              <p className="text-sm text-gray-700">{message.text}</p>
+
+              {/* Affichage des images jointes */}
+              {message.attachments.length > 0 && (
+                <div className="grid grid-cols-2 gap-2 mt-2">
+                  {message.attachments.map((attachment, index) => (
+                    <div key={index} className="group relative">
+                      <img
+                        src={attachment.url}
+                        alt={`Attachment ${index + 1}`}
+                        className="rounded-lg"
+                      />
+                      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 flex items-center justify-center">
+                        <button className="text-white">
+                          <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 18" fill="none">
+                            <path stroke="currentColor" strokeWidth="2" d="M8 1v11l4-4m-4 4L4 8m11 4v3a2 2 0 01-2 2H3a2 2 0 01-2-2v-3" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <div className="flex justify-between items-center mt-2">
+                <span className="text-sm text-gray-500">{message.status}</span>
+                <div className="flex space-x-2">
+                  <button
+                    className="text-blue-600 hover:text-blue-800"
+                    onClick={() => handleReply(message.id)}
+                  >
+                    Répondre
+                  </button>
+                  <button
+                    className="text-green-600 hover:text-green-800"
+                    onClick={() => handleForward(message.id)}
+                  >
+                    Transférer
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))
+      ) : (
+        <p className="text-gray-500">Aucun message pour le moment.</p>
+      )}
+    </div>
+  </div>
+)}
+
+
+   {activeSection === 'statistiques' && (
+    <div>Contenu des statistiques</div>
   )}
-    {activeSection === 'messages' && (
-    <div>Contenu des messages</div>
+   {activeSection === 'docs' && (
+    <div>Contenu des documents</div>
+  )}
+   {activeSection === 'help' && (
+    <div>Contenu des aides</div>
   )}
   {/* Ajoute d'autres sections selon besoin */}
 </main>

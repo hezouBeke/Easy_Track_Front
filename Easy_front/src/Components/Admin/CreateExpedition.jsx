@@ -6,6 +6,7 @@ import corseajoutImage from '../../assets/new-tab_12180713.png';
 import coursierService from "../../services/coursierService";
 import colisService from "../../services/colisService";
 import clientService from "../../services/clientService";
+import expeditionService from "../../services/expeditionService";
 
 function CreateExpedition() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -175,80 +176,79 @@ function CreateExpedition() {
     });
   };
 
+
   const handleSubmit = async () => {
     try {
-        if (!startDate || !endDate || Object.keys(courses).length === 0) {
-            setErrorMessage("Veuillez compléter toutes les informations avant de soumettre.");
-            setShowErrorMessage(true);
-            setTimeout(() => setShowErrorMessage(false), 2000);
-            return;
-        }
-
-        const expeditionData = {
-            date_debut_previsionnel: startDate,
-            date_fin_previsionnel: endDate,
-            course_ids: Object.keys(courses).flatMap(coursier =>
-                courses[coursier].map(course => ({
-                    depart: course.depart,
-                    arrive: course.arrive,
-                    date_debut: course.date_debut,
-                    date_fin: course.date_fin,
-                    heure_debut: course.heure_debut,
-                    heure_fin: course.heure_fin,
-                    type_course: course.type_course,
-                    relais_coursier_id: course.relais_coursier_id || null,
-                    client_final_id: course.client_final_id || null,
-                    colis_id: course.colis || null,
-                }))
-            ),
-        };
-
-        const response = await expeditionService.createExpedition(expeditionData);
-
-        if (response.status === 201) {
-            setShowSuccessMessage(true);
-            setTimeout(() => setShowSuccessMessage(false), 2000);
-            setCurrentStep(1);
-            setStartDate("");
-            setEndDate("");
-            setEstimatedDuration("");
-            setCourses({});
-        }
-    } catch (error) {
-        if (error.response) {
-            // Gestion des erreurs spécifiques
-            const { errorCode, message } = error.response.data;
-
-            switch (errorCode) {
-                case "INVALID_COURSES":
-                    setErrorMessage("La liste des courses est invalide. Veuillez vérifier.");
-                    break;
-                case "MISSING_DATES":
-                    setErrorMessage("Les dates prévisionnelles sont obligatoires.");
-                    break;
-                case "INVALID_DATES":
-                    setErrorMessage("Les dates prévisionnelles doivent être valides.");
-                    break;
-                case "DATE_ORDER":
-                    setErrorMessage("La date de début doit être antérieure à la date de fin.");
-                    break;
-                case "COURSE_NOT_FOUND":
-                    setErrorMessage(message); // Message détaillé
-                    break;
-                case "COURSE_DATE_CONFLICT":
-                    setErrorMessage(message); // Message détaillé
-                    break;
-                default:
-                    setErrorMessage("Une erreur s'est produite. Veuillez réessayer.");
-            }
-        } else {
-            setErrorMessage("Erreur de connexion au serveur. Veuillez vérifier votre connexion.");
-        }
-
+      // Vérification que les champs sont remplis correctement
+      if (!startDate || !endDate || Object.keys(courses).length === 0) {
+        setErrorMessage("Veuillez compléter toutes les informations avant de soumettre.");
         setShowErrorMessage(true);
         setTimeout(() => setShowErrorMessage(false), 2000);
+        return;
+      }
+  
+      // Construisez les données pour l'expédition
+      const courseIds = Object.values(courses)
+        .flat()
+        .map((course) => course.colis);
+  
+      const expeditionData = {
+        course_ids: courseIds,
+        date_debut_previsionnel: startDate,
+        date_fin_previsionnel: endDate,
+      };
+  
+      // Log des données envoyées (pour debug)
+      console.log("Données envoyées :", expeditionData);
+  
+      // Soumission des données au backend
+      const response = await expeditionService.createExpedition(expeditionData);
+  
+      if (response.status === 201) {
+        setShowSuccessMessage(true);
+        setTimeout(() => setShowSuccessMessage(false), 2000);
+        // Réinitialiser le formulaire
+        setCurrentStep(1);
+        setStartDate("");
+        setEndDate("");
+        setEstimatedDuration("");
+        setCourses({});
+      }
+    } catch (error) {
+      // Log des erreurs
+      console.error("Erreur lors de la soumission de l'expédition :", error);
+  
+      if (error.response) {
+        const { errorCode, message } = error.response.data;
+        switch (errorCode) {
+          case "INVALID_COURSES":
+            setErrorMessage("La liste des courses est invalide. Veuillez vérifier.");
+            break;
+          case "MISSING_DATES":
+            setErrorMessage("Les dates prévisionnelles sont obligatoires.");
+            break;
+          case "INVALID_DATES":
+            setErrorMessage("Les dates prévisionnelles doivent être valides.");
+            break;
+          case "DATE_ORDER":
+            setErrorMessage("La date de début doit être antérieure à la date de fin.");
+            break;
+          case "COURSE_NOT_FOUND":
+          case "COURSE_DATE_CONFLICT":
+            setErrorMessage(message); // Message détaillé
+            break;
+          default:
+            setErrorMessage("Une erreur s'est produite. Veuillez réessayer.");
+        }
+      } else {
+        setErrorMessage("Erreur de connexion au serveur. Veuillez vérifier votre connexion.");
+      }
+  
+      setShowErrorMessage(true);
+      setTimeout(() => setShowErrorMessage(false), 2000);
     }
-};
+  };
+  
 
   
   

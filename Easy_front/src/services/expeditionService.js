@@ -4,8 +4,9 @@ const API_URL = 'http://localhost:7000/api/expeditions/';
 
 // Fonction pour créer une expédition
 const createExpedition = (expeditionData) => {
-    return axios.post(`${API_URL}expedition`, expeditionData);
+    return axios.post(`${API_URL}expedition`, expeditionData); // Ajouter "expedition"
 };
+
 
 // Fonction pour obtenir toutes les expéditions
 const getAllExpeditions = () => {

@@ -6,7 +6,6 @@ const containerStyle = {
   height: "139%", // Adapte à la hauteur du conteneur
 };
 
-
 const center = {
   lat: 6.1725, // Latitude approximative du centre du Togo
   lng: 1.2314, // Longitude approximative du centre du Togo
@@ -25,7 +24,7 @@ function MyGoogleMap({ startPoint, endPoint }) {
 
   return (
     <div className="bg-white shadow-lg transition-shadow duration-300 hover:shadow-blue-500 max-w-5xl h-[400px] lg:h-[542px] lg:ml-[-10px] lg:mr-[-10px] rounded-lg">
-      <LoadScript googleMapsApiKey="">
+      <LoadScript googleMapsApiKey="AIzaSyDhsuUvcWxn5usgT38tmWPlhCiw3awnev4">
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
