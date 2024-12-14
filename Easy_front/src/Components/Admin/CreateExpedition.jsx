@@ -7,7 +7,7 @@ import coursierService from "../../services/coursierService";
 import colisService from "../../services/colisService";
 import clientService from "../../services/clientService";
 import expeditionService from "../../services/expeditionService";
-
+import coursesService from "../../services/coursesService";
 function CreateExpedition() {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedCoursier, setSelectedCoursier] = useState("");
@@ -101,72 +101,9 @@ function CreateExpedition() {
   };
 
   const handleCoursierChange = (e) => {
-    setSelectedCoursier(e.target.value);
+    setSelectedCoursier(e.target.value);  // `e.target.value` est maintenant un _id et non un nom
   };
-
-  const handleAddCourseForCoursier = (coursier) => {
-    setCourses((prevCourses) => {
-      const updatedCourses = { ...prevCourses };
-
-      if (!updatedCourses[coursier]) {
-        updatedCourses[coursier] = [];
-      }
-
-      updatedCourses[coursier].push({
-        depart: "",
-        arrive: "",
-        date_debut: "",
-        date_fin: "",
-        heure_debut: "",
-        heure_fin: "",
-        type_course: "delivery",
-        relais_coursier_id: "",
-        client_final_id: "",
-        colis: "",
-      });
-
-      return updatedCourses;
-    });
-  };
-
-  const handleCreateCourse = () => {
-    if (!selectedCoursier || isAdding) return;
-
-    setIsAdding(true);
-
-    setCourses((prevCourses) => {
-      const updatedCourses = { ...prevCourses };
-
-      if (!updatedCourses[selectedCoursier]) {
-        updatedCourses[selectedCoursier] = [];
-      }
-
-      const newCourse = {
-        depart: "",
-        arrive: "",
-        date_debut: "",
-        date_fin: "",
-        heure_debut: "",
-        heure_fin: "",
-        type_course: "delivery",
-        colis: "",
-      };
-
-      const isDuplicate = updatedCourses[selectedCoursier].some((course) =>
-        Object.entries(newCourse).every(
-          ([key, value]) => course[key] === value
-        )
-      );
-
-      if (!isDuplicate) {
-        updatedCourses[selectedCoursier].push(newCourse);
-      }
-
-      return updatedCourses;
-    });
-
-    setIsAdding(false);
-  };
+  
 
   const handleDeleteCourse = (coursier, index) => {
     setCourses((prevCourses) => {
@@ -177,9 +114,84 @@ function CreateExpedition() {
   };
 
 
+
+  const handleCreateCourse = async () => {
+    if (!selectedCoursier || isAdding) return;
+  
+    setIsAdding(true);
+  
+    // Ajoutez la course dans l'état sans la sauvegarder immédiatement
+    setCourses((prevCourses) => {
+      const updatedCourses = { ...prevCourses };
+  
+      if (!updatedCourses[selectedCoursier]) {
+        updatedCourses[selectedCoursier] = [];
+      }
+  
+      const newCourse = {
+        depart: "", // Lieu de départ
+        arrive: "", // Lieu d'arrivée
+        date_debut: "", // Date de début
+        date_fin: "", // Date de fin
+        heure_debut: "", // Heure de début (optionnelle)
+        heure_fin: "", // Heure de fin (optionnelle)
+        type_course: "delivery", // Par défaut
+        relais_coursier_id: "", // Laisser vide ou à définir plus tard dans le formulaire
+        client_final_id: "", // Laisser vide ou à définir plus tard dans le formulaire
+        colis_id: "", // ID du colis, doit être sélectionné
+        coursier_id: selectedCoursier, // ID du coursier
+      };
+  
+      updatedCourses[selectedCoursier].push(newCourse);
+  
+      return updatedCourses;
+    });
+  
+    setIsAdding(false);
+  };
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  const handleAddCourseForCoursier = (coursier) => {
+    setCourses((prevCourses) => {
+      const updatedCourses = { ...prevCourses };
+  
+      if (!updatedCourses[coursier]) {
+        updatedCourses[coursier] = [];
+      }
+  
+      updatedCourses[coursier].push({
+        depart: "", // Lieu de départ
+        arrive: "", // Lieu d'arrivée
+        date_debut: "", // Date de début
+        date_fin: "", // Date de fin
+        heure_debut: "", // Heure de début (optionnelle)
+        heure_fin: "", // Heure de fin (optionnelle)
+        type_course: "delivery", // Type par défaut (modifiable par l'utilisateur)
+        relais_coursier_id: "", // ID du coursier relais (nécessaire si type_course = relay)
+        client_final_id: "", // ID du client final (nécessaire si type_course = delivery)
+        colis_id: "", // ID du colis associé
+        coursier_id: coursier, // ID du coursier sélectionné
+      });
+  
+      return updatedCourses;
+    });
+  };
+
   const handleSubmit = async () => {
     try {
-      // Vérification que les champs sont remplis correctement
       if (!startDate || !endDate || Object.keys(courses).length === 0) {
         setErrorMessage("Veuillez compléter toutes les informations avant de soumettre.");
         setShowErrorMessage(true);
@@ -187,27 +199,37 @@ function CreateExpedition() {
         return;
       }
   
-      // Construisez les données pour l'expédition
-      const courseIds = Object.values(courses)
-        .flat()
-        .map((course) => course.colis);
+      // Créez les courses d'abord, puis obtenez leurs IDs
+      const savedCourseIds = await Promise.all(
+        Object.values(courses)
+          .flat()
+          .map(async (course) => {
+            const completeCourseData = {
+              ...course,
+              coursier_id: course.coursier_id || selectedCoursier, // Vérifier que le coursier est défini
+            };
   
+            // Envoi de la course pour créer et récupérer son ID
+            const response = await coursesService.createCourse(completeCourseData);
+            return response.data._id || response.data.id; // Récupérer l'ID de la course
+          })
+      );
+  
+      // Construire les données pour l'expédition
       const expeditionData = {
-        course_ids: courseIds,
+        course_ids: savedCourseIds,
         date_debut_previsionnel: startDate,
         date_fin_previsionnel: endDate,
       };
   
-      // Log des données envoyées (pour debug)
-      console.log("Données envoyées :", expeditionData);
-  
-      // Soumission des données au backend
+      // Soumettre l'expédition au backend
       const response = await expeditionService.createExpedition(expeditionData);
   
       if (response.status === 201) {
         setShowSuccessMessage(true);
         setTimeout(() => setShowSuccessMessage(false), 2000);
-        // Réinitialiser le formulaire
+  
+        // Réinitialisation du formulaire
         setCurrentStep(1);
         setStartDate("");
         setEndDate("");
@@ -215,9 +237,9 @@ function CreateExpedition() {
         setCourses({});
       }
     } catch (error) {
-      // Log des erreurs
       console.error("Erreur lors de la soumission de l'expédition :", error);
   
+      // Gérer les erreurs backend
       if (error.response) {
         const { errorCode, message } = error.response.data;
         switch (errorCode) {
@@ -235,7 +257,7 @@ function CreateExpedition() {
             break;
           case "COURSE_NOT_FOUND":
           case "COURSE_DATE_CONFLICT":
-            setErrorMessage(message); // Message détaillé
+            setErrorMessage(message); // Message détaillé envoyé par le backend
             break;
           default:
             setErrorMessage("Une erreur s'est produite. Veuillez réessayer.");
@@ -249,9 +271,13 @@ function CreateExpedition() {
     }
   };
   
-
   
   
+  
+  
+  
+  
+   
   
   const renderStepContent = () => {
     switch (currentStep) {
@@ -331,19 +357,21 @@ function CreateExpedition() {
                   Sélectionner un coursier
                 </label>
                 <select
-                  id="coursier"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
-                  onChange={handleCoursierChange}
-                  value={selectedCoursier}
-                  required
-                >
-                  <option value="">-- Choisir un coursier --</option>
-                  {coursiers.map((coursier) => (
-                    <option key={coursier.id} value={coursier.id}>
-                      {coursier.completename}
-                    </option>
-                  ))}
-                </select>
+  id="coursier"
+  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
+  onChange={handleCoursierChange}
+  value={selectedCoursier}
+  required
+>
+  <option value="">-- Choisir un coursier --</option>
+  {coursiers.map((coursier) => (
+    <option key={coursier._id} value={coursier._id}> {/* Utilise _id au lieu du nom */}
+      {coursier.completename}
+    </option>
+  ))}
+</select>
+
+
               </div>
 
               <div className="mt-6">
@@ -401,45 +429,45 @@ function CreateExpedition() {
                     <div className="col-span-1">
                       <label>Coursier relais :</label>
                       <select
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
-                        value={course.relais_coursier_id}
-                        onChange={(e) => {
-                          const newCourses = { ...courses };
-                          newCourses[coursier][index].relais_coursier_id =
-                            e.target.value;
-                          setCourses(newCourses);
-                        }}
-                      >
-                        <option value="">-- Sélectionner un relais --</option>
-                        {coursiers.map((item) => (
-                          <option key={item.id} value={item.id}>
-                            {item.completename}
-                          </option>
-                        ))}
-                      </select>
+  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
+  value={course.relais_coursier_id}
+  onChange={(e) => {
+    const newCourses = { ...courses };
+    newCourses[coursier][index].relais_coursier_id = e.target.value; // Met à jour avec l'ID du relais
+    setCourses(newCourses);
+  }}
+>
+  <option value="">-- Sélectionner un relais --</option>
+  {coursiers.map((item) => (
+    <option key={item._id} value={item._id}> {/* Utilise l'ID (_id) du coursier relais */}
+      {item.completename} {/* Affiche le nom complet du coursier */}
+    </option>
+  ))}
+</select>
+
+
                     </div>
                   )}
                   {course.type_course === "delivery" && (
                     <div className="col-span-1">
-                      <label>Client final :</label>
-                      <select
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
-                        value={course.client_final_id}
-                        onChange={(e) => {
-                          const newCourses = { ...courses };
-                          newCourses[coursier][index].client_final_id =
-                            e.target.value;
-                          setCourses(newCourses);
-                        }}
-                      >
-                        <option value="">-- Sélectionner un client --</option>
-                        {clients.map((client) => (
-                          <option key={client.id} value={client.id}>
-                            {client.completename}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                    <label>Client final :</label>
+                    <select
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
+                      value={course.client_final_id}  // Utilise ici l'ID du client
+                      onChange={(e) => {
+                        const newCourses = { ...courses };
+                        newCourses[coursier][index].client_final_id = e.target.value; // Met à jour l'ID du client dans la course
+                        setCourses(newCourses); // Mets à jour l'état des courses
+                      }}
+                    >
+                      <option value="">-- Sélectionner un client --</option>
+                      {clients.map((client) => (
+                        <option key={client._id} value={client._id}> {/* L'ID du client est la valeur sélectionnée */}
+                          {client.completename} {/* Affiche le nom du client mais utilise l'ID comme valeur */}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                   )}
                 </div>
 
@@ -528,24 +556,27 @@ function CreateExpedition() {
                     />
                   </div>
                   <div className="col-span-2">
-                    <label>Colis :</label>
-                    <select
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
-                      value={course.colis}
-                      onChange={(e) => {
-                        const newCourses = { ...courses };
-                        newCourses[coursier][index].colis = e.target.value;
-                        setCourses(newCourses);
-                      }}
-                    >
-                      <option value="">-- Sélectionner un colis --</option>
-                      {colis.map((item) => (
-                        <option key={item.id} value={item.id}>
-                          {item.indent_colis}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+  <label>Colis :</label>
+  <select
+  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
+  value={course.colis_id} // Utilisation de colis_id
+  onChange={(e) => {
+    const newCourses = { ...courses };
+    newCourses[coursier][index].colis_id = e.target.value; // Mise à jour du colis_id
+    setCourses(newCourses);
+  }}
+>
+  <option value="">-- Sélectionner un colis --</option>
+  {colis.map((item) => (
+    <option key={item._id} value={item._id}> {/* Assurez-vous d'utiliser l'ID (_id) du colis */}
+      {item.indent_colis} {/* Affichage de indent_colis comme étiquette */}
+    </option>
+  ))}
+</select>
+
+
+</div>
+
                 </div>
 
                 <div className="flex justify-center space-x-4 mt-6">
@@ -604,7 +635,7 @@ function CreateExpedition() {
                     {course.type_course === "delivery" && (
                       <p><strong>Client Final ID :</strong> {course.client_final_id || "Non spécifié"}</p>
                     )}
-                    <p><strong>Colis ID :</strong> {course.colis || "Non spécifié"}</p>
+                   <p><strong>Colis :</strong> {colis.find(item => item._id === course.colis_id)?.indent_colis || "Non spécifié"}</p>
                     <p><strong>Date de début :</strong> {course.date_debut || "Non spécifiée"}</p>
                     <p><strong>Date de fin :</strong> {course.date_fin || "Non spécifiée"}</p>
                     <p><strong>Heure de début :</strong> {course.heure_debut || "Non spécifiée"}</p>
@@ -760,6 +791,10 @@ function CreateExpedition() {
       </div>
     </section>
   );
+
+
+
+
 }
 
 export default CreateExpedition
