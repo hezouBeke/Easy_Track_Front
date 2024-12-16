@@ -23,7 +23,7 @@ const OngoingDeliveries = () => {
   }
 
   return (
-    <div className="flex flex-col items-start space-y-15 p-7 mt-6 w-full mr-10">
+    <div className="flex flex-col items-start space-y-10 p-7 mt-8 w-full mr-5">
       <div className="p-3 bg-white text-black rounded-lg shadow-lg w-full">
         {/* En-tête */}
         <div className="flex justify-between items-center p-4 bg-blue-500 text-white rounded-t-none shadow-md w-full">
@@ -82,7 +82,7 @@ const OngoingDeliveries = () => {
         {/* Contenu */}
         <div
           className="pt-4 space-y-3"
-          style={{ maxHeight: '550px', overflowY: 'auto', scrollbarWidth: 'none' }}
+          style={{ maxHeight: '570px', overflowY: 'auto', scrollbarWidth: 'none' }}
         >
           {expeditions.map((expedition) =>
             expedition.course_ids.map((course, index) => {

@@ -435,16 +435,18 @@ function CreateExpedition() {
       <div key={coursier} className="mb-6">
         {/* Titre et bouton de dépliage/repliage */}
         <div
-          className="flex items-center justify-between bg-gray-200 px-4 py-2 cursor-pointer rounded-lg"
-          onClick={() => toggleExpanded(coursier)}
-        >
-          <h3 className="font-medium text-red-600">
-            Liste des courses {coursier} :
-          </h3>
-          <button className="text-blue-600">
-            {expandedCourses[coursier] ? "▲" : "▼"}
-          </button>
-        </div>
+  className="flex items-center justify-between bg-gray-200 px-4 py-2 cursor-pointer rounded-lg"
+  onClick={() => toggleExpanded(coursier)}
+>
+  {/* Remplacer l'ID du coursier par son nom complet */}
+  <h3 className="font-medium text-red-600">
+    Liste des courses de {coursiers.find(c => c._id === coursier)?.completename || "Coursier inconnu"} :
+  </h3>
+  <button className="text-blue-600">
+    {expandedCourses[coursier] ? "▲" : "▼"}
+  </button>
+</div>
+
 
         {/* Contenu pliable */}
         {expandedCourses[coursier] && (
@@ -664,28 +666,36 @@ function CreateExpedition() {
               Liste des coursiers et leurs courses :
             </h2>
             {Object.keys(courses).map((coursier) => (
-              <div key={coursier} className="mb-6">
-                <h3 className="font-medium text-blue-600">Coursier ID : {coursier}</h3>
-                {courses[coursier].map((course, index) => (
-                  <div key={index} className="ml-4 mt-4 bg-white p-4 rounded-lg shadow">
-                    <p><strong>Départ :</strong> {course.depart || "Non spécifié"}</p>
-                    <p><strong>Arrivée :</strong> {course.arrive || "Non spécifié"}</p>
-                    <p><strong>Type de course :</strong> {course.type_course}</p>
-                    {course.type_course === "relay" && (
-                      <p><strong>Relais Coursier ID :</strong> {course.relais_coursier_id || "Non spécifié"}</p>
-                    )}
-                    {course.type_course === "delivery" && (
-                      <p><strong>Client Final ID :</strong> {course.client_final_id || "Non spécifié"}</p>
-                    )}
-                   <p><strong>Colis :</strong> {colis.find(item => item._id === course.colis_id)?.indent_colis || "Non spécifié"}</p>
-                    <p><strong>Date de début :</strong> {course.date_debut || "Non spécifiée"}</p>
-                    <p><strong>Date de fin :</strong> {course.date_fin || "Non spécifiée"}</p>
-                    <p><strong>Heure de début :</strong> {course.heure_debut || "Non spécifiée"}</p>
-                    <p><strong>Heure de fin :</strong> {course.heure_fin || "Non spécifiée"}</p>
-                  </div>
-                ))}
-              </div>
-            ))}
+  <div key={coursier} className="mb-6">
+    <h3 className="font-medium text-blue-600">Coursier : {coursiers.find(c => c._id === coursier)?.completename || "Coursier inconnu"}</h3>
+    {courses[coursier].map((course, index) => (
+      <div key={index} className="ml-4 mt-4 bg-white p-4 rounded-lg shadow">
+        <p><strong>Départ :</strong> {course.depart || "Non spécifié"}</p>
+        <p><strong>Arrivée :</strong> {course.arrive || "Non spécifié"}</p>
+        <p><strong>Type de course :</strong> {course.type_course}</p>
+        
+        {course.type_course === "relay" && (
+          <p><strong>Relais Coursier :</strong> {
+            coursiers.find(c => c._id === course.relais_coursier_id)?.completename || "Non spécifié"
+          }</p>
+        )}
+
+        {course.type_course === "delivery" && (
+          <p><strong>Client Final :</strong> {
+            clients.find(c => c._id === course.client_final_id)?.completename || "Non spécifié"
+          }</p>
+        )}
+
+        <p><strong>Colis :</strong> {colis.find(item => item._id === course.colis_id)?.indent_colis || "Non spécifié"}</p>
+        <p><strong>Date de début :</strong> {course.date_debut || "Non spécifiée"}</p>
+        <p><strong>Date de fin :</strong> {course.date_fin || "Non spécifiée"}</p>
+        <p><strong>Heure de début :</strong> {course.heure_debut || "Non spécifiée"}</p>
+        <p><strong>Heure de fin :</strong> {course.heure_fin || "Non spécifiée"}</p>
+      </div>
+    ))}
+  </div>
+))}
+
           </div>
           <div className="flex justify-end mt-6">
             <button
