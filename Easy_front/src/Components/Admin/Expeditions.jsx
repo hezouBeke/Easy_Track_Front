@@ -169,25 +169,34 @@ function Expeditions() {
                             </button>
                         </div>
                         {expandedCoursiers[coursier?._id] && (
-                            <div className="p-4 bg-gray-50">
-                                {courses.map((course, index) => (
-                                    <div key={course._id} className="mb-4 border-b last:border-b-0 pb-2 last:pb-0">
-                                        <h5 className="font-bold text-red-800 mb-2">
-                                            Course {index + 1}
-                                        </h5>
-                                        <p className="text-gray-700"><strong>Départ :</strong> {course.depart}</p>
-                                        <p className="text-gray-700"><strong>Arrivée :</strong> {course.arrive}</p>
-                                        <p className="text-gray-700"><strong>Type de Course :</strong> {course.type_course}</p>
-                                        <h6 className="font-bold mt-2 text-gray-800">Colis :</h6>
-                                        <p className="text-gray-700"><strong>Numéro :</strong> {course.colis_id?.indent_colis || "N/A"}</p>
-                                        <p className="text-gray-700"><strong>Taille :</strong> {course.colis_id?.taille || "N/A"}</p>
-                                        <p className="text-gray-700"><strong>Description :</strong> {course.colis_id?.description || "N/A"}</p>
-                                        <p className="text-gray-700"><strong>Particularité :</strong> {course.colis_id?.particularite || "N/A"}</p>
-                                        <p className="text-gray-700"><strong>Poids :</strong> {course.colis_id?.poids || "N/A"} kg</p>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
+    <div className="p-4 bg-gray-50">
+        {courses.map((course, index) => (
+            <div key={course._id} className="mb-4 border-b last:border-b-0 pb-2 last:pb-0">
+                <h5 className="font-bold text-red-800 mb-2">
+                    Course {index + 1}
+                </h5>
+                <p className="text-gray-700"><strong>Départ :</strong> {course.depart}</p>
+                <p className="text-gray-700"><strong>Arrivée :</strong> {course.arrive}</p>
+                <p className="text-gray-700"><strong>Type de Course :</strong> {course.type_course}</p>
+                
+                {/* Affichage du client relais ou du coursier relais en fonction du type de course */}
+                {course.type_course === "relay" ? (
+                    <p className="text-gray-700"><strong>Coursier relais :</strong> {course.relais_coursier_id?.completename || "N/A"}</p>
+                ) : (
+                    <p className="text-gray-700"><strong>Client final :</strong> {course.client_final_id?.completename || "N/A"}</p>
+                )}
+
+                <h6 className="font-bold mt-2 text-gray-800">Colis :</h6>
+                <p className="text-gray-700"><strong>Numéro :</strong> {course.colis_id?.indent_colis || "N/A"}</p>
+                <p className="text-gray-700"><strong>Taille :</strong> {course.colis_id?.taille || "N/A"}</p>
+                <p className="text-gray-700"><strong>Description :</strong> {course.colis_id?.description || "N/A"}</p>
+                <p className="text-gray-700"><strong>Particularité :</strong> {course.colis_id?.particularite || "N/A"}</p>
+                <p className="text-gray-700"><strong>Poids :</strong> {course.colis_id?.poids || "N/A"} kg</p>
+            </div>
+        ))}
+    </div>
+)}
+
                     </div>
                 ))}
             </div>
