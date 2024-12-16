@@ -116,40 +116,40 @@ function CreateExpedition() {
 
   const handleCreateCourse = async () => {
     if (!selectedCoursier || isAdding) return;
-  
+
     setIsAdding(true);
-  
+
     setCourses((prevCourses) => {
-      const updatedCourses = { ...prevCourses };
-  
-      if (!updatedCourses[selectedCoursier]) {
-        updatedCourses[selectedCoursier] = [];
-      }
-  
-      const newCourse = {
-        depart: "",
-        arrive: "",
-        date_debut: "",
-        date_fin: "",
-        heure_debut: "",
-        heure_fin: "",
-        type_course: "delivery",
-        relais_coursier_id: "",
-        client_final_id: "",
-        colis_id: "",
-        coursier_id: selectedCoursier,
-      };
-  
-      updatedCourses[selectedCoursier].push(newCourse);
-  
-      // Log des courses créées
-      console.log("Courses après création:", updatedCourses);
-      return updatedCourses;
+        const updatedCourses = { ...prevCourses };
+
+        if (!updatedCourses[selectedCoursier]) {
+            updatedCourses[selectedCoursier] = [];
+        }
+
+        const newCourse = {
+            depart: "",
+            arrive: "",
+            date_debut: "",
+            date_fin: "",
+            heure_debut: "",
+            heure_fin: "",
+            type_course: "delivery",
+            relais_coursier_id: "",
+            client_final_id: "",
+            colis_id: "",
+            coursier_id: selectedCoursier,
+        };
+
+        updatedCourses[selectedCoursier].push(newCourse);
+
+        // Log des courses créées
+        console.log("Courses après création:", updatedCourses);
+        return updatedCourses;
     });
-  
+
     setIsAdding(false);
-  };
-  
+};
+
 
   
   
@@ -196,7 +196,7 @@ function CreateExpedition() {
             return;
         }
 
-        // Log avant la création des courses pour vérifier l'état de courses
+        // Log avant la création des courses pour vérifier l'état des courses
         console.log("Courses avant la soumission :", courses);
 
         // Création des courses d'abord et récupération des IDs de course
@@ -214,18 +214,13 @@ function CreateExpedition() {
                     const response = await coursesService.createCourse(completeCourseData);
                     console.log("Réponse pour la création de la course :", response.data); // Log pour vérifier la réponse
 
-                    if (response.data && response.data._id) {
-                        return response.data._id;  // Retourne l'ID de la course
+                    if (response.data && Array.isArray(response.data) && response.data.length > 0) {
+                        return response.data[0];  // Retourne l'ID de la première course créée
                     } else {
                         throw new Error("Erreur lors de la création de la course");
                     }
                 })
         );
-
-        // Vérification que nous avons bien récupéré des IDs de courses valides
-        if (courseCreationResponses.includes(null)) {
-            throw new Error("Certaines courses n'ont pas pu être créées.");
-        }
 
         // Log des IDs des courses créées
         console.log("IDs des courses créées :", courseCreationResponses);
@@ -235,18 +230,19 @@ function CreateExpedition() {
             throw new Error("Aucune course valide n'a été créée.");
         }
 
-        // Construire les données pour l'expédition
+        // Log des données envoyées pour l'expédition
         const expeditionData = {
             course_ids: courseCreationResponses, // Envoi des IDs des courses créées
             date_debut_previsionnel: startDate,
             date_fin_previsionnel: endDate,
         };
-
-        // Log des données envoyées pour la création de l'expédition
         console.log("Données envoyées pour la création de l'expédition :", expeditionData);
 
         // Soumettre l'expédition au backend
         const response = await expeditionService.createExpedition(expeditionData);
+
+        // Log de la réponse de l'expédition
+        console.log("Réponse de la création de l'expédition :", response);
 
         if (response.status === 201) {
             console.log("Expédition créée avec succès :", response.data); // Log de la réponse d'expédition
@@ -300,6 +296,12 @@ function CreateExpedition() {
         setTimeout(() => setShowErrorMessage(false), 2000);
     }
 };
+
+
+
+
+
+
 
 
 
