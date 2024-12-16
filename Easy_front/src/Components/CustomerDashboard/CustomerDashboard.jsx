@@ -2,6 +2,11 @@ import { useNavigate } from 'react-router-dom';
 import 'flowbite';
 import React, { useEffect, useState } from 'react';
 import clientService from '../../services/clientService';
+import ColisEnCours from '../../assets/colisEnCours.png'; // 1ère image
+import ColisLivres from '../../assets/colisLivres.png';   // 2ème image
+import ColisAttente from '../../assets/colisAttente.png'; // 3ème image
+import Notifications from '../../assets/notifications.png'; // 4ème image
+import ProfileImage from '../../assets/logo2.png';
 
 function CustomerDashboard(){
     const [client, setClient] = useState({ completename: '', email: '' });
@@ -431,7 +436,7 @@ function CustomerDashboard(){
                           className="mr-2 w-5 h-5 text-primary-600 dark:text-primary-500"
                           fill="currentColor"
                           viewBox="0 0 20 20"
-                          xmlns="http://www.w3.org/2000/svg"
+                        xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             fillRule="evenodd"
@@ -518,7 +523,7 @@ function CustomerDashboard(){
                 <a
                   href="#"
                   onClick={() => handleSidebarClick('dashboard')}
-                  className="flex items-center font-thin p-2 text-lg font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                  className="flex items-center p-2 text-lg font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                 >
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg>
                   <span className="ml-3">Tableau de bord</span>
@@ -528,11 +533,11 @@ function CustomerDashboard(){
               <li>
                 <a
                   href="#"
-                  onClick={() => handleSidebarClick('expeditions')}
+                  onClick={() => handleSidebarClick('colis')}
                   className="flex items-center p-2 text-lg font-thin text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M120-160v-640l572 240h-12q-35 0-66 8t-60 22L200-680v140l240 60-240 60v140l216-92q-8 23-12 45.5t-4 46.5v2L120-160Zm560 80q-83 0-141.5-58.5T480-280q0-83 58.5-141.5T680-480q83 0 141.5 58.5T880-280q0 83-58.5 141.5T680-80Zm66-106 28-28-74-74v-112h-40v128l86 86ZM200-372v-308 400-92Z"/></svg>
-                  <span className="ml-3">Expéditions</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-183v-274L200-596v274l240 139Zm80 0 240-139v-274L520-457v274Zm-80 92L160-252q-19-11-29.5-29T120-321v-318q0-22 10.5-40t29.5-29l280-161q19-11 40-11t40 11l280 161q19 11 29.5 29t10.5 40v318q0 22-10.5 40T800-252L520-91q-19 11-40 11t-40-11Zm200-528 77-44-237-137-78 45 238 136Zm-160 93 78-45-237-137-78 45 237 137Z"/></svg>
+                  <span className="ml-3">Colis</span>
                 </a>
               </li>
               <li>
@@ -616,73 +621,326 @@ function CustomerDashboard(){
     
         <main className="p-4 md:ml-64 h-auto pt-20">
         {activeSection === 'dashboard' && (
+
           <div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-            <div
-              className="border-2 border-dashed border-gray-300 rounded-lg dark:border-gray-600 h-32 md:h-64"
-            ></div>
-            <div
-              className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
-            ></div>
-            <div
-              className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
-            ></div>
-            <div
-              className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
-            ></div>
+          
+
+<div className="grid grid-cols-2 gap-6 mb-6">
+  {/* Carte 1 : Colis en cours */}
+  <div className="relative bg-blue-500 rounded-xl shadow-lg transform transition-transform hover:scale-105 p-6 flex flex-col items-center justify-center">
+    <img src={ColisEnCours} alt="Colis en cours" className="absolute top-4 right-4 w-10 h-10" />
+    <h2 className="text-3xl font-extrabold text-white mb-2">12</h2>
+    <p className="text-lg text-white font-medium">Colis en cours</p>
+  </div>
+
+  {/* Carte 2 : Colis livrés */}
+  <div className="relative bg-blue-500 rounded-xl shadow-lg transform transition-transform hover:scale-105 p-6 flex flex-col items-center justify-center">
+    <img src={ColisLivres} alt="Colis livrés" className="absolute top-4 right-4 w-10 h-10" />
+    <h2 className="text-3xl font-extrabold text-white mb-2">25</h2>
+    <p className="text-lg text-white font-medium">Colis livrés</p>
+  </div>
+
+  {/* Carte 3 : Colis en attente */}
+  <div className="relative bg-blue-500 rounded-xl shadow-lg transform transition-transform hover:scale-105 p-6 flex flex-col items-center justify-center">
+    <img src={ColisAttente} alt="Colis en attente" className="absolute top-4 right-4 w-10 h-10" />
+    <h2 className="text-3xl font-extrabold text-white mb-2">5</h2>
+    <p className="text-lg text-white font-medium">Colis en attente</p>
+  </div>
+
+  {/* Carte 4 : Notifications */}
+  <div className="relative bg-blue-500 rounded-xl shadow-lg transform transition-transform hover:scale-105 p-6 flex flex-col items-center justify-center">
+    <img src={Notifications} alt="Notifications" className="absolute top-4 right-4 w-10 h-10" />
+    <h2 className="text-3xl font-extrabold text-white mb-2">3</h2>
+    <p className="text-lg text-white font-medium">Notifications</p>
+  </div>
+</div>
+
+<div className="flex justify-center items-center space-x-6 mb-6">
+  {/* Carte 1 */}
+  <div className="flex flex-col items-center justify-center bg-gradient-to-b from-gray-700 to-gray-900 rounded-full h-28 w-28 shadow-2xl transform transition-transform hover:scale-110">
+    <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px" fill="#FFFFFF">
+      <path d="M880-720v480q0 33-23.5 56.5T800-160H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720Zm-720 80h640v-80H160v80Zm0 160v240h640v-240H160Zm0 240v-480 480Z"/>
+    </svg>
+    <p className="text-white text-sm mt-2">Price</p>
+  </div>
+
+  {/* Carte 2 */}
+  <div className="flex flex-col items-center justify-center bg-gradient-to-b from-gray-700 to-gray-900 rounded-full h-28 w-28 shadow-2xl transform transition-transform hover:scale-110">
+    <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px" fill="#FFFFFF">
+      <path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"/>
+    </svg>
+    <p className="text-white text-sm mt-2">Point</p>
+  </div>
+
+  {/* Carte 3 */}
+  <div className="flex flex-col items-center justify-center bg-gradient-to-b from-gray-700 to-gray-900 rounded-full h-28 w-28 shadow-2xl transform transition-transform hover:scale-110">
+    <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px" fill="#FFFFFF">
+      <path d="M320-440h320v-80H320v80Zm0 120h320v-80H320v80Zm0 120h200v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/>
+    </svg>
+    <p className="text-white text-sm mt-2">News</p>
+  </div>
+
+  {/* Carte 4 */}
+  <div className="flex flex-col items-center justify-center bg-gradient-to-b from-gray-700 to-gray-900 rounded-full h-28 w-28 shadow-2xl transform transition-transform hover:scale-110">
+    <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px" fill="#FFFFFF">
+      <path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/>
+    </svg>
+    <p className="text-white text-sm mt-2">Info</p>
+  </div>
+</div>
+
+
+
+         
+    
+    
+<div className="bg-gray-900 rounded-lg p-6 mb-4 shadow-2xl">
+  {/* En-tête */}
+  <div className="flex justify-between items-center mb-6">
+    <h2 className="text-white text-xl font-bold">Recent Shipping</h2>
+    <a href="#" className="text-green-400 text-sm hover:underline">See All</a>
+  </div>
+
+  {/* Liste des expéditions */}
+  <div className="space-y-4">
+    {/* Carte d'expédition */}
+    {[
+      { id: 'F123H418', status: 'Completed' },
+      { id: 'L432P231', status: 'Completed' },
+      { id: 'K543D231', status: 'Pending' },
+    ].map((item, index) => (
+      <div
+        key={index}
+        className="flex items-center justify-between bg-gradient-to-r from-gray-800 to-gray-700 hover:from-gray-700 hover:to-gray-600 rounded-lg p-4 shadow-lg transform transition-transform hover:scale-105"
+      >
+        <div className="flex items-center">
+          <div className="w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center shadow-inner">
+            <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" fill="#FFFFFF">
+              <path d="M440-183v-274L200-596v274l240 139Zm80 0 240-139v-274L520-457v274Zm-80 92L160-252q-19-11-29.5-29T120-321v-318q0-22 10.5-40t29.5-29l280-161q19-11 40-11t40 11l280 161q19 11 29.5 29t10.5 40v318q0 22-10.5 40T800-252L520-91q-19 11-40 11t-40-11Zm200-528 77-44-237-137-78 45 238 136Zm-160 93 78-45-237-137-78 45 237 137Z"/>
+            </svg>
           </div>
-    
-    
-          <div
-            className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
-          ></div>
-    
-    
-          <div className="grid grid-cols-2 gap-4 mb-4">
-            <div
-              className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-            ></div>
-            <div
-              className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-            ></div>
-            <div
-              className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-            ></div>
-            <div
-              className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-            ></div>
+          <div className="ml-4">
+            <p className="text-gray-400 text-sm">ID Number</p>
+            <p className="text-white font-semibold text-lg">{item.id}</p>
           </div>
+        </div>
+        <p className={`text-sm font-semibold ${item.status === 'Completed' ? 'text-green-400' : 'text-yellow-400'}`}>
+          {item.status}
+        </p>
+      </div>
+    ))}
+  </div>
+</div>
+
+
     
     
-          <div
-            className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
-          ></div>
+          
     
     
-          <div className="grid grid-cols-2 gap-4">
-            <div
-              className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-            ></div>
-            <div
-              className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-            ></div>
-            <div
-              className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-            ></div>
-            <div
-              className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-            ></div>
-          </div>
+          
+    
+    
+        
           </div>
             )}
-            {activeSection === 'expeditions' && (
-              <div>Contenu des Expéditions</div>
+            {activeSection === 'colis' && (
+               <div>
+          
+          <div className="p-4 bg-gray-900 rounded-lg shadow-lg mb-6">
+  {/* Barre de recherche */}
+  <form className="max-w-md mx-auto mb-4">
+    <label
+      htmlFor="search-colis"
+      className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+    >
+      Search
+    </label>
+    <div className="relative">
+      <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+        <svg
+          className="w-5 h-5 text-gray-400"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 20 20"
+        >
+          <path
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+          />
+        </svg>
+      </div>
+      <input
+        type="search"
+        id="search-colis"
+        className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Search for packages..."
+        required
+      />
+      <button
+        type="submit"
+        className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Search
+      </button>
+    </div>
+  </form>
+
+  
+</div>
+
+             <div
+               className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
+             ></div>
+   
+           
+           
+             </div>
+              
             )}
             {activeSection === 'Trackings' && (
-              <div>Contenu des Trackings de colis</div>
+                <div>
+
+<div className="relative p-8 bg-blue-500 rounded-3xl shadow-lg mb-6 text-white">
+  {/* Icône décorative */}
+  <div className="absolute top-4 left-4 flex space-x-1">
+    <div className="w-2 h-2 bg-white rounded-full"></div>
+    <div className="w-2 h-2 bg-white rounded-full"></div>
+    <div className="w-2 h-2 bg-white rounded-full"></div>
+  </div>
+
+  {/* Image de profil */}
+  <div className="absolute top-6 right-6">
+    <img
+      src={ProfileImage} 
+      alt="Profil"
+      className=" w-12 "
+    />
+  </div>
+
+  {/* Titre et texte */}
+  <h1 className="text-3xl font-bold mb-2 mt-4">Bienvenue, Michel</h1>
+  <p className="text-gray-100 text-lg mb-8">Suivez votre colis facilement</p>
+
+  {/* Barre de recherche */}
+  <form className="relative">
+    <input
+      type="text"
+      placeholder="Numéro de suivi"
+      className="w-full p-4 pl-6 pr-14 rounded-full text-gray-900 focus:outline-none shadow-inner"
+    />
+    <button
+      type="submit"
+      className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white text-blue-500 p-3 rounded-full shadow-md hover:bg-gray-100 transition"
+    >
+      <svg
+        className="w-5 h-5"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M21 21l-4.35-4.35M17 10A7 7 0 1 1 3 10a7 7 0 0 1 14 0z"
+        />
+      </svg>
+    </button>
+  </form>
+</div>
+
+
+        
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                 <div
+                  className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
+                ></div>
+
+
+              </div>
+             
+        
+        
+              <div
+                className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
+              ></div>
+    
+               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                <div
+                  className="border-2 border-dashed border-gray-300 rounded-lg dark:border-gray-600 h-32 md:h-64"
+                ></div>
+                <div
+                  className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
+                ></div>
+                <div
+                  className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
+                ></div>
+                <div
+                  className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
+                ></div>
+              </div>
+        
+        
+              
+        
+        
+              
+        
+        
+            
+              </div>
             )}
             {activeSection === 'historique' && (
-              <div>Contenu de l'Historique Livraison</div>
+               <div>
+          
+
+               <div className="grid grid-cols-2 gap-4 mb-4">
+               <div
+                 className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+               ></div>
+               <div
+                 className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+               ></div>
+               <div
+                 className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+               ></div>
+               <div
+                 className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+               ></div>
+             </div>
+             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                <div
+                 className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
+               ></div>
+             </div>
+            
+       
+       
+             <div
+               className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
+             ></div>
+   
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+               <div
+                 className="border-2 border-dashed border-gray-300 rounded-lg dark:border-gray-600 h-32 md:h-64"
+               ></div>
+               <div
+                 className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
+               ></div>
+               <div
+                 className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
+               ></div>
+               <div
+                 className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
+               ></div>
+             </div>
+             </div>
             )}
         </main>
     
