@@ -963,7 +963,7 @@ function DriverDashboard() {
     <main className="p-4 md:ml-64 h-auto pt-20">
   {activeSection === 'dashboard' && (
     <div>  
-<div className="grid grid-cols-2 gap-6 mb-6">
+<div className="grid grid-cols-2 gap-3 mb-2">
   {/* Carte pour Colis à livrer */}
   <div className="relative bg-white border border-gray-300 rounded-xl shadow-lg p-6 flex flex-col items-center justify-center">
     {/* Image positionnée en haut */}
@@ -984,7 +984,7 @@ function DriverDashboard() {
   <div className="relative bg-white border border-gray-300 rounded-xl shadow-lg p-6 flex flex-col items-center justify-center">
     <img src={ColisAnnule} alt="Colis en attente" className="w-12 h-12 mb-4" />
     <h2 className="text-3xl font-extrabold text-gray-800 mb-2">40</h2>
-    <p className="text-lg text-gray-800 font-medium">Colis en attente</p>
+    <p className="text-lg text-gray-800 font-medium">Imprévus</p>
   </div>
 
   {/* Carte pour Solde */}
@@ -1003,43 +1003,39 @@ function DriverDashboard() {
   className="border-2 border-collapse rounded-lg border-gray-300 dark:border-gray-600 mb-10 relative"
   style={{
     width: '100%',
-    height: '570px',
+    height: '500px',
     overflow: 'hidden',
   }}
 >
-  <div style={{ marginLeft: '3px', width: 'calc(140% - 150px)' }}>
+  <div style={{ marginLeft: '3px', width: 'calc(140% - 160px)' }}>
     <MyGoogleMap />
   </div>
 </div>
 
 
 
-<div className="grid grid-cols-2 gap-4 mb-2"> 
-<div className="border-2  rounded-lg   h-32 md:h-65 p-2 bg-gray-800 hover:bg-gray-900 transition-all ease-in-out duration-300 cursor-pointer">
-  <div className="flex flex-col items-center space-y-2">
-  <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#e8eaed"><path d="M480-600 340-740l140-140 140 140-140 140ZM40-160v-160q0-34 23.5-57t56.5-23h131q20 0 38 10t29 27q29 39 71.5 61t90.5 22q49 0 91.5-22t70.5-61q13-17 30.5-27t36.5-10h131q34 0 57 23t23 57v160H640v-91q-35 25-75.5 38T480-200q-43 0-84-13.5T320-252v92H40Zm120-280q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T280-560q0 50-34.5 85T160-440Zm640 0q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T920-560q0 50-34.5 85T800-440Z"/></svg>
+<div className="grid grid-cols-2 gap-2 mb-2 ">
+  {/* Premier bouton : Bleu */}
+  <button
+    type="button"
+    className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+    onClick={handleRelayRequest}
+  >
+    Relaiement de colis
+  </button>
 
-    <button className="text-lg font-thin text-white bg-transparent border-0 cursor-pointer mt-auto"
-     onClick={handleRelayRequest}>
-      Relaiement de colis
-    </button>
-  </div>
+  {/* Deuxième bouton : Vert */}
+  <button
+    type="button"
+    className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+    onClick={handleShowConfirmation}
+  >
+    Confirmation Livraison
+  </button>
 </div>
 
-<div className="border-2 rounded-lg  h-32 md:h-65 p-2 bg-gray-800 hover:bg-gray-900 transition-all ease-in-out duration-300 cursor-pointer">
-        <div className="flex flex-col items-center space-y-2">
-          <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#e8eaed">
-            <path d="M40-160v-66.67h199.33v-94H80v-66.66h159.33v-94H124.67V-548h114.66v-126l-78-178L222-880l88.67 201.33h496L727.33-852 788-880l92 201.33V-160H40Zm435.33-288h169.34q14.16 0 23.75-9.62 9.58-9.61 9.58-23.83 0-14.22-9.58-23.72-9.59-9.5-23.75-9.5H475.33q-14.16 0-23.75 9.62-9.58 9.62-9.58 23.83 0 14.22 9.58 23.72 9.59 9.5 23.75 9.5ZM306-226.67h507.33V-612H306v385.33Zm0 0V-612v385.33Z"/>
-          </svg>
-          <button 
-            className="text-lg font-thin text-white bg-transparent border-0 cursor-pointer"
-            onClick={handleShowConfirmation}
-          >
-            Confirmation Livraison
-          </button>
-        </div>
-</div>  
-</div>
+
+
 
 
 </div>
