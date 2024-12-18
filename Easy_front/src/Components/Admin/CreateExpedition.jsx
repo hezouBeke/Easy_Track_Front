@@ -153,12 +153,7 @@ function CreateExpedition() {
 
   
   
-  
-  
-  
-  
-  
-  
+
 
   const handleAddCourseForCoursier = (coursier) => {
     setCourses((prevCourses) => {
@@ -300,26 +295,6 @@ function CreateExpedition() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-  
-  
-   
   
   const renderStepContent = () => {
     switch (currentStep) {

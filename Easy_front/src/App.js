@@ -7,7 +7,7 @@ const App = () => {
     <View style={styles.container}>
      
       <WebView
-        source={{ uri: 'http://192.168.1.70:5173' }} 
+        source={{ uri: 'http://192.168.1.84:5173' }} 
         style={styles.webview}
         javaScriptEnabled={true} 
         domStorageEnabled={true} 
