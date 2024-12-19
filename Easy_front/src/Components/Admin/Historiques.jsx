@@ -119,9 +119,9 @@ const HistoriqueExpeditions = () => {
                                                         <h3 className="text-md font-bold text-center">Courses par Coursiers</h3>
 
                                                         {groupByCoursiers(expedition.course_ids).map(([coursierName, courses]) => (
-                                                            <div key={coursierName} className="mb-4">
+                                                            <div key={coursierName} className="mb-8">
                                                                 <div
-                                                                    className="flex justify-between items-center cursor-pointer mb-2"
+                                                                    className="flex justify-between items-center cursor-pointer mb-5"
                                                                     onClick={() => toggleCoursier(coursierName)}
                                                                 >
                                                                     <h4 className="text-sm font-bold">{coursierName}</h4>
@@ -139,13 +139,11 @@ const HistoriqueExpeditions = () => {
                                                                 </div>
 
                                                                 {expandedCoursiers[coursierName] && (
-                                                                    <ol className="relative border-s border-gray-200 dark:border-gray-700">
+                                                                    <ol className="relative border-s border-gray-200 dark:border-gray-700 ml-4">
                                                                         {courses.map((course, i) => (
-                                                                            <li key={i} className="mb-10 ms-6">
+                                                                            <li key={i} className="mb-10 ms-8">
                                                                                 <span className="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -start-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
-                                                                                    <svg className="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                                                                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                                                                                    </svg>
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z"/></svg>
                                                                                 </span>
                                                                                 <h3 className="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-white">
                                                                                     Course {i+1}
@@ -178,6 +176,10 @@ const HistoriqueExpeditions = () => {
                                                                                         Client Final : {course.client_final_id?.completename || "N/A"}
                                                                                     </p>
                                                                                 )}
+                                                                               <p className="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
+    ID colis : {course.colis_id?.indent_colis || "N/A"}
+</p>
+
                                                                             </li>
                                                                         ))}
                                                                     </ol>
