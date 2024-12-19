@@ -267,7 +267,7 @@ const handleSubmit = async () => {
                   setErrorMessage(message);
                   break;
               default:
-                  setErrorMessage("Une erreur s'est produite. Veuillez réessayer.");
+                  setErrorMessage("Une erreur s'est produite ou des champs manquants. Veuillez réessayer.");
           }
       } else {
           setErrorMessage("Erreur de connexion au serveur. Veuillez vérifier votre connexion.");
@@ -700,24 +700,26 @@ const handleAddCourseForCoursier = (coursier) => {
     <section className="bg-white  ">
       <Adminheader />
       {showSuccessMessage && (
-    <div className="fixed top-4 right-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded shadow-lg">
-      <div className="flex items-center">
-        <svg
-          className="w-6 h-6 mr-2 text-green-600"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fillRule="evenodd"
-            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-            clipRule="evenodd"
-          ></path>
-        </svg>
-        <p>Expédition créée avec succès !</p>
-      </div>
+  <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded shadow-lg z-50">
+    <div className="flex items-center">
+      <svg
+        className="w-6 h-6 mr-2 text-green-600"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fillRule="evenodd"
+          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0
+          011.414 0z"
+          clipRule="evenodd"
+        ></path>
+      </svg>
+      <p>Expédition créée avec succès !</p>
     </div>
-  )}
+  </div>
+)}
+
 
 {showErrorMessage && (
   <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow-lg z-50">
@@ -727,6 +729,7 @@ const handleAddCourseForCoursier = (coursier) => {
     </div>
   </div>
 )}
+
 
 
       <div className="pt-12 mx-auto max-w-7xl lg:pt-10 ml-80">
