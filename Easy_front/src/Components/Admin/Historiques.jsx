@@ -6,6 +6,7 @@ import expeditionService from "../../services/expeditionService";
 const HistoriqueExpeditions = () => {
     const [expeditions, setExpeditions] = useState([]);
     const [expandedRow, setExpandedRow] = useState(null);
+    const [expandedCoursiers, setExpandedCoursiers] = useState({});
 
     // Fonction pour récupérer toutes les expéditions
     const fetchExpeditions = async () => {
@@ -24,6 +25,14 @@ const HistoriqueExpeditions = () => {
     // Fonction pour gérer l'affichage des détails d'une ligne
     const toggleRow = (index) => {
         setExpandedRow(expandedRow === index ? null : index);
+    };
+
+    // Fonction pour plier ou déplier les courses d'un coursier
+    const toggleCoursier = (coursierName) => {
+        setExpandedCoursiers((prev) => ({
+            ...prev,
+            [coursierName]: !prev[coursierName],
+        }));
     };
 
     // Fonction pour regrouper les courses par coursiers
@@ -99,16 +108,36 @@ const HistoriqueExpeditions = () => {
                                                         <h3 className="text-md font-bold">Courses par Coursiers</h3>
                                                         {groupByCoursiers(expedition.course_ids).map(([coursierName, courses]) => (
                                                             <div key={coursierName} className="mb-4">
-                                                                <h4 className="text-sm font-bold mb-2">{coursierName}</h4>
-                                                                <ul>
-                                                                    {courses.map((course, i) => (
-                                                                        <li key={i} className="mb-2">
-                                                                            <p><strong>Départ : </strong>{course.depart || "N/A"}</p>
-                                                                            <p><strong>Arrivée : </strong>{course.arrive || "N/A"}</p>
-                                                                            <p><strong>Type de Course : </strong>{course.type_course || "N/A"}</p>
-                                                                        </li>
-                                                                    ))}
-                                                                </ul>
+                                                                <div className="flex justify-between items-center cursor-pointer mb-2" onClick={() => toggleCoursier(coursierName)}>
+                                                                    <h4 className="text-sm font-bold">{coursierName}</h4>
+                                                                    <button className="text-gray-400 hover:text-white">
+                                                                        {expandedCoursiers[coursierName] ? (
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+                                                                                <path d="M480-120 300-300l58-58 122 122 122-122 58 58-180 180ZM358-598l-58-58 180-180 180 180-58 58-122-122-122 122Z" />
+                                                                            </svg>
+                                                                        ) : (
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+                                                                                <path d="m356-160-56-56 180-180 180 180-56 56-124-124-124 124Zm124-404L300-744l56-56 124 124 124-124 56 56-180 180Z" />
+                                                                            </svg>
+                                                                        )}
+                                                                    </button>
+                                                                </div>
+                                                                {expandedCoursiers[coursierName] && (
+                                                                    <ul>
+                                                                        {courses.map((course, i) => (
+                                                                            <li key={i} className="mb-2">
+                                                                                <p><strong>Départ : </strong>{course.depart || "N/A"}</p>
+                                                                                <p><strong>Arrivée : </strong>{course.arrive || "N/A"}</p>
+                                                                                <p><strong>Type de Course : </strong>{course.type_course || "N/A"}</p>
+                                                                                {course.type_course === "relay" ? (
+                                                                                    <p><strong>Coursier Relai : </strong>{course.relais_coursier_id?.completename || "N/A"}</p>
+                                                                                ) : (
+                                                                                    <p><strong>Client Final : </strong>{course.client_final_id?.completename || "N/A"}</p>
+                                                                                )}
+                                                                            </li>
+                                                                        ))}
+                                                                    </ul>
+                                                                )}
                                                                 <hr className="my-2 border-gray-600" />
                                                             </div>
                                                         ))}
