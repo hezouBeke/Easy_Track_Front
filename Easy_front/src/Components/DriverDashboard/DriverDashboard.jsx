@@ -7,7 +7,7 @@ import Colisrelaie from '../../assets/interchange.png';
 import ColisLivress from '../../assets/ColisLivress.png';
 import ColisAnnule from '../../assets/ColisAnnule.png';
 import Solde from '../../assets/Solde.png';
-import 'flowbite';
+import 'flowbite'
 
 
 function DriverDashboard() {
