@@ -54,8 +54,19 @@ const HistoriqueExpeditions = () => {
             <div className="flex flex-grow">
                 <Adminsidebar />
                 <div className="flex flex-col w-full px-6 py-28">
-                    <div className="flex items-center mb-6">
-                        <h1 className="text-2xl font-bold">Historique des Expéditions</h1>
+                <div className="flex items-center mb-6">
+                        <span className="inline-block bg-blue-600 p-2 rounded-lg mr-3">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24px"
+                                viewBox="0 -960 960 960"
+                                width="24px"
+                                fill="#FFFFFF"
+                            >
+                                <path d="M480-120q-138 0-240.5-91.5T122-440h82q14 104 92.5 172T480-200q117 0 198.5-81.5T760-480q0-117-81.5-198.5T480-760q-69 0-129 32t-101 88h110v80H120v-240h80v94q51-64 124.5-99T480-840q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-480q0 75-28.5 140.5t-77 114q-48.5 48.5-114 77T480-120Zm112-192L440-464v-216h80v184l128 128-56 56Z" />
+                            </svg>
+                        </span>
+                        <h1 className="text-2xl font-bold">Historique des expéditions</h1>
                     </div>
                     <div className="overflow-x-auto bg-gray-800 shadow-lg rounded-lg">
                         <table className="min-w-full table-auto text-left text-gray-200">
@@ -89,7 +100,7 @@ const HistoriqueExpeditions = () => {
                                         </tr>
                                         {expandedRow === index && (
                                             <tr>
-                                                <td colSpan="5" className="bg-gray-700">
+                                                <td colSpan="5" className="bg-gray-00">
                                                     <div className="p-4">
                                                         <h2 className="text-lg font-bold mb-4">Détails de l'expédition</h2>
                                                         <p>
@@ -123,20 +134,31 @@ const HistoriqueExpeditions = () => {
                                                                     </button>
                                                                 </div>
                                                                 {expandedCoursiers[coursierName] && (
-                                                                    <ul>
+                                                                    <ol className="items-center sm:flex">
                                                                         {courses.map((course, i) => (
-                                                                            <li key={i} className="mb-2">
-                                                                                <p><strong>Départ : </strong>{course.depart || "N/A"}</p>
-                                                                                <p><strong>Arrivée : </strong>{course.arrive || "N/A"}</p>
-                                                                                <p><strong>Type de Course : </strong>{course.type_course || "N/A"}</p>
-                                                                                {course.type_course === "relay" ? (
-                                                                                    <p><strong>Coursier Relai : </strong>{course.relais_coursier_id?.completename || "N/A"}</p>
-                                                                                ) : (
-                                                                                    <p><strong>Client Final : </strong>{course.client_final_id?.completename || "N/A"}</p>
-                                                                                )}
+                                                                            <li key={i} className="relative mb-6 sm:mb-0">
+                                                                                <div className="flex items-center">
+                                                                                    <div className="z-10 flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
+                                                                                        <svg className="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                                                                            <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                                                                        </svg>
+                                                                                    </div>
+                                                                                    <div className="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
+                                                                                </div>
+                                                                                <div className="mt-3 sm:pe-8">
+                                                                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Course {i + 1}</h3>
+                                                                                    <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Départ : {course.depart || "N/A"}</time>
+                                                                                    <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Arrivée : {course.arrive || "N/A"}</time>
+                                                                                    <p className="text-base font-normal text-gray-500 dark:text-gray-400">Type de Course : {course.type_course || "N/A"}</p>
+                                                                                    {course.type_course === "relay" ? (
+                                                                                        <p className="text-base font-normal text-gray-500 dark:text-gray-400">Coursier Relai : {course.relais_coursier_id?.completename || "N/A"}</p>
+                                                                                    ) : (
+                                                                                        <p className="text-base font-normal text-gray-500 dark:text-gray-400">Client Final : {course.client_final_id?.completename || "N/A"}</p>
+                                                                                    )}
+                                                                                </div>
                                                                             </li>
                                                                         ))}
-                                                                    </ul>
+                                                                    </ol>
                                                                 )}
                                                                 <hr className="my-2 border-gray-600" />
                                                             </div>
