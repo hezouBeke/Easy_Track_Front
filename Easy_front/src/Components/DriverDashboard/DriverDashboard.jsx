@@ -100,6 +100,8 @@ function DriverDashboard() {
       setActiveSection('dashboard');
     }, 2000);
   };
+  
+
     return (
     <div className="flex flex-col w-full">    
     <div className="antialiased bg-gray-50 dark:bg-gray-100">

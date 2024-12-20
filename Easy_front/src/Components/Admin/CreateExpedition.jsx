@@ -37,24 +37,29 @@ function CreateExpedition() {
 
   const calculateDuration = (start, end) => {
     if (!start || !end) return "";
-
-    const startDate = new Date(start);
-    const endDate = new Date(end);
-
+  
+    const startDate = new Date(start); // Doit être au format YYYY-MM-DD, ex: "2024-12-19"
+    const endDate = new Date(end);     // ex: "2024-12-25"
+  
+    // Vérifie si les dates sont valides et si endDate est avant startDate
     if (isNaN(startDate) || isNaN(endDate) || endDate < startDate) {
       return "Dates invalides";
     }
-
-    const diffInDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
-
-    if (diffInDays >= 30) {
-      const months = Math.floor(diffInDays / 30);
-      const days = diffInDays % 30;
+  
+    // Calcul de diffDays
+    const diffTime = Math.abs(endDate - startDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  
+    // Retourne la durée estimée
+    if (diffDays >= 30) {
+      const months = Math.floor(diffDays / 30);
+      const days = diffDays % 30;
       return `${months} mois ${days} jours`;
     } else {
-      return `${diffInDays} jours`;
+      return `${diffDays} jours`;
     }
   };
+  
 
   const handleStartDateChange = (e) => {
     const value = e.target.value;
@@ -172,111 +177,117 @@ function CreateExpedition() {
 };
 
 
- 
-
 const handleSubmit = async () => {
   try {
-      // Vérification de base des champs requis
-      if (!startDate || !endDate || Object.keys(courses).length === 0) {
-          setErrorMessage("Veuillez compléter toutes les informations avant de soumettre.");
-          setShowErrorMessage(true);
-          setTimeout(() => setShowErrorMessage(false), 1000); // 1 seconde
-          return;
-      }
-
-      console.log("Courses avant la soumission :", courses);
-
-      // Création des courses
-      const courseCreationResponses = await Promise.all(
-          Object.values(courses)
-              .flat()
-              .map(async (course) => {
-                  console.log("Création de la course pour :", course);
-
-                  const completeCourseData = {
-                      ...course,
-                      coursier_id: course.coursier_id || selectedCoursier
-                  };
-
-                  const response = await coursesService.createCourse(completeCourseData);
-                  console.log("Réponse pour la création de la course :", response.data);
-
-                  if (response.data && Array.isArray(response.data) && response.data.length > 0) {
-                      return response.data[0];
-                  } else {
-                      throw new Error("Erreur lors de la création de la course");
-                  }
-              })
-      );
-
-      console.log("IDs des courses créées :", courseCreationResponses);
-
-      if (courseCreationResponses.length === 0) {
-          throw new Error("Aucune course valide n'a été créée.");
-      }
-
-      const expeditionData = {
-          course_ids: courseCreationResponses,
-          date_debut_previsionnel: startDate,
-          date_fin_previsionnel: endDate,
-      };
-
-      console.log("Données envoyées pour la création de l'expédition :", expeditionData);
-
-      const response = await expeditionService.createExpedition(expeditionData);
-
-      console.log("Réponse de la création de l'expédition :", response);
-
-      if (response.status === 201) {
-          console.log("Expédition créée avec succès :", response.data);
-
-          setShowSuccessMessage(true);
-          setTimeout(() => setShowSuccessMessage(false), 1000); // Message de succès disparaît après 1s
-
-          // Réinitialisation du formulaire
-          setCurrentStep(1);
-          setStartDate("");
-          setEndDate("");
-          setEstimatedDuration("");
-          setCourses({});
-      } else {
-          throw new Error("Erreur lors de la création de l'expédition.");
-      }
-  } catch (error) {
-      console.error("Erreur lors de la soumission de l'expédition :", error);
-
-      if (error.response) {
-          const { errorCode, message } = error.response.data;
-          console.log("Erreur backend reçue :", error.response.data);
-
-          switch (errorCode) {
-              case "INVALID_COURSES":
-                  setErrorMessage("La liste des courses est invalide. Veuillez vérifier.");
-                  break;
-              case "MISSING_DATES":
-                  setErrorMessage("Les dates prévisionnelles sont obligatoires.");
-                  break;
-              case "INVALID_DATES":
-                  setErrorMessage("Les dates prévisionnelles doivent être valides.");
-                  break;
-              case "DATE_ORDER":
-                  setErrorMessage("La date de début doit être antérieure à la date de fin.");
-                  break;
-              case "COURSE_NOT_FOUND":
-              case "COURSE_DATE_CONFLICT":
-                  setErrorMessage(message);
-                  break;
-              default:
-                  setErrorMessage("Une erreur s'est produite ou des champs manquants. Veuillez réessayer.");
-          }
-      } else {
-          setErrorMessage("Erreur de connexion au serveur. Veuillez vérifier votre connexion.");
-      }
-
+    // Vérification de base des champs requis
+    if (!startDate || !endDate || Object.keys(courses).length === 0) {
+      setErrorMessage("Veuillez compléter toutes les informations avant de soumettre.");
       setShowErrorMessage(true);
-      setTimeout(() => setShowErrorMessage(false), 1000); // 1 seconde avant disparition du message d'erreur
+      setTimeout(() => setShowErrorMessage(false), 1000);
+      return;
+    }
+
+    // Validation des courses
+    Object.values(courses).flat().forEach((course) => {
+      const startDate = new Date(course.date_debut);
+      const endDate = new Date(course.date_fin);
+
+      // Vérification des champs 'Départ' et 'Arrivée'
+      if (!course.depart || !course.arrive) {
+        throw new Error("Les champs 'Départ' et 'Arrivée' sont obligatoires.");
+      }
+
+      // Vérification des dates de début et de fin
+      if (isNaN(startDate) || isNaN(endDate) || startDate > endDate) {
+        throw new Error("Les dates de début et de fin doivent être valides et cohérentes.");
+      }
+
+      // Vérification des heures si elles sont renseignées
+      if (course.heure_debut && course.heure_fin) {
+        const heureRegex = /^([0-1]\d|2[0-3]):([0-5]\d)$/;
+        if (!heureRegex.test(course.heure_debut) || !heureRegex.test(course.heure_fin)) {
+          throw new Error("Les heures doivent être au format HH:MM.");
+        }
+
+        const [hdh, hdm] = course.heure_debut.split(':').map(Number);
+        const [hfh, hfm] = course.heure_fin.split(':').map(Number);
+        const startMinutes = hdh * 60 + hdm;
+        const endMinutes = hfh * 60 + hfm;
+
+        if (startDate.toDateString() === endDate.toDateString() && startMinutes > endMinutes) {
+          throw new Error("L'heure de début doit être inférieure ou égale à l'heure de fin pour une course d'une journée.");
+        }
+      }
+    });
+
+    console.log("Courses avant la soumission :", courses);
+
+    // Création des courses
+    const courseCreationResponses = await Promise.all(
+      Object.values(courses)
+        .flat()
+        .map(async (course) => {
+          console.log("Création de la course pour :", course);
+
+          const completeCourseData = {
+            ...course,
+            coursier_id: course.coursier_id || selectedCoursier,
+          };
+
+          const response = await coursesService.createCourse(completeCourseData);
+          console.log("Réponse pour la création de la course :", response.data);
+
+          if (response.data && Array.isArray(response.data) && response.data.length > 0) {
+            return response.data[0];
+          } else {
+            throw new Error("Erreur lors de la création de la course.");
+          }
+        })
+    );
+
+    console.log("IDs des courses créées :", courseCreationResponses);
+
+    if (courseCreationResponses.length === 0) {
+      throw new Error("Aucune course valide n'a été créée.");
+    }
+
+    const expeditionData = {
+      course_ids: courseCreationResponses,
+      date_debut_previsionnel: startDate,
+      date_fin_previsionnel: endDate,
+    };
+
+    console.log("Données envoyées pour la création de l'expédition :", expeditionData);
+
+    const response = await expeditionService.createExpedition(expeditionData);
+
+    console.log("Réponse de la création de l'expédition :", response);
+
+    if (response.status === 201) {
+      console.log("Expédition créée avec succès :", response.data);
+
+      setShowSuccessMessage(true);
+      setTimeout(() => setShowSuccessMessage(false), 1000);
+
+      // Réinitialisation du formulaire
+      setCurrentStep(1);
+      setStartDate("");
+      setEndDate("");
+      setEstimatedDuration("");
+      setCourses({});
+    } else {
+      throw new Error("Erreur lors de la création de l'expédition.");
+    }
+  } catch (error) {
+    console.error("Erreur lors de la soumission de l'expédition :", error);
+
+    setErrorMessage(error.message || "Une erreur inconnue est survenue.");
+    setShowErrorMessage(true);
+    setTimeout(() => setShowErrorMessage(false), 1000);
   }
 };
+
+
 
 const handleAddCourseForCoursier = (coursier) => {
   setCourses((prevCourses) => {
@@ -514,7 +525,7 @@ const handleAddCourseForCoursier = (coursier) => {
                       }}
                     />
                   </div>
-                  <div className="col-span-1">
+                       <div className="col-span-1">
                     <label>Arrivée :</label>
                     <input
                       type="text"
@@ -537,6 +548,13 @@ const handleAddCourseForCoursier = (coursier) => {
                       onChange={(e) => {
                         const newCourses = { ...courses };
                         newCourses[coursier][index].date_debut = e.target.value;
+                    
+                        // Désactive les heures si les dates diffèrent
+                        if (new Date(newCourses[coursier][index].date_debut).toDateString() !== new Date(newCourses[coursier][index].date_fin).toDateString()) {
+                          newCourses[coursier][index].heure_debut = "";
+                          newCourses[coursier][index].heure_fin = "";
+                        }
+                    
                         setCourses(newCourses);
                       }}
                     />
@@ -544,45 +562,54 @@ const handleAddCourseForCoursier = (coursier) => {
                   <div className="col-span-1">
                     <label>Date de fin :</label>
                     <input
-                      type="date"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
-                      value={course.date_fin}
-                      onChange={(e) => {
-                        const newCourses = { ...courses };
-                        newCourses[coursier][index].date_fin = e.target.value;
-                        setCourses(newCourses);
-                      }}
+                     type="date"
+                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
+                     value={course.date_fin}
+                     onChange={(e) => {
+                       const newCourses = { ...courses };
+                       newCourses[coursier][index].date_fin = e.target.value;
+                   
+                       // Désactive les heures si les dates diffèrent
+                       if (new Date(newCourses[coursier][index].date_debut).toDateString() !== new Date(newCourses[coursier][index].date_fin).toDateString()) {
+                         newCourses[coursier][index].heure_debut = "";
+                         newCourses[coursier][index].heure_fin = "";
+                       }
+                   
+                       setCourses(newCourses);
+                     }}
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-4 gap-6 mt-4">
-                  <div className="col-span-1">
-                    <label>Heure de début :</label>
-                    <input
-                      type="time"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
-                      value={course.heure_debut}
-                      onChange={(e) => {
-                        const newCourses = { ...courses };
-                        newCourses[coursier][index].heure_debut = e.target.value;
-                        setCourses(newCourses);
-                      }}
-                    />
-                  </div>
-                  <div className="col-span-1">
-                    <label>Heure de fin :</label>
-                    <input
-                      type="time"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
-                      value={course.heure_fin}
-                      onChange={(e) => {
-                        const newCourses = { ...courses };
-                        newCourses[coursier][index].heure_fin = e.target.value;
-                        setCourses(newCourses);
-                      }}
-                    />
-                  </div>
+                <div className="col-span-1">
+    <label>Heure de début :</label>
+    <input
+      type="time"
+      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
+      value={course.heure_debut}
+      onChange={(e) => {
+        const newCourses = { ...courses };
+        newCourses[coursier][index].heure_debut = e.target.value;
+        setCourses(newCourses);
+      }}
+    
+    />
+  </div>
+  <div className="col-span-1">
+    <label>Heure de fin :</label>
+    <input
+      type="time"
+      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
+      value={course.heure_fin}
+      onChange={(e) => {
+        const newCourses = { ...courses };
+        newCourses[coursier][index].heure_fin = e.target.value;
+        setCourses(newCourses);
+      }}
+     
+    />
+  </div>
                   <div className="col-span-2">
   <label>Colis :</label>
   <select

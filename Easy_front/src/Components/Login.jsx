@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import authService from "../services/authService";
-
+// import ChatBot from "./ChatBot";
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -32,8 +32,6 @@ const Login = () => {
     return (
         <>
         <section className="h-screen flex">
-        
-
             {/* Section pour le formulaire */}
             <div className="w-full md:w flex items-center justify-center font-thin  p-6 bg-white">
                 <div className="w-full max-w-md bg-gray-800 rounded-lg shadow">
@@ -44,7 +42,7 @@ const Login = () => {
                                 EasyTrack
                             </a>
                         </div>
-                        <h1 className="text-xl font-bold leading-tight tracking-tight font-thin text-white md:text-2xl">
+                        <h1 className="text-xl leading-tight tracking-tight font-thin text-white md:text-2xl">
                             Connexion
                         </h1>
                         <form onSubmit={handleLogin} className="space-y-4 md:space-y-6">
@@ -118,6 +116,7 @@ const Login = () => {
                 </div>
             </div>
         </section>
+        {/* <ChatBot /> */}
         </>
     );
 }
