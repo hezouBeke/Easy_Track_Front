@@ -114,7 +114,7 @@ const TrackingOrder = () => {
     </form>
   
     {/* Ligne séparatrice */}
-    <div className="border-t border-gray-600 my-2"></div>
+    <div className="border-t border-gray-300 my-4"></div>
   
     {/* Affichage du numéro du colis centré au-dessus de l'itinéraire */}
     {filteredCourses.length > 0 && (
@@ -125,13 +125,13 @@ const TrackingOrder = () => {
       </div>
     )}
   
-    {/* Affichage des courses sous forme horizontale */}
-    <div className="overflow-x-auto mt-10">
+    {/* Affichage des étapes avec la barre de progression */}
+    <div className="overflow-x-auto mt-1">
       <ol className="items-center flex space-x-6">
         {filteredCourses.map((course, index) => (
           <li key={index} className="relative mb-6 sm:mb-0">
             <div className="flex items-center">
-              {/* Cercle ajusté pour éviter la coupure */}
+              {/* Cercle ajusté */}
               <div className="z-10 flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full ring-0 ring-transparent dark:bg-blue-900 sm:ring-8 dark:ring-transparent shrink-0">
                 <svg
                   className="w-4 h-4 text-blue-800 dark:text-blue-300"
@@ -143,7 +143,15 @@ const TrackingOrder = () => {
                   <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                 </svg>
               </div>
-              <div className="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700 sm:ml-2"></div>
+              {/* Barre de progression entre les cercles */}
+              {index < filteredCourses.length - 1 && (
+                <div className="w-full bg-gray-200 h-2.5 mx-2 rounded-full">
+                  <div
+                    className="bg-blue-600 h-2.5 rounded-full"
+                    style={{ width: `${(index + 1) / filteredCourses.length * 100}%` }}
+                  ></div>
+                </div>
+              )}
             </div>
             <div className="mt-3 sm:pe-8">
               {/* Type de course (Relay/Delivery) */}
@@ -181,6 +189,7 @@ const TrackingOrder = () => {
       </ol>
     </div>
   </div>
+  
   
 
   
