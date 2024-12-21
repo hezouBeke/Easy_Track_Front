@@ -191,34 +191,32 @@ const handleSubmit = async () => {
     Object.values(courses).flat().forEach((course) => {
       const startDate = new Date(course.date_debut);
       const endDate = new Date(course.date_fin);
-
-      // Vérification des champs 'Départ' et 'Arrivée'
+  
       if (!course.depart || !course.arrive) {
-        throw new Error("Les champs 'Départ' et 'Arrivée' sont obligatoires.");
+          throw new Error("Les champs 'Départ' et 'Arrivée' sont obligatoires.");
       }
-
-      // Vérification des dates de début et de fin
+  
       if (isNaN(startDate) || isNaN(endDate) || startDate > endDate) {
-        throw new Error("Les dates de début et de fin doivent être valides et cohérentes.");
+          throw new Error("Les dates de début et de fin doivent être valides et cohérentes.");
       }
-
-      // Vérification des heures si elles sont renseignées
-      if (course.heure_debut && course.heure_fin) {
-        const heureRegex = /^([0-1]\d|2[0-3]):([0-5]\d)$/;
-        if (!heureRegex.test(course.heure_debut) || !heureRegex.test(course.heure_fin)) {
-          throw new Error("Les heures doivent être au format HH:MM.");
-        }
-
-        const [hdh, hdm] = course.heure_debut.split(':').map(Number);
-        const [hfh, hfm] = course.heure_fin.split(':').map(Number);
-        const startMinutes = hdh * 60 + hdm;
-        const endMinutes = hfh * 60 + hfm;
-
-        if (startDate.toDateString() === endDate.toDateString() && startMinutes > endMinutes) {
-          throw new Error("L'heure de début doit être inférieure ou égale à l'heure de fin pour une course d'une journée.");
-        }
+  
+      if (startDate.toDateString() === endDate.toDateString()) {
+          const heureRegex = /^([0-1]\d|2[0-3]):([0-5]\d)$/;
+          if (!heureRegex.test(course.heure_debut) || !heureRegex.test(course.heure_fin)) {
+              throw new Error("Les heures doivent être au format HH:MM.");
+          }
+  
+          const [hdh, hdm] = course.heure_debut.split(':').map(Number);
+          const [hfh, hfm] = course.heure_fin.split(':').map(Number);
+          const startMinutes = hdh * 60 + hdm;
+          const endMinutes = hfh * 60 + hfm;
+  
+          if (startMinutes > endMinutes) {
+              throw new Error("L'heure de début doit être inférieure ou égale à l'heure de fin pour une course d'une journée.");
+          }
       }
-    });
+  });
+  
 
     console.log("Courses avant la soumission :", courses);
 
