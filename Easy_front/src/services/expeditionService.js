@@ -36,10 +36,22 @@ const authHeader = () => {
     }
 };
 
+// Fonction pour obtenir les colis d'une expédition
+const getColisByExpedition = (expeditionCode) => {
+    return axios.get(`${API_URL}${expeditionCode}/colis`);
+};
+
+// Fonction pour obtenir les courses d'un colis
+const getCoursesByColis = (colisId) => {
+    return axios.get(`http://localhost:7000/api/colis/${colisId}/courses`);
+};
+
 export default {
     createExpedition,
     getAllExpeditions,
     getExpeditionById,
     getExpeditionHistory,
-    authHeader
+    authHeader,
+    getColisByExpedition,
+    getCoursesByColis,
 };

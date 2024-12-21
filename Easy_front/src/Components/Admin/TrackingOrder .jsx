@@ -58,159 +58,132 @@ const TrackingOrder = () => {
   };
 
   return (
-    <div className="p-2 bg-white rounded-lg shadow-lg w-full max-w-full lg:max-w-[1440px] mt-[-20px] ml-4">
-      {/* Champ de sélection et de recherche */}
-      <form className="flex items-center space-x-4 p-4">
-        {/* Sélecteur d'expédition */}
-        <div className="relative">
-          <label htmlFor="expedition-select" className="sr-only">
-            Sélectionner une expédition
-          </label>
-          <select
-            id="expedition-select"
-            className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
-            value={selectedExpedition}
-            onChange={(e) => setSelectedExpedition(e.target.value)}
-          >
-            <option value="">Toutes les expéditions</option>
-            {orders.map((order) => (
-              <option key={order.expedition_code} value={order.expedition_code}>
-                {order.expedition_code}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Champ de recherche */}
-        <div className="relative w-64 ml-auto">
-          <input
-            type="search"
-            id="search-colis"
-            className="p-2 text-sm bg-gray-50 border rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full"
-            placeholder="Rechercher un colis..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <button
-            type="submit"
-            className="absolute inset-y-0 right-0 p-2 bg-blue-700 text-white rounded-e-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300"
-          >
-            <svg
-              className="w-4 h-4"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-              />
-            </svg>
-          </button>
-        </div>
-      </form>
-
-      {/* Dates prévisionnelles */}
-      {selectedExpedition && (
-        <div className="p-4 bg-gray-100 rounded-lg mb-4">
-          <p className="text-sm text-gray-700">
-            <strong>Date prévisionnelle de départ :</strong>{" "}
-            {orders.find((o) => o.expedition_code === selectedExpedition)
-              ?.date_debut_previsionnel
-              ? new Date(
-                  orders.find(
-                    (o) => o.expedition_code === selectedExpedition
-                  )?.date_debut_previsionnel
-                ).toLocaleDateString()
-              : "N/A"}
-          </p>
-          <p className="text-sm text-gray-700">
-            <strong>Date prévisionnelle d'arrivée :</strong>{" "}
-            {orders.find((o) => o.expedition_code === selectedExpedition)
-              ?.date_fin_previsionnel
-              ? new Date(
-                  orders.find(
-                    (o) => o.expedition_code === selectedExpedition
-                  )?.date_fin_previsionnel
-                ).toLocaleDateString()
-              : "N/A"}
-          </p>
-        </div>
-      )}
-
-      {/* Tableau des courses */}
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white">
-          <thead className="bg-gray-200 sticky top-0 shadow-md">
-            <tr>
-              <th className="py-2 px-4 text-left text-sm font-semibold text-gray-600">
-                Départ
-              </th>
-              <th className="py-2 px-4 text-left text-sm font-semibold text-gray-600">
-                Arrivée
-              </th>
-              <th className="py-2 px-4 text-left text-sm font-semibold text-gray-600">
-                Numéro du colis
-              </th>
-              <th className="py-2 px-4 text-left text-sm font-semibold text-gray-600">
-                Description
-              </th>
-              <th className="py-2 px-4 text-left text-sm font-semibold text-gray-600">
-                Poids
-              </th>
-              <th className="py-2 px-4 text-left text-sm font-semibold text-gray-600">
-                Type de course
-              </th>
-              <th className="py-2 px-4 text-left text-sm font-semibold text-gray-600">
-                Coursier
-              </th>
-              <th className="py-2 px-4 text-left text-sm font-semibold text-gray-600">
-                Status
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredCourses.map((course, index) => (
-              <tr key={index} className="border-b">
-                <td className="py-2 px-4 text-sm text-gray-700">
-                  {course.depart || "N/A"}
-                </td>
-                <td className="py-2 px-4 text-sm text-gray-700">
-                  {course.arrive || "N/A"}
-                </td>
-                <td className="py-2 px-4 text-sm text-gray-700">
-                  {course.colis_id?.indent_colis || "N/A"}
-                </td>
-                <td className="py-2 px-4 text-sm text-gray-700">
-                  {course.colis_id?.description || "N/A"}
-                </td>
-                <td className="py-2 px-4 text-sm text-gray-700">
-                  {course.colis_id?.poids ? `${course.colis_id.poids} kg` : "N/A"}
-                </td>
-                <td className="py-2 px-4 text-sm text-gray-700">
-                  {course.type_course === "relay" ? "Relay" : "Delivery"}
-                </td>
-                <td className="py-2 px-4 text-sm text-gray-700">
-                  {course.coursier_id?.completename || "N/A"}
-                </td>
-                <td className="py-2 px-4 text-sm">
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusClass(
-                      course.status
-                    )}`}
-                  >
-                    {course.status}
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div className="p-2 bg-white rounded-lg shadow-lg w-full max-w-full lg:max-w-[1440px] mt-[-20px] ml-6">
+    {/* Champ de sélection et de recherche */}
+    <form className="flex items-center space-x-4 p-4">
+      {/* Sélecteur d'expédition */}
+      <div className="relative">
+        <label htmlFor="expedition-select" className="sr-only">
+          Sélectionner une expédition
+        </label>
+        <select
+          id="expedition-select"
+          className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
+          value={selectedExpedition}
+          onChange={(e) => setSelectedExpedition(e.target.value)}
+        >
+          <option value="">Toutes les expéditions</option>
+          {orders.map((order) => (
+            <option key={order.expedition_code} value={order.expedition_code}>
+              {order.expedition_code}
+            </option>
+          ))}
+        </select>
       </div>
+  
+      {/* Champ de recherche */}
+      <div className="relative w-60 ml-auto">
+        <input
+          type="search"
+          id="search-colis"
+          className="p-2 text-sm bg-gray-50 border rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full"
+          placeholder="Rechercher un colis..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <button
+          type="submit"
+          className="absolute inset-y-0 right-0 p-2 bg-blue-700 text-white rounded-e-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300"
+        >
+          <svg
+            className="w-4 h-4"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 20 20"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+            />
+          </svg>
+        </button>
+      </div>
+    </form>
+  
+    {/* Ligne séparatrice */}
+    <div className="border-t border-gray-600 my-2"></div>
+  
+    {/* Affichage du numéro du colis centré au-dessus de l'itinéraire */}
+    {filteredCourses.length > 0 && (
+      <div className="text-center mb-4">
+        <span className="text-black font-thin text-md">
+          Numéro du colis : {filteredCourses[0].colis_id?.indent_colis || "N/A"}
+        </span>
+      </div>
+    )}
+  
+    {/* Affichage des courses sous forme horizontale */}
+    <div className="overflow-x-auto mt-10">
+      <ol className="items-center flex space-x-6">
+        {filteredCourses.map((course, index) => (
+          <li key={index} className="relative mb-6 sm:mb-0">
+            <div className="flex items-center">
+              {/* Cercle ajusté pour éviter la coupure */}
+              <div className="z-10 flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full ring-0 ring-transparent dark:bg-blue-900 sm:ring-8 dark:ring-transparent shrink-0">
+                <svg
+                  className="w-4 h-4 text-blue-800 dark:text-blue-300"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                </svg>
+              </div>
+              <div className="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700 sm:ml-2"></div>
+            </div>
+            <div className="mt-3 sm:pe-8">
+              {/* Type de course (Relay/Delivery) */}
+              <div className="mb-2">
+                <span
+                  className={`bg-${course.type_course === "relay" ? "blue" : "green"}-100 text-${course.type_course === "relay" ? "blue" : "green"}-800 text-sm font-medium px-2.5 py-0.5 rounded dark:bg-${course.type_course === "relay" ? "blue" : "green"}-900 dark:text-${course.type_course === "relay" ? "blue" : "green"}-300`}
+                >
+                  {course.type_course === "relay" ? "Relay" : "Delivery"}
+                </span>
+              </div>
+  
+              {/* Détails supplémentaires */}
+              <h3 className="text-xs font-thin text-black">
+                Coursier : {course.coursier_id?.completename || "N/A"}
+              </h3>
+  
+              {course.relais_id && (
+                <h3 className="text-xs font-thin text-black">
+                  Relais : {course.relais_id?.completename || "N/A"}
+                </h3>
+              )}
+  
+              {course.client_final_id && (
+                <h3 className="text-xs font-thin text-black">
+                  Client final : {course.client_final_id?.completename || "N/A"}
+                </h3>
+              )}
+  
+              <p className="text-xs font-thin text-black">
+                Départ: {course.depart || "N/A"} - Arrivée: {course.arrive || "N/A"}
+              </p>
+            </div>
+          </li>
+        ))}
+      </ol>
     </div>
+  </div>
+  
+
+  
   );
 };
 
