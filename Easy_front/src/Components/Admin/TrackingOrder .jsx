@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import expeditionService from "../../services/expeditionService";
 import deliveryImage from '../../assets/receiving.png';
 import receivingImage from '../../assets/delivery.png';
+import gpsImage from '../../assets/gps.png';  // Import de l'icône GPS
 
 const TrackingOrder = () => {
   const [orders, setOrders] = useState([]);
@@ -124,7 +125,7 @@ const TrackingOrder = () => {
         </div>
       </form>
 
-      {/* Separator */}
+      {/* Separator Line */}
       <div className="border-t border-gray-300 my-4"></div>
 
       {/* Display package details */}
@@ -161,7 +162,25 @@ const TrackingOrder = () => {
               {groupedByColis[colisId].map((course, index) => (
                 <li key={index} className="relative mb-6 sm:mb-5">
                   <div className="flex items-center">
-                    {/* Circle adjusted */}
+                    {/* GPS Icon at the beginning */}
+                    {index === 0 && (
+                      <div className="z-10 flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full ring-0 ring-transparent dark:bg-blue-950 sm:ring-8 dark:ring-transparent shrink-0">
+                        <img
+                          src={gpsImage}
+                          alt="GPS"
+                          className="w-6 h-6 object-cover"
+                        />
+                      </div>
+                    )}
+
+                    {/* Progress bar between GPS icon and first course */}
+                    {index === 0 && (
+                      <div className="w-full bg-gray-200 h-2.5 mx-2 rounded-full">
+                        <div className="bg-blue-600 h-2.5 rounded-full"></div>
+                      </div>
+                    )}
+
+                    {/* Circle for course */}
                     <div className="z-10 flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full ring-0 ring-transparent dark:bg-blue-950 sm:ring-8 dark:ring-transparent shrink-0">
                       <img
                         src={course.type_course === "relay" ? receivingImage : deliveryImage}
@@ -169,6 +188,7 @@ const TrackingOrder = () => {
                         className="w-6 h-6 object-cover"
                       />
                     </div>
+
                     {/* Progress bar between circles */}
                     {index < groupedByColis[colisId].length - 1 && (
                       <div className="w-full bg-gray-200 h-2.5 mx-2 rounded-full">
