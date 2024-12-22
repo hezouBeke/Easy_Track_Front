@@ -23,7 +23,7 @@ const OngoingDeliveries = () => {
   }
 
   return (
-    <div className="flex flex-col items-start space-y-10 p-7 mt-8 w-full mr-5">
+    <div className="flex flex-col items-start space-y-10 p-7 mt-8 w-full mr-5 ml-9">
       <div className="p-3 bg-white text-black rounded-lg shadow-lg w-full">
         {/* En-tête */}
         <div className="flex justify-between items-center p-4 bg-blue-500 text-white rounded-t-none shadow-md w-full">
