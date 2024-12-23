@@ -2,36 +2,104 @@ import { useNavigate } from 'react-router-dom';
 import 'flowbite';
 import React, { useEffect, useState } from 'react';
 import clientService from '../../services/clientService';
-import ColisEnCours from '../../assets/colisEnCours.png'; // 1ère image
-import ColisLivres from '../../assets/colisLivres.png';   // 2ème image
-import ColisAttente from '../../assets/colisAttente.png'; // 3ème image
-import Notifications from '../../assets/notifications.png'; // 4ème image
+import expeditionService from '../../services/expeditionService';
+import ColisEnCours from '../../assets/colisEnCours.png';
+import ColisLivres from '../../assets/colisLivres.png';
+import ColisAttente from '../../assets/colisAttente.png';
+import Notifications from '../../assets/notifications.png';
 import ProfileImage from '../../assets/logo2.png';
+import deliveryImage from '../../assets/receiving.png';
+import receivingImage from '../../assets/delivery.png';
+import depImage from '../../assets/dep.png';
+import Coliseul from '../../assets/onecolis.png';
+import Coliseul2 from '../../assets/colisLivres.png';
 
-function CustomerDashboard(){
-    const [client, setClient] = useState({ completename: '', email: '' });
-    const [activeSection, setActiveSection] = useState('dashboard');
-    const navigate = useNavigate(null);
+function CustomerDashboard() {
+  const [client, setClient] = useState({ completename: '', email: '' });
+  const [orders, setOrders] = useState([]);
+  const [filteredCourses, setFilteredCourses] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeSection, setActiveSection] = useState('dashboard');
+  const navigate = useNavigate();
 
-    const handleLogout = () => {
-      navigate('/'); 
+  const handleLogout = () => {
+    navigate('/');
+  };
+
+  const handleSidebarClick = (section) => {
+    setActiveSection(section);
+  };
+
+  // Récupération des données du client connecté et des expéditions
+  useEffect(() => {
+    const fetchClientData = async () => {
+        try {
+            // Récupérer les informations du client connecté
+            const clientResponse = await clientService.getConnectedClient();
+            const currentClientId = clientResponse.data._id;
+            setClient(clientResponse.data);
+
+            // Récupérer toutes les expéditions
+            const expeditionsResponse = await expeditionService.getAllExpeditions();
+
+            // Filtrer les expéditions pour ne conserver que celles associées au client connecté
+            const clientOrders = expeditionsResponse.data.filter((order) =>
+                order.course_ids.some((course) => {
+                    const colis = course.colis_id;
+                    return (
+                        colis?.client_id_exp?._id === currentClientId || // Le client est expéditeur
+                        colis?.client_id_dest?._id === currentClientId // Le client est destinataire
+                    );
+                })
+            );
+
+            // Appliquer un filtrage plus strict au niveau des courses
+            const filteredCourses = clientOrders.map((order) => ({
+                ...order,
+                course_ids: order.course_ids.filter((course) => {
+                    const colis = course.colis_id;
+                    return (
+                        colis?.client_id_exp?._id === currentClientId || 
+                        colis?.client_id_dest?._id === currentClientId
+                    );
+                }),
+            }));
+
+            setOrders(filteredCourses);
+        } catch (error) {
+            console.error('Erreur lors de la récupération des données', error);
+        }
     };
-    const handleSidebarClick = (section) => {
-      setActiveSection(section);
-    };
-    
-    useEffect(() => {
-      const fetchClient = async () => {
-          try {
-              const response = await clientService.getConnectedClient();
-              setClient(response.data);
-          } catch (error) {
-              console.error('Erreur lors de la récupération du client connecté', error);
-          }
-      };
-      fetchClient();
-  }, []);
-    
+
+    fetchClientData();
+}, []);
+
+
+  // Recherche des colis en fonction de l'entrée utilisateur
+  useEffect(() => {
+    if (orders.length > 0) {
+      const filtered = orders.flatMap((order) =>
+        order.course_ids.filter((course) =>
+          course.colis_id?.indent_colis
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase())
+        )
+      );
+      setFilteredCourses(filtered);
+    }
+  }, [searchQuery, orders]);
+
+  // Groupement des courses par numéro de colis
+  const groupedByColis = filteredCourses.reduce((acc, course) => {
+    const colisId = course.colis_id?.indent_colis;
+    if (!acc[colisId]) {
+      acc[colisId] = [];
+    }
+    acc[colisId].push(course);
+    return acc;
+  }, {});
+
+
     return (
         <div className="flex flex-col w-full">    
         <div className="antialiased bg-gray-50 dark:bg-gray-100">
@@ -711,64 +779,99 @@ function CustomerDashboard(){
         
           </div>
             )}
+            {/* la ou il ya client  */}
             {activeSection === 'colis' && (
-               <div>
-          
-          <div className="p-4 bg-gray-900 rounded-lg shadow-lg mb-6">
-  {/* Barre de recherche */}
-  <form className="max-w-md mx-auto mb-4">
-    <label
-      htmlFor="search-colis"
-      className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-    >
-      Search
-    </label>
-    <div className="relative">
-      <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-        <svg
-          className="w-5 h-5 text-gray-400"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 20 20"
-        >
-          <path
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+  <div>
+    {/* Barre de recherche */}
+    <div className="p-4 bg-gray-900 rounded-lg shadow-lg mb-6">
+      <form className="max-w-md mx-auto mb-4">
+        <div className="relative">
+          <input
+            type="search"
+            id="search-colis"
+            className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Rechercher un colis..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            required
           />
-        </svg>
-      </div>
-      <input
-        type="search"
-        id="search-colis"
-        className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Search for packages..."
-        required
-      />
-      <button
-        type="submit"
-        className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      >
-        Search
-      </button>
+        </div>
+      </form>
     </div>
-  </form>
 
-  
-</div>
+    {/* Affichage des colis */}
+    <div className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 p-4">
+      {Object.keys(groupedByColis).length === 0 ? (
+        <p className="text-gray-500">Aucun colis trouvé pour votre compte.</p>
+      ) : (
+        Object.keys(groupedByColis).map((colisId) => (
+          <div key={colisId} className="mb-4 p-4 bg-white rounded-lg shadow-lg">
+            {/* En-tête du colis */}
+            <div className="flex justify-between items-center mb-4">
+              <span className="text-gray-800 font-medium">
+                <strong>Numéro du colis :</strong> {colisId}
+              </span>
+              <span>
+                <strong>Expéditeur :</strong>{" "}
+                {groupedByColis[colisId][0].colis_id.client_id_exp?.completename || "N/A"}
+              </span>
+              <span>
+                <strong>Destinataire :</strong>{" "}
+                {groupedByColis[colisId][0].colis_id.client_id_dest?.completename || "N/A"}
+              </span>
+            </div>
 
-             <div
-               className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
-             ></div>
-   
-           
-           
-             </div>
-              
-            )}
+            {/* Courses associées au colis */}
+            <ol>
+              {groupedByColis[colisId].map((course, index) => (
+                <li
+                  key={index}
+                  className={`mb-10 ms-6 ${
+                    groupedByColis[colisId].length === 1 && course.type_course === "delivery"
+                      ? "flex flex-col items-start"
+                      : ""
+                  }`}
+                >
+                  {/* Icône */}
+                  <span className="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -start-4 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
+                    <img
+                      src={
+                        groupedByColis[colisId].length === 1 && course.type_course === "delivery"
+                          ? Coliseul
+                          : course.type_course === "relay"
+                          ? receivingImage
+                          : deliveryImage
+                      }
+                      alt={course.type_course}
+                      className="w-4 h-4"
+                    />
+                  </span>
+                  <div className="mb-1">
+                    <h3 className="text-md font-medium text-gray-900 dark:text-white">
+                      {course.type_course === "relay" ? "Relais" : "Livraison"}
+                    </h3>
+                  </div>
+                  <time className="block mb-2 text-sm font-medium text-gray-800 dark:text-gray-800">
+                    {`Lieu de départ : ${course.depart || "N/A"} - Lieu d'arrivée : ${
+                      course.arrive || "N/A"
+                    }`}
+                  </time>
+                </li>
+              ))}
+            </ol>
+          </div>
+        ))
+      )}
+    </div>
+  </div>
+)}
+
+
+
+
+
+
+
             {activeSection === 'Trackings' && (
                 <div>
 
