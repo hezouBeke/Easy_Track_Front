@@ -807,64 +807,137 @@ function CustomerDashboard() {
         Object.keys(groupedByColis).map((colisId) => (
           <div key={colisId} className="mb-4 p-4 bg-white rounded-lg shadow-lg">
             {/* En-tête du colis */}
-            <div className="flex justify-between items-center mb-4">
+            <div className="flex justify-start items-center mb-4">
               <span className="text-gray-800 font-medium">
                 <strong>Numéro du colis :</strong> {colisId}
-              </span>
-              <span>
-                <strong>Expéditeur :</strong>{" "}
-                {groupedByColis[colisId][0].colis_id.client_id_exp?.completename || "N/A"}
-              </span>
-              <span>
-                <strong>Destinataire :</strong>{" "}
-                {groupedByColis[colisId][0].colis_id.client_id_dest?.completename || "N/A"}
               </span>
             </div>
 
             {/* Courses associées au colis */}
-            <ol>
-              {groupedByColis[colisId].map((course, index) => (
-                <li
-                  key={index}
-                  className={`mb-10 ms-6 ${
-                    groupedByColis[colisId].length === 1 && course.type_course === "delivery"
-                      ? "flex flex-col items-start"
-                      : ""
-                  }`}
-                >
-                  {/* Icône */}
-                  <span className="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -start-4 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
-                    <img
-                      src={
-                        groupedByColis[colisId].length === 1 && course.type_course === "delivery"
-                          ? Coliseul
-                          : course.type_course === "relay"
-                          ? receivingImage
-                          : deliveryImage
-                      }
-                      alt={course.type_course}
-                      className="w-4 h-4"
-                    />
-                  </span>
-                  <div className="mb-1">
-                    <h3 className="text-md font-medium text-gray-900 dark:text-white">
-                      {course.type_course === "relay" ? "Relais" : "Livraison"}
-                    </h3>
-                  </div>
-                  <time className="block mb-2 text-sm font-medium text-gray-800 dark:text-gray-800">
-                    {`Lieu de départ : ${course.depart || "N/A"} - Lieu d'arrivée : ${
-                      course.arrive || "N/A"
-                    }`}
-                  </time>
-                </li>
-              ))}
-            </ol>
+            <ol className="relative border-s border-gray-200 dark:border-gray-700">
+  {groupedByColis[colisId].map((course, index) => {
+    const isSingleDelivery =
+      groupedByColis[colisId].length === 1 && course.type_course === "delivery";
+
+    return (
+      <li
+        key={index}
+        className={`mb-10 ms-6 ${isSingleDelivery ? "flex flex-col items-start" : ""}`}
+      >
+        {/* Icon */}
+        <span className="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -start-4 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
+          <img
+            src={
+              isSingleDelivery && index === 0
+                ? Coliseul // Icône pour le départ d'un colis avec une seule livraison
+                : index === 0
+                ? depImage // Icône pour le départ du premier relais
+                : course.type_course === "relay"
+                ? receivingImage // Icône pour les relais
+                : deliveryImage // Icône pour la livraison
+            }
+            alt={course.type_course}
+            className="w-4 h-4"
+          />
+        </span>
+
+        {/* Title */}
+        <div className="mb-1 relative">
+          <h3 className="text-md font-medium text-gray-900 dark:text-white">
+            {isSingleDelivery && index === 0
+              ? "Lieu de départ" // Texte spécifique pour le départ
+              : course.type_course === "relay"
+              ? "Relais"
+              : "Livraison"}
+          </h3>
+          {!isSingleDelivery && !(index === 0 && course.type_course === "relay") && (
+            <span
+              className={`absolute top-[3px] ml-2 bg-${
+                course.type_course === "relay" ? "blue" : "green"
+              }-100 text-${
+                course.type_course === "relay" ? "blue" : "green"
+              }-800 text-sm font-medium px-2.5 py-0.5 rounded dark:bg-${
+                course.type_course === "relay" ? "blue" : "green"
+              }-900 dark:text-${course.type_course === "relay" ? "blue" : "green"}-300`}
+            >
+              {course.type_course === "relay" ? "Relay" : "Delivery"}
+            </span>
+          )}
+        </div>
+
+        {/* Details */}
+        <time className="block mb-2 text-sm font-medium leading-none text-gray-800 dark:text-gray-800">
+          {isSingleDelivery && index === 0
+            ? `Lieu de départ : ${course.depart || "N/A"}` // Lieu de départ pour une seule livraison
+            : course.type_course === "relay"
+            ? `Lieu de départ : ${course.depart || "N/A"} - Lieu d'arrivée : ${
+                course.arrive || "N/A"
+              }`
+            : `Arrivée : ${course.arrive || "N/A"}`}
+        </time>
+        {course.coursier_id && (
+          <>
+            <p className="text-sm font-medium text-gray-800 dark:text-gray-800">
+              <strong>Coursier :</strong> {course.coursier_id.completename || "N/A"} (
+              {course.coursier_id.tel || "N/A"})
+            </p>
+            {course.coursier_id.vehic_id && (
+              <>
+                <p className="text-sm font-medium text-gray-800 dark:text-gray-800">
+                  <strong>Type de véhicule :</strong> {course.coursier_id.vehic_id.type || "N/A"}
+                </p>
+                <p className="text-sm font-medium text-gray-800 dark:text-gray-800">
+                  <strong>Immatriculation :</strong>{" "}
+                  {course.coursier_id.vehic_id.immatriculation || "N/A"}
+                </p>
+              </>
+            )}
+          </>
+        )}
+        {course.type_course === "delivery" && !isSingleDelivery && (
+          <p className="text-sm font-medium text-gray-800 dark:text-gray-800">
+            <strong>Client final :</strong> {course.client_final_id?.completename || "N/A"}
+          </p>
+        )}
+      </li>
+    );
+  })}
+
+  {/* Ajouter une icône pour l'arrivée si c'est une seule livraison */}
+  {groupedByColis[colisId].length === 1 && (
+    <li className="mb-10 ms-6 flex flex-col items-start">
+      <span className="absolute flex items-center justify-center w-8 h-8 bg-green-100 rounded-full -start-4 ring-8 ring-white dark:ring-gray-900 dark:bg-green-900">
+        <img
+          src={Coliseul2} // Icône pour l'arrivée finale
+          alt="Lieu de livraison"
+          className="w-4 h-4"
+        />
+      </span>
+      <div className="mb-1 relative">
+        <h3 className="text-md font-medium text-gray-900 dark:text-white">Lieu de livraison</h3>
+        <span
+          className="absolute top-[3px] ml-2 bg-green-100 text-green-800 text-sm font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"
+        >
+          Delivery
+        </span>
+      </div>
+      <time className="block mb-2 text-sm font-medium leading-none text-gray-800 dark:text-gray-800">
+        {`Lieu de livraison : ${groupedByColis[colisId][0].arrive || "N/A"}`}
+      </time>
+    </li>
+  )}
+</ol>
+
+
+
           </div>
         ))
       )}
     </div>
   </div>
 )}
+
+
 
 
 
