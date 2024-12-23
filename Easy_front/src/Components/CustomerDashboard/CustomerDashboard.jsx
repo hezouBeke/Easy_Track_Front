@@ -800,12 +800,12 @@ function CustomerDashboard() {
     </div>
 
     {/* Affichage des colis */}
-    <div className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 p-4">
+    <div className="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-100 p-1">
       {Object.keys(groupedByColis).length === 0 ? (
         <p className="text-gray-500">Aucun colis trouvé pour votre compte.</p>
       ) : (
         Object.keys(groupedByColis).map((colisId) => (
-          <div key={colisId} className="mb-4 p-4 bg-white rounded-lg shadow-lg">
+          <div key={colisId} className="mb-4 p-6 bg-white rounded-lg shadow-lg">
             {/* En-tête du colis */}
             <div className="flex justify-start items-center mb-4">
               <span className="text-gray-800 font-medium">
@@ -814,7 +814,7 @@ function CustomerDashboard() {
             </div>
 
             {/* Courses associées au colis */}
-            <ol className="relative border-s border-gray-200 dark:border-gray-700">
+            <ol className="relative border-s border-gray-200 dark:border-gray-700 ml-3">
   {groupedByColis[colisId].map((course, index) => {
     const isSingleDelivery =
       groupedByColis[colisId].length === 1 && course.type_course === "delivery";
@@ -822,7 +822,7 @@ function CustomerDashboard() {
     return (
       <li
         key={index}
-        className={`mb-10 ms-6 ${isSingleDelivery ? "flex flex-col items-start" : ""}`}
+        className={`mb-14 ml-9 ms-8 ${isSingleDelivery ? "flex flex-col items-start" : ""}`}
       >
         {/* Icon */}
         <span className="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -start-4 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
