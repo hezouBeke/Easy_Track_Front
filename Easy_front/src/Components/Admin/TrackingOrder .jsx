@@ -3,6 +3,8 @@ import expeditionService from "../../services/expeditionService";
 import deliveryImage from '../../assets/receiving.png';
 import receivingImage from '../../assets/delivery.png';
 import depImage from '../../assets/dep.png'; 
+import Coliseul from '../../assets/onecolis.png'; 
+import Coliseul2 from '../../assets/colisLivres.png'; 
 import 'flowbite'
 const TrackingOrder = () => {
   const [orders, setOrders] = useState([]);
@@ -154,72 +156,123 @@ const TrackingOrder = () => {
 
     {/* Package Courses */}
     <ol className="relative border-s border-gray-200 dark:border-gray-700">
-      {groupedByColis[colisId].map((course, index) => (
-        <li key={index} className="mb-10 ms-6">
-          {/* Icon */}
-          <span className="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -start-4 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
-            <img
-              src={
-                index === 0
-                  ? depImage
-                  : course.type_course === "relay"
-                  ? receivingImage
-                  : deliveryImage
-              }
-              alt={course.type_course}
-              className="w-4 h-4"
-            />
-          </span>
-          {/* Title and Badge */}
-          <div className="mb-1 relative">
-            <h3 className="text-md font-medium text-gray-900 dark:text-white">
-              {course.type_course === "relay" ? "Relais" : "Livraison"}
-            </h3>
-            {index !== 0 && (
-              <span
-                className={`absolute top-[3px] ml-2 bg-${course.type_course === "relay" ? "blue" : "green"}-100 text-${course.type_course === "relay" ? "blue" : "green"}-800 text-sm font-medium px-2.5 py-0.5 rounded dark:bg-${course.type_course === "relay" ? "blue" : "green"}-900 dark:text-${course.type_course === "relay" ? "blue" : "green"}-300`}
-              >
-                {course.type_course === "relay" ? "Relay" : "Delivery"}
-              </span>
-            )}
-          </div>
+      {groupedByColis[colisId].map((course, index) => {
+        // Vérifier si c'est un colis avec une seule course de type "delivery"
+        const isSingleDelivery =
+          groupedByColis[colisId].length === 1 && course.type_course === "delivery";
 
-          {/* Details */}
-          <time className="block mb-2 text-sm font-medium leading-none text-gray-800 dark:text-gray-800">
-            {course.type_course === "relay" && `Départ : ${course.depart || "N/A"}`}
-            {index !== 0 && ` - Arrivée : ${course.arrive || "N/A"}`}
-          </time>
-          {course.coursier_id && (
-            <>
-              <p className="text-sm font-medium text-gray-800 dark:text-gray-800">
-                <strong>Coursier :</strong> {course.coursier_id.completename || "N/A"} (
-                {course.coursier_id.tel || "N/A"})
-              </p>
-              {course.coursier_id.vehic_id && (
-                <>
-                  <p className="text-sm font-medium text-gray-800 dark:text-gray-800">
-                    <strong>Type de véhicule :</strong> {course.coursier_id.vehic_id.type || "N/A"}
-                  </p>
-                  <p className="text-sm font-medium text-gray-800 dark:text-gray-800">
-                    <strong>Immatriculation :</strong>{" "}
-                    {course.coursier_id.vehic_id.immatriculation || "N/A"}
-                  </p>
-                </>
+        return (
+          <li
+            key={index}
+            className={`mb-10 ms-6 ${isSingleDelivery ? "flex flex-col items-start" : ""}`}
+          >
+            {/* Icon */}
+            <span className="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -start-4 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
+              <img
+                src={
+                  isSingleDelivery && index === 0
+                    ? Coliseul // Icône pour le départ d'un colis avec une seule livraison
+                    : index === 0
+                    ? depImage // Icône pour le tout premier relais
+                    : course.type_course === "relay"
+                    ? receivingImage
+                    : deliveryImage
+                }
+                alt={course.type_course}
+                className="w-4 h-4"
+              />
+            </span>
+
+            {/* Title and Badge */}
+            <div className="mb-1 relative">
+              <h3 className="text-md font-medium text-gray-900 dark:text-white">
+                {isSingleDelivery && index === 0
+                  ? "Lieu de départ" // Texte spécifique pour le départ
+                  : course.type_course === "relay"
+                  ? "Relais"
+                  : "Livraison"}
+              </h3>
+              {/* Condition pour le badge */}
+              {!isSingleDelivery && !(index === 0 && course.type_course === "relay") && (
+                <span
+                  className={`absolute top-[3px] ml-2 bg-${
+                    course.type_course === "relay" ? "blue" : "green"
+                  }-100 text-${
+                    course.type_course === "relay" ? "blue" : "green"
+                  }-800 text-sm font-medium px-2.5 py-0.5 rounded dark:bg-${
+                    course.type_course === "relay" ? "blue" : "green"
+                  }-900 dark:text-${course.type_course === "relay" ? "blue" : "green"}-300`}
+                >
+                  {course.type_course === "relay" ? "Relay" : "Delivery"}
+                </span>
               )}
-            </>
-          )}
-          {course.relais_id && (
-            <p className="text-sm font-medium text-gray-800 dark:text-gray-800">
-              <strong>Relais :</strong> {course.relais_id.completename || "N/A"}
-            </p>
-          )}
-          {course.client_final_id && (
-            <p className="text-sm font-medium text-gray-800 dark:text-gray-800">
-              <strong>Client final :</strong> {course.client_final_id.completename || "N/A"}
-            </p>
-          )}
-        </li>
-      ))}
+            </div>
+
+            {/* Details */}
+            <time className="block mb-2 text-sm font-medium leading-none text-gray-800 dark:text-gray-800">
+              {isSingleDelivery && index === 0
+                ? `Lieu de départ : ${course.depart || "N/A"}` // Lieu de départ pour une seule livraison
+                : course.type_course === "relay"
+                ? `Lieu de départ : ${course.depart || "N/A"} - Lieu d'arrivée : ${
+                    course.arrive || "N/A"
+                  }`
+                : `Arrivée : ${course.arrive || "N/A"}`}
+            </time>
+            {course.coursier_id && (
+              <>
+                <p className="text-sm font-medium text-gray-800 dark:text-gray-800">
+                  <strong>Coursier :</strong> {course.coursier_id.completename || "N/A"} (
+                  {course.coursier_id.tel || "N/A"})
+                </p>
+                {course.coursier_id.vehic_id && (
+                  <>
+                    <p className="text-sm font-medium text-gray-800 dark:text-gray-800">
+                      <strong>Type de véhicule :</strong>{" "}
+                      {course.coursier_id.vehic_id.type || "N/A"}
+                    </p>
+                    <p className="text-sm font-medium text-gray-800 dark:text-gray-800">
+                      <strong>Immatriculation :</strong>{" "}
+                      {course.coursier_id.vehic_id.immatriculation || "N/A"}
+                    </p>
+                  </>
+                )}
+              </>
+            )}
+          </li>
+        );
+      })}
+
+      {/* Ajouter l'icône et les détails du lieu d'arrivée pour une seule livraison */}
+      {groupedByColis[colisId].length === 1 &&
+        groupedByColis[colisId][0].type_course === "delivery" && (
+          <li className="mb-10 ms-6 flex flex-col items-start">
+            {/* Icon for Arrival */}
+            <span className="absolute flex items-center justify-center w-8 h-8 bg-green-100 rounded-full -start-4 ring-8 ring-white dark:ring-gray-900 dark:bg-green-900">
+              <img
+                src={Coliseul2} // Icône pour l'arrivée
+                alt="Lieu de livraison"
+                className="w-4 h-4"
+              />
+            </span>
+
+            {/* Badge and Title */}
+            <div className="mb-1 relative">
+              <h3 className="text-md font-medium text-gray-900 dark:text-white">
+                Lieu de livraison
+              </h3>
+              <span
+                className="absolute top-[3px] ml-2 bg-green-100 text-green-800 text-sm font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"
+              >
+                Delivery
+              </span>
+            </div>
+
+            {/* Details */}
+            <time className="block mb-2 text-sm font-medium leading-none text-gray-800 dark:text-gray-800">
+              {`Lieu de livraison : ${groupedByColis[colisId][0].arrive || "N/A"}`}
+            </time>
+          </li>
+        )}
     </ol>
 
     {/* Separator Line */}
@@ -228,6 +281,9 @@ const TrackingOrder = () => {
     )}
   </div>
 ))}
+
+
+
 
 
 
