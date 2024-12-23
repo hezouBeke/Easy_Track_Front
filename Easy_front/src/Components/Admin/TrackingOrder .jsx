@@ -128,23 +128,24 @@ const TrackingOrder = () => {
     {/* Separator */}
     <div className="border-t border-gray-300 my-4"></div>
 {/* Display package details */}
+{/* Display package details */}
 {Object.keys(groupedByColis).map((colisId, colisIndex) => (
   <div key={colisId} className="ml-16">
     {/* Package Header */}
     <div className="flex justify-center mb-4 space-x-4">
-      <span className="text-black font-thin text-md">
+      <span className="text-black font-medium text-md">
         <strong>Numéro du colis :</strong> {colisId}
       </span>
       {/* Expéditeur */}
       {groupedByColis[colisId][0].colis_id?.client_id_exp && (
-        <div className="text-black font-thin text-md">
+        <div className="text-black font-medium text-md">
           <strong>Expéditeur :</strong>{" "}
           {groupedByColis[colisId][0].colis_id.client_id_exp.completename || "N/A"}
         </div>
       )}
       {/* Destinataire */}
       {groupedByColis[colisId][0].colis_id?.client_id_dest && (
-        <div className="text-black font-thin text-md">
+        <div className="text-black font-medium text-md">
           <strong>Destinataire :</strong>{" "}
           {groupedByColis[colisId][0].colis_id.client_id_dest.completename || "N/A"}
         </div>
@@ -171,7 +172,7 @@ const TrackingOrder = () => {
           </span>
           {/* Title and Badge */}
           <div className="mb-1 relative">
-            <h3 className="text-md font-semibold text-gray-900 dark:text-white">
+            <h3 className="text-md font-medium text-gray-900 dark:text-white">
               {course.type_course === "relay" ? "Relais" : "Livraison"}
             </h3>
             {index !== 0 && (
@@ -184,22 +185,22 @@ const TrackingOrder = () => {
           </div>
 
           {/* Details */}
-          <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+          <time className="block mb-2 text-sm font-medium leading-none text-gray-800 dark:text-gray-800">
             {course.type_course === "relay" && `Départ : ${course.depart || "N/A"}`}
             {index !== 0 && ` - Arrivée : ${course.arrive || "N/A"}`}
           </time>
           {course.coursier_id && (
             <>
-              <p className="text-sm font-normal text-gray-500 dark:text-gray-400">
+              <p className="text-sm font-medium text-gray-800 dark:text-gray-800">
                 <strong>Coursier :</strong> {course.coursier_id.completename || "N/A"} (
                 {course.coursier_id.tel || "N/A"})
               </p>
               {course.coursier_id.vehic_id && (
                 <>
-                  <p className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                  <p className="text-sm font-medium text-gray-800 dark:text-gray-800">
                     <strong>Type de véhicule :</strong> {course.coursier_id.vehic_id.type || "N/A"}
                   </p>
-                  <p className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                  <p className="text-sm font-medium text-gray-800 dark:text-gray-800">
                     <strong>Immatriculation :</strong>{" "}
                     {course.coursier_id.vehic_id.immatriculation || "N/A"}
                   </p>
@@ -208,12 +209,12 @@ const TrackingOrder = () => {
             </>
           )}
           {course.relais_id && (
-            <p className="text-sm font-normal text-gray-500 dark:text-gray-400">
+            <p className="text-sm font-medium text-gray-800 dark:text-gray-800">
               <strong>Relais :</strong> {course.relais_id.completename || "N/A"}
             </p>
           )}
           {course.client_final_id && (
-            <p className="text-sm font-normal text-gray-500 dark:text-gray-400">
+            <p className="text-sm font-medium text-gray-800 dark:text-gray-800">
               <strong>Client final :</strong> {course.client_final_id.completename || "N/A"}
             </p>
           )}
@@ -227,6 +228,7 @@ const TrackingOrder = () => {
     )}
   </div>
 ))}
+
 
 
 
