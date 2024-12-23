@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import expeditionService from "../../services/expeditionService";
 import deliveryImage from '../../assets/receiving.png';
 import receivingImage from '../../assets/delivery.png';
-import depImage from '../../assets/dep.png'; // Import de l'icône supplémentaire
-
+import depImage from '../../assets/dep.png'; 
+import 'flowbite'
 const TrackingOrder = () => {
   const [orders, setOrders] = useState([]);
   const [selectedExpedition, setSelectedExpedition] = useState("");
@@ -127,154 +127,112 @@ const TrackingOrder = () => {
   
     {/* Separator */}
     <div className="border-t border-gray-300 my-4"></div>
-  
-    {/* Display package details */}
-    {Object.keys(groupedByColis).map((colisId) => (
-      <div key={colisId}>
-        <div className="flex justify-center mb-4 space-x-4">
-          <span className="text-black font-thin text-md">
-            <strong>Numéro du colis : </strong>
-            {colisId}
+{/* Display package details */}
+{Object.keys(groupedByColis).map((colisId, colisIndex) => (
+  <div key={colisId} className="ml-16">
+    {/* Package Header */}
+    <div className="flex justify-center mb-4 space-x-4">
+      <span className="text-black font-thin text-md">
+        <strong>Numéro du colis :</strong> {colisId}
+      </span>
+      {/* Expéditeur */}
+      {groupedByColis[colisId][0].colis_id?.client_id_exp && (
+        <div className="text-black font-thin text-md">
+          <strong>Expéditeur :</strong>{" "}
+          {groupedByColis[colisId][0].colis_id.client_id_exp.completename || "N/A"}
+        </div>
+      )}
+      {/* Destinataire */}
+      {groupedByColis[colisId][0].colis_id?.client_id_dest && (
+        <div className="text-black font-thin text-md">
+          <strong>Destinataire :</strong>{" "}
+          {groupedByColis[colisId][0].colis_id.client_id_dest.completename || "N/A"}
+        </div>
+      )}
+    </div>
+
+    {/* Package Courses */}
+    <ol className="relative border-s border-gray-200 dark:border-gray-700">
+      {groupedByColis[colisId].map((course, index) => (
+        <li key={index} className="mb-10 ms-6">
+          {/* Icon */}
+          <span className="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -start-4 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
+            <img
+              src={
+                index === 0
+                  ? depImage
+                  : course.type_course === "relay"
+                  ? receivingImage
+                  : deliveryImage
+              }
+              alt={course.type_course}
+              className="w-4 h-4"
+            />
           </span>
-  
-          {/* Display sender */}
-          {groupedByColis[colisId][0].colis_id?.client_id_exp && (
-            <div className="text-black font-thin text-md">
-              <strong>Expéditeur :</strong>{" "}
-              {groupedByColis[colisId][0].colis_id.client_id_exp.completename ||
-                "N/A"}
-            </div>
-          )}
-  
-          {/* Display recipient */}
-          {groupedByColis[colisId][0].colis_id?.client_id_dest && (
-            <div className="text-black font-thin text-md">
-              <strong>Destinataire :</strong>{" "}
-              {groupedByColis[colisId][0].colis_id.client_id_dest.completename ||
-                "N/A"}
-            </div>
-          )}
-        </div>
-  
-        {/* Display each course for the package */}
-        <div className="overflow-x-auto mt-1 ml-8">
-          <ol className="items-center flex space-x-2">
-            {/* Élément pour depImage toujours affiché */}
-            <li className="relative mb-6 sm:mb-16">
-              <div className="flex items-center">
-                <div className="z-10 flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full dark:bg-blue-950 mr-4">
-                  <img
-                    src={depImage} // Icône de départ
-                    alt="Départ"
-                    className="w-6 h-6 rounded-ful"
-                  />
-                </div>
-  
-                {/* Barre de progression initiale */}
-                {groupedByColis[colisId].length > 0 && (
-                  <div className="w-full bg-gray-200 h-2.5 mx-2 rounded-full">
-                    <div
-                      className="bg-blue-600 h-2.5 rounded-full"
-                      style={{
-                        width: `${(1 / (groupedByColis[colisId].length + 1)) * 100}%`,
-                      }}
-                    ></div>
-                  </div>
-                )}
-              </div>
-              <div className="mt-3 sm:pe-8">
-                {/* Détails du départ si nécessaire */}
-                <h3 className="text-sm font-thin text-black">
-                  Départ: {groupedByColis[colisId][0]?.depart || "N/A"} - Arrivée: {groupedByColis[colisId][0]?.arrive || "N/A"}
-                </h3>
-              </div>
-            </li>
-  
-            {/* Rendu des cours */}
-            {groupedByColis[colisId].map((course, index) => (
-  <li key={index} className="relative mb-6 sm:mb-5">
-    <div className="flex flex-col items-center">
-      {/* Badge au-dessus de l'icône */}
-      <div className="mb-1 -ml-40"> {/* Ajout d'une marge gauche ici */}
-        <span
-          className={`bg-${
-            course.type_course === "relay" ? "blue" : "green"
-          }-100 text-${
-            course.type_course === "relay" ? "blue" : "green"
-          }-800 text-sm font-medium px-2.5 py-0.5 rounded dark:bg-${
-            course.type_course === "relay" ? "blue" : "green"
-          }-900 dark:text-${
-            course.type_course === "relay" ? "blue" : "green"
-          }-300`}
-        >
-          {course.type_course === "relay" ? "Relay" : "Delivery"}
-        </span>
-      </div>
-
-      {/* Icône et barre de progression */}
-      <div className="flex items-center w-full">
-        {/* Icône pour le type de cours (Relay/Delivery) */}
-        <div className="z-10 flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full dark:bg-blue-950 sm:ring-8 dark:ring-transparent shrink-0 ml-4">
-          <img
-            src={course.type_course === "relay" ? receivingImage : deliveryImage}
-            alt={course.type_course === "relay" ? "Relay" : "Delivery"}
-            className="w-6 h-6 object-cover"
-          />
-        </div>
-
-        {/* Barre de progression entre les cercles */}
-        {index < groupedByColis[colisId].length - 1 && (
-          <div className="w-full bg-gray-200 h-2.5 mx-2 rounded-full">
-            <div
-              className="bg-blue-600 h-2.5 rounded-full"
-              style={{
-                width: `${((index + 1) / (groupedByColis[colisId].length + 1)) * 100}%`,
-              }}
-            ></div>
+          {/* Title and Badge */}
+          <div className="mb-1 relative">
+            <h3 className="text-md font-semibold text-gray-900 dark:text-white">
+              {course.type_course === "relay" ? "Relais" : "Livraison"}
+            </h3>
+            {index !== 0 && (
+              <span
+                className={`absolute top-[3px] ml-2 bg-${course.type_course === "relay" ? "blue" : "green"}-100 text-${course.type_course === "relay" ? "blue" : "green"}-800 text-sm font-medium px-2.5 py-0.5 rounded dark:bg-${course.type_course === "relay" ? "blue" : "green"}-900 dark:text-${course.type_course === "relay" ? "blue" : "green"}-300`}
+              >
+                {course.type_course === "relay" ? "Relay" : "Delivery"}
+              </span>
+            )}
           </div>
-        )}
-      </div>
-    </div>
 
-    {/* Section pour afficher le nom du coursier sous la barre UNIQUEMENT pour les relais */}
-    {course.type_course === "relay" && (
-      <div className="flex justify-center mt-1">
-        <span className="text-sm font-thin text-black">
-          Coursier : {course.coursier_id?.completename || "N/A"}
-        </span>
-      </div>
+          {/* Details */}
+          <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+            {course.type_course === "relay" && `Départ : ${course.depart || "N/A"}`}
+            {index !== 0 && ` - Arrivée : ${course.arrive || "N/A"}`}
+          </time>
+          {course.coursier_id && (
+            <>
+              <p className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                <strong>Coursier :</strong> {course.coursier_id.completename || "N/A"} (
+                {course.coursier_id.tel || "N/A"})
+              </p>
+              {course.coursier_id.vehic_id && (
+                <>
+                  <p className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                    <strong>Type de véhicule :</strong> {course.coursier_id.vehic_id.type || "N/A"}
+                  </p>
+                  <p className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                    <strong>Immatriculation :</strong>{" "}
+                    {course.coursier_id.vehic_id.immatriculation || "N/A"}
+                  </p>
+                </>
+              )}
+            </>
+          )}
+          {course.relais_id && (
+            <p className="text-sm font-normal text-gray-500 dark:text-gray-400">
+              <strong>Relais :</strong> {course.relais_id.completename || "N/A"}
+            </p>
+          )}
+          {course.client_final_id && (
+            <p className="text-sm font-normal text-gray-500 dark:text-gray-400">
+              <strong>Client final :</strong> {course.client_final_id.completename || "N/A"}
+            </p>
+          )}
+        </li>
+      ))}
+    </ol>
+
+    {/* Separator Line */}
+    {colisIndex < Object.keys(groupedByColis).length - 1 && (
+      <hr className="my-5 border-gray-400" />
     )}
-
-    <div className="mt-3 sm:pe-8">
-      {/* Détails supplémentaires */}
-      <h3 className="text-sm font-thin text-black">
-        Coursier : {course.coursier_id?.completename || "N/A"} (Numéro : {course.coursier_id?.phone || "N/A"})
-      </h3>
-
-      {course.relais_id && (
-        <h3 className="text-sm font-thin text-black">
-          Relais : {course.relais_id?.completename || "N/A"}
-        </h3>
-      )}
-
-      {course.client_final_id && (
-        <h3 className="text-sm font-thin text-black">
-          Client final : {course.client_final_id?.completename || "N/A"}
-        </h3>
-      )}
-
-      <p className="text-sm font-thin text-black">
-        Départ: {course.depart || "N/A"} - Arrivée: {course.arrive || "N/A"}
-      </p>
-    </div>
-  </li>
+  </div>
 ))}
 
-          </ol>
-        </div>
-      </div>
-    ))}
+
+
+
   </div>
+  
   
   );
 };
