@@ -9,7 +9,7 @@ import ColisAttente from '../../assets/colisAttente.png';
 import Notifications from '../../assets/notifications.png';
 import ProfileImage from '../../assets/logo2.png';
 import deliveryImage from '../../assets/receiving.png';
-import receivingImage from '../../assets/delivery.png';
+import receivingImage from '../../assets/ColisRelaie.png';
 import depImage from '../../assets/dep.png';
 import Coliseul from '../../assets/onecolis.png';
 import Coliseul2 from '../../assets/colisLivres.png';
@@ -697,21 +697,21 @@ function CustomerDashboard() {
   {/* Carte 1 : Colis en cours */}
   <div className="relative bg-blue-500 rounded-xl shadow-lg transform transition-transform hover:scale-105 p-6 flex flex-col items-center justify-center">
     <img src={ColisEnCours} alt="Colis en cours" className="absolute top-4 right-4 w-10 h-10" />
-    <h2 className="text-3xl font-extrabold text-white mb-2">12</h2>
+    <h2 className="text-3xl font-extrabold text-white mb-2">00</h2>
     <p className="text-lg text-white font-medium">Colis en cours</p>
   </div>
 
   {/* Carte 2 : Colis livrés */}
   <div className="relative bg-blue-500 rounded-xl shadow-lg transform transition-transform hover:scale-105 p-6 flex flex-col items-center justify-center">
     <img src={ColisLivres} alt="Colis livrés" className="absolute top-4 right-4 w-10 h-10" />
-    <h2 className="text-3xl font-extrabold text-white mb-2">25</h2>
+    <h2 className="text-3xl font-extrabold text-white mb-2">00</h2>
     <p className="text-lg text-white font-medium">Colis livrés</p>
   </div>
 
   {/* Carte 3 : Colis en attente */}
   <div className="relative bg-blue-500 rounded-xl shadow-lg transform transition-transform hover:scale-105 p-6 flex flex-col items-center justify-center">
     <img src={ColisAttente} alt="Colis en attente" className="absolute top-4 right-4 w-10 h-10" />
-    <h2 className="text-3xl font-extrabold text-white mb-2">5</h2>
+    <h2 className="text-3xl font-extrabold text-white mb-2">00</h2>
     <p className="text-lg text-white font-medium">Colis en attente</p>
   </div>
 
@@ -728,44 +728,47 @@ function CustomerDashboard() {
 
          
     
-    
 <div className="bg-gray-900 rounded-lg p-6 mb-4 shadow-2xl">
   {/* En-tête */}
   <div className="flex justify-between items-center mb-6">
-    <h2 className="text-white text-xl font-bold">Recent Shipping</h2>
-    <a href="#" className="text-green-400 text-sm hover:underline">See All</a>
+    <h2 className="text-white text-xl font-bold">Expéditions Récentes</h2>
+    <a href="#" className="text-green-400 text-sm hover:underline">Voir Tout</a>
   </div>
 
   {/* Liste des expéditions */}
   <div className="space-y-4">
-    {/* Carte d'expédition */}
-    {[
-      { id: 'F123H418', status: 'Completed' },
-      { id: 'L432P231', status: 'Completed' },
-      { id: 'K543D231', status: 'Pending' },
-    ].map((item, index) => (
-      <div
-        key={index}
-        className="flex items-center justify-between bg-gradient-to-r from-gray-800 to-gray-700 hover:from-gray-700 hover:to-gray-600 rounded-lg p-4 shadow-lg transform transition-transform hover:scale-105"
-      >
-        <div className="flex items-center">
-          <div className="w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center shadow-inner">
-            <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" fill="#FFFFFF">
-              <path d="M440-183v-274L200-596v274l240 139Zm80 0 240-139v-274L520-457v274Zm-80 92L160-252q-19-11-29.5-29T120-321v-318q0-22 10.5-40t29.5-29l280-161q19-11 40-11t40 11l280 161q19 11 29.5 29t10.5 40v318q0 22-10.5 40T800-252L520-91q-19 11-40 11t-40-11Zm200-528 77-44-237-137-78 45 238 136Zm-160 93 78-45-237-137-78 45 237 137Z"/>
-            </svg>
+    {Object.keys(groupedByColis).length === 0 ? (
+      <p className="text-gray-500">Aucune expédition récente trouvée.</p>
+    ) : (
+      Object.keys(groupedByColis).map((colisId, index) => (
+        <div
+          key={index}
+          className="flex items-center justify-between bg-gradient-to-r from-gray-800 to-gray-700 hover:from-gray-700 hover:to-gray-600 rounded-lg p-4 shadow-lg transform transition-transform hover:scale-105"
+        >
+          <div className="flex items-center">
+            <div className="w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center shadow-inner">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="28px"
+                viewBox="0 -960 960 960"
+                width="28px"
+                fill="#FFFFFF"
+              >
+                <path d="M440-183v-274L200-596v274l240 139Zm80 0 240-139v-274L520-457v274Zm-80 92L160-252q-19-11-29.5-29T120-321v-318q0-22 10.5-40t29.5-29l280-161q19-11 40-11t40 11l280 161q19 11 29.5 29t10.5 40v318q0 22-10.5 40T800-252L520-91q-19 11-40 11t-40-11Zm200-528 77-44-237-137-78 45 238 136Zm-160 93 78-45-237-137-78 45 237 137Z" />
+              </svg>
+            </div>
+            <div className="ml-4">
+              <p className="text-gray-400 text-sm">Numéro d'ID</p>
+              <p className="text-white font-semibold text-lg">{colisId}</p>
+            </div>
           </div>
-          <div className="ml-4">
-            <p className="text-gray-400 text-sm">ID Number</p>
-            <p className="text-white font-semibold text-lg">{item.id}</p>
-          </div>
+          <p className="text-sm font-semibold text-yellow-400">En Attente</p>
         </div>
-        <p className={`text-sm font-semibold ${item.status === 'Completed' ? 'text-green-400' : 'text-yellow-400'}`}>
-          {item.status}
-        </p>
-      </div>
-    ))}
+      ))
+    )}
   </div>
 </div>
+
 
 
     
@@ -808,7 +811,7 @@ function CustomerDashboard() {
           <div key={colisId} className="mb-4 p-6 bg-white rounded-lg shadow-lg">
             {/* En-tête du colis */}
             <div className="flex justify-start items-center mb-4">
-              <span className="text-gray-800 font-medium">
+              <span className="text-blue-900 font-semibold">
                 <strong>Numéro du colis :</strong> {colisId}
               </span>
             </div>
@@ -822,10 +825,10 @@ function CustomerDashboard() {
     return (
       <li
         key={index}
-        className={`mb-14 ml-9 ms-8 ${isSingleDelivery ? "flex flex-col items-start" : ""}`}
+        className={`mb-12 ml-4 ms-8 ${isSingleDelivery ? "flex flex-col items-start" : ""}`}
       >
         {/* Icon */}
-        <span className="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -start-4 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
+        <span className="absolute flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full -start-4 ring-10 ring-white  dark:bg-blue-900 -ml-2">
           <img
             src={
               isSingleDelivery && index === 0
@@ -837,12 +840,12 @@ function CustomerDashboard() {
                 : deliveryImage // Icône pour la livraison
             }
             alt={course.type_course}
-            className="w-4 h-4"
+            className="w-8 h-8"
           />
         </span>
 
         {/* Title */}
-        <div className="mb-1 relative">
+        <div className="mb-5 relative">
           <h3 className="text-md font-medium text-gray-900 dark:text-white">
             {isSingleDelivery && index === 0
               ? "Lieu de départ" // Texte spécifique pour le départ

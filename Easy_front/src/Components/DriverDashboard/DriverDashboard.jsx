@@ -972,21 +972,21 @@ function DriverDashboard() {
     {/* Image positionnée en haut */}
     <img src={Colisrelaie} alt="Colis en cours" className="w-12 h-12 mb-4" />
     {/* Contenu de la carte */}
-    <h2 className="text-3xl font-extrabold text-gray-800 mb-2">02</h2>
+    <h2 className="text-3xl font-extrabold text-gray-800 mb-2">00</h2>
     <p className="text-lg text-gray-800 font-medium">Colis relaiyés</p>
   </div>
 
   {/* Carte pour Colis Livrés */}
   <div className="relative bg-white border border-gray-300 rounded-xl shadow-lg p-6 flex flex-col items-center justify-center">
     <img src={ColisLivress} alt="Colis livrés" className="w-12 h-12 mb-4" />
-    <h2 className="text-3xl font-extrabold text-gray-800 mb-2">08</h2>
+    <h2 className="text-3xl font-extrabold text-gray-800 mb-2">00</h2>
     <p className="text-lg text-gray-800 font-medium">Colis Livrés</p>
   </div>
 
   {/* Carte pour Colis en attente */}
   <div className="relative bg-white border border-gray-300 rounded-xl shadow-lg p-6 flex flex-col items-center justify-center">
     <img src={ColisAnnule} alt="Colis en attente" className="w-12 h-12 mb-4" />
-    <h2 className="text-3xl font-extrabold text-gray-800 mb-2">40</h2>
+    <h2 className="text-3xl font-extrabold text-gray-800 mb-2">00</h2>
     <p className="text-lg text-gray-800 font-medium">Imprévus</p>
   </div>
 
@@ -1063,6 +1063,7 @@ function DriverDashboard() {
             <p><strong>Arrivée :</strong> {course.arrive}</p>
             <p><strong>Date de début :</strong> {new Date(course.date_debut).toLocaleString()}</p>
             <p><strong>Date de fin :</strong> {new Date(course.date_fin).toLocaleString()}</p>
+            <p><strong>Code colis :</strong>{course._id}</p>
 
             {/* Bouton pour ouvrir/fermer le dépliant */}
             <button

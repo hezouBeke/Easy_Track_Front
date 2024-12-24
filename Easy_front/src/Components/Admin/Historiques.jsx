@@ -164,6 +164,12 @@ const HistoriqueExpeditions = () => {
                                                                                 <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
                                                                                     Arrivée : {course.arrive || "N/A"}
                                                                                 </time>
+                                                                                <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                    Heure Début : {course.heure_debut || "N/A"}
+                </time>
+                <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                    Heure Fin : {course.heure_fin || "N/A"}
+                </time>
                                                                                 <p className="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
                                                                                     Type de Course : {course.type_course || "N/A"}
                                                                                 </p>

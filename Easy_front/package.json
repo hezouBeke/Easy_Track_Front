@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.5.2",
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
@@ -17,7 +18,7 @@
     "@mui/icons-material": "^6.1.2",
     "@mui/material": "^6.2.1",
     "@react-google-maps/api": "^2.20.3",
-    "antd": "^5.22.2",
+    "antd": "^5.22.6",
     "apexcharts": "^4.1.0",
     "axios": "^1.7.2",
     "chart.js": "^4.4.4",

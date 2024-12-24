@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import expeditionService from "../../services/expeditionService";
 import Adminsidebar from "./Adminsidebar";
 import Adminheader from "./Adminheader";
-import PdfDownload from "./PdfDownload"; // Import du composant PdfDownload
 
 function Expeditions() {
   const [expeditions, setExpeditions] = useState([]);
@@ -110,7 +109,7 @@ function Expeditions() {
                     <th scope="col" className="px-6 py-3 text-left">Arrivée</th>
                     <th scope="col" className="px-6 py-3 text-left">Durée Estimée</th>
                     <th scope="col" className="px-6 py-3 text-left">Détails</th>
-                    <th scope="col" className="px-6 py-3 text-left">Télécharger PDF</th>
+                   
                   </tr>
                 </thead>
                 <tbody>
@@ -132,9 +131,7 @@ function Expeditions() {
                           Voir Détails
                         </button>
                       </td>
-                      <td className="px-6 py-4">
-                        <PdfDownload expedition={expedition} />
-                      </td>
+                     
                     </tr>
                   ))}
                 </tbody>
@@ -181,6 +178,8 @@ function Expeditions() {
                           </h5>
                           <p className="text-gray-700"><strong>Départ :</strong> {course.depart}</p>
                           <p className="text-gray-700"><strong>Arrivée :</strong> {course.arrive}</p>
+                          <p className="text-gray-700"><strong>Heure de début :</strong> {course.heure_debut}</p>
+                          <p className="text-gray-700"><strong>Heure de fin:</strong> {course.heure_fin}</p>
                           <p className="text-gray-700"><strong>Type de Course :</strong> {course.type_course}</p>
                           
                           {/* Affichage du client relais ou du coursier relais en fonction du type de course */}

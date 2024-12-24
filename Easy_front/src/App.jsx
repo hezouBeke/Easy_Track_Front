@@ -23,8 +23,7 @@ import Stats from "./Components/Admin/Stats";
 import Hisrotiques from "./Components/Admin/Historiques";
 import ConfirmationPage from "./Components/DriverDashboard/ConfirmationPage";
 import RelayOptions from "./Components/DriverDashboard/RelayOptions";
-import ScanQR from "./Components/DriverDashboard/ScanQR";
-import ShowQR from "./Components/DriverDashboard/ShowQR";
+import Entercolis from "./Components/DriverDashboard/Entercolis";
 import CreateColis from "./Components/Admin/CreateColis";
 
 
@@ -60,8 +59,7 @@ function App() {
     <Route path="/dashboard/driver" element={<PrivateRoute element={DriverDashboard} allowedRoles={['Coursier']} />} />
     <Route path="/delevry" element={<PrivateRoute element={ConfirmationPage} allowedRoles={['Coursier']} />} />
     <Route path="/relay" element={<PrivateRoute element={RelayOptions} allowedRoles={['Coursier']} />} />
-    <Route path="/scan-qr" element={<PrivateRoute element={ScanQR} allowedRoles={['Coursier']} />} />
-    <Route path="/show-qr" element={<PrivateRoute element={ShowQR} allowedRoles={['Coursier']} />} />
+    <Route path="/enter-code" element={<PrivateRoute element={Entercolis} allowedRoles={['Coursier']} />} />
     
     {/* Routes protégées : dashboard client */}
     <Route path="/dashboard/customer" element={<PrivateRoute element={CustomerDashboard} allowedRoles={['Client']} />} />

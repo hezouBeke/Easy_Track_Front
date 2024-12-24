@@ -6,6 +6,8 @@ import depImage from '../../assets/dep.png';
 import Coliseul from '../../assets/onecolis.png'; 
 import Coliseul2 from '../../assets/colisLivres.png'; 
 import 'flowbite'
+import { CheckCircleOutlined, TruckOutlined } from '@ant-design/icons';
+
 const TrackingOrder = () => {
   const [orders, setOrders] = useState([]);
   const [selectedExpedition, setSelectedExpedition] = useState("");
@@ -203,20 +205,38 @@ const TrackingOrder = () => {
               }-900 dark:text-${course.type_course === "relay" ? "blue" : "green"}-300`}
             >
               {course.type_course === "relay" ? "Relay" : "Delivery"}
+              {course.isRelay == true && <CheckCircleOutlined />}
             </span>
           )}
         </div>
 
         {/* Details */}
-        <time className="block mb-2 text-sm font-medium leading-none text-gray-800 dark:text-gray-800">
-          {isSingleDelivery && index === 0
-            ? `Lieu de départ : ${course.depart || "N/A"}` // Lieu de départ pour une seule livraison
-            : course.type_course === "relay"
-            ? `Lieu de départ : ${course.depart || "N/A"} - Lieu d'arrivée : ${
-                course.arrive || "N/A"
-              }`
-            : `Arrivée : ${course.arrive || "N/A"}`}
-        </time>
+        <div className="block mb-2 text-sm font-semibold leading-none text-gray-800 dark:text-gray-800">
+  <p>
+    {isSingleDelivery && index === 0 ? (
+      // Cas d'une seule livraison
+      `Départ : ${course.depart || "N/A"}`
+    ) : course.type_course === "relay" ? (
+      // Cas de type "relay"
+      `Départ : ${course.depart || "N/A"} - Arrivée : ${
+        course.arrive || "N/A"
+      }`
+    ) : (
+      // Autres cas
+      `Arrivée : ${course.arrive || "N/A"}`
+    )}
+  </p>
+  <p>
+    {course.heure_debut && (
+      <span>Heure de début : {course.heure_debut || "N/A"}</span>
+    )}
+    {course.heure_fin && (
+      <span className="block">Heure de fin : {course.heure_fin || "N/A"}</span>
+    )}
+  </p>
+</div>
+
+
         {course.coursier_id && (
           <>
             <p className="text-sm font-medium text-gray-800 dark:text-gray-800">
