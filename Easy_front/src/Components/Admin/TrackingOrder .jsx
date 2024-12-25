@@ -6,7 +6,7 @@ import depImage from '../../assets/dep.png';
 import Coliseul from '../../assets/onecolis.png'; 
 import Coliseul2 from '../../assets/colisLivres.png'; 
 import 'flowbite'
-import { CheckCircleOutlined, TruckOutlined } from '@ant-design/icons';
+import { CheckCircleOutlined } from '@ant-design/icons';
 
 const TrackingOrder = () => {
   const [orders, setOrders] = useState([]);

@@ -13,6 +13,8 @@ import receivingImage from '../../assets/ColisRelaie.png';
 import depImage from '../../assets/dep.png';
 import Coliseul from '../../assets/onecolis.png';
 import Coliseul2 from '../../assets/colisLivres.png';
+import { CheckCircleOutlined } from '@ant-design/icons';
+
 
 function CustomerDashboard() {
   const [client, setClient] = useState({ completename: '', email: '' });
@@ -864,6 +866,7 @@ function CustomerDashboard() {
               }-900 dark:text-${course.type_course === "relay" ? "blue" : "green"}-300`}
             >
               {course.type_course === "relay" ? "Relay" : "Delivery"}
+              {course.isRelay == true && <CheckCircleOutlined />}
             </span>
           )}
         </div>

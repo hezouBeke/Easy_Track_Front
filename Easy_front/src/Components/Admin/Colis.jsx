@@ -12,6 +12,7 @@ function Colis() {
         const fetchColis = async () => {
             try {
                 const response = await colisService.getAllColis();
+                console.log("liste cole", response.data)
                 setColis(response.data);
             } catch (error) {
                 console.error("Erreur lors de la récupération des colis", error);

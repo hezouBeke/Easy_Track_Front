@@ -432,7 +432,7 @@ const handleAddCourseForCoursier = (coursier) => {
   onClick={() => toggleExpanded(coursier)}
 >
   {/* Remplacer l'ID du coursier par son nom complet */}
-  <h3 className="font-medium text-red-600">
+  <h3 className="font-medium text-blue-600">
     Liste des courses de {coursiers.find(c => c._id === coursier)?.completename || "Coursier inconnu"} :
   </h3>
   <button className="text-blue-600">
